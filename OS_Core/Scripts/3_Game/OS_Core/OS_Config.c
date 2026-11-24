@@ -315,9 +315,15 @@ class OS_TraderConfig
 		grocer.Categories.Insert("Jidlo a piti");
 		Traders.Insert(grocer);
 
-		// černý trh - drogy
+		// černý trh - drogy, zbraně, munice a výbušniny
 		OS_TraderLocation blackMarket = new OS_TraderLocation("Priklad - Cerny trh", 1900, 1900, 8);
 		blackMarket.Categories.Insert("Drogy");
+		blackMarket.Categories.Insert("Pistole");
+		blackMarket.Categories.Insert("Zbrane");
+		blackMarket.Categories.Insert("Munice");
+		blackMarket.Categories.Insert("Zasobniky");
+		blackMarket.Categories.Insert("Prislusenstvi zbrani");
+		blackMarket.Categories.Insert("Vybusniny");
 		Traders.Insert(blackMarket);
 
 		OS_TraderLocation pharmacy = new OS_TraderLocation("Priklad - Lekarna", 2000, 1960, 10);

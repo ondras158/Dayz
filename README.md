@@ -137,7 +137,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
     zábleskové granáty, plastická a improvizovaná výbušnina, Claymore, nášlapná mina, dálkový ovladač),
   - *Obleceni* – `Obleceni`, `Batohy`,
   - *Potraviny* – `Jidlo a piti` (včetně alkoholu z módů – pivo, vodka, whisky, víno, brandy, tequila…),
-  - *Cerny trh* – `Drogy` (lysohlávka a drogy z módů – tráva, kokain, heroin, pervitin, LSD, extáze, opium),
+  - *Cerny trh* – `Drogy` (lysohlávka a drogy z módů – tráva, kokain, heroin, pervitin, LSD, extáze, opium)
+    a zbraně: `Pistole`, `Zbrane`, `Munice`, `Zasobniky`, `Prislusenstvi zbrani`, `Vybusniny`,
   - *Lekarna* – `Medicina`,
   - *Zelezarstvi* – `Nastroje a ostatni`, `Stavba zakladny` (hřebíky, prkna, plechy, dráty, sady na plot/věž/vlajku,
     zámky, stany, maskovací sítě, bedny, truhly, sudy, skrýše, nábytek, trezory, vlajky) a `Elektronika`
