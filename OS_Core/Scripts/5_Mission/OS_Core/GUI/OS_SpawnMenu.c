@@ -48,7 +48,7 @@ class OS_SpawnMenu : OS_MenuBase
 			int seconds = Math.Ceil(m_TimeLeft);
 			if (seconds < 0)
 				seconds = 0;
-			m_Countdown.SetText("Zbyva " + seconds.ToString() + " s - pak zustanes na aktualnim miste");
+			m_Countdown.SetText(OS_F("Zbyva %1 s - pak zustanes na aktualnim miste", seconds.ToString()));
 		}
 
 		if (m_TimeLeft <= 0)

@@ -56,7 +56,7 @@ class OS_Money : Inventory_Base
 	{
 		string name = super.GetDisplayName();
 		if (OS_ClientSettings.Currency != "")
-			name = "Bankovka " + OS_GetDenominationText() + " " + OS_ClientSettings.Currency;
+			name = OS_F("Bankovka %1 %2", OS_GetDenominationText(), OS_ClientSettings.Currency);
 		return name;
 	}
 

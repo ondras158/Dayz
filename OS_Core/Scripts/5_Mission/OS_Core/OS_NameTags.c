@@ -156,13 +156,13 @@ modded class MapMenu
 		{
 			vector gp = OS_ClientSettings.PersonalGaragePos;
 			gp[1] = g_Game.SurfaceY(gp[0], gp[2]);
-			m_MapWidgetInstance.AddUserMark(gp, "Moje garaz", ARGB(255, 255, 190, 40), "\\DZ\\gear\\navigation\\data\\map_station_ca.paa");
+			m_MapWidgetInstance.AddUserMark(gp, OS_T("Moje garaz"), ARGB(255, 255, 190, 40), "\\DZ\\gear\\navigation\\data\\map_station_ca.paa");
 		}
 		if (farm)
 		{
 			vector fp = OS_ClientSettings.FarmPos;
 			fp[1] = g_Game.SurfaceY(fp[0], fp[2]);
-			m_MapWidgetInstance.AddUserMark(fp, "Moje farma", ARGB(255, 120, 220, 80), "\\DZ\\gear\\navigation\\data\\map_vineyard_ca.paa");
+			m_MapWidgetInstance.AddUserMark(fp, OS_T("Moje farma"), ARGB(255, 120, 220, 80), "\\DZ\\gear\\navigation\\data\\map_vineyard_ca.paa");
 		}
 		m_OS_HasMarkers = count > 0 || garage || farm;
 	}

@@ -77,7 +77,7 @@ class OS_ServerBank
 
 		if (!IsNearAtm(player))
 		{
-			OS_Util.Notify(player, "Bankomat", "Musis stat u bankomatu.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Musis stat u bankomatu."));
 			return true;
 		}
 
@@ -117,12 +117,12 @@ class OS_ServerBank
 			amount = cash;
 		if (amount <= 0)
 		{
-			OS_Util.Notify(player, "Bankomat", "Nemas u sebe zadnou hotovost.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Nemas u sebe zadnou hotovost."));
 			return;
 		}
 		if (amount > cash)
 		{
-			OS_Util.Notify(player, "Bankomat", "Tolik hotovosti u sebe nemas.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Tolik hotovosti u sebe nemas."));
 			return;
 		}
 
@@ -137,10 +137,10 @@ class OS_ServerBank
 		int deposited = amount - fee;
 		m_Wallets.Add(OS_Util.SteamId(player), deposited);
 
-		string msg = "Vlozeno " + deposited.ToString() + " " + m_Currency;
+		string msg = OS_F("Vlozeno %1 %2", deposited.ToString(), m_Currency);
 		if (fee > 0)
-			msg = msg + " (poplatek " + fee.ToString() + ")";
-		OS_Util.Notify(player, "Bankomat", msg);
+			msg = OS_F("%1 (poplatek %2)", msg, fee.ToString());
+		OS_Util.Notify(player, OS_T("Bankomat"), msg);
 		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vklad " + amount.ToString());
 	}
 
@@ -155,20 +155,20 @@ class OS_ServerBank
 		amount = amount - amount % smallest;
 		if (amount <= 0)
 		{
-			OS_Util.Notify(player, "Bankomat", "Vybrat jde nejmene " + smallest.ToString() + " " + m_Currency + " (bankomat vydava jen bankovky).");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", smallest.ToString(), m_Currency));
 			return;
 		}
 
 		if (!m_Wallets.TrySpend(steamId, amount))
 		{
-			OS_Util.Notify(player, "Bankomat", "Na uctu nemas dost penez.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Na uctu nemas dost penez."));
 			return;
 		}
 
 		int undelivered = OS_Money.GiveCash(player, amount);
 		if (undelivered > 0)
 			m_Wallets.Add(steamId, undelivered);
-		OS_Util.Notify(player, "Bankomat", "Vybrano " + amount.ToString() + " " + m_Currency);
+		OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Vybrano %1 %2", amount.ToString(), m_Currency));
 		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vyber " + amount.ToString());
 	}
 
@@ -180,7 +180,7 @@ class OS_ServerBank
 			return null;
 		OS_Group group = m_Groups.GetGroupOf(OS_Util.SteamId(player));
 		if (!group)
-			OS_Util.Notify(player, "Bankomat", "Nejsi v zadne skupine.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Nejsi v zadne skupine."));
 		return group;
 	}
 
@@ -196,7 +196,7 @@ class OS_ServerBank
 			amount = cash;
 		if (amount <= 0 || amount > cash)
 		{
-			OS_Util.Notify(player, "Bankomat", "Tolik hotovosti u sebe nemas.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Tolik hotovosti u sebe nemas."));
 			return;
 		}
 
@@ -207,7 +207,7 @@ class OS_ServerBank
 			m_Wallets.Add(OS_Util.SteamId(player), changeLeftover);
 
 		m_Groups.AddBalance(group, amount);
-		OS_Util.Notify(player, "Bankomat", "Vlozeno " + amount.ToString() + " " + m_Currency + " na ucet skupiny " + group.Name);
+		OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Vlozeno %1 %2 na ucet skupiny %3", amount.ToString(), m_Currency, group.Name));
 		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vklad na skupinu " + group.Name + ": " + amount.ToString());
 	}
 
@@ -221,7 +221,7 @@ class OS_ServerBank
 		string steamId = OS_Util.SteamId(player);
 		if (!m_Groups.CanWithdraw(group, steamId))
 		{
-			OS_Util.Notify(player, "Bankomat", "Ze skupinoveho uctu vybira jen vlastnik a admini.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Ze skupinoveho uctu vybira jen vlastnik a admini."));
 			return;
 		}
 
@@ -231,7 +231,7 @@ class OS_ServerBank
 		amount = amount - amount % smallest;
 		if (amount <= 0 || amount > group.Balance)
 		{
-			OS_Util.Notify(player, "Bankomat", "Na uctu skupiny neni dost penez.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Na uctu skupiny neni dost penez."));
 			return;
 		}
 
@@ -241,7 +241,7 @@ class OS_ServerBank
 		int undelivered = OS_Money.GiveCash(player, amount);
 		if (undelivered > 0)
 			m_Wallets.Add(steamId, undelivered);
-		OS_Util.Notify(player, "Bankomat", "Vybrano " + amount.ToString() + " " + m_Currency + " z uctu skupiny " + group.Name);
+		OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Vybrano %1 %2 z uctu skupiny %3", amount.ToString(), m_Currency, group.Name));
 		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vyber ze skupiny " + group.Name + ": " + amount.ToString());
 	}
 
@@ -249,7 +249,7 @@ class OS_ServerBank
 	{
 		if (!m_Cfg.AllowTransfers)
 		{
-			OS_Util.Notify(player, "Bankomat", "Prevody jsou vypnute.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Prevody jsou vypnute."));
 			return;
 		}
 
@@ -258,24 +258,24 @@ class OS_ServerBank
 
 		if (!OS_Wallets.IsValidSteamId(targetId))
 		{
-			OS_Util.Notify(player, "Bankomat", "Neplatne Steam ID (17 cislic).");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Neplatne Steam ID (17 cislic)."));
 			return;
 		}
 		if (targetId == senderId)
 		{
-			OS_Util.Notify(player, "Bankomat", "Nemuzes posilat penize sam sobe.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Nemuzes posilat penize sam sobe."));
 			return;
 		}
 		if (amount < m_Cfg.MinTransfer)
 		{
-			OS_Util.Notify(player, "Bankomat", "Minimalni castka je " + m_Cfg.MinTransfer.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Minimalni castka je %1 %2.", m_Cfg.MinTransfer.ToString(), m_Currency));
 			return;
 		}
 
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
 		if (!target && !m_Wallets.HasAccount(targetId))
 		{
-			OS_Util.Notify(player, "Bankomat", "Hrac s timto Steam ID na serveru nikdy nehral.");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_T("Hrac s timto Steam ID na serveru nikdy nehral."));
 			return;
 		}
 
@@ -283,7 +283,7 @@ class OS_ServerBank
 		int total = amount + fee;
 		if (!m_Wallets.TrySpend(senderId, total))
 		{
-			OS_Util.Notify(player, "Bankomat", "Na uctu nemas dost penez (" + total.ToString() + " " + m_Currency + ").");
+			OS_Util.Notify(player, OS_T("Bankomat"), OS_F("Na uctu nemas dost penez (%1 %2).", total.ToString(), m_Currency));
 			return;
 		}
 
@@ -293,13 +293,13 @@ class OS_ServerBank
 		if (target)
 			targetName = OS_Util.PlayerName(target);
 
-		string msg = "Odeslano " + amount.ToString() + " " + m_Currency + " hraci " + targetName;
+		string msg = OS_F("Odeslano %1 %2 hraci %3", amount.ToString(), m_Currency, targetName);
 		if (fee > 0)
-			msg = msg + " (poplatek " + fee.ToString() + ")";
-		OS_Util.Notify(player, "Bankomat", msg);
+			msg = OS_F("%1 (poplatek %2)", msg, fee.ToString());
+		OS_Util.Notify(player, OS_T("Bankomat"), msg);
 
 		if (target)
-			OS_Util.Notify(target, "Banka", OS_Util.PlayerName(player) + " ti poslal " + amount.ToString() + " " + m_Currency + " na ucet.");
+			OS_Util.Notify(target, OS_T("Banka"), OS_F("%1 ti poslal %2 %3 na ucet.", OS_Util.PlayerName(player), amount.ToString(), m_Currency));
 
 		Print(OS_TAG + "BANKA prevod " + amount.ToString() + " od " + OS_Util.PlayerName(player) + " (" + senderId + ") pro " + targetName + " (" + targetId + ")");
 	}

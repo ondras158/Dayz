@@ -10,6 +10,11 @@ class ActionOSLockCar : ActionInteractBase
 		m_Text = "Zamknout";
 	}
 
+	override string GetText()
+	{
+		return OS_T("Zamknout");
+	}
+
 	override void CreateConditionComponents()
 	{
 		m_ConditionItem = new CCINone;
@@ -90,9 +95,9 @@ class ActionOSLockCar : ActionInteractBase
 
 		car.OS_SetLocked(WantsLocked());
 		if (WantsLocked())
-			OS_Util.Notify(action_data.m_Player, "Auto", "Zamceno", 3);
+			OS_Util.Notify(action_data.m_Player, OS_T("Auto"), OS_T("Zamceno"), 3);
 		else
-			OS_Util.Notify(action_data.m_Player, "Auto", "Odemceno", 3);
+			OS_Util.Notify(action_data.m_Player, OS_T("Auto"), OS_T("Odemceno"), 3);
 	}
 }
 
@@ -101,6 +106,11 @@ class ActionOSUnlockCar : ActionOSLockCar
 	void ActionOSUnlockCar()
 	{
 		m_Text = "Odemknout";
+	}
+
+	override string GetText()
+	{
+		return OS_T("Odemknout");
 	}
 
 	override bool WantsLocked()

@@ -195,7 +195,7 @@ class OS_ServerTrader
 		if (m_Cfg.Enabled && killer && m_Cfg.PlayerKillReward != 0)
 		{
 			m_Payments.Pay(killer, m_Cfg.PlayerKillReward);
-			OS_Util.Notify(killer, "Odmena", "+" + m_Cfg.PlayerKillReward.ToString() + " " + m_Currency);
+			OS_Util.Notify(killer, OS_T("Odmena"), "+" + m_Cfg.PlayerKillReward.ToString() + " " + m_Currency);
 		}
 	}
 
@@ -220,7 +220,7 @@ class OS_ServerTrader
 		OS_TraderLocation trader = NearTrader(player);
 		if (!trader)
 		{
-			OS_Util.Notify(player, "Obchod", "Musis stat u obchodnika, bankomatu, autobazaru, servisu nebo garaze.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Musis stat u obchodnika, bankomatu, autobazaru, servisu nebo garaze."));
 			return true;
 		}
 
@@ -319,7 +319,7 @@ class OS_ServerTrader
 		string steamId = OS_Util.SteamId(player);
 		if (!m_Payments.TrySpend(player, price))
 		{
-			OS_Util.Notify(player, "Obchod", "Nemas dost penez.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Nemas dost penez."));
 			return;
 		}
 
@@ -327,7 +327,7 @@ class OS_ServerTrader
 		if (!created)
 		{
 			m_Payments.Pay(player, price); // vrátit peníze
-			OS_Util.Notify(player, "Obchod", "Predmet se nepodarilo vytvorit.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Predmet se nepodarilo vytvorit."));
 			return;
 		}
 
@@ -347,21 +347,21 @@ class OS_ServerTrader
 
 		if (!trader.PlayersCanSell || !AllowsItem(trader, className))
 		{
-			OS_Util.Notify(player, "Obchod", "Tenhle obchodnik takove veci nevykupuje.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Tenhle obchodnik takove veci nevykupuje."));
 			return;
 		}
 
 		ItemBase item = FindSellableItem(player, className);
 		if (!item)
 		{
-			OS_Util.Notify(player, "Obchod", "Predmet nelze prodat. Musi byt prazdny, bez prislusenstvi (zbran bez zasobniku) a nesmi byt zniceny.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Predmet nelze prodat. Musi byt prazdny, bez prislusenstvi (zbran bez zasobniku) a nesmi byt zniceny."));
 			return;
 		}
 
 		int price = Math.Round(priced.Sell * SellFraction(item) * SellMult(trader));
 		if (price <= 0)
 		{
-			OS_Util.Notify(player, "Obchod", "Tento kus uz nema zadnou hodnotu.");
+			OS_Util.Notify(player, OS_T("Obchod"), OS_T("Tento kus uz nema zadnou hodnotu."));
 			return;
 		}
 
@@ -458,7 +458,7 @@ class OS_ServerTrader
 		item.Sell = sell;
 		m_InheritedCache.Clear();
 		Save();
-		OS_Util.Notify(admin, "Obchod", "Cena ulozena: " + item.ClassName);
+		OS_Util.Notify(admin, OS_T("Obchod"), OS_F("Cena ulozena: %1", item.ClassName));
 	}
 
 	protected void AdminBulk(PlayerBase admin, ParamsReadContext ctx)
@@ -470,7 +470,7 @@ class OS_ServerTrader
 
 		if (categoryIndex < 0 || categoryIndex >= m_Cfg.Categories.Count() || factor <= 0 || factor > 100)
 		{
-			OS_Util.Notify(admin, "Obchod", "Nasobitel musi byt mezi 0 a 100 (napr. 1.5 nebo 0.8).");
+			OS_Util.Notify(admin, OS_T("Obchod"), OS_T("Nasobitel musi byt mezi 0 a 100 (napr. 1.5 nebo 0.8)."));
 			return;
 		}
 
@@ -485,7 +485,7 @@ class OS_ServerTrader
 
 		Save();
 		Print(OS_TAG + "ADMIN " + OS_Util.PlayerName(admin) + " nasobil ceny kategorie " + category.Name + " x" + factor.ToString());
-		OS_Util.Notify(admin, "Obchod", "Ceny kategorie " + category.Name + " vynasobeny x" + factor.ToString());
+		OS_Util.Notify(admin, OS_T("Obchod"), OS_F("Ceny kategorie %1 vynasobeny x%2", category.Name, factor.ToString()));
 	}
 
 	// ------------------------------------------------------------ odesílání dat

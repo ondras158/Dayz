@@ -33,7 +33,7 @@ class OS_Util
 	{
 		if (player && player.GetIdentity())
 			return player.GetIdentity().GetName();
-		return "Neznamy hrac";
+		return OS_T("Neznamy hrac");
 	}
 
 	static string SteamId(PlayerBase player)

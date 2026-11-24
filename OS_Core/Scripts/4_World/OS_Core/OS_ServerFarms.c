@@ -223,7 +223,7 @@ class OS_ServerFarms
 			{
 				m_Data.Farms.RemoveItem(own);
 				Save();
-				OS_Util.Notify(player, "Farma", "Farma zrusena.");
+				OS_Util.Notify(player, OS_T("Farma"), OS_T("Farma zrusena."));
 			}
 			return;
 		}
@@ -235,7 +235,7 @@ class OS_ServerFarms
 			OS_Farm ownFarm = GetFarmOf(id);
 			if (!ownFarm)
 			{
-				OS_Util.Notify(player, "Farmar", "Nejdriv si postav farmu (klavesa U).");
+				OS_Util.Notify(player, OS_T("Farmar"), OS_T("Nejdriv si postav farmu (klavesa U)."));
 				return;
 			}
 			if (action == OS_FarmAction.BUY_ANIMAL)
@@ -250,14 +250,14 @@ class OS_ServerFarms
 		OS_Farm farm = UsableFarmNear(player);
 		if (!farm)
 		{
-			OS_Util.Notify(player, "Farma", "Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_T("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare."));
 			return;
 		}
 
 		if (action == OS_FarmAction.BUY_ANIMAL)
 		{
 			if (m_Cfg.AnimalsOnlyAtTrader)
-				OS_Util.Notify(player, "Farma", "Zvirata se kupuji u Farmare.");
+				OS_Util.Notify(player, OS_T("Farma"), OS_T("Zvirata se kupuji u Farmare."));
 			else
 				BuyAnimal(player, farm, arg);
 		}
@@ -266,7 +266,7 @@ class OS_ServerFarms
 			if (m_Cfg.FeedAtFarm)
 				BuyFeed(player, farm, amount, action == OS_FarmAction.BUY_FERTILIZER);
 			else
-				OS_Util.Notify(player, "Farma", "Krmivo a hnojivo se kupuje u Farmare.");
+				OS_Util.Notify(player, OS_T("Farma"), OS_T("Krmivo a hnojivo se kupuje u Farmare."));
 		}
 		else if (action == OS_FarmAction.BUILD_STRUCTURE)
 		{
@@ -282,7 +282,7 @@ class OS_ServerFarms
 	{
 		if (GetFarmOf(id))
 		{
-			OS_Util.Notify(player, "Farma", "Uz mas farmu. Nejdriv ji zrus.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_T("Uz mas farmu. Nejdriv ji zrus."));
 			return;
 		}
 
@@ -290,14 +290,14 @@ class OS_ServerFarms
 		{
 			if (other && OS_Util.Distance2D(player.GetPosition(), other.X, other.Z) < m_Cfg.MinDistance)
 			{
-				OS_Util.Notify(player, "Farma", "Moc blizko jine farmy.");
+				OS_Util.Notify(player, OS_T("Farma"), OS_T("Moc blizko jine farmy."));
 				return;
 			}
 		}
 
 		if (!m_Payments.TrySpend(player, m_Cfg.BuildPrice))
 		{
-			OS_Util.Notify(player, "Farma", "Stavba farmy stoji " + m_Cfg.BuildPrice.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("Stavba farmy stoji %1 %2.", m_Cfg.BuildPrice.ToString(), m_Currency));
 			return;
 		}
 
@@ -308,7 +308,7 @@ class OS_ServerFarms
 		farm.Z = pos[2];
 		m_Data.Farms.Insert(farm);
 		Save();
-		OS_Util.Notify(player, "Farma", "Farma postavena. Kup zvirata a krmivo.");
+		OS_Util.Notify(player, OS_T("Farma"), OS_T("Farma postavena. Kup zvirata a krmivo."));
 		Print(OS_TAG + "FARMA " + OS_Util.PlayerName(player) + " postavil farmu na " + farm.X.ToString() + " " + farm.Z.ToString());
 	}
 
@@ -324,37 +324,37 @@ class OS_ServerFarms
 			OS_FarmBuilding building = m_Cfg.FindBuilding(type.RequiresBuilding);
 			if (building)
 				needed = building.Name;
-			OS_Util.Notify(player, "Farma", type.Name + ": na farme je potreba postavit " + needed + " (menu farmy, klavesa U).");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("%1: na farme je potreba postavit %2 (menu farmy, klavesa U).", OS_T(type.Name), OS_T(needed)));
 			return;
 		}
 
 		OS_FarmStock stock = farm.GetStock(type.Id, true);
 		if (stock.Count >= type.MaxCount)
 		{
-			OS_Util.Notify(player, "Farma", "Maximum: " + type.MaxCount.ToString() + " (" + type.Name + ").");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("Maximum: %1 (%2).", type.MaxCount.ToString(), OS_T(type.Name)));
 			return;
 		}
 		if (!m_Payments.TrySpend(player, type.Price))
 		{
-			OS_Util.Notify(player, "Farma", type.Name + " stoji " + type.Price.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("%1 stoji %2 %3.", OS_T(type.Name), type.Price.ToString(), m_Currency));
 			return;
 		}
 
 		stock.Count = stock.Count + 1;
 		Save();
-		OS_Util.Notify(player, "Farma", "Koupeno: " + type.Name + " (" + stock.Count.ToString() + "/" + type.MaxCount.ToString() + ")");
+		OS_Util.Notify(player, OS_T("Farma"), OS_F("Koupeno: %1 (%2/%3)", OS_T(type.Name), stock.Count.ToString(), type.MaxCount.ToString()));
 	}
 
 	//! fertilizer = true -> hnojivo, jinak krmivo
 	protected void BuyFeed(PlayerBase player, OS_Farm farm, int amount, bool fertilizer)
 	{
-		string what = "krmiva";
+		string what = OS_T("krmiva");
 		int current = farm.Feed;
 		int max = m_Cfg.MaxFeed;
 		int unitPrice = m_Cfg.FeedPrice;
 		if (fertilizer)
 		{
-			what = "hnojiva";
+			what = OS_T("hnojiva");
 			current = farm.Fertilizer;
 			max = m_Cfg.MaxFertilizer;
 			unitPrice = m_Cfg.FertilizerPrice;
@@ -365,14 +365,14 @@ class OS_ServerFarms
 			amount = space;
 		if (amount <= 0)
 		{
-			OS_Util.Notify(player, "Farma", "Zasobnik " + what + " je plny.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("Zasobnik %1 je plny.", what));
 			return;
 		}
 
 		int price = amount * unitPrice;
 		if (!m_Payments.TrySpend(player, price))
 		{
-			OS_Util.Notify(player, "Farma", amount.ToString() + " " + what + " stoji " + price.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("%1 %2 stoji %3 %4.", amount.ToString(), what, price.ToString(), m_Currency));
 			return;
 		}
 
@@ -381,7 +381,7 @@ class OS_ServerFarms
 		else
 			farm.Feed = farm.Feed + amount;
 		Save();
-		OS_Util.Notify(player, "Farma", "Koupeno " + what + ": " + amount.ToString());
+		OS_Util.Notify(player, OS_T("Farma"), OS_F("Koupeno %1: %2", what, amount.ToString()));
 	}
 
 	protected void BuildStructure(PlayerBase player, OS_Farm farm, string buildingId)
@@ -391,18 +391,18 @@ class OS_ServerFarms
 			return;
 		if (farm.HasBuilding(building.Id))
 		{
-			OS_Util.Notify(player, "Farma", building.Name + " uz na farme je.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("%1 uz na farme je.", OS_T(building.Name)));
 			return;
 		}
 		if (!m_Payments.TrySpend(player, building.Price))
 		{
-			OS_Util.Notify(player, "Farma", building.Name + " stoji " + building.Price.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("%1 stoji %2 %3.", OS_T(building.Name), building.Price.ToString(), m_Currency));
 			return;
 		}
 
 		farm.Buildings.Insert(building.Id);
 		Save();
-		OS_Util.Notify(player, "Farma", "Postaveno: " + building.Name + ". Sazenice koupis u Farmare.");
+		OS_Util.Notify(player, OS_T("Farma"), OS_F("Postaveno: %1. Sazenice koupis u Farmare.", OS_T(building.Name)));
 	}
 
 	//! amount -1 = vše (max MAX_COLLECT)
@@ -441,9 +441,9 @@ class OS_ServerFarms
 		}
 
 		if (total > 0)
-			OS_Util.Notify(player, "Farma", "Vybrano kusu: " + total.ToString() + ". Co se neveslo, lezi na zemi.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_F("Vybrano kusu: %1. Co se neveslo, lezi na zemi.", total.ToString()));
 		else
-			OS_Util.Notify(player, "Farma", "Sklad je prazdny.");
+			OS_Util.Notify(player, OS_T("Farma"), OS_T("Sklad je prazdny."));
 	}
 
 	// ------------------------------------------------------------ data pro klienta
@@ -479,7 +479,7 @@ class OS_ServerFarms
 				if (needBuilding)
 					needs = needBuilding.Name;
 			}
-			animalNeeds.Insert(needs);
+			animalNeeds.Insert(OS_T(needs));
 			int count = 0;
 			if (shown)
 			{
@@ -488,7 +488,7 @@ class OS_ServerFarms
 					count = stock.Count;
 			}
 			animalIds.Insert(type.Id);
-			animalNames.Insert(type.Name);
+			animalNames.Insert(OS_T(type.Name));
 			animalCounts.Insert(count);
 			animalMax.Insert(type.MaxCount);
 			animalPrices.Insert(type.Price);
@@ -558,7 +558,7 @@ class OS_ServerFarms
 		bool atTrader = animalTrader != null;
 		string traderName = "";
 		if (animalTrader)
-			traderName = animalTrader.Name;
+			traderName = OS_T(animalTrader.Name);
 		rpc.Write(atTrader);
 		rpc.Write(traderName);
 		rpc.Write(m_Cfg.AnimalsOnlyAtTrader);
@@ -574,7 +574,7 @@ class OS_ServerFarms
 			if (!b)
 				continue;
 			buildingIds.Insert(b.Id);
-			buildingNames.Insert(b.Name);
+			buildingNames.Insert(OS_T(b.Name));
 			buildingPrices.Insert(b.Price);
 			if (shown && shown.HasBuilding(b.Id))
 				buildingBuilt.Insert(1);

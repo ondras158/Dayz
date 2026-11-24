@@ -162,9 +162,9 @@ class OS_GroupMenu : OS_MenuBase
 		if (m_Title)
 		{
 			if (inGroup)
-				m_Title.SetText("Skupina " + m_Data.GroupName);
+				m_Title.SetText(OS_F("Skupina %1", m_Data.GroupName));
 			else
-				m_Title.SetText("Skupina");
+				m_Title.SetText(OS_T("Skupina"));
 		}
 
 		if (m_Info)
@@ -172,11 +172,11 @@ class OS_GroupMenu : OS_MenuBase
 			if (inGroup)
 			{
 				string role = OS_Group.RoleName(m_Data.MyRole());
-				m_Info.SetText("Clenove: " + m_Data.MemberNames.Count().ToString() + " / " + m_Data.MaxMembers.ToString() + "   Tvoje role: " + role);
+				m_Info.SetText(OS_F("Clenove: %1 / %2   Tvoje role: %3", m_Data.MemberNames.Count().ToString(), m_Data.MaxMembers.ToString(), role));
 			}
 			else
 			{
-				m_Info.SetText("Nejsi v zadne skupine. Zaloz si vlastni nebo prijmi pozvanku.");
+				m_Info.SetText(OS_T("Nejsi v zadne skupine. Zaloz si vlastni nebo prijmi pozvanku."));
 			}
 		}
 
@@ -191,9 +191,9 @@ class OS_GroupMenu : OS_MenuBase
 				if (memberRole != OS_GROUP_ROLE_MEMBER)
 					label = label + "  [" + OS_Group.RoleName(memberRole) + "]";
 				if (i < m_Data.MemberOnline.Count() && m_Data.MemberOnline[i] == 1)
-					label = label + "  (online)";
+					label = OS_F("%1  (online)", label);
 				else
-					label = label + "  (offline)";
+					label = OS_F("%1  (offline)", label);
 				m_MemberList.AddItem(label, null, 0);
 				if (m_Data.MemberIds[i] == previous)
 					m_MemberList.SelectRow(i);
@@ -210,26 +210,26 @@ class OS_GroupMenu : OS_MenuBase
 		}
 
 		if (m_BalanceText)
-			m_BalanceText.SetText("Ucet skupiny: " + m_Data.Balance.ToString() + cur + " (vklad / vyber v bankomatu)");
+			m_BalanceText.SetText(OS_F("Ucet skupiny: %1%2 (vklad / vyber v bankomatu)", m_Data.Balance.ToString(), cur));
 
 		if (m_BtnBuySlot)
 		{
 			if (m_Data.MaxMembers >= m_Data.MaxLimit)
-				m_BtnBuySlot.SetText("Maximum mist (" + m_Data.MaxLimit.ToString() + ")");
+				m_BtnBuySlot.SetText(OS_F("Maximum mist (%1)", m_Data.MaxLimit.ToString()));
 			else
-				m_BtnBuySlot.SetText("Koupit dalsi misto (" + m_Data.SlotPrice.ToString() + cur + ")");
+				m_BtnBuySlot.SetText(OS_F("Koupit dalsi misto (%1%2)", m_Data.SlotPrice.ToString(), cur));
 		}
 
 		if (m_InviteText && m_InviteText2)
 		{
 			if (hasInvite)
 			{
-				m_InviteText.SetText("Pozvanka do skupiny " + m_Data.InviteGroup);
-				m_InviteText2.SetText("od hrace " + m_Data.InviteFrom);
+				m_InviteText.SetText(OS_F("Pozvanka do skupiny %1", m_Data.InviteGroup));
+				m_InviteText2.SetText(OS_F("od hrace %1", m_Data.InviteFrom));
 			}
 			else
 			{
-				m_InviteText.SetText("Zadna pozvanka");
+				m_InviteText.SetText(OS_T("Zadna pozvanka"));
 				m_InviteText2.SetText("");
 			}
 		}
@@ -268,7 +268,7 @@ class OS_GroupMenu : OS_MenuBase
 		string memberId = SelectedMemberId();
 		if (memberId == "" || memberId == m_Data.MyId)
 		{
-			SetStatus("Vyber jineho clena skupiny.");
+			SetStatus(OS_T("Vyber jineho clena skupiny."));
 			return;
 		}
 		SendAction(action, memberId);
@@ -298,7 +298,7 @@ class OS_GroupMenu : OS_MenuBase
 		{
 			string freeId = SelectedFreeId();
 			if (freeId == "")
-				SetStatus("Vyber hrace, ktereho chces pozvat.");
+				SetStatus(OS_T("Vyber hrace, ktereho chces pozvat."));
 			else
 				SendAction(OS_GroupAction.INVITE, freeId);
 			return true;

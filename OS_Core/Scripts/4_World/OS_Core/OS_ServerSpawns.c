@@ -84,7 +84,7 @@ class OS_ServerSpawns
 		array<string> names = new array<string>;
 		foreach (OS_SpawnZone zone : m_Cfg.Zones)
 		{
-			names.Insert(zone.Name);
+			names.Insert(OS_T(zone.Name));
 		}
 
 		ScriptRPC rpc = new ScriptRPC();
@@ -162,6 +162,6 @@ class OS_ServerSpawns
 		float z = point[2] + Math.RandomFloatInclusive(-3, 3);
 
 		OS_Util.Teleport(player, OS_Util.GroundPos(x, z));
-		OS_Util.Notify(player, "Spawn", "Objevil ses v oblasti: " + zone.Name);
+		OS_Util.Notify(player, OS_T("Spawn"), OS_F("Objevil ses v oblasti: %1", OS_T(zone.Name)));
 	}
 }

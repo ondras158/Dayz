@@ -61,7 +61,7 @@ class OS_PersonalGarageMenu : OS_MenuBase
 
 		if (!m_Enabled)
 		{
-			SetLabel(m_Info, "Osobni garaze jsou na serveru vypnute.");
+			SetLabel(m_Info, OS_T("Osobni garaze jsou na serveru vypnute."));
 			SetLabel(m_Info2, "");
 		}
 		else if (m_HasGarage)
@@ -69,23 +69,23 @@ class OS_PersonalGarageMenu : OS_MenuBase
 			int dist = Math.Round(DistanceToGarage());
 			int gx = Math.Round(m_GaragePos[0]);
 			int gz = Math.Round(m_GaragePos[2]);
-			SetLabel(m_Info, "Tvoje garaz: " + gx.ToString() + " / " + gz.ToString() + "   (" + dist.ToString() + " m)");
+			SetLabel(m_Info, OS_F("Tvoje garaz: %1 / %2   (%3 m)", gx.ToString(), gz.ToString(), dist.ToString()));
 			if (near)
-				SetLabel(m_Info2, "Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.");
+				SetLabel(m_Info2, OS_T("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo."));
 			else
-				SetLabel(m_Info2, "Garaz je i na mape. Dojdi k ni a pouzij klavesu B.");
+				SetLabel(m_Info2, OS_T("Garaz je i na mape. Dojdi k ni a pouzij klavesu B."));
 		}
 		else
 		{
-			SetLabel(m_Info, "Nemas osobni garaz. Postav ji tam, kde stojis.");
-			SetLabel(m_Info2, "Cena: " + m_Price.ToString() + " " + m_Currency);
+			SetLabel(m_Info, OS_T("Nemas osobni garaz. Postav ji tam, kde stojis."));
+			SetLabel(m_Info2, OS_F("Cena: %1 %2", m_Price.ToString(), m_Currency));
 		}
 
 		ShowW(m_BtnBuild, m_Enabled && !m_HasGarage);
 		ShowW(m_BtnSetSpawn, m_Enabled && m_HasGarage && near);
 		ShowW(m_BtnRemove, m_HasGarage);
 		if (m_BtnBuild)
-			m_BtnBuild.SetText("Postavit garaz zde (" + m_Price.ToString() + " " + m_Currency + ")");
+			m_BtnBuild.SetText(OS_F("Postavit garaz zde (%1 %2)", m_Price.ToString(), m_Currency));
 	}
 
 	protected void SetLabel(TextWidget w, string text)

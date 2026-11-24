@@ -48,6 +48,8 @@ const int OS_RPC_FARM_DATA      = 784512071; // server -> klient: stav farmy
 const int OS_RPC_FARM_ACTION    = 784512072; // klient -> server: akce na farmě
 
 const int OS_RPC_FIRST = 784512001;
+const int OS_RPC_LANG          = 784512080; // server -> klient: jazyk a upravené texty
+
 const int OS_RPC_LAST  = 784512099;
 
 enum OS_AdminAction

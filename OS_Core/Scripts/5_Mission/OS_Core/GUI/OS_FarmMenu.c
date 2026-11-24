@@ -159,43 +159,43 @@ class OS_FarmMenu : OS_MenuBase
 
 		if (atTrader)
 		{
-			Label(m_Info, m_Data.TraderName + " - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu");
+			Label(m_Info, OS_F("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", m_Data.TraderName));
 			if (m_Data.HasOwn)
-				Label(m_Info2, "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
+				Label(m_Info2, OS_T("Koupena zvirata a krmivo se dovezou na tvoji farmu."));
 			else
-				Label(m_Info2, "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
+				Label(m_Info2, OS_T("Nejdriv si postav farmu (klavesa U), pak se sem vrat."));
 		}
 		else if (!m_Data.Enabled)
 		{
-			Label(m_Info, "Farmy jsou na serveru vypnute.");
+			Label(m_Info, OS_T("Farmy jsou na serveru vypnute."));
 			Label(m_Info2, "");
 		}
 		else if (m_Data.IsNear)
 		{
 			if (m_Data.IsOwner)
-				Label(m_Info, "Tvoje farma");
+				Label(m_Info, OS_T("Tvoje farma"));
 			else
-				Label(m_Info, "Farma spoluhrace ze skupiny");
+				Label(m_Info, OS_T("Farma spoluhrace ze skupiny"));
 			if (m_Data.AnimalsOnlyAtTrader)
-				Label(m_Info2, "Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
+				Label(m_Info2, OS_T("Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo."));
 			else
-				Label(m_Info2, "Zvirata vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
+				Label(m_Info2, OS_T("Zvirata vyrabeji i kdyz nejsi online - jen kdyz maji krmivo."));
 		}
 		else if (m_Data.HasOwn)
 		{
 			int fx = Math.Round(m_Data.OwnX);
 			int fz = Math.Round(m_Data.OwnZ);
-			Label(m_Info, "Tvoje farma je na " + fx.ToString() + " / " + fz.ToString() + " (i na mape).");
-			Label(m_Info2, "Dojdi k ni a otevri menu znovu (klavesa U).");
+			Label(m_Info, OS_F("Tvoje farma je na %1 / %2 (i na mape).", fx.ToString(), fz.ToString()));
+			Label(m_Info2, OS_T("Dojdi k ni a otevri menu znovu (klavesa U)."));
 		}
 		else
 		{
-			Label(m_Info, "Nemas farmu. Postav ji tam, kde stojis.");
+			Label(m_Info, OS_T("Nemas farmu. Postav ji tam, kde stojis."));
 			Label(m_Info2, "");
 		}
 
 		if (m_BtnBuild)
-			m_BtnBuild.SetText("Postavit farmu zde (" + m_Data.BuildPrice.ToString() + cur + ")");
+			m_BtnBuild.SetText(OS_F("Postavit farmu zde (%1%2)", m_Data.BuildPrice.ToString(), cur));
 
 		// zvířata
 		if (m_AnimalList)
@@ -204,9 +204,9 @@ class OS_FarmMenu : OS_MenuBase
 			m_AnimalList.ClearItems();
 			for (int i = 0; i < m_Data.AnimalIds.Count(); i++)
 			{
-				string label = m_Data.AnimalNames[i] + ": " + m_Data.AnimalCounts[i].ToString() + " / " + m_Data.AnimalMax[i].ToString() + "   (dalsi " + m_Data.AnimalPrices[i].ToString() + cur + ")";
+				string label = OS_F("%1: %2 / %3   (dalsi %4%5)", m_Data.AnimalNames[i], m_Data.AnimalCounts[i].ToString(), m_Data.AnimalMax[i].ToString(), m_Data.AnimalPrices[i].ToString(), cur);
 				if (i < m_Data.AnimalNeeds.Count() && m_Data.AnimalNeeds[i] != "")
-					label = label + "   - potreba: " + m_Data.AnimalNeeds[i];
+					label = OS_F("%1   - potreba: %2", label, m_Data.AnimalNeeds[i]);
 				m_AnimalList.AddItem(label, null, 0);
 			}
 			if (animalRow >= 0 && animalRow < m_Data.AnimalIds.Count())
@@ -214,22 +214,22 @@ class OS_FarmMenu : OS_MenuBase
 		}
 
 		// krmivo
-		string feedInfo = "Krmivo: " + m_Data.Feed.ToString() + " / " + m_Data.MaxFeed.ToString() + "   spotreba " + m_Data.FeedPerHour.ToString() + " / hod";
+		string feedInfo = OS_F("Krmivo: %1 / %2   spotreba %3 / hod", m_Data.Feed.ToString(), m_Data.MaxFeed.ToString(), m_Data.FeedPerHour.ToString());
 		if (m_Data.FeedPerHour > 0)
 		{
 			int hours = m_Data.Feed / m_Data.FeedPerHour;
-			feedInfo = feedInfo + "   (vydrzi ~" + hours.ToString() + " h)";
+			feedInfo = OS_F("%1   (vydrzi ~%2 h)", feedInfo, hours.ToString());
 		}
-		feedInfo = feedInfo + "   cena " + m_Data.FeedPrice.ToString() + cur + "/ks";
+		feedInfo = OS_F("%1   cena %2%3/ks", feedInfo, m_Data.FeedPrice.ToString(), cur);
 		Label(m_FeedText, feedInfo);
 
-		string fertInfo = "Hnojivo (sad, sklenik): " + m_Data.Fertilizer.ToString() + " / " + m_Data.MaxFertilizer.ToString() + "   spotreba " + m_Data.FertilizerPerHour.ToString() + " / hod";
+		string fertInfo = OS_F("Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod", m_Data.Fertilizer.ToString(), m_Data.MaxFertilizer.ToString(), m_Data.FertilizerPerHour.ToString());
 		if (m_Data.FertilizerPerHour > 0)
 		{
 			int fertHours = m_Data.Fertilizer / m_Data.FertilizerPerHour;
-			fertInfo = fertInfo + "   (vydrzi ~" + fertHours.ToString() + " h)";
+			fertInfo = OS_F("%1   (vydrzi ~%2 h)", fertInfo, fertHours.ToString());
 		}
-		fertInfo = fertInfo + "   cena " + m_Data.FertilizerPrice.ToString() + cur + "/ks";
+		fertInfo = OS_F("%1   cena %2%3/ks", fertInfo, m_Data.FertilizerPrice.ToString(), cur);
 		Label(m_FertText, fertInfo);
 
 		// stavby (sad, skleník...)
@@ -241,7 +241,7 @@ class OS_FarmMenu : OS_MenuBase
 			{
 				string buildingLabel = m_Data.BuildingNames[b];
 				if (m_Data.BuildingBuilt[b] == 1)
-					buildingLabel = buildingLabel + "   - postaveno";
+					buildingLabel = OS_F("%1   - postaveno", buildingLabel);
 				else
 					buildingLabel = buildingLabel + "   (" + m_Data.BuildingPrices[b].ToString() + cur + ")";
 				m_BuildingList.AddItem(buildingLabel, null, 0);
@@ -289,7 +289,7 @@ class OS_FarmMenu : OS_MenuBase
 		{
 			int row = m_AnimalList.GetSelectedRow();
 			if (row < 0 || row >= m_Data.AnimalIds.Count())
-				SetStatus("Vyber zvire.");
+				SetStatus(OS_T("Vyber zvire."));
 			else
 				SendAction(OS_FarmAction.BUY_ANIMAL, m_Data.AnimalIds[row], 0);
 			return true;
@@ -300,7 +300,7 @@ class OS_FarmMenu : OS_MenuBase
 			text.TrimInPlace();
 			int amount = text.ToInt();
 			if (amount <= 0)
-				SetStatus("Zadej mnozstvi krmiva.");
+				SetStatus(OS_T("Zadej mnozstvi krmiva."));
 			else
 				SendAction(OS_FarmAction.BUY_FEED, "", amount);
 			return true;
@@ -309,7 +309,7 @@ class OS_FarmMenu : OS_MenuBase
 		{
 			int stored = m_StorageList.GetSelectedRow();
 			if (stored < 0 || stored >= m_Data.StoredClasses.Count())
-				SetStatus("Vyber surovinu.");
+				SetStatus(OS_T("Vyber surovinu."));
 			else
 				SendAction(OS_FarmAction.COLLECT, m_Data.StoredClasses[stored], -1);
 			return true;
@@ -320,7 +320,7 @@ class OS_FarmMenu : OS_MenuBase
 			fertText.TrimInPlace();
 			int fertAmount = fertText.ToInt();
 			if (fertAmount <= 0)
-				SetStatus("Zadej mnozstvi hnojiva.");
+				SetStatus(OS_T("Zadej mnozstvi hnojiva."));
 			else
 				SendAction(OS_FarmAction.BUY_FERTILIZER, "", fertAmount);
 			return true;
@@ -329,7 +329,7 @@ class OS_FarmMenu : OS_MenuBase
 		{
 			int buildRow = m_BuildingList.GetSelectedRow();
 			if (buildRow < 0 || buildRow >= m_Data.BuildingIds.Count())
-				SetStatus("Vyber stavbu (sad, sklenik).");
+				SetStatus(OS_T("Vyber stavbu (sad, sklenik)."));
 			else
 				SendAction(OS_FarmAction.BUILD_STRUCTURE, m_Data.BuildingIds[buildRow], 0);
 			return true;

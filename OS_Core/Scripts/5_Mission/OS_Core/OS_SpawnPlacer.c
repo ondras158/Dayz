@@ -55,6 +55,7 @@ class OS_SpawnPlacer
 		if (!m_Root)
 		{
 			m_Root = g_Game.GetWorkspace().CreateWidgets(OS_LAYOUT_DIR + "placer.layout");
+			OS_LayoutTexts.Apply("placer.layout", m_Root);
 			if (m_Root)
 			{
 				m_Canvas = CanvasWidget.Cast(m_Root.FindAnyWidget("Canvas"));
@@ -172,7 +173,7 @@ class OS_SpawnPlacer
 		DrawBox(center, yaw, ARGB(230, 60, 255, 90), 3);                      // nové místo
 
 		if (m_Hint)
-			m_Hint.SetText("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)");
+			m_Hint.SetText(OS_T("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)"));
 
 		UAInput confirm = GetUApi().GetInputByName("UAOSPlaceConfirm");
 		UAInput cancel = GetUApi().GetInputByName("UAOSPlaceCancel");

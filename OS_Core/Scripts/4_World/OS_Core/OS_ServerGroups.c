@@ -141,7 +141,7 @@ class OS_ServerGroups
 				continue;
 			PlayerBase online = OS_Util.FindPlayerBySteamId(member.Id);
 			if (online)
-				OS_Util.Notify(online, "Skupina " + group.Name, text);
+				OS_Util.Notify(online, OS_F("Skupina %1", group.Name), text);
 		}
 	}
 
@@ -181,11 +181,11 @@ class OS_ServerGroups
 		else if (action == OS_GroupAction.DECLINE)
 			m_Invites.Remove(id);
 		else if (!group)
-			OS_Util.Notify(player, "Skupina", "Nejsi v zadne skupine.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Nejsi v zadne skupine."));
 		else if (action == OS_GroupAction.INVITE)
 			Invite(player, id, group, arg);
 		else if (action == OS_GroupAction.LEAVE)
-			RemoveMember(group, id, name + " opustil skupinu.");
+			RemoveMember(group, id, OS_F("%1 opustil skupinu.", name));
 		else if (action == OS_GroupAction.KICK)
 			Kick(player, id, group, arg);
 		else if (action == OS_GroupAction.PROMOTE)
@@ -202,14 +202,14 @@ class OS_ServerGroups
 	{
 		if (current)
 		{
-			OS_Util.Notify(player, "Skupina", "Uz jsi ve skupine " + current.Name + ".");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Uz jsi ve skupine %1.", current.Name));
 			return;
 		}
 
 		groupName.TrimInPlace();
 		if (groupName.Length() < m_Cfg.MinNameLength || groupName.Length() > m_Cfg.MaxNameLength)
 		{
-			OS_Util.Notify(player, "Skupina", "Nazev musi mit " + m_Cfg.MinNameLength.ToString() + " az " + m_Cfg.MaxNameLength.ToString() + " znaku.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Nazev musi mit %1 az %2 znaku.", m_Cfg.MinNameLength.ToString(), m_Cfg.MaxNameLength.ToString()));
 			return;
 		}
 
@@ -218,14 +218,14 @@ class OS_ServerGroups
 			string a = OS_TraderScanner.Lower(existing.Name);
 			if (a == OS_TraderScanner.Lower(groupName))
 			{
-				OS_Util.Notify(player, "Skupina", "Skupina s timto nazvem uz existuje.");
+				OS_Util.Notify(player, OS_T("Skupina"), OS_T("Skupina s timto nazvem uz existuje."));
 				return;
 			}
 		}
 
 		if (m_Cfg.CreatePrice > 0 && !m_Payments.TrySpend(player, m_Cfg.CreatePrice))
 		{
-			OS_Util.Notify(player, "Skupina", "Zalozeni stoji " + m_Cfg.CreatePrice.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Zalozeni stoji %1 %2.", m_Cfg.CreatePrice.ToString(), m_Currency));
 			return;
 		}
 
@@ -241,7 +241,7 @@ class OS_ServerGroups
 		SaveData();
 
 		SendGroupId(player);
-		OS_Util.Notify(player, "Skupina", "Skupina " + groupName + " zalozena. Pozvi hrace v menu skupiny.");
+		OS_Util.Notify(player, OS_T("Skupina"), OS_F("Skupina %1 zalozena. Pozvi hrace v menu skupiny.", groupName));
 		Print(OS_TAG + "SKUPINA " + name + " zalozil " + groupName);
 	}
 
@@ -249,24 +249,24 @@ class OS_ServerGroups
 	{
 		if (!m_Cfg.MembersCanInvite && !group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Zvat muze jen vlastnik nebo admin skupiny.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Zvat muze jen vlastnik nebo admin skupiny."));
 			return;
 		}
 		if (group.Members.Count() >= MaxMembers(group))
 		{
-			OS_Util.Notify(player, "Skupina", "Skupina je plna. Dokup dalsi misto.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Skupina je plna. Dokup dalsi misto."));
 			return;
 		}
 
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
 		if (!target)
 		{
-			OS_Util.Notify(player, "Skupina", "Hrac neni online.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Hrac neni online."));
 			return;
 		}
 		if (GetGroupOf(targetId))
 		{
-			OS_Util.Notify(player, "Skupina", OS_Util.PlayerName(target) + " uz je v jine skupine.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("%1 uz je v jine skupine.", OS_Util.PlayerName(target)));
 			return;
 		}
 
@@ -276,8 +276,8 @@ class OS_ServerGroups
 		invite.Expires = g_Game.GetTickTime() + m_Cfg.InviteValidSeconds;
 		m_Invites.Set(targetId, invite);
 
-		OS_Util.Notify(player, "Skupina", "Pozvanka odeslana: " + OS_Util.PlayerName(target));
-		OS_Util.Notify(target, "Pozvanka do skupiny", invite.InviterName + " te zve do skupiny " + group.Name + ". Otevri menu skupiny (klavesa J).", 12);
+		OS_Util.Notify(player, OS_T("Skupina"), OS_F("Pozvanka odeslana: %1", OS_Util.PlayerName(target)));
+		OS_Util.Notify(target, OS_T("Pozvanka do skupiny"), OS_F("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", invite.InviterName, group.Name), 12);
 	}
 
 	protected OS_GroupInvite ValidInvite(string id)
@@ -297,14 +297,14 @@ class OS_ServerGroups
 	{
 		if (current)
 		{
-			OS_Util.Notify(player, "Skupina", "Nejdriv opust svou skupinu.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Nejdriv opust svou skupinu."));
 			return;
 		}
 
 		OS_GroupInvite invite = ValidInvite(id);
 		if (!invite)
 		{
-			OS_Util.Notify(player, "Skupina", "Pozvanka uz neplati.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Pozvanka uz neplati."));
 			return;
 		}
 
@@ -312,7 +312,7 @@ class OS_ServerGroups
 		m_Invites.Remove(id);
 		if (group.Members.Count() >= MaxMembers(group))
 		{
-			OS_Util.Notify(player, "Skupina", "Skupina je mezitim plna.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Skupina je mezitim plna."));
 			return;
 		}
 
@@ -320,7 +320,7 @@ class OS_ServerGroups
 		m_PlayerGroup.Set(id, group.Id);
 		SaveData();
 		SendGroupId(player);
-		NotifyGroup(group, name + " se pripojil ke skupine.");
+		NotifyGroup(group, OS_F("%1 se pripojil ke skupine.", name));
 		Print(OS_TAG + "SKUPINA " + name + " vstoupil do " + group.Name);
 	}
 
@@ -329,29 +329,29 @@ class OS_ServerGroups
 		int myRole = group.RoleOf(id);
 		if (myRole < OS_GROUP_ROLE_ADMIN)
 		{
-			OS_Util.Notify(player, "Skupina", "Vyhazovat muze jen vlastnik nebo admin.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Vyhazovat muze jen vlastnik nebo admin."));
 			return;
 		}
 		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
 		if (targetId == group.LeaderId)
 		{
-			OS_Util.Notify(player, "Skupina", "Vlastnika skupiny nejde vyhodit.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Vlastnika skupiny nejde vyhodit."));
 			return;
 		}
 
 		string targetName = group.Members[group.FindMember(targetId)].Name;
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
 		if (target)
-			OS_Util.Notify(target, "Skupina", "Byl jsi vyhozen ze skupiny " + group.Name + ".");
-		RemoveMember(group, targetId, targetName + " byl vyhozen ze skupiny.");
+			OS_Util.Notify(target, OS_T("Skupina"), OS_F("Byl jsi vyhozen ze skupiny %1.", group.Name));
+		RemoveMember(group, targetId, OS_F("%1 byl vyhozen ze skupiny.", targetName));
 	}
 
 	protected void Promote(PlayerBase player, string id, OS_Group group, string targetId)
 	{
 		if (group.LeaderId != id)
 		{
-			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Vlastnictvi muze predat jen vlastnik."));
 			return;
 		}
 		if (targetId == id || group.FindMember(targetId) < 0)
@@ -362,7 +362,7 @@ class OS_ServerGroups
 		group.Members[group.FindMember(targetId)].Role = OS_GROUP_ROLE_MEMBER;
 		group.LeaderId = targetId;
 		SaveData();
-		NotifyGroup(group, group.Members[group.FindMember(targetId)].Name + " je novy vlastnik skupiny.");
+		NotifyGroup(group, OS_F("%1 je novy vlastnik skupiny.", group.Members[group.FindMember(targetId)].Name));
 	}
 
 	//! vlastník jmenuje / odvolá admina
@@ -370,7 +370,7 @@ class OS_ServerGroups
 	{
 		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Adminy jmenuje jen vlastnik nebo admin.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Adminy jmenuje jen vlastnik nebo admin."));
 			return;
 		}
 		int index = group.FindMember(targetId);
@@ -381,12 +381,12 @@ class OS_ServerGroups
 		if (target.Role == OS_GROUP_ROLE_ADMIN)
 		{
 			target.Role = OS_GROUP_ROLE_MEMBER;
-			NotifyGroup(group, target.Name + " uz neni admin skupiny.");
+			NotifyGroup(group, OS_F("%1 uz neni admin skupiny.", target.Name));
 		}
 		else
 		{
 			target.Role = OS_GROUP_ROLE_ADMIN;
-			NotifyGroup(group, target.Name + " je novy admin skupiny.");
+			NotifyGroup(group, OS_F("%1 je novy admin skupiny.", target.Name));
 		}
 		SaveData();
 	}
@@ -426,7 +426,7 @@ class OS_ServerGroups
 			}
 			heir.Role = OS_GROUP_ROLE_MEMBER;
 			group.LeaderId = heir.Id;
-			message = message + " Novy vlastnik: " + heir.Name + ".";
+			message = OS_F("%1 Novy vlastnik: %2.", message, heir.Name);
 		}
 
 		SaveData();
@@ -434,19 +434,19 @@ class OS_ServerGroups
 
 		PlayerBase left = OS_Util.FindPlayerBySteamId(memberId);
 		if (left)
-			OS_Util.Notify(left, "Skupina", message);
+			OS_Util.Notify(left, OS_T("Skupina"), message);
 	}
 
 	protected void BuySlot(PlayerBase player, string id, OS_Group group)
 	{
 		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Mista kupuje vlastnik nebo admin skupiny.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Mista kupuje vlastnik nebo admin skupiny."));
 			return;
 		}
 		if (MaxMembers(group) >= m_Cfg.MaxMembersLimit)
 		{
-			OS_Util.Notify(player, "Skupina", "Skupina uz ma maximum mist (" + m_Cfg.MaxMembersLimit.ToString() + ").");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Skupina uz ma maximum mist (%1).", m_Cfg.MaxMembersLimit.ToString()));
 			return;
 		}
 
@@ -455,36 +455,36 @@ class OS_ServerGroups
 		if (group.Balance >= price)
 		{
 			group.Balance = group.Balance - price;
-			paidFrom = "ze skupinoveho uctu";
+			paidFrom = OS_T("ze skupinoveho uctu");
 		}
 		else if (m_Payments.TrySpend(player, price))
 		{
-			paidFrom = "z tvych penez";
+			paidFrom = OS_T("z tvych penez");
 		}
 		else
 		{
-			OS_Util.Notify(player, "Skupina", "Misto stoji " + price.ToString() + " " + m_Currency + ". Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", price.ToString(), m_Currency));
 			return;
 		}
 
 		group.ExtraSlots = group.ExtraSlots + 1;
 		SaveData();
-		NotifyGroup(group, "Skupina ma nove misto (" + MaxMembers(group).ToString() + " hracu), zaplaceno " + paidFrom + ".");
+		NotifyGroup(group, OS_F("Skupina ma nove misto (%1 hracu), zaplaceno %2.", MaxMembers(group).ToString(), paidFrom));
 	}
 
 	protected void Disband(PlayerBase player, string id, OS_Group group)
 	{
 		if (group.LeaderId != id)
 		{
-			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_T("Rozpustit skupinu muze jen vlastnik."));
 			return;
 		}
 
-		NotifyGroup(group, "Skupina byla rozpustena.");
+		NotifyGroup(group, OS_T("Skupina byla rozpustena."));
 		if (group.Balance > 0)
 		{
 			m_Wallets.Add(id, group.Balance);
-			OS_Util.Notify(player, "Skupina", "Zustatek " + group.Balance.ToString() + " " + m_Currency + " prevedeny na tvuj ucet.");
+			OS_Util.Notify(player, OS_T("Skupina"), OS_F("Zustatek %1 %2 prevedeny na tvuj ucet.", group.Balance.ToString(), m_Currency));
 		}
 
 		foreach (OS_GroupMember member : group.Members)

@@ -137,12 +137,12 @@ class OS_TraderMenu : OS_MenuBase
 	{
 		if (m_Title)
 		{
-			string title = "Obchod - " + m_TraderName;
+			string title = OS_F("Obchod - %1", OS_T(m_TraderName));
 			if (m_BuyMult != 1 || m_SellMult != 1)
 			{
 				int buyPct = Math.Round(m_BuyMult * 100);
 				int sellPct = Math.Round(m_SellMult * 100);
-				title = title + "  (nakup " + buyPct.ToString() + " %, vykup " + sellPct.ToString() + " %)";
+				title = OS_F("%1  (nakup %2 %, vykup %3 %)", title, buyPct.ToString(), sellPct.ToString());
 			}
 			m_Title.SetText(title);
 		}
@@ -163,7 +163,7 @@ class OS_TraderMenu : OS_MenuBase
 				sw.Show(m_CanSell);
 		}
 		if (!m_CanBuy)
-			SetStatus("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.");
+			SetStatus(OS_T("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat."));
 
 		// admin panel vidí jen admin
 		array<string> adminWidgets = {"AdminLabel", "BuyLabel", "EditBuyBg", "EditBuy", "SellPriceLabel", "EditSellBg", "EditSell", "BtnSavePrice", "FactorLabel", "EditFactorBg", "EditFactor", "BtnBulk"};
@@ -181,7 +181,7 @@ class OS_TraderMenu : OS_MenuBase
 		m_CategoryList.ClearItems();
 		for (int i = 0; i < m_Categories.Count(); i++)
 		{
-			m_CategoryList.AddItem(m_Categories[i] + " (" + m_CategoryCounts[i].ToString() + ")", null, 0);
+			m_CategoryList.AddItem(OS_T(m_Categories[i]) + " (" + m_CategoryCounts[i].ToString() + ")", null, 0);
 		}
 
 		if (previous < 0 || previous >= m_Categories.Count())
@@ -217,25 +217,25 @@ class OS_TraderMenu : OS_MenuBase
 		m_ItemList.ClearItems();
 		for (int i = 0; i < m_ItemClass.Count(); i++)
 		{
-			string label = OS_Client.DisplayName(m_ItemClass[i]) + "   [koupit " + PriceText(Effective(m_ItemBuy[i], m_BuyMult)) + " / vykup " + PriceText(Effective(m_ItemSell[i], m_SellMult)) + "]";
+			string label = OS_F("%1   [koupit %2 / vykup %3]", OS_Client.DisplayName(m_ItemClass[i]), PriceText(Effective(m_ItemBuy[i], m_BuyMult)), PriceText(Effective(m_ItemSell[i], m_SellMult)));
 			if (m_IsAdmin)
 			{
 				label = label + "  " + m_ItemClass[i];
 				if (m_ItemBuy[i] < 0 && m_ItemSell[i] < 0)
-					label = label + "  (SKRYTO)";
+					label = OS_F("%1  (SKRYTO)", label);
 			}
 			m_ItemList.AddItem(label, null, 0);
 		}
 		m_LastItemRow = -2;
 
 		if (m_ViewCategory < 0)
-			SetStatus("Nalezeno: " + m_ItemClass.Count().ToString());
+			SetStatus(OS_F("Nalezeno: %1", m_ItemClass.Count().ToString()));
 	}
 
 	protected void RefreshPlayer()
 	{
 		if (m_BalanceText)
-			m_BalanceText.SetText("Hotovost: " + m_Cash.ToString() + "  Ucet: " + m_Bank.ToString() + " " + m_Currency);
+			m_BalanceText.SetText(OS_F("Hotovost: %1  Ucet: %2 %3", m_Cash.ToString(), m_Bank.ToString(), m_Currency));
 
 		if (!m_SellList)
 			return;
@@ -245,7 +245,7 @@ class OS_TraderMenu : OS_MenuBase
 		{
 			string label = OS_Client.DisplayName(m_SellClasses[i]) + " x" + m_SellCounts[i].ToString();
 			if (i < m_SellPrices.Count() && m_SellPrices[i] >= 0)
-				label = label + "   (az " + m_SellPrices[i].ToString() + ")";
+				label = OS_F("%1   (az %2)", label, m_SellPrices[i].ToString());
 			m_SellList.AddItem(label, null, 0);
 		}
 	}
@@ -338,7 +338,7 @@ class OS_TraderMenu : OS_MenuBase
 			string trimmed = text.Trim();
 			if (trimmed.Length() < 2)
 			{
-				SetStatus("Zadej aspon 2 znaky.");
+				SetStatus(OS_T("Zadej aspon 2 znaky."));
 			}
 			else
 			{
@@ -373,17 +373,17 @@ class OS_TraderMenu : OS_MenuBase
 		int row = SelectedItemRow();
 		if (row < 0)
 		{
-			SetStatus("Vyber predmet, ktery chces koupit.");
+			SetStatus(OS_T("Vyber predmet, ktery chces koupit."));
 			return;
 		}
 		if (m_ItemBuy[row] < 0)
 		{
-			SetStatus("Tento predmet se neprodava.");
+			SetStatus(OS_T("Tento predmet se neprodava."));
 			return;
 		}
 		if (EffectiveBuy(row) > m_Balance)
 		{
-			SetStatus("Nemas dost penez.");
+			SetStatus(OS_T("Nemas dost penez."));
 			return;
 		}
 
@@ -391,7 +391,7 @@ class OS_TraderMenu : OS_MenuBase
 		rpc.Write(m_ItemCat[row]);
 		rpc.Write(m_ItemIndex[row]);
 		rpc.Send(null, OS_RPC_TRADER_BUY, true, null);
-		SetStatus("Koupeno: " + OS_Client.DisplayName(m_ItemClass[row]));
+		SetStatus(OS_F("Koupeno: %1", OS_Client.DisplayName(m_ItemClass[row])));
 	}
 
 	protected void Sell()
@@ -402,14 +402,14 @@ class OS_TraderMenu : OS_MenuBase
 		int row = m_SellList.GetSelectedRow();
 		if (row < 0 || row >= m_SellClasses.Count())
 		{
-			SetStatus("Vyber vec, kterou chces prodat.");
+			SetStatus(OS_T("Vyber vec, kterou chces prodat."));
 			return;
 		}
 
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(m_SellClasses[row]);
 		rpc.Send(null, OS_RPC_TRADER_SELL, true, null);
-		SetStatus("Prodano: " + OS_Client.DisplayName(m_SellClasses[row]));
+		SetStatus(OS_F("Prodano: %1", OS_Client.DisplayName(m_SellClasses[row])));
 	}
 
 	protected void AdminSavePrice()
@@ -417,7 +417,7 @@ class OS_TraderMenu : OS_MenuBase
 		int row = SelectedItemRow();
 		if (row < 0 || !m_EditBuy || !m_EditSell)
 		{
-			SetStatus("Vyber predmet, kteremu chces zmenit cenu.");
+			SetStatus(OS_T("Vyber predmet, kteremu chces zmenit cenu."));
 			return;
 		}
 
@@ -442,7 +442,7 @@ class OS_TraderMenu : OS_MenuBase
 	{
 		if (m_ViewCategory < 0 || !m_EditFactor)
 		{
-			SetStatus("Nasobit jde jen celou kategorii - vyber ji vlevo.");
+			SetStatus(OS_T("Nasobit jde jen celou kategorii - vyber ji vlevo."));
 			return;
 		}
 

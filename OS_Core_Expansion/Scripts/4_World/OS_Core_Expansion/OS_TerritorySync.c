@@ -184,7 +184,7 @@ class OS_TerritorySync
 				changedLinks = true;
 
 				if (m_Cfg.NotifyPlayers)
-					NotifySteamId(member.Id, "Byl jsi pridan do uzemi " + territory.GetTerritoryName() + " (skupina " + group.Name + ").");
+					NotifySteamId(member.Id, OS_F("Byl jsi pridan do uzemi %1 (skupina %2).", territory.GetTerritoryName(), group.Name));
 			}
 		}
 
@@ -211,7 +211,7 @@ class OS_TerritorySync
 				changedTerritory = true;
 
 				if (m_Cfg.NotifyPlayers)
-					NotifySteamId(addedId, "Uz nejsi ve skupine majitele, byl jsi odebran z uzemi " + territory.GetTerritoryName() + ".");
+					NotifySteamId(addedId, OS_F("Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.", territory.GetTerritoryName()));
 			}
 		}
 
@@ -228,7 +228,7 @@ class OS_TerritorySync
 	{
 		PlayerBase player = OS_Util.FindPlayerBySteamId(steamId);
 		if (player)
-			OS_Util.Notify(player, "Uzemi", text);
+			OS_Util.Notify(player, OS_T("Uzemi"), text);
 	}
 }
 

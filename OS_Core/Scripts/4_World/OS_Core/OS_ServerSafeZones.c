@@ -49,9 +49,9 @@ class OS_ServerSafeZones
 			player.OS_RefreshDamage();
 
 			if (inside)
-				OS_Util.Notify(player, zone.Name, m_Cfg.EnterMessage);
+				OS_Util.Notify(player, OS_T(zone.Name), OS_T(m_Cfg.EnterMessage));
 			else
-				OS_Util.Notify(player, "Bezpecna zona", m_Cfg.LeaveMessage);
+				OS_Util.Notify(player, OS_T("Bezpecna zona"), OS_T(m_Cfg.LeaveMessage));
 		}
 
 		if (m_Cfg.RemoveZombies)

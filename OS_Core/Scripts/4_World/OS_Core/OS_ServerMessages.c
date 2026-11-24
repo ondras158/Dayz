@@ -16,7 +16,7 @@ class OS_ServerMessages
 	void OnConnect(PlayerBase player)
 	{
 		if (m_Cfg.WelcomeTitle != "" || m_Cfg.WelcomeText != "")
-			OS_Util.Notify(player, m_Cfg.WelcomeTitle, m_Cfg.WelcomeText, m_Cfg.WelcomeSeconds);
+			OS_Util.Notify(player, OS_T(m_Cfg.WelcomeTitle), OS_T(m_Cfg.WelcomeText), m_Cfg.WelcomeSeconds);
 	}
 
 	void OnTick(float deltaTime)
@@ -32,7 +32,7 @@ class OS_ServerMessages
 		if (m_BroadcastIndex >= m_Cfg.Broadcasts.Count())
 			m_BroadcastIndex = 0;
 
-		OS_Util.ChatAll(m_Cfg.Broadcasts[m_BroadcastIndex]);
+		OS_Util.ChatAll(OS_T(m_Cfg.Broadcasts[m_BroadcastIndex]));
 		m_BroadcastIndex++;
 	}
 
@@ -45,11 +45,11 @@ class OS_ServerMessages
 		string msg;
 
 		if (killerPlayer && killerPlayer != victim)
-			msg = victimName + " byl zabit hracem " + OS_Util.PlayerName(killerPlayer);
+			msg = OS_F("%1 byl zabit hracem %2", victimName, OS_Util.PlayerName(killerPlayer));
 		else if (ZombieBase.Cast(killer))
-			msg = victimName + " byl zabit zombiky";
+			msg = OS_F("%1 byl zabit zombiky", victimName);
 		else
-			msg = victimName + " zemrel";
+			msg = OS_F("%1 zemrel", victimName);
 
 		OS_Util.ChatAll(msg);
 	}

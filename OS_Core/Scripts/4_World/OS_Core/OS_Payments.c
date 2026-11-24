@@ -87,6 +87,6 @@ class OS_Payments
 		if (amount <= 0)
 			return;
 		m_Wallets.Add(OS_Util.SteamId(player), amount);
-		OS_Util.Notify(player, "Banka", "Drobne " + amount.ToString() + " " + m_Currency + " pripsany na ucet.", 4);
+		OS_Util.Notify(player, OS_T("Banka"), OS_F("Drobne %1 %2 pripsany na ucet.", amount.ToString(), m_Currency), 4);
 	}
 }

@@ -10,6 +10,7 @@ class OS_MenuBase : UIScriptedMenu
 	override Widget Init()
 	{
 		layoutRoot = g_Game.GetWorkspace().CreateWidgets(OS_LAYOUT_DIR + LayoutName());
+		OS_LayoutTexts.Apply(LayoutName(), layoutRoot);   // texty layoutu do jazyka serveru
 		OnCreated();
 		return layoutRoot;
 	}

@@ -135,7 +135,7 @@ class OS_VehicleMenu : OS_MenuBase
 		if (m_Title)
 			m_Title.SetText(m_Data.LocationName);
 		if (m_Balance)
-			m_Balance.SetText("Hotovost: " + m_Data.Cash.ToString() + "  Ucet: " + m_Data.Bank.ToString() + cur);
+			m_Balance.SetText(OS_F("Hotovost: %1  Ucet: %2%3", m_Data.Cash.ToString(), m_Data.Bank.ToString(), cur));
 
 		// sekce podle toho, co místo nabízí
 		ShowWidget("DealerLabel", m_Data.Dealer);
@@ -143,28 +143,28 @@ class OS_VehicleMenu : OS_MenuBase
 		if (dealerLabel)
 		{
 			if (m_Data.Category == "heli")
-				dealerLabel.SetText("Helikoptery");
+				dealerLabel.SetText(OS_T("Helikoptery"));
 			else if (m_Data.Category == "boat")
-				dealerLabel.SetText("Lode");
+				dealerLabel.SetText(OS_T("Lode"));
 			else if (m_Data.Category == "bike")
-				dealerLabel.SetText("Motorky");
+				dealerLabel.SetText(OS_T("Motorky"));
 			else if (m_Data.Category == "mixed")
-				dealerLabel.SetText("Prodej vozidel");
+				dealerLabel.SetText(OS_T("Prodej vozidel"));
 			else
-				dealerLabel.SetText("Autobazar");
+				dealerLabel.SetText(OS_T("Autobazar"));
 		}
 		if (m_BtnBuy)
 		{
 			if (m_Data.Category == "heli")
-				m_BtnBuy.SetText("Koupit helikopteru");
+				m_BtnBuy.SetText(OS_T("Koupit helikopteru"));
 			else if (m_Data.Category == "boat")
-				m_BtnBuy.SetText("Koupit lod");
+				m_BtnBuy.SetText(OS_T("Koupit lod"));
 			else if (m_Data.Category == "bike")
-				m_BtnBuy.SetText("Koupit motorku");
+				m_BtnBuy.SetText(OS_T("Koupit motorku"));
 			else if (m_Data.Category == "mixed")
-				m_BtnBuy.SetText("Koupit vozidlo");
+				m_BtnBuy.SetText(OS_T("Koupit vozidlo"));
 			else
-				m_BtnBuy.SetText("Koupit auto");
+				m_BtnBuy.SetText(OS_T("Koupit auto"));
 		}
 		ShowWidget("OfferListBg", m_Data.Dealer);
 		ShowWidget("OfferList", m_Data.Dealer);
@@ -186,9 +186,9 @@ class OS_VehicleMenu : OS_MenuBase
 		if (m_BtnSetSpawn)
 		{
 			if (m_Data.IsPersonal)
-				m_BtnSetSpawn.SetText("Nastavit misto pro vozidlo");
+				m_BtnSetSpawn.SetText(OS_T("Nastavit misto pro vozidlo"));
 			else
-				m_BtnSetSpawn.SetText("ADMIN: nastavit misto spawnu");
+				m_BtnSetSpawn.SetText(OS_T("ADMIN: nastavit misto spawnu"));
 		}
 
 		ShowWidget("GarageLabel", m_Data.Garage);
@@ -215,45 +215,45 @@ class OS_VehicleMenu : OS_MenuBase
 			{
 				string storedLabel = OS_Client.DisplayName(m_Data.Stored[g]);
 				if (g < m_Data.StoredGroup.Count() && m_Data.StoredGroup[g] == 1)
-					storedLabel = storedLabel + "  (skupina)";
+					storedLabel = OS_F("%1  (skupina)", storedLabel);
 				m_GarageList.AddItem(storedLabel, null, 0);
 			}
 		}
 
 		if (m_Data.HasCar)
 		{
-			SetLabel(m_CarName, "Auto: " + OS_Client.DisplayName(m_Data.CarClass));
-			SetLabel(m_CarHealth, "Stav: " + m_Data.HealthPct.ToString() + " %");
-			SetLabel(m_CarFuel, "Palivo: " + m_Data.FuelPct.ToString() + " %");
+			SetLabel(m_CarName, OS_F("Auto: %1", OS_Client.DisplayName(m_Data.CarClass)));
+			SetLabel(m_CarHealth, OS_F("Stav: %1 %", m_Data.HealthPct.ToString()));
+			SetLabel(m_CarFuel, OS_F("Palivo: %1 %", m_Data.FuelPct.ToString()));
 			if (m_Data.OwnerState == 0)
-				SetLabel(m_CarOwner, "Majitel: nikdo");
+				SetLabel(m_CarOwner, OS_T("Majitel: nikdo"));
 			else if (m_Data.OwnerState == 1)
-				SetLabel(m_CarOwner, "Majitel: ty");
+				SetLabel(m_CarOwner, OS_T("Majitel: ty"));
 			else if (m_Data.OwnerState == 3)
-				SetLabel(m_CarOwner, "Majitel: tvoje skupina");
+				SetLabel(m_CarOwner, OS_T("Majitel: tvoje skupina"));
 			else
-				SetLabel(m_CarOwner, "Majitel: jiny hrac");
+				SetLabel(m_CarOwner, OS_T("Majitel: jiny hrac"));
 		}
 		else
 		{
-			SetLabel(m_CarName, "Zadne auto pobliz - prijed s nim blize");
+			SetLabel(m_CarName, OS_T("Zadne auto pobliz - prijed s nim blize"));
 			SetLabel(m_CarHealth, "");
 			SetLabel(m_CarFuel, "");
 			SetLabel(m_CarOwner, "");
 		}
 
 		if (m_BtnRepair)
-			m_BtnRepair.SetText("Opravit (" + m_Data.RepairPrice.ToString() + cur + ")");
+			m_BtnRepair.SetText(OS_F("Opravit (%1%2)", m_Data.RepairPrice.ToString(), cur));
 		if (m_BtnRefuel)
-			m_BtnRefuel.SetText("Natankovat (" + m_Data.RefuelPrice.ToString() + cur + ")");
+			m_BtnRefuel.SetText(OS_F("Natankovat (%1%2)", m_Data.RefuelPrice.ToString(), cur));
 		if (m_BtnParts)
-			m_BtnParts.SetText("Doplnit chybejici dily (" + m_Data.PartPrice.ToString() + cur + "/ks)");
+			m_BtnParts.SetText(OS_F("Doplnit chybejici dily (%1%2/ks)", m_Data.PartPrice.ToString(), cur));
 		if (m_BtnClaim)
-			m_BtnClaim.SetText("Prepsat auto na sebe (" + m_Data.ClaimPrice.ToString() + cur + ")");
+			m_BtnClaim.SetText(OS_F("Prepsat auto na sebe (%1%2)", m_Data.ClaimPrice.ToString(), cur));
 		if (m_BtnStore)
-			m_BtnStore.SetText("Ulozit do garaze (" + m_Data.StoreFee.ToString() + cur + ")");
+			m_BtnStore.SetText(OS_F("Ulozit do garaze (%1%2)", m_Data.StoreFee.ToString(), cur));
 		if (m_BtnRetrieve)
-			m_BtnRetrieve.SetText("Vyzvednout (aut v garazi: " + m_Data.Stored.Count().ToString() + ")");
+			m_BtnRetrieve.SetText(OS_F("Vyzvednout (aut v garazi: %1)", m_Data.Stored.Count().ToString()));
 	}
 
 	protected void SetLabel(TextWidget w, string text)
@@ -279,9 +279,9 @@ class OS_VehicleMenu : OS_MenuBase
 		{
 			int offer = m_OfferList.GetSelectedRow();
 			if (offer < 0)
-				SetStatus("Vyber auto.");
+				SetStatus(OS_T("Vyber auto."));
 			else if (m_Data.OfferPrices[offer] > m_Data.Balance)
-				SetStatus("Nemas dost penez.");
+				SetStatus(OS_T("Nemas dost penez."));
 			else
 				SendAction(OS_VehicleAction.BUY, offer);
 			return true;
@@ -315,7 +315,7 @@ class OS_VehicleMenu : OS_MenuBase
 		{
 			int stored = m_GarageList.GetSelectedRow();
 			if (stored < 0)
-				SetStatus("Vyber auto v garazi.");
+				SetStatus(OS_T("Vyber auto v garazi."));
 			else
 				SendAction(OS_VehicleAction.RETRIEVE, stored);
 			return true;

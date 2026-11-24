@@ -92,15 +92,15 @@ class OS_AtmMenu : OS_MenuBase
 
 		string cur = " " + m_Data.Currency;
 		if (m_CashText)
-			m_CashText.SetText("Hotovost u sebe: " + m_Data.Cash.ToString() + cur);
+			m_CashText.SetText(OS_F("Hotovost u sebe: %1%2", m_Data.Cash.ToString(), cur));
 		if (m_BankText)
-			m_BankText.SetText("Na uctu: " + m_Data.Bank.ToString() + cur);
+			m_BankText.SetText(OS_F("Na uctu: %1%2", m_Data.Bank.ToString(), cur));
 		if (m_FeeText)
 		{
 			if (m_Data.DepositFeePercent > 0)
-				m_FeeText.SetText("Poplatek za vklad: " + m_Data.DepositFeePercent.ToString() + " %");
+				m_FeeText.SetText(OS_F("Poplatek za vklad: %1 %", m_Data.DepositFeePercent.ToString()));
 			else
-				m_FeeText.SetText("Vklad bez poplatku");
+				m_FeeText.SetText(OS_T("Vklad bez poplatku"));
 		}
 
 		// skupinový účet
@@ -108,9 +108,9 @@ class OS_AtmMenu : OS_MenuBase
 		if (m_GroupText)
 		{
 			if (hasGroup)
-				m_GroupText.SetText("Ucet skupiny " + m_Data.GroupName + ": " + m_Data.GroupBalance.ToString() + cur);
+				m_GroupText.SetText(OS_F("Ucet skupiny %1: %2%3", m_Data.GroupName, m_Data.GroupBalance.ToString(), cur));
 			else
-				m_GroupText.SetText("Nejsi ve skupine (klavesa J)");
+				m_GroupText.SetText(OS_T("Nejsi ve skupine (klavesa J)"));
 		}
 		Widget groupDepositW = layoutRoot.FindAnyWidget("BtnGroupDeposit");
 		if (groupDepositW)
@@ -131,9 +131,9 @@ class OS_AtmMenu : OS_MenuBase
 		if (m_TransferFeeText)
 		{
 			if (m_Data.TransferFeePercent > 0)
-				m_TransferFeeText.SetText("Poplatek za prevod: " + m_Data.TransferFeePercent.ToString() + " %");
+				m_TransferFeeText.SetText(OS_F("Poplatek za prevod: %1 %", m_Data.TransferFeePercent.ToString()));
 			else
-				m_TransferFeeText.SetText("Prevod z uctu na ucet, bez poplatku");
+				m_TransferFeeText.SetText(OS_T("Prevod z uctu na ucet, bez poplatku"));
 		}
 
 		if (m_PlayerList)
@@ -190,14 +190,14 @@ class OS_AtmMenu : OS_MenuBase
 
 		if (targetId == "")
 		{
-			SetStatus("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.");
+			SetStatus(OS_T("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID."));
 			return;
 		}
 
 		int amount = ReadInt(m_EditTransferAmount);
 		if (amount <= 0)
 		{
-			SetStatus("Zadej castku k prevodu.");
+			SetStatus(OS_T("Zadej castku k prevodu."));
 			return;
 		}
 
@@ -214,7 +214,7 @@ class OS_AtmMenu : OS_MenuBase
 			int amount = ReadInt(m_EditAmount);
 			if (amount <= 0)
 			{
-				SetStatus("Zadej castku.");
+				SetStatus(OS_T("Zadej castku."));
 				return true;
 			}
 			if (w == m_BtnDeposit)

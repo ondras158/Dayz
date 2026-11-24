@@ -55,6 +55,7 @@ OS_Core/
     ├── Inputs.xml                 klávesy
     ├── 3_Game/   OS_Defines.c     RPC ID, konstanty
     │             OS_Config.c      třídy konfigurace + výchozí hodnoty
+    │             OS_Lang.c        překlady (OS_T / OS_F), OS_LangData.c = vestavěné texty z lang/*.json
     ├── 4_World/  OS_Server*.c     serverová logika (každá funkce zvlášť)
     │             OS_PlayerBase.c  nesmrtelnost, kill feed
     │             OS_ZombieBase.c  odměna za zombíka
@@ -94,11 +95,28 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 <profiles>/OS_Core/
 ├── Loadouts.json   SpawnZones.json   SafeZones.json
 ├── Messages.json   Admins.json       Trader.json     Vehicles.json   Bank.json
+├── Language.json   Lang/cs.json  Lang/en.json  Lang/de.json  Lang/pl.json
 ├── Wallets/<SteamID>.json            bankovní účty hráčů
 └── Garages/<SteamID>.json            auta v garáži
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
 (server pak použije výchozí hodnoty – soubor nepřepíše).
+
+**Jazyk** – v `Language.json` nastav jazyk celého módu (menu, hlášky, názvy kategorií, zvířat, zón...):
+```json
+{ "Language": "en" }
+```
+`cs` = čeština, `en` = English, `de` = Deutsch, `pl` = Polski. Hráči dostanou jazyk od serveru při připojení.
+- **Úprava textů:** `Lang/<jazyk>.json` obsahuje všechny texty jako `"český text": "překlad"`. Změň hodnotu
+  (vpravo), klíč (vlevo) nech být. `%1`, `%2`... jsou čísla a jména doplněná za běhu – musí v textu zůstat.
+  Upravené texty server posílá i hráčům, takže se změní i v menu. Prázdná hodnota = použije se vestavěný text.
+- **Vlastní jazyk:** zkopíruj třeba `Lang/en.json` na `Lang/ru.json`, přelož hodnoty a dej `"Language": "ru"`.
+- Soubory `Lang/*.json` se vytvoří jen když chybí. Po aktualizaci módu s novými texty se nové texty
+  zobrazí ve vestavěném překladu; chceš-li je mít v souboru k úpravě, smaž ho a nech vytvořit znovu.
+- Názvy z configů (kategorie, obchodníci, zóny, zvířata, uvítací zprávy) se překládají, jen pokud
+  mají výchozí hodnotu. Když si je v configu přejmenuješ, zobrazí se tak, jak je napíšeš.
+- Vývoj: nové texty ve skriptech se píšou jako `OS_T("text")` / `OS_F("text %1", hodnota)`,
+  překlady jsou v `lang/*.json` a `python3 tools/i18n_build.py` z nich vygeneruje `OS_LangData.c`.
 
 **Nastavení admina** – do `Admins.json` dej svoje Steam64 ID (17 číslic):
 ```json

@@ -36,6 +36,9 @@ class OS_Server
 	{
 		Print(OS_TAG + "Spoustim server modul...");
 
+		// jazyk jako první - výchozí konfigy i zprávy už v něm
+		OS_Lang.LoadServer();
+
 		OS_TraderConfig traderCfg = OS_ServerTrader.LoadConfig();
 		m_Wallets = new OS_Wallets(traderCfg.StartingBalance);
 
@@ -84,6 +87,9 @@ class OS_Server
 
 	void OnNewCharacter(PlayerBase player)
 	{
+		// jazyk dřív, než klient dostane menu spawnu
+		if (player && player.GetIdentity())
+			OS_Lang.SendToClient(player.GetIdentity());
 		m_Loadouts.Equip(player);
 		m_Spawns.OnNewCharacter(player);
 	}
@@ -93,6 +99,8 @@ class OS_Server
 		// nastavení pro klienta (měna pro názvy bankovek)
 		if (player && player.GetIdentity())
 		{
+			OS_Lang.SendToClient(player.GetIdentity());
+
 			ScriptRPC rpc = new ScriptRPC();
 			rpc.Write(m_Currency);
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());

@@ -6,6 +6,7 @@ Výstup:   OS_Core/GUI/layouts/*.layout
 Pozice a velikosti jsou v pixelech vůči oknu menu (okno je vycentrované).
 """
 import os
+import re
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "OS_Core", "GUI", "layouts")
 
@@ -341,9 +342,56 @@ LAYOUTS["pgarage_menu.layout"] = layout("OS_PersonalGarageMenu", 560, 330, [
     text("Status", 20, 290, 520, 26, "", align="center"),
 ])
 
+TEXTS_FILE = os.path.join(os.path.dirname(__file__), "..", "OS_Core", "Scripts", "5_Mission", "OS_Core", "GUI", "OS_LayoutTexts.c")
+
+
+def write_layout_texts():
+    """texty z layoutů -> OS_LayoutTexts.c (menu je po otevření přeloží přes OS_T)"""
+    pattern = re.compile(r'(?:TextWidgetClass|ButtonWidgetClass) (\w+) \{[^{}]*?\btext "([^"]+)"')
+    lines = ["// VYGENEROVÁNO nástrojem tools/generate_layouts.py - neupravuj ručně.",
+             "// Texty z layoutů; OS_MenuBase je po otevření menu přeloží do jazyka serveru.",
+             "",
+             "class OS_LayoutTexts",
+             "{",
+             "\tstatic void Apply(string layoutName, Widget root)",
+             "\t{",
+             "\t\tif (!root)",
+             "\t\t\treturn;"]
+    for name, content in LAYOUTS.items():
+        found = pattern.findall(content)
+        if not found:
+            continue
+        lines.append(f'\t\tif (layoutName == "{name}")')
+        lines.append("\t\t{")
+        for widget, txt in found:
+            lines.append(f'\t\t\tSet(root, "{widget}", "{txt}");')
+        lines.append("\t\t}")
+    lines += ["\t}",
+              "",
+              "\tprotected static void Set(Widget root, string widgetName, string text)",
+              "\t{",
+              "\t\tWidget w = root.FindAnyWidget(widgetName);",
+              "\t\tTextWidget tw = TextWidget.Cast(w);",
+              "\t\tif (tw)",
+              "\t\t{",
+              "\t\t\ttw.SetText(OS_T(text));",
+              "\t\t\treturn;",
+              "\t\t}",
+              "\t\tButtonWidget bw = ButtonWidget.Cast(w);",
+              "\t\tif (bw)",
+              "\t\t\tbw.SetText(OS_T(text));",
+              "\t}",
+              "}",
+              ""]
+    with open(TEXTS_FILE, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    print("OK: OS_LayoutTexts.c")
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for name, content in LAYOUTS.items():
         with open(os.path.join(OUT, name), "w", newline="\r\n") as f:
             f.write(content)
         print("OK:", name)
+    write_layout_texts()

@@ -79,10 +79,10 @@ class OS_Group
 	static string RoleName(int role)
 	{
 		if (role == OS_GROUP_ROLE_OWNER)
-			return "vlastnik";
+			return OS_T("vlastnik");
 		if (role == OS_GROUP_ROLE_ADMIN)
-			return "admin";
-		return "clen";
+			return OS_T("admin");
+		return OS_T("clen");
 	}
 }
 

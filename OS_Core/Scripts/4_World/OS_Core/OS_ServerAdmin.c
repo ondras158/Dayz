@@ -66,9 +66,9 @@ class OS_ServerAdmin
 
 			string label = player.GetIdentity().GetName();
 			if (!player.IsAlive())
-				label = label + " [mrtvy]";
+				label = OS_F("%1 [mrtvy]", label);
 			if (player.m_OS_AdminGod)
-				label = label + " [GOD]";
+				label = OS_F("%1 [GOD]", label);
 
 			names.Insert(label);
 			ids.Insert(player.GetIdentity().GetPlainId());
@@ -96,7 +96,7 @@ class OS_ServerAdmin
 
 		if (!target)
 		{
-			OS_Util.Notify(admin, "Admin", "Hrac uz neni na serveru.");
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Hrac uz neni na serveru."));
 			return;
 		}
 
@@ -105,7 +105,7 @@ class OS_ServerAdmin
 		if (action == OS_AdminAction.HEAL)
 		{
 			Heal(target);
-			OS_Util.Notify(admin, "Admin", "Vyleceno: " + targetName);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Vyleceno: %1", targetName));
 			Log(admin, "heal " + targetName);
 		}
 		else if (action == OS_AdminAction.KILL)
@@ -128,9 +128,9 @@ class OS_ServerAdmin
 			admin.m_OS_AdminGod = !admin.m_OS_AdminGod;
 			admin.OS_RefreshDamage();
 			if (admin.m_OS_AdminGod)
-				OS_Util.Notify(admin, "Admin", "Godmode ZAPNUT");
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Godmode ZAPNUT"));
 			else
-				OS_Util.Notify(admin, "Admin", "Godmode VYPNUT");
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Godmode VYPNUT"));
 			Log(admin, "godmode " + admin.m_OS_AdminGod.ToString());
 		}
 		else if (action == OS_AdminAction.SPAWN_ITEM)
@@ -141,7 +141,7 @@ class OS_ServerAdmin
 		{
 			int amount = arg.Trim().ToInt();
 			m_Wallets.Add(OS_Util.SteamId(target), amount);
-			OS_Util.Notify(admin, "Admin", targetName + ": " + amount.ToString() + " " + m_Currency + " (zustatek " + m_Wallets.GetBalance(OS_Util.SteamId(target)).ToString() + ")");
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1: %2 %3 (zustatek %4)", targetName, amount.ToString(), m_Currency, m_Wallets.GetBalance(OS_Util.SteamId(target)).ToString()));
 			Log(admin, "penize " + amount.ToString() + " -> " + targetName);
 		}
 		else if (action == OS_AdminAction.TELEPORT_COORDS)
@@ -187,7 +187,7 @@ class OS_ServerAdmin
 
 		if (!OS_Util.IsValidClass(type))
 		{
-			OS_Util.Notify(admin, "Admin", "Neznamy predmet: " + type);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Neznamy predmet: %1", type));
 			return;
 		}
 
@@ -196,7 +196,7 @@ class OS_ServerAdmin
 			OS_Util.GiveItem(target, type);
 		}
 
-		OS_Util.Notify(admin, "Admin", count.ToString() + "x " + type + " -> " + OS_Util.PlayerName(target));
+		OS_Util.Notify(admin, OS_T("Admin"), count.ToString() + "x " + type + " -> " + OS_Util.PlayerName(target));
 		Log(admin, "spawn " + count.ToString() + "x " + type + " -> " + OS_Util.PlayerName(target));
 	}
 
@@ -222,12 +222,12 @@ class OS_ServerAdmin
 
 		if (!best)
 		{
-			OS_Util.Notify(admin, "Admin", "Zadne auto do 15 m.");
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Zadne auto do 15 m."));
 			return;
 		}
 
 		best.OS_SetLocked(false);
-		OS_Util.Notify(admin, "Admin", "Auto odemceno (majitel " + best.OS_GetOwnerId() + ").");
+		OS_Util.Notify(admin, OS_T("Admin"), OS_F("Auto odemceno (majitel %1).", best.OS_GetOwnerId()));
 		Log(admin, "odemkl auto " + best.GetType() + " majitele " + best.OS_GetOwnerId());
 	}
 
@@ -260,7 +260,7 @@ class OS_ServerAdmin
 		}
 		else
 		{
-			OS_Util.Notify(admin, "Admin", "Zadej souradnice jako: X Z");
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Zadej souradnice jako: X Z"));
 			return;
 		}
 

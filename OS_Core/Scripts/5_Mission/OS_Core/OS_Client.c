@@ -131,6 +131,9 @@ class OS_Client
 			case OS_RPC_SETTINGS:
 				OnSettings(ctx);
 				break;
+			case OS_RPC_LANG:
+				OS_Lang.OnClientRPC(ctx);
+				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);
 				break;

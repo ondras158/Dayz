@@ -76,9 +76,9 @@ class OS_AdminMenu : OS_MenuBase
 		if (m_BtnGod)
 		{
 			if (m_God)
-				m_BtnGod.SetText("Godmode: ZAPNUTO");
+				m_BtnGod.SetText(OS_T("Godmode: ZAPNUTO"));
 			else
-				m_BtnGod.SetText("Godmode: VYPNUTO");
+				m_BtnGod.SetText(OS_T("Godmode: VYPNUTO"));
 		}
 	}
 
@@ -111,8 +111,8 @@ class OS_AdminMenu : OS_MenuBase
 		{
 			string name = SelectedName();
 			if (name == "")
-				name = "ja (nikdo neni vybran)";
-			m_Target.SetText("Cil: " + name);
+				name = OS_T("ja (nikdo neni vybran)");
+			m_Target.SetText(OS_F("Cil: %1", name));
 		}
 	}
 
@@ -130,7 +130,7 @@ class OS_AdminMenu : OS_MenuBase
 	{
 		if (SelectedId() != "")
 			return true;
-		SetStatus("Nejdriv vyber hrace v seznamu.");
+		SetStatus(OS_T("Nejdriv vyber hrace v seznamu."));
 		return false;
 	}
 

@@ -69,7 +69,7 @@ class OS_ServerVehicles
 	//! osobní garáž hráče jako dočasné "místo" (jen garáž, žádný prodej ani servis)
 	protected OS_VehicleLocation PersonalLocation(OS_PersonalGarage garage)
 	{
-		OS_VehicleLocation loc = new OS_VehicleLocation("Moje garaz", garage.X, garage.Z);
+		OS_VehicleLocation loc = new OS_VehicleLocation(OS_T("Moje garaz"), garage.X, garage.Z);
 		loc.Radius = m_Cfg.PersonalGarageRadius;
 		loc.Garage = true;
 		loc.Personal = true;
@@ -132,17 +132,17 @@ class OS_ServerVehicles
 				return;
 			if (garage)
 			{
-				OS_Util.Notify(player, "Garaz", "Uz mas osobni garaz. Nejdriv ji zrus.");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_T("Uz mas osobni garaz. Nejdriv ji zrus."));
 				return;
 			}
 			if (TooCloseToOtherGarage(player.GetPosition(), steamId))
 			{
-				OS_Util.Notify(player, "Garaz", "Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_T("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu."));
 				return;
 			}
 			if (!m_Payments.TrySpend(player, m_Cfg.PersonalGarageBuildPrice))
 			{
-				OS_Util.Notify(player, "Garaz", "Stavba stoji " + m_Cfg.PersonalGarageBuildPrice.ToString() + " " + m_Currency + ".");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_F("Stavba stoji %1 %2.", m_Cfg.PersonalGarageBuildPrice.ToString(), m_Currency));
 				return;
 			}
 
@@ -164,7 +164,7 @@ class OS_ServerVehicles
 			m_Personal.Garages.Insert(garage);
 			SavePersonal();
 
-			OS_Util.Notify(player, "Garaz", "Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K)."));
 			Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " postavil osobni garaz na " + garage.X.ToString() + " " + garage.Z.ToString());
 		}
 		else if (action == OS_PersonalGarageAction.REMOVE)
@@ -173,7 +173,7 @@ class OS_ServerVehicles
 				return;
 			m_Personal.Garages.RemoveItem(garage);
 			SavePersonal();
-			OS_Util.Notify(player, "Garaz", "Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi)."));
 		}
 	}
 
@@ -195,33 +195,33 @@ class OS_ServerVehicles
 			OS_PersonalGarage garage = GetPersonal(OS_Util.SteamId(player));
 			if (!garage)
 			{
-				OS_Util.Notify(player, "Garaz", "Nemas osobni garaz.");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_T("Nemas osobni garaz."));
 				return;
 			}
 			if (OS_Util.Distance2D(pos, garage.X, garage.Z) > m_Cfg.PersonalSpawnMaxDistance)
 			{
-				OS_Util.Notify(player, "Garaz", "Misto je moc daleko od garaze (max " + m_Cfg.PersonalSpawnMaxDistance.ToString() + " m).");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_F("Misto je moc daleko od garaze (max %1 m).", m_Cfg.PersonalSpawnMaxDistance.ToString()));
 				return;
 			}
 			garage.SpawnX = x;
 			garage.SpawnZ = z;
 			garage.SpawnYaw = yaw;
 			SavePersonal();
-			OS_Util.Notify(player, "Garaz", "Misto pro vozidlo ulozeno.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Misto pro vozidlo ulozeno."));
 			return;
 		}
 
 		// místo z Vehicles.json - jen admin
 		if (!m_Admin || !m_Admin.IsAdmin(player.GetIdentity()))
 		{
-			OS_Util.Notify(player, "Auta", "Misto spawnu tady nastavuje jen admin.");
+			OS_Util.Notify(player, OS_T("Auta"), OS_T("Misto spawnu tady nastavuje jen admin."));
 			return;
 		}
 
 		OS_VehicleLocation loc = NearestConfigLocation(pos);
 		if (!loc)
 		{
-			OS_Util.Notify(player, "Auta", "Zadne autocentrum, heliport, pristav ani verejna garaz pobliz (max " + m_Cfg.AdminSpawnMaxDistance.ToString() + " m).");
+			OS_Util.Notify(player, OS_T("Auta"), OS_F("Zadne autocentrum, heliport, pristav ani verejna garaz pobliz (max %1 m).", m_Cfg.AdminSpawnMaxDistance.ToString()));
 			return;
 		}
 
@@ -229,7 +229,7 @@ class OS_ServerVehicles
 		loc.SpawnZ = z;
 		loc.SpawnYaw = yaw;
 		SaveConfig();
-		OS_Util.Notify(player, "Auta", "Misto spawnu ulozeno: " + loc.Name);
+		OS_Util.Notify(player, OS_T("Auta"), OS_F("Misto spawnu ulozeno: %1", OS_T(loc.Name)));
 		Print(OS_TAG + "ADMIN " + OS_Util.PlayerName(player) + " nastavil spawn " + loc.Name + " na " + x.ToString() + " " + z.ToString() + " (" + yaw.ToString() + ")");
 	}
 
@@ -393,14 +393,14 @@ class OS_ServerVehicles
 	{
 		string category = LocationCategory(loc);
 		if (category == "heli")
-			return "Helikoptery";
+			return OS_T("Helikoptery");
 		if (category == "boat")
-			return "Lode";
+			return OS_T("Lode");
 		if (category == "bike")
-			return "Motorky";
+			return OS_T("Motorky");
 		if (category == "mixed")
-			return "Prodej vozidel";
-		return "Autobazar";
+			return OS_T("Prodej vozidel");
+		return OS_T("Autobazar");
 	}
 
 	protected bool IsSpawnBlocked(vector pos, float radius = 5)
@@ -497,7 +497,7 @@ class OS_ServerVehicles
 		OS_VehicleLocation loc = NearLocation(player);
 		if (!loc)
 		{
-			OS_Util.Notify(player, "Auta", "Musis stat u autobazaru, servisu nebo garaze.");
+			OS_Util.Notify(player, OS_T("Auta"), OS_T("Musis stat u autobazaru, servisu nebo garaze."));
 			return true;
 		}
 
@@ -596,7 +596,7 @@ class OS_ServerVehicles
 		}
 
 		ScriptRPC rpc = new ScriptRPC();
-		rpc.Write(loc.Name);
+		rpc.Write(OS_T(loc.Name));
 		rpc.Write(LocationCategory(loc));
 		rpc.Write(m_Currency);
 		rpc.Write(m_Payments.Available(player));
@@ -675,14 +675,14 @@ class OS_ServerVehicles
 
 		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ), loc.SpawnClearRadius))
 		{
-			OS_Util.Notify(player, title, "Misto pro vozidlo je obsazene - nejdriv odvez to, ktere tam stoji.");
+			OS_Util.Notify(player, title, OS_T("Misto pro vozidlo je obsazene - nejdriv odvez to, ktere tam stoji."));
 			return;
 		}
 
 		string steamId = OS_Util.SteamId(player);
 		if (!m_Payments.TrySpend(player, offer.Price))
 		{
-			OS_Util.Notify(player, "Autobazar", "Nemas dost penez.");
+			OS_Util.Notify(player, OS_T("Autobazar"), OS_T("Nemas dost penez."));
 			return;
 		}
 
@@ -690,7 +690,7 @@ class OS_ServerVehicles
 		if (!vehicle)
 		{
 			m_Payments.Pay(player, offer.Price);
-			OS_Util.Notify(player, title, "Vozidlo se nepodarilo vytvorit (spatny classname v Vehicles.json, nebo chybi mod?).");
+			OS_Util.Notify(player, title, OS_T("Vozidlo se nepodarilo vytvorit (spatny classname v Vehicles.json, nebo chybi mod?)."));
 			return;
 		}
 
@@ -702,7 +702,7 @@ class OS_ServerVehicles
 		// plné nádrže (auta, lodě i helikoptéry - jen kapaliny, které vozidlo má) + majitel
 		FillAll(vehicle);
 		vehicle.OS_SetOwner(steamId);
-		OS_Util.Notify(player, title, "Vozidlo je pripravene a patri tobe. Zamknes ho klavesou F.");
+		OS_Util.Notify(player, title, OS_T("Vozidlo je pripravene a patri tobe. Zamknes ho klavesou F."));
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());
 	}
 
@@ -711,20 +711,20 @@ class OS_ServerVehicles
 		Transport car = FindCar(player);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Zadne auto pobliz."));
 			return;
 		}
 
 		int price = RepairPrice(car);
 		if (price <= 0)
 		{
-			OS_Util.Notify(player, "Servis", "Auto je v poradku.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Auto je v poradku."));
 			return;
 		}
 
 		if (!m_Payments.TrySpend(player, price))
 		{
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + price.ToString() + " " + m_Currency + ").");
+			OS_Util.Notify(player, OS_T("Servis"), OS_F("Nemas dost penez (%1 %2).", price.ToString(), m_Currency));
 			return;
 		}
 
@@ -743,7 +743,7 @@ class OS_ServerVehicles
 				att.SetHealthMax("", "");
 		}
 
-		OS_Util.Notify(player, "Servis", "Auto opraveno za " + price.ToString() + " " + m_Currency + ".");
+		OS_Util.Notify(player, OS_T("Servis"), OS_F("Auto opraveno za %1 %2.", price.ToString(), m_Currency));
 	}
 
 	protected void Refuel(PlayerBase player)
@@ -751,25 +751,25 @@ class OS_ServerVehicles
 		Transport car = FindCar(player);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Zadne auto pobliz."));
 			return;
 		}
 
 		int price = RefuelPrice(car);
 		if (price <= 0)
 		{
-			OS_Util.Notify(player, "Servis", "Nadrz je plna.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Nadrz je plna."));
 			return;
 		}
 
 		if (!m_Payments.TrySpend(player, price))
 		{
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + price.ToString() + " " + m_Currency + ").");
+			OS_Util.Notify(player, OS_T("Servis"), OS_F("Nemas dost penez (%1 %2).", price.ToString(), m_Currency));
 			return;
 		}
 
 		car.FillScript(ETransportFluid.FUEL, MissingFuel(car));
-		OS_Util.Notify(player, "Servis", "Natankovano za " + price.ToString() + " " + m_Currency + ".");
+		OS_Util.Notify(player, OS_T("Servis"), OS_F("Natankovano za %1 %2.", price.ToString(), m_Currency));
 	}
 
 	protected void AddMissingParts(PlayerBase player)
@@ -777,14 +777,14 @@ class OS_ServerVehicles
 		Transport car = FindCar(player);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Zadne auto pobliz."));
 			return;
 		}
 
 		OS_VehicleOffer offer = FindOffer(car.GetType());
 		if (!offer)
 		{
-			OS_Util.Notify(player, "Servis", "Pro tento typ auta nemame dily.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Pro tento typ auta nemame dily."));
 			return;
 		}
 
@@ -799,7 +799,7 @@ class OS_ServerVehicles
 
 		if (created.Count() == 0)
 		{
-			OS_Util.Notify(player, "Servis", "Auto ma vsechny dily.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Auto ma vsechny dily."));
 			return;
 		}
 
@@ -810,11 +810,11 @@ class OS_ServerVehicles
 			{
 				g_Game.ObjectDelete(undo);
 			}
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + price.ToString() + " " + m_Currency + ").");
+			OS_Util.Notify(player, OS_T("Servis"), OS_F("Nemas dost penez (%1 %2).", price.ToString(), m_Currency));
 			return;
 		}
 
-		OS_Util.Notify(player, "Servis", "Doplneno dilu: " + created.Count().ToString() + " za " + price.ToString() + " " + m_Currency + ".");
+		OS_Util.Notify(player, OS_T("Servis"), OS_F("Doplneno dilu: %1 za %2 %3.", created.Count().ToString(), price.ToString(), m_Currency));
 	}
 
 	// ------------------------------------------------------------ vlastnictví
@@ -835,24 +835,24 @@ class OS_ServerVehicles
 		Transport car = FindCar(player);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Zadne auto pobliz."));
 			return;
 		}
 		if (car.OS_HasOwner())
 		{
-			OS_Util.Notify(player, "Servis", "Auto uz ma majitele.");
+			OS_Util.Notify(player, OS_T("Servis"), OS_T("Auto uz ma majitele."));
 			return;
 		}
 
 		string steamId = OS_Util.SteamId(player);
 		if (!m_Payments.TrySpend(player, m_Cfg.ClaimPrice))
 		{
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ClaimPrice.ToString() + " " + m_Currency + ").");
+			OS_Util.Notify(player, OS_T("Servis"), OS_F("Nemas dost penez (%1 %2).", m_Cfg.ClaimPrice.ToString(), m_Currency));
 			return;
 		}
 
 		car.OS_SetOwner(steamId);
-		OS_Util.Notify(player, "Servis", "Auto je tvoje. Zamknes ho u auta klavesou F.");
+		OS_Util.Notify(player, OS_T("Servis"), OS_T("Auto je tvoje. Zamknes ho u auta klavesou F."));
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " prepsal na sebe " + car.GetType());
 	}
 
@@ -907,17 +907,17 @@ class OS_ServerVehicles
 		Transport car = FindCar(player);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Garaz", "Zadne auto pobliz.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Zadne auto pobliz."));
 			return;
 		}
 		if (HasCrew(car))
 		{
-			OS_Util.Notify(player, "Garaz", "V aute nekdo sedi.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("V aute nekdo sedi."));
 			return;
 		}
 		if (HasCargo(car))
 		{
-			OS_Util.Notify(player, "Garaz", "Nejdriv vyndej vsechny veci z auta.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Nejdriv vyndej vsechny veci z auta."));
 			return;
 		}
 
@@ -928,7 +928,7 @@ class OS_ServerVehicles
 			bool sharedWithMe = car.OS_GetGroupId() != 0 && car.OS_GetGroupId() == PlayerGroupId(steamId);
 			if (!sharedWithMe && (!m_Groups || !m_Groups.SameGroup(steamId, car.OS_GetOwnerId())))
 			{
-				OS_Util.Notify(player, "Garaz", "Tohle auto ti nepatri.");
+				OS_Util.Notify(player, OS_T("Garaz"), OS_T("Tohle auto ti nepatri."));
 				return;
 			}
 		}
@@ -946,13 +946,13 @@ class OS_ServerVehicles
 		OS_GarageData garage = LoadGarage(garageKey);
 		if (garage.Vehicles.Count() >= garageMax)
 		{
-			OS_Util.Notify(player, "Garaz", "Garaz je plna (max " + garageMax.ToString() + ").");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_F("Garaz je plna (max %1).", garageMax.ToString()));
 			return;
 		}
 
 		if (!m_Payments.TrySpend(player, m_Cfg.GarageStoreFee))
 		{
-			OS_Util.Notify(player, "Garaz", "Nemas dost penez na poplatek.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Nemas dost penez na poplatek."));
 			return;
 		}
 
@@ -997,15 +997,15 @@ class OS_ServerVehicles
 		if (!SaveGarage(garageKey, garage))
 		{
 			m_Payments.Pay(player, m_Cfg.GarageStoreFee);
-			OS_Util.Notify(player, "Garaz", "Chyba pri ukladani - auto zustava venku.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Chyba pri ukladani - auto zustava venku."));
 			return;
 		}
 
 		g_Game.ObjectDelete(car);
 		if (groupKey != "")
-			OS_Util.Notify(player, "Garaz", "Auto ulozeno do garaze skupiny.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Auto ulozeno do garaze skupiny."));
 		else
-			OS_Util.Notify(player, "Garaz", "Auto ulozeno do garaze.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Auto ulozeno do garaze."));
 		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " ulozil " + sv.ClassName + " (" + garageKey + ")");
 	}
 
@@ -1032,7 +1032,7 @@ class OS_ServerVehicles
 
 		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ), loc.SpawnClearRadius))
 		{
-			OS_Util.Notify(player, "Garaz", "Parkovaci misto je obsazene.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Parkovaci misto je obsazene."));
 			return;
 		}
 
@@ -1040,7 +1040,7 @@ class OS_ServerVehicles
 		Transport car = SpawnVehicle(sv.ClassName, loc);
 		if (!car)
 		{
-			OS_Util.Notify(player, "Garaz", "Auto se nepodarilo vytvorit.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Auto se nepodarilo vytvorit."));
 			return;
 		}
 
@@ -1049,7 +1049,7 @@ class OS_ServerVehicles
 		if (!SaveGarage(garageKey, garage))
 		{
 			g_Game.ObjectDelete(car);
-			OS_Util.Notify(player, "Garaz", "Chyba pri ukladani garaze.");
+			OS_Util.Notify(player, OS_T("Garaz"), OS_T("Chyba pri ukladani garaze."));
 			return;
 		}
 
@@ -1084,7 +1084,7 @@ class OS_ServerVehicles
 			car.OS_SetGroup(sv.GroupId);
 		car.OS_SetLocked(false);
 
-		OS_Util.Notify(player, "Garaz", "Auto vyzvednuto - stoji na parkovisti.");
+		OS_Util.Notify(player, OS_T("Garaz"), OS_T("Auto vyzvednuto - stoji na parkovisti."));
 		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " vyzvedl " + sv.ClassName + " (" + garageKey + ")");
 	}
 }
