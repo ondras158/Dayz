@@ -157,6 +157,14 @@ přidej jejich classname a díly).
   ```
   Bankovka je na šířku uprostřed čtvercové textury (`--layout center`). Když se ve hře zobrazí špatně
   (malá nebo zdeformovaná), zkus `--layout full`. `--size 1024` (výchozí) / `2048` pro ostřejší.
+- **AI bankovky přes Gemini API** (vyžaduje API klíč s **placeným tarifem** – obrázky nejsou ve free tieru):
+  ```bash
+  export GEMINI_API_KEY=...            # klíč nikdy neukládej do repozitáře
+  python3 tools/gemini_banknotes.py --values 5,10,20,50,100,200,500   # podklady bez textu -> money_images/raw/
+  python3 tools/finish_banknotes.py --currency EUR --title "OS CORE"  # dopíše přesné nápisy -> money_images/
+  python3 tools/import_money_images.py --mode fill                    # textury módu
+  ```
+  Model jde změnit `--model` (`gemini-3.1-flash-image` výchozí, `gemini-3-pro-image` kvalitnější a dražší).
 - **Jednoduchý potisk** (původní, čtvercový):
   ```bash
   python3 tools/generate_money_textures.py --currency EUR --title "OS CORE" --preview 5,10,20,50,100,200,500
