@@ -310,6 +310,14 @@ class OS_TraderConfig
 		tailor.Categories.Insert("Batohy");
 		Traders.Insert(tailor);
 
+		OS_TraderLocation grocer = new OS_TraderLocation("Priklad - Potraviny", 2000, 2040, 10);
+		grocer.Categories.Insert("Jidlo a piti");
+		Traders.Insert(grocer);
+
+		OS_TraderLocation pharmacy = new OS_TraderLocation("Priklad - Lekarna", 2000, 1960, 10);
+		pharmacy.Categories.Insert("Medicina");
+		Traders.Insert(pharmacy);
+
 		ExcludeContains.Insert("_Base");
 		ExcludeContains.Insert("Debug");
 		ExcludeContains.Insert("Static");
