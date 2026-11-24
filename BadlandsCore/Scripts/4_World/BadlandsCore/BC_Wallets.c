@@ -17,6 +17,31 @@ class BC_Wallets
 		MakeDirectory(BC_DIR + "Wallets");
 	}
 
+	//! Steam64 ID = přesně 17 číslic (chrání i před zneužitím názvu souboru)
+	static bool IsValidSteamId(string steamId)
+	{
+		if (steamId.Length() != 17)
+			return false;
+		string digits = "0123456789";
+		for (int i = 0; i < steamId.Length(); i++)
+		{
+			string ch = steamId.Get(i);
+			if (digits.IndexOf(ch) == -1)
+				return false;
+		}
+		return true;
+	}
+
+	//! Má hráč účet? (už někdy hrál na serveru)
+	bool HasAccount(string steamId)
+	{
+		if (!IsValidSteamId(steamId))
+			return false;
+		if (m_Cache.Contains(steamId))
+			return true;
+		return FileExist(PathFor(steamId));
+	}
+
 	protected string PathFor(string steamId)
 	{
 		return BC_DIR + "Wallets/" + steamId + ".json";

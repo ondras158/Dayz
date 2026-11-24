@@ -22,6 +22,9 @@ class BC_BankConfig
 	bool UseCash = true;            // obchod, autobazar i servis platí a vyplácí v hotovosti (předmět BC_Money)
 	bool ShopsAcceptBank = false;   // když hotovost nestačí, doplatit z účtu (jako platba kartou)
 	float DepositFeePercent = 0;    // poplatek za vklad v %
+	bool AllowTransfers = true;     // převod z účtu na účet jiného hráče (v bankomatu)
+	float TransferFeePercent = 0;   // poplatek za převod v %
+	int MinTransfer = 1;
 	ref array<ref BC_AtmLocation> Atms = new array<ref BC_AtmLocation>;
 	ref array<string> AtmObjectClasses = new array<string>;   // objekty na mapě, které fungují jako bankomat
 	float AtmObjectRadius = 2.5;

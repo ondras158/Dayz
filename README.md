@@ -135,6 +135,10 @@ přidej jejich classname a díly).
   Peníze na účtu (`Wallets/<SteamID>.json`) jsou v bezpečí i po smrti.
 - `Atms` = místa bankomatů (X, Z, Radius). `AtmObjectClasses` = classname objektů na mapě, které mají fungovat
   jako bankomat (pokud mapa nějaké má, např. `"Land_..."` – zjistíš v editoru nebo admin nástrojem).
+- **Převod jinému hráči** (v bankomatu): z účtu na účet. Příjemce vybereš ze seznamu hráčů online,
+  nebo zadáš jeho Steam64 ID (17 číslic) – pak jde poslat i hráči offline, pokud už na serveru někdy hrál.
+  Příjemce online dostane oznámení. `AllowTransfers` (zapnout/vypnout), `TransferFeePercent` (poplatek
+  připočtený odesílateli), `MinTransfer`. Každý převod se zapíše do logu serveru.
 - `ShopsAcceptBank: true` = když hotovost nestačí, obchod doplatí z účtu (jako kartou).
 - `UseCash: false` = vypne hotovost, vše jde přímo přes účet (původní chování).
 - `DepositFeePercent` = poplatek za vklad. Startovní peníze (`StartingBalance` v `Trader.json`)

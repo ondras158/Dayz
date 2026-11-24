@@ -9,7 +9,7 @@ FrameWidgetClass BC_AtmMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 520 400
+   size 860 420
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -20,7 +20,7 @@ FrameWidgetClass BC_AtmMenu {
    {
     TextWidgetClass Title {
      position 20 12
-     size 480 36
+     size 820 36
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -33,7 +33,7 @@ FrameWidgetClass BC_AtmMenu {
     }
     TextWidgetClass CashText {
      position 20 60
-     size 480 28
+     size 400 28
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -46,7 +46,7 @@ FrameWidgetClass BC_AtmMenu {
     }
     TextWidgetClass BankText {
      position 20 90
-     size 480 28
+     size 400 28
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -59,7 +59,7 @@ FrameWidgetClass BC_AtmMenu {
     }
     TextWidgetClass FeeText {
      position 20 120
-     size 480 24
+     size 400 24
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -72,7 +72,7 @@ FrameWidgetClass BC_AtmMenu {
     }
     TextWidgetClass AmountLabel {
      position 20 160
-     size 120 34
+     size 100 34
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -85,8 +85,8 @@ FrameWidgetClass BC_AtmMenu {
     }
     PanelWidgetClass EditAmountBg {
      color 0 0 0 0.7
-     position 140 160
-     size 360 34
+     position 120 160
+     size 300 34
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -95,8 +95,8 @@ FrameWidgetClass BC_AtmMenu {
      style rover_sim_colorable
     }
     EditBoxWidgetClass EditAmount {
-     position 146 162
-     size 348 30
+     position 126 162
+     size 288 30
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -106,7 +106,7 @@ FrameWidgetClass BC_AtmMenu {
     ButtonWidgetClass BtnDeposit {
      color 0.25 0.22 0.18 1
      position 20 210
-     size 230 40
+     size 195 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -117,8 +117,8 @@ FrameWidgetClass BC_AtmMenu {
     }
     ButtonWidgetClass BtnWithdraw {
      color 0.25 0.22 0.18 1
-     position 270 210
-     size 230 40
+     position 225 210
+     size 195 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -130,7 +130,7 @@ FrameWidgetClass BC_AtmMenu {
     ButtonWidgetClass BtnDepositAll {
      color 0.25 0.22 0.18 1
      position 20 258
-     size 230 40
+     size 195 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -141,8 +141,8 @@ FrameWidgetClass BC_AtmMenu {
     }
     ButtonWidgetClass BtnWithdrawAll {
      color 0.25 0.22 0.18 1
-     position 270 258
-     size 230 40
+     position 225 258
+     size 195 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -153,8 +153,8 @@ FrameWidgetClass BC_AtmMenu {
     }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 316
-     size 480 40
+     position 20 330
+     size 400 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -163,9 +163,133 @@ FrameWidgetClass BC_AtmMenu {
      text "Zavrit"
      font "gui/fonts/metron"
     }
+    TextWidgetClass TransferLabel {
+     position 440 60
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Prevod jinemu hraci (online)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass PlayerListBg {
+     color 0 0 0 0.6
+     position 440 88
+     size 400 130
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass PlayerList {
+     position 444 92
+     size 392 122
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass TargetIdLabel {
+     position 440 224
+     size 150 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "nebo Steam64 ID"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditTargetIdBg {
+     color 0 0 0 0.7
+     position 590 224
+     size 250 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditTargetId {
+     position 596 226
+     size 238 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass TransferAmountLabel {
+     position 440 260
+     size 150 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Castka"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditTransferAmountBg {
+     color 0 0 0 0.7
+     position 590 260
+     size 250 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditTransferAmount {
+     position 596 262
+     size 238 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnTransfer {
+     color 0.25 0.22 0.18 1
+     position 440 298
+     size 400 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Poslat z uctu"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass TransferFeeText {
+     position 440 342
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
     TextWidgetClass Status {
-     position 20 364
-     size 480 26
+     position 20 384
+     size 820 26
      hexactpos 1
      vexactpos 1
      hexactsize 1

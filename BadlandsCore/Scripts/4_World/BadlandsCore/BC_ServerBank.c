@@ -66,7 +66,7 @@ class BC_ServerBank
 
 	bool OnRPC(PlayerIdentity sender, int rpcType, ParamsReadContext ctx)
 	{
-		if (rpcType != BC_RPC_BANK_ACTION)
+		if (rpcType != BC_RPC_BANK_ACTION && rpcType != BC_RPC_BANK_TRANSFER)
 			return false;
 
 		PlayerBase player = BC_Util.FindPlayer(sender);
@@ -76,6 +76,16 @@ class BC_ServerBank
 		if (!IsNearAtm(player))
 		{
 			BC_Util.Notify(player, "Bankomat", "Musis stat u bankomatu.");
+			return true;
+		}
+
+		if (rpcType == BC_RPC_BANK_TRANSFER)
+		{
+			string targetId;
+			int transferAmount;
+			if (ctx.Read(targetId) && ctx.Read(transferAmount))
+				Transfer(player, targetId, transferAmount);
+			SendData(player);
 			return true;
 		}
 
@@ -147,6 +157,65 @@ class BC_ServerBank
 		Print(BC_TAG + "BANKA " + BC_Util.PlayerName(player) + " vyber " + amount.ToString());
 	}
 
+	protected void Transfer(PlayerBase player, string targetId, int amount)
+	{
+		if (!m_Cfg.AllowTransfers)
+		{
+			BC_Util.Notify(player, "Bankomat", "Prevody jsou vypnute.");
+			return;
+		}
+
+		targetId.TrimInPlace();
+		string senderId = BC_Util.SteamId(player);
+
+		if (!BC_Wallets.IsValidSteamId(targetId))
+		{
+			BC_Util.Notify(player, "Bankomat", "Neplatne Steam ID (17 cislic).");
+			return;
+		}
+		if (targetId == senderId)
+		{
+			BC_Util.Notify(player, "Bankomat", "Nemuzes posilat penize sam sobe.");
+			return;
+		}
+		if (amount < m_Cfg.MinTransfer)
+		{
+			BC_Util.Notify(player, "Bankomat", "Minimalni castka je " + m_Cfg.MinTransfer.ToString() + " " + m_Currency + ".");
+			return;
+		}
+
+		PlayerBase target = BC_Util.FindPlayerBySteamId(targetId);
+		if (!target && !m_Wallets.HasAccount(targetId))
+		{
+			BC_Util.Notify(player, "Bankomat", "Hrac s timto Steam ID na serveru nikdy nehral.");
+			return;
+		}
+
+		int fee = Math.Floor(amount * m_Cfg.TransferFeePercent / 100);
+		int total = amount + fee;
+		if (!m_Wallets.TrySpend(senderId, total))
+		{
+			BC_Util.Notify(player, "Bankomat", "Na uctu nemas dost penez (" + total.ToString() + " " + m_Currency + ").");
+			return;
+		}
+
+		m_Wallets.Add(targetId, amount);
+
+		string targetName = targetId;
+		if (target)
+			targetName = BC_Util.PlayerName(target);
+
+		string msg = "Odeslano " + amount.ToString() + " " + m_Currency + " hraci " + targetName;
+		if (fee > 0)
+			msg = msg + " (poplatek " + fee.ToString() + ")";
+		BC_Util.Notify(player, "Bankomat", msg);
+
+		if (target)
+			BC_Util.Notify(target, "Banka", BC_Util.PlayerName(player) + " ti poslal " + amount.ToString() + " " + m_Currency + " na ucet.");
+
+		Print(BC_TAG + "BANKA prevod " + amount.ToString() + " od " + BC_Util.PlayerName(player) + " (" + senderId + ") pro " + targetName + " (" + targetId + ")");
+	}
+
 	protected void SendData(PlayerBase player)
 	{
 		ScriptRPC rpc = new ScriptRPC();
@@ -154,6 +223,27 @@ class BC_ServerBank
 		rpc.Write(BC_Money.CountCash(player));
 		rpc.Write(m_Wallets.GetBalance(BC_Util.SteamId(player)));
 		rpc.Write(m_Cfg.DepositFeePercent);
+
+		// hráči online (pro převod), bez sebe sama
+		array<string> names = new array<string>;
+		array<string> ids = new array<string>;
+		if (m_Cfg.AllowTransfers)
+		{
+			array<Man> players = new array<Man>;
+			g_Game.GetPlayers(players);
+			foreach (Man man : players)
+			{
+				PlayerBase other = PlayerBase.Cast(man);
+				if (!other || other == player || !other.GetIdentity())
+					continue;
+				names.Insert(other.GetIdentity().GetName());
+				ids.Insert(other.GetIdentity().GetPlainId());
+			}
+		}
+		rpc.Write(m_Cfg.AllowTransfers);
+		rpc.Write(m_Cfg.TransferFeePercent);
+		rpc.Write(names);
+		rpc.Write(ids);
 		rpc.Send(null, BC_RPC_BANK_DATA, true, player.GetIdentity());
 	}
 }

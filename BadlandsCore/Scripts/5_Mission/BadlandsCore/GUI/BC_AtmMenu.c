@@ -1,9 +1,29 @@
+// Data bankomatu - pořadí čtení musí odpovídat BC_ServerBank.SendData
+
+class BC_AtmData
+{
+	string Currency;
+	int Cash;
+	int Bank;
+	float DepositFeePercent;
+	bool AllowTransfers;
+	float TransferFeePercent;
+	ref array<string> PlayerNames = new array<string>;
+	ref array<string> PlayerIds = new array<string>;
+
+	bool Read(ParamsReadContext ctx)
+	{
+		if (!ctx.Read(Currency) || !ctx.Read(Cash) || !ctx.Read(Bank) || !ctx.Read(DepositFeePercent))
+			return false;
+		if (!ctx.Read(AllowTransfers) || !ctx.Read(TransferFeePercent) || !ctx.Read(PlayerNames) || !ctx.Read(PlayerIds))
+			return false;
+		return true;
+	}
+}
+
 class BC_AtmMenu : BC_MenuBase
 {
-	protected string m_Currency;
-	protected int m_Cash;
-	protected int m_Bank;
-	protected float m_FeePercent;
+	protected ref BC_AtmData m_Data;
 
 	protected TextWidget m_CashText;
 	protected TextWidget m_BankText;
@@ -15,17 +35,20 @@ class BC_AtmMenu : BC_MenuBase
 	protected ButtonWidget m_BtnWithdrawAll;
 	protected ButtonWidget m_BtnClose;
 
+	protected TextListboxWidget m_PlayerList;
+	protected EditBoxWidget m_EditTargetId;
+	protected EditBoxWidget m_EditTransferAmount;
+	protected ButtonWidget m_BtnTransfer;
+	protected TextWidget m_TransferFeeText;
+
 	override string LayoutName()
 	{
 		return "atm_menu.layout";
 	}
 
-	void SetData(string currency, int cash, int bank, float feePercent)
+	void SetData(BC_AtmData data)
 	{
-		m_Currency = currency;
-		m_Cash = cash;
-		m_Bank = bank;
-		m_FeePercent = feePercent;
+		m_Data = data;
 		if (layoutRoot)
 			Refresh();
 	}
@@ -41,29 +64,79 @@ class BC_AtmMenu : BC_MenuBase
 		m_BtnWithdraw = FindButton("BtnWithdraw");
 		m_BtnWithdrawAll = FindButton("BtnWithdrawAll");
 		m_BtnClose = FindButton("BtnClose");
+
+		m_PlayerList = FindList("PlayerList");
+		m_EditTargetId = FindEdit("EditTargetId");
+		m_EditTransferAmount = FindEdit("EditTransferAmount");
+		m_BtnTransfer = FindButton("BtnTransfer");
+		m_TransferFeeText = FindText("TransferFeeText");
+
 		Refresh();
 	}
 
 	protected void Refresh()
 	{
+		if (!m_Data)
+			return;
+
+		string cur = " " + m_Data.Currency;
 		if (m_CashText)
-			m_CashText.SetText("Hotovost u sebe: " + m_Cash.ToString() + " " + m_Currency);
+			m_CashText.SetText("Hotovost u sebe: " + m_Data.Cash.ToString() + cur);
 		if (m_BankText)
-			m_BankText.SetText("Na uctu: " + m_Bank.ToString() + " " + m_Currency);
+			m_BankText.SetText("Na uctu: " + m_Data.Bank.ToString() + cur);
 		if (m_FeeText)
 		{
-			if (m_FeePercent > 0)
-				m_FeeText.SetText("Poplatek za vklad: " + m_FeePercent.ToString() + " %");
+			if (m_Data.DepositFeePercent > 0)
+				m_FeeText.SetText("Poplatek za vklad: " + m_Data.DepositFeePercent.ToString() + " %");
 			else
 				m_FeeText.SetText("Vklad bez poplatku");
 		}
+
+		// sekce převodu
+		array<string> transferWidgets = {"TransferLabel", "PlayerListBg", "PlayerList", "TargetIdLabel", "EditTargetIdBg", "EditTargetId", "TransferAmountLabel", "EditTransferAmountBg", "EditTransferAmount", "BtnTransfer", "TransferFeeText"};
+		foreach (string widgetName : transferWidgets)
+		{
+			Widget w = layoutRoot.FindAnyWidget(widgetName);
+			if (w)
+				w.Show(m_Data.AllowTransfers);
+		}
+
+		if (m_TransferFeeText)
+		{
+			if (m_Data.TransferFeePercent > 0)
+				m_TransferFeeText.SetText("Poplatek za prevod: " + m_Data.TransferFeePercent.ToString() + " %");
+			else
+				m_TransferFeeText.SetText("Prevod z uctu na ucet, bez poplatku");
+		}
+
+		if (m_PlayerList)
+		{
+			string previous = SelectedPlayerId();
+			m_PlayerList.ClearItems();
+			for (int i = 0; i < m_Data.PlayerNames.Count(); i++)
+			{
+				m_PlayerList.AddItem(m_Data.PlayerNames[i], null, 0);
+				if (i < m_Data.PlayerIds.Count() && m_Data.PlayerIds[i] == previous)
+					m_PlayerList.SelectRow(i);
+			}
+		}
 	}
 
-	protected int ReadAmount()
+	protected string SelectedPlayerId()
 	{
-		if (!m_EditAmount)
+		if (!m_PlayerList || !m_Data)
+			return "";
+		int row = m_PlayerList.GetSelectedRow();
+		if (row >= 0 && row < m_Data.PlayerIds.Count())
+			return m_Data.PlayerIds[row];
+		return "";
+	}
+
+	protected int ReadInt(EditBoxWidget edit)
+	{
+		if (!edit)
 			return 0;
-		string text = m_EditAmount.GetText();
+		string text = edit.GetText();
 		text.TrimInPlace();
 		return text.ToInt();
 	}
@@ -76,11 +149,42 @@ class BC_AtmMenu : BC_MenuBase
 		rpc.Send(null, BC_RPC_BANK_ACTION, true, null);
 	}
 
+	protected void Transfer()
+	{
+		// ručně zadané Steam ID má přednost před výběrem ze seznamu
+		string targetId = "";
+		if (m_EditTargetId)
+		{
+			targetId = m_EditTargetId.GetText();
+			targetId.TrimInPlace();
+		}
+		if (targetId == "")
+			targetId = SelectedPlayerId();
+
+		if (targetId == "")
+		{
+			SetStatus("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.");
+			return;
+		}
+
+		int amount = ReadInt(m_EditTransferAmount);
+		if (amount <= 0)
+		{
+			SetStatus("Zadej castku k prevodu.");
+			return;
+		}
+
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(targetId);
+		rpc.Write(amount);
+		rpc.Send(null, BC_RPC_BANK_TRANSFER, true, null);
+	}
+
 	override bool OnClick(Widget w, int x, int y, int button)
 	{
 		if (w == m_BtnDeposit || w == m_BtnWithdraw)
 		{
-			int amount = ReadAmount();
+			int amount = ReadInt(m_EditAmount);
 			if (amount <= 0)
 			{
 				SetStatus("Zadej castku.");
@@ -100,6 +204,11 @@ class BC_AtmMenu : BC_MenuBase
 		if (w == m_BtnWithdrawAll)
 		{
 			SendAction(BC_BankAction.WITHDRAW, -1);
+			return true;
+		}
+		if (w == m_BtnTransfer)
+		{
+			Transfer();
 			return true;
 		}
 		if (w == m_BtnClose)

@@ -200,21 +200,18 @@ class BC_Client
 
 	protected void OnBankData(ParamsReadContext ctx)
 	{
-		string currency;
-		int cash;
-		int bank;
-		float feePercent;
-		if (!ctx.Read(currency) || !ctx.Read(cash) || !ctx.Read(bank) || !ctx.Read(feePercent))
+		BC_AtmData data = new BC_AtmData();
+		if (!data.Read(ctx))
 			return;
 
 		if (!IsOpen(m_AtmMenu))
 		{
 			m_AtmMenu = new BC_AtmMenu();
-			m_AtmMenu.SetData(currency, cash, bank, feePercent);
+			m_AtmMenu.SetData(data);
 			Show(m_AtmMenu);
 			return;
 		}
-		m_AtmMenu.SetData(currency, cash, bank, feePercent);
+		m_AtmMenu.SetData(data);
 	}
 
 	//! Čitelný název předmětu z configu hry

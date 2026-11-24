@@ -29,6 +29,7 @@ const int BC_RPC_VEHICLE_ACTION = 784512031; // klient -> server: koupit, opravi
 
 const int BC_RPC_BANK_DATA      = 784512040; // server -> klient: stav hotovosti a účtu
 const int BC_RPC_BANK_ACTION    = 784512041; // klient -> server: vložit / vybrat
+const int BC_RPC_BANK_TRANSFER  = 784512042; // klient -> server: převod jinému hráči
 
 const int BC_RPC_FIRST = 784512001;
 const int BC_RPC_LAST  = 784512099;
