@@ -11,6 +11,7 @@ class BC_Server
 	ref BC_ServerMessages m_Messages;
 	ref BC_ServerAdmin m_Admin;
 	ref BC_ServerTrader m_Trader;
+	ref BC_ServerVehicles m_Vehicles;
 
 	protected float m_TickTimer;
 	protected static const float TICK_SECONDS = 1.0;
@@ -39,6 +40,7 @@ class BC_Server
 		m_Messages = new BC_ServerMessages();
 		m_Admin = new BC_ServerAdmin(m_Wallets, traderCfg.CurrencyName);
 		m_Trader = new BC_ServerTrader(m_Wallets, traderCfg);
+		m_Vehicles = new BC_ServerVehicles(m_Wallets, traderCfg.CurrencyName);
 
 		DayZGame.Event_OnRPC.Insert(OnRPC);
 		Print(BC_TAG + "Server modul spusten.");
@@ -108,14 +110,24 @@ class BC_Server
 
 	void OnRPC(PlayerIdentity sender, Object target, int rpcType, ParamsReadContext ctx)
 	{
-		if (rpcType < BC_RPC_SPAWN_MENU || rpcType > BC_RPC_TRADER_UPDATE)
+		if (rpcType < BC_RPC_FIRST || rpcType > BC_RPC_LAST)
 			return;
 		if (!sender)
 			return;
 
+		// klávesa obchodu: u obchodníka s věcmi -> obchod, u autocentra -> menu aut
+		if (rpcType == BC_RPC_TRADER_OPEN)
+		{
+			PlayerBase player = BC_Util.FindPlayer(sender);
+			if (player && player.IsAlive() && !m_Trader.NearTrader(player) && m_Vehicles.TryOpen(player))
+				return;
+		}
+
 		if (m_Spawns.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Admin.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Vehicles.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

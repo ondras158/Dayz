@@ -1,0 +1,245 @@
+// Data menu aut - pořadí čtení musí odpovídat BC_ServerVehicles.SendData
+
+class BC_VehicleMenuData
+{
+	string LocationName;
+	string Currency;
+	int Balance;
+	bool Dealer;
+	bool Service;
+	bool Garage;
+	ref array<string> OfferClasses = new array<string>;
+	ref array<int> OfferPrices = new array<int>;
+	bool HasCar;
+	string CarClass;
+	int HealthPct;
+	int FuelPct;
+	int RepairPrice;
+	int RefuelPrice;
+	int PartPrice;
+	int StoreFee;
+	int GarageMax;
+	ref array<string> Stored = new array<string>;
+
+	bool Read(ParamsReadContext ctx)
+	{
+		if (!ctx.Read(LocationName) || !ctx.Read(Currency) || !ctx.Read(Balance))
+			return false;
+		if (!ctx.Read(Dealer) || !ctx.Read(Service) || !ctx.Read(Garage))
+			return false;
+		if (!ctx.Read(OfferClasses) || !ctx.Read(OfferPrices))
+			return false;
+		if (!ctx.Read(HasCar) || !ctx.Read(CarClass) || !ctx.Read(HealthPct) || !ctx.Read(FuelPct))
+			return false;
+		if (!ctx.Read(RepairPrice) || !ctx.Read(RefuelPrice) || !ctx.Read(PartPrice))
+			return false;
+		if (!ctx.Read(StoreFee) || !ctx.Read(GarageMax) || !ctx.Read(Stored))
+			return false;
+		return true;
+	}
+}
+
+class BC_VehicleMenu : BC_MenuBase
+{
+	protected ref BC_VehicleMenuData m_Data;
+
+	protected TextWidget m_Title;
+	protected TextWidget m_Balance;
+	protected TextListboxWidget m_OfferList;
+	protected TextListboxWidget m_GarageList;
+	protected TextWidget m_CarName;
+	protected TextWidget m_CarHealth;
+	protected TextWidget m_CarFuel;
+	protected ButtonWidget m_BtnBuy;
+	protected ButtonWidget m_BtnRepair;
+	protected ButtonWidget m_BtnRefuel;
+	protected ButtonWidget m_BtnParts;
+	protected ButtonWidget m_BtnStore;
+	protected ButtonWidget m_BtnRetrieve;
+	protected ButtonWidget m_BtnClose;
+
+	override string LayoutName()
+	{
+		return "vehicle_menu.layout";
+	}
+
+	void SetData(BC_VehicleMenuData data)
+	{
+		m_Data = data;
+		if (layoutRoot)
+			Refresh();
+	}
+
+	override void OnCreated()
+	{
+		m_Title = FindText("Title");
+		m_Balance = FindText("Balance");
+		m_OfferList = FindList("OfferList");
+		m_GarageList = FindList("GarageList");
+		m_CarName = FindText("CarName");
+		m_CarHealth = FindText("CarHealth");
+		m_CarFuel = FindText("CarFuel");
+		m_BtnBuy = FindButton("BtnBuy");
+		m_BtnRepair = FindButton("BtnRepair");
+		m_BtnRefuel = FindButton("BtnRefuel");
+		m_BtnParts = FindButton("BtnParts");
+		m_BtnStore = FindButton("BtnStore");
+		m_BtnRetrieve = FindButton("BtnRetrieve");
+		m_BtnClose = FindButton("BtnClose");
+
+		Refresh();
+	}
+
+	protected void ShowWidget(string name, bool visible)
+	{
+		Widget w = layoutRoot.FindAnyWidget(name);
+		if (w)
+			w.Show(visible);
+	}
+
+	protected void Refresh()
+	{
+		if (!m_Data)
+			return;
+
+		string cur = " " + m_Data.Currency;
+
+		if (m_Title)
+			m_Title.SetText(m_Data.LocationName);
+		if (m_Balance)
+			m_Balance.SetText("Penize: " + m_Data.Balance.ToString() + cur);
+
+		// sekce podle toho, co místo nabízí
+		ShowWidget("DealerLabel", m_Data.Dealer);
+		ShowWidget("OfferListBg", m_Data.Dealer);
+		ShowWidget("OfferList", m_Data.Dealer);
+		ShowWidget("BtnBuy", m_Data.Dealer);
+
+		ShowWidget("ServiceLabel", m_Data.Service || m_Data.Garage);
+		ShowWidget("CarName", m_Data.Service || m_Data.Garage);
+		ShowWidget("CarHealth", m_Data.Service || m_Data.Garage);
+		ShowWidget("CarFuel", m_Data.Service || m_Data.Garage);
+		ShowWidget("BtnRepair", m_Data.Service);
+		ShowWidget("BtnRefuel", m_Data.Service);
+		ShowWidget("BtnParts", m_Data.Service);
+		ShowWidget("BtnStore", m_Data.Garage);
+
+		ShowWidget("GarageLabel", m_Data.Garage);
+		ShowWidget("GarageListBg", m_Data.Garage);
+		ShowWidget("GarageList", m_Data.Garage);
+		ShowWidget("BtnRetrieve", m_Data.Garage);
+
+		if (m_OfferList)
+		{
+			int offerRow = m_OfferList.GetSelectedRow();
+			m_OfferList.ClearItems();
+			for (int i = 0; i < m_Data.OfferClasses.Count(); i++)
+			{
+				m_OfferList.AddItem(BC_Client.DisplayName(m_Data.OfferClasses[i]) + "   " + m_Data.OfferPrices[i].ToString() + cur, null, 0);
+			}
+			if (offerRow >= 0 && offerRow < m_Data.OfferClasses.Count())
+				m_OfferList.SelectRow(offerRow);
+		}
+
+		if (m_GarageList)
+		{
+			m_GarageList.ClearItems();
+			for (int g = 0; g < m_Data.Stored.Count(); g++)
+			{
+				m_GarageList.AddItem(BC_Client.DisplayName(m_Data.Stored[g]), null, 0);
+			}
+		}
+
+		if (m_Data.HasCar)
+		{
+			SetLabel(m_CarName, "Auto: " + BC_Client.DisplayName(m_Data.CarClass));
+			SetLabel(m_CarHealth, "Stav: " + m_Data.HealthPct.ToString() + " %");
+			SetLabel(m_CarFuel, "Palivo: " + m_Data.FuelPct.ToString() + " %");
+		}
+		else
+		{
+			SetLabel(m_CarName, "Zadne auto pobliz - prijed s nim blize");
+			SetLabel(m_CarHealth, "");
+			SetLabel(m_CarFuel, "");
+		}
+
+		if (m_BtnRepair)
+			m_BtnRepair.SetText("Opravit (" + m_Data.RepairPrice.ToString() + cur + ")");
+		if (m_BtnRefuel)
+			m_BtnRefuel.SetText("Natankovat (" + m_Data.RefuelPrice.ToString() + cur + ")");
+		if (m_BtnParts)
+			m_BtnParts.SetText("Doplnit chybejici dily (" + m_Data.PartPrice.ToString() + cur + "/ks)");
+		if (m_BtnStore)
+			m_BtnStore.SetText("Ulozit do garaze (" + m_Data.StoreFee.ToString() + cur + ")");
+		if (m_BtnRetrieve)
+			m_BtnRetrieve.SetText("Vyzvednout (" + m_Data.Stored.Count().ToString() + "/" + m_Data.GarageMax.ToString() + ")");
+	}
+
+	protected void SetLabel(TextWidget w, string text)
+	{
+		if (w)
+			w.SetText(text);
+	}
+
+	protected void SendAction(int action, int arg)
+	{
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(action);
+		rpc.Write(arg);
+		rpc.Send(null, BC_RPC_VEHICLE_ACTION, true, null);
+	}
+
+	override bool OnClick(Widget w, int x, int y, int button)
+	{
+		if (!m_Data)
+			return super.OnClick(w, x, y, button);
+
+		if (w == m_BtnBuy && m_OfferList)
+		{
+			int offer = m_OfferList.GetSelectedRow();
+			if (offer < 0)
+				SetStatus("Vyber auto.");
+			else if (m_Data.OfferPrices[offer] > m_Data.Balance)
+				SetStatus("Nemas dost penez.");
+			else
+				SendAction(BC_VehicleAction.BUY, offer);
+			return true;
+		}
+		if (w == m_BtnRepair)
+		{
+			SendAction(BC_VehicleAction.REPAIR, 0);
+			return true;
+		}
+		if (w == m_BtnRefuel)
+		{
+			SendAction(BC_VehicleAction.REFUEL, 0);
+			return true;
+		}
+		if (w == m_BtnParts)
+		{
+			SendAction(BC_VehicleAction.PARTS, 0);
+			return true;
+		}
+		if (w == m_BtnStore)
+		{
+			SendAction(BC_VehicleAction.STORE, 0);
+			return true;
+		}
+		if (w == m_BtnRetrieve && m_GarageList)
+		{
+			int stored = m_GarageList.GetSelectedRow();
+			if (stored < 0)
+				SetStatus("Vyber auto v garazi.");
+			else
+				SendAction(BC_VehicleAction.RETRIEVE, stored);
+			return true;
+		}
+		if (w == m_BtnClose)
+		{
+			Close();
+			return true;
+		}
+
+		return super.OnClick(w, x, y, button);
+	}
+}

@@ -19,6 +19,12 @@ const int BC_RPC_TRADER_BUY    = 784512022; // klient -> server: koupit
 const int BC_RPC_TRADER_SELL   = 784512023; // klient -> server: prodat
 const int BC_RPC_TRADER_UPDATE = 784512024; // server -> klient: nový zůstatek + co lze prodat
 
+const int BC_RPC_VEHICLE_DATA   = 784512030; // server -> klient: autobazar / servis / garáž
+const int BC_RPC_VEHICLE_ACTION = 784512031; // klient -> server: koupit, opravit, natankovat...
+
+const int BC_RPC_FIRST = 784512001;
+const int BC_RPC_LAST  = 784512099;
+
 enum BC_AdminAction
 {
 	HEAL,
@@ -29,4 +35,14 @@ enum BC_AdminAction
 	SPAWN_ITEM,
 	GIVE_MONEY,
 	TELEPORT_COORDS
+}
+
+enum BC_VehicleAction
+{
+	BUY,
+	REPAIR,
+	REFUEL,
+	PARTS,
+	STORE,
+	RETRIEVE
 }

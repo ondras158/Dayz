@@ -1,0 +1,30 @@
+{
+    "_info": "Nastaveni pro tools/tune_economy.py. Nasobitel 1.0 = beze zmeny, 2.0 = dvakrat vic, 0.5 = polovina.",
+    "types": {
+        "_info": "Zbrane maji ve types.xml kategorii 'weapons' - ale tu maji i zasobniky, munice a prislusenstvi. Proto se zbrane resi vzory jmen.",
+        "overrides": {
+            "_priklad": "Presne hodnoty pro konkretni vec: \"AKM\": {\"nominal\": 3, \"min\": 1}",
+            "SVD": { "nominal": 2, "min": 1 },
+            "VSS": { "nominal": 2, "min": 1 }
+        },
+        "patternMultipliers": {
+            "^Ammo_": 1.0,
+            "^AmmoBox": 1.0,
+            "^Mag_": 1.0,
+            "^(AKM|AK74|AK101|AKS74U|M4A1|M16A2|FAL|SVD|VSS|Aug|Famas|M14|SSG82|MP5K|UMP45|CZ61|Saiga|Scout)(_|$)": 1.0,
+            "^(Mosin9130|SKS|CZ527|Winchester70|Izh18|Ruger1022|Repeater|B95|Izh43Shotgun|Mp133Shotgun|Izh18Shotgun)(_|$)": 1.0,
+            "^(MakarovIJ70|CZ75|Glock19|FNX45|Colt1911|MKII|Deagle|Magnum|Derringer|LongHorn)(_|$)": 1.0
+        },
+        "categoryMultipliers": {
+            "_info": "Pro vse ostatni v dane kategorii: weapons, tools, food, clothes, containers, vehiclesparts, explosives",
+            "vehiclesparts": 1.0
+        }
+    },
+    "events": {
+        "_info": "Auta jsou v events.xml jako eventy Vehicle*. Pozice spawnu aut jsou v cfgeventspawns.xml.",
+        "vehicleMultiplier": 1.0,
+        "vehicleOverrides": {
+            "_priklad": "\"VehicleCivilianSedan\": {\"nominal\": 6, \"min\": 3, \"max\": 8}"
+        }
+    }
+}

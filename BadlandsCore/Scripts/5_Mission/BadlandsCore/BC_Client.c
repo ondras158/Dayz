@@ -7,6 +7,7 @@ class BC_Client
 	protected ref BC_SpawnMenu m_SpawnMenu;
 	protected ref BC_AdminMenu m_AdminMenu;
 	protected ref BC_TraderMenu m_TraderMenu;
+	protected ref BC_VehicleMenu m_VehicleMenu;
 
 	static BC_Client Get()
 	{
@@ -75,6 +76,9 @@ class BC_Client
 				break;
 			case BC_RPC_TRADER_UPDATE:
 				OnTraderUpdate(ctx);
+				break;
+			case BC_RPC_VEHICLE_DATA:
+				OnVehicleData(ctx);
 				break;
 		}
 	}
@@ -156,6 +160,23 @@ class BC_Client
 
 		if (m_TraderMenu)
 			m_TraderMenu.SetPlayerState(balance, classes, counts);
+	}
+
+	protected void OnVehicleData(ParamsReadContext ctx)
+	{
+		BC_VehicleMenuData data = new BC_VehicleMenuData();
+		if (!data.Read(ctx))
+			return;
+
+		if (IsOpen(m_VehicleMenu))
+		{
+			m_VehicleMenu.SetData(data);
+			return;
+		}
+
+		m_VehicleMenu = new BC_VehicleMenu();
+		m_VehicleMenu.SetData(data);
+		Show(m_VehicleMenu);
 	}
 
 	//! Čitelný název předmětu z configu hry

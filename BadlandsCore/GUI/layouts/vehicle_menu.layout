@@ -1,0 +1,265 @@
+FrameWidgetClass BC_VehicleMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 960 600
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 600 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Autocentrum"
+     font "gui/fonts/metron28"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass Balance {
+     position 620 12
+     size 320 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Penize: 0"
+     font "gui/fonts/metron28"
+     "text halign" right
+     "text valign" center
+    }
+    TextWidgetClass DealerLabel {
+     position 20 56
+     size 300 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Autobazar"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass OfferListBg {
+     color 0 0 0 0.6
+     position 20 84
+     size 300 410
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass OfferList {
+     position 24 88
+     size 292 402
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuy {
+     color 0.25 0.22 0.18 1
+     position 20 504
+     size 300 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit auto"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass ServiceLabel {
+     position 340 56
+     size 280 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Servis"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass CarName {
+     position 340 84
+     size 280 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass CarHealth {
+     position 340 112
+     size 280 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass CarFuel {
+     position 340 140
+     size 280 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnRepair {
+     color 0.25 0.22 0.18 1
+     position 340 180
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Opravit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRefuel {
+     color 0.25 0.22 0.18 1
+     position 340 228
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Natankovat"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnParts {
+     color 0.25 0.22 0.18 1
+     position 340 276
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Doplnit dily"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnStore {
+     color 0.25 0.22 0.18 1
+     position 340 344
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Ulozit do garaze"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 340 504
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass GarageLabel {
+     position 640 56
+     size 300 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Garaz"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass GarageListBg {
+     color 0 0 0 0.6
+     position 640 84
+     size 300 410
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass GarageList {
+     position 644 88
+     size 292 402
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRetrieve {
+     color 0.25 0.22 0.18 1
+     position 640 504
+     size 300 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vyzvednout"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 560
+     size 920 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

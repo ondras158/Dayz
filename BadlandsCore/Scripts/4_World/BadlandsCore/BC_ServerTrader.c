@@ -35,12 +35,31 @@ class BC_ServerTrader
 		return BC_ConfigFile<BC_TraderConfig>.Load("Trader.json", defaults, new BC_TraderConfig());
 	}
 
+	protected ref map<string, BC_TraderItem> m_InheritedCache = new map<string, BC_TraderItem>;
+
+	//! Přesná shoda classname, jinak varianta (např. M4A1_Black -> M4A1)
 	protected BC_TraderItem FindPriced(string className)
 	{
 		string key = className;
 		key.ToLower();
+
 		BC_TraderItem item;
-		m_ByClass.Find(key, item);
+		if (m_ByClass.Find(key, item))
+			return item;
+		if (m_InheritedCache.Find(key, item))
+			return item;
+
+		item = null;
+		foreach (string pricedKey, BC_TraderItem priced : m_ByClass)
+		{
+			if (g_Game.IsKindOf(className, priced.ClassName))
+			{
+				item = priced;
+				break;
+			}
+		}
+
+		m_InheritedCache.Set(key, item);
 		return item;
 	}
 
@@ -88,7 +107,7 @@ class BC_ServerTrader
 		BC_TraderLocation trader = NearTrader(player);
 		if (!trader)
 		{
-			BC_Util.Notify(player, "Obchod", "Musis stat u obchodnika.");
+			BC_Util.Notify(player, "Obchod", "Musis stat u obchodnika, autobazaru, servisu nebo garaze.");
 			return true;
 		}
 
@@ -159,7 +178,7 @@ class BC_ServerTrader
 		ItemBase item = FindSellableItem(player, className);
 		if (!item)
 		{
-			BC_Util.Notify(player, "Obchod", "Predmet nelze prodat (musi byt prazdny, bez prislusenstvi a ne zniceny).");
+			BC_Util.Notify(player, "Obchod", "Predmet nelze prodat. Zbran musi byt bez zasobniku a prislusenstvi a nesmi byt znicena.");
 			return;
 		}
 
@@ -190,10 +209,15 @@ class BC_ServerTrader
 			return 1;
 		}
 
+		float fraction = 1;
 		if (!Magazine.Cast(item) && !item.IsLiquidContainer() && item.HasQuantity())
-			return item.GetQuantityNormalized();
+			fraction = item.GetQuantityNormalized();
 
-		return 1;
+		// stav předmětu: zničený se neprodá, opotřebovaný za 50-100 % ceny
+		if (m_Cfg.ScaleSellPriceByCondition)
+			fraction = fraction * (0.5 + 0.5 * item.GetHealth01("", ""));
+
+		return fraction;
 	}
 
 	protected bool CanSellItem(ItemBase item)

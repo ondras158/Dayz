@@ -2,9 +2,11 @@
 
 | Složka | Co to je |
 |---|---|
-| `BadlandsCore/` | **Mód** (zdroj pro `.pbo`): výbava, výběr spawnu, safe zóny, zprávy, admin menu, obchod |
+| `BadlandsCore/` | **Mód** (zdroj pro `.pbo`): výbava, výběr spawnu, safe zóny, zprávy, admin menu, obchod, auta |
+| `economy/`, `tools/tune_economy.py` | Úprava spawnování zbraní a aut (types.xml, events.xml) |
 | `mpmissions/dayzOffline.nasdara/` | Vanilla spawn body (`cfgplayerspawnpoints.xml`) |
-| `nasdara-spawns/`, `tools/` | Generátor vanilla spawn bodů z CSV |
+| `nasdara-spawns/`, `tools/generate_spawnpoints.py` | Generátor vanilla spawn bodů z CSV |
+| `tools/generate_layouts.py` | Přegeneruje vzhled menu (`.layout`) |
 
 > ⚠️ Všechny souřadnice v módu i v CSV jsou zatím **ukázkové** (např. 1000/1000), ne skutečná místa na Nasdaře.
 > Před ostrým provozem je nahraď.
@@ -21,7 +23,10 @@
 | Safe zóny | V zóně nejde zranit hráče, zombíci se mažou, hláška při vstupu/odchodu | `SafeZones.json` |
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
-| Obchod | Klávesa **B** u obchodníka: nákup/prodej za virtuální měnu, odměny za zombíky | `Trader.json` |
+| Obchod | Klávesa **B** u obchodníka. **Peníze jen za prodej nalezených zbraní**, za ně se kupuje jídlo, medicína, nářadí, munice | `Trader.json` |
+| Autobazar | Klávesa **B** v autocentru: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
+| Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
+| Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 
 Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **Badlands Core**.
 
@@ -70,8 +75,9 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ```
 <profiles>/BadlandsCore/
 ├── Loadouts.json   SpawnZones.json   SafeZones.json
-├── Messages.json   Admins.json       Trader.json
-└── Wallets/<SteamID>.json            peníze hráčů
+├── Messages.json   Admins.json       Trader.json     Vehicles.json
+├── Wallets/<SteamID>.json            peníze hráčů
+└── Garages/<SteamID>.json            auta v garáži
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[BadlandsCore]`
 (server pak použije výchozí hodnoty – soubor nepřepíše).
@@ -90,7 +96,20 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[Badla
 
 **Obchod** – `Buy`/`Sell` = cena, `-1` = nelze koupit/prodat. Obchodník je jen místo
 (`Traders`: X, Z, Radius) – dej ho do safe zóny a postav tam něco viditelného.
-Prodávat jde jen nepoškozené věci bez obsahu a příslušenství; načaté věci (krabička nábojů, jídlo) mají poměrnou cenu.
+- Ve výchozím nastavení mají výkupní cenu **jen zbraně** a zbraně **nejdou koupit** – peníze tedy vzniknou
+  jen z nalezených zbraní (nejde koupit a hned prodat). Za zombíky ani hráče peníze nejsou (`ZombieKillReward: 0`).
+- Zbraň musí být **bez zásobníku a příslušenství** a nesmí být zničená. Opotřebovaná zbraň má 50–100 % ceny
+  (`ScaleSellPriceByCondition`).
+- Barevné varianty (např. `M4A1_Black`) se vykupují za cenu základní zbraně (`M4A1`).
+
+**Auta** (`Vehicles.json`) – `Locations` = místa (autocentra). Každé má `Dealer`/`Service`/`Garage` (true/false),
+kde hráč stojí (`X`, `Z`, `Radius`) a kam se postaví auto (`SpawnX`, `SpawnZ`, `SpawnYaw`).
+Parkovací místo musí být volné (bez auta v okruhu 5 m).
+`Offers` = auta na prodej s cenou a seznamem dílů (stejný seznam používá servis pro doplnění dílů).
+Ve výchozím nastavení: Ada, Olga, Sarka, Gunter, M1025, V3S (vanilla auta – pokud má Nasdara vlastní auta,
+přidej jejich classname a díly).
+- Garáž ukládá typ auta, díly, jejich stav a palivo. **Věci v kufru se neukládají** – auto musí být prázdné.
+- Vanilla DayZ nemá vlastnictví aut: uložit může kdokoli jakékoli auto, které stojí u garáže.
 
 ### Souřadnice
 - Interaktivní mapa (např. iZurvive): zobrazuje `X / Y` → v konfigu `X` a `Z`.
@@ -103,6 +122,28 @@ Po prvním startu zkontroluj:
 - v Addon Builderu případné chyby při binarizaci configu.
 
 Chybu z logu mi pošli a opravím ji.
+
+---
+
+## Spawnování zbraní a aut (centrální ekonomika)
+
+Kolik zbraní a aut se na mapě objevuje, neurčuje mód, ale soubory mise serveru:
+- `mpmissions/dayzOffline.nasdara/db/types.xml` – předměty (`nominal` = cílový počet na mapě, `min` = kdy doplnit)
+- `mpmissions/dayzOffline.nasdara/db/events.xml` – auta (eventy `Vehicle...`)
+- `mpmissions/dayzOffline.nasdara/cfgeventspawns.xml` – **kde** se auta mohou objevit
+
+Nastavení je v `economy/economy_tuning.json` (násobitel 1.0 = beze změny, 2.0 = dvakrát víc, 0.5 = polovina).
+Zbraně jsou rozdělené na skupiny (vojenské, pušky, pistole, zásobníky, munice) a jednotlivé kusy jdou nastavit přesně
+v `overrides`.
+
+```bash
+# nejdřív jen vypsat, co se změní
+python3 tools/tune_economy.py --types db/types.xml --events db/events.xml --dry-run
+# vytvoří types.tuned.xml a events.tuned.xml vedle originálů
+python3 tools/tune_economy.py --types db/types.xml --events db/events.xml
+```
+Výsledné `*.tuned.xml` zkontroluj, přejmenuj na původní názvy a restartuj server.
+U aut platí: víc aut než míst v `cfgeventspawns.xml` se neobjeví a počet omezuje i `max` u `<child>` v eventu.
 
 ---
 

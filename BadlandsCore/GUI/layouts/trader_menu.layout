@@ -130,7 +130,7 @@ FrameWidgetClass BC_TraderMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Tvoje veci k prodeji"
+     text "Tvoje zbrane k prodeji"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
