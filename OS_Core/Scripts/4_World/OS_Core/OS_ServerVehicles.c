@@ -4,10 +4,12 @@ class OS_ServerVehicles
 {
 	ref OS_VehicleConfig m_Cfg;
 	protected OS_Payments m_Payments;
+	protected OS_ServerGroups m_Groups;
 	protected string m_Currency;
 
-	void OS_ServerVehicles(OS_Payments payments, string currency)
+	void OS_ServerVehicles(OS_Payments payments, string currency, OS_ServerGroups groups)
 	{
+		m_Groups = groups;
 		m_Payments = payments;
 		m_Currency = currency;
 
@@ -254,12 +256,27 @@ class OS_ServerVehicles
 		}
 
 		array<string> stored = new array<string>;
+		array<int> storedGroup = new array<int>;   // 1 = auto ze skupinové garáže
+		int garageMax = m_Cfg.GarageMaxVehicles;
 		if (loc.Garage)
 		{
-			OS_GarageData garage = LoadGarage(steamId);
-			foreach (OS_StoredVehicle sv : garage.Vehicles)
+			OS_GarageData personal = LoadGarage(steamId);
+			foreach (OS_StoredVehicle sv : personal.Vehicles)
 			{
 				stored.Insert(sv.ClassName);
+				storedGroup.Insert(0);
+			}
+
+			string groupKey = GroupGarageKey(steamId);
+			if (groupKey != "")
+			{
+				garageMax = m_Cfg.GroupGarageMaxVehicles;
+				OS_GarageData shared = LoadGarage(groupKey);
+				foreach (OS_StoredVehicle gsv : shared.Vehicles)
+				{
+					stored.Insert(gsv.ClassName);
+					storedGroup.Insert(1);
+				}
 			}
 		}
 
@@ -282,12 +299,13 @@ class OS_ServerVehicles
 		rpc.Write(refuelPrice);
 		rpc.Write(m_Cfg.PartPrice);
 		rpc.Write(m_Cfg.GarageStoreFee);
-		rpc.Write(m_Cfg.GarageMaxVehicles);
+		rpc.Write(garageMax);
 		rpc.Write(stored);
 		rpc.Write(ownerState);
 		rpc.Write(m_Cfg.ClaimPrice);
 		rpc.Write(m_Cfg.KeyCopyPrice);
 		rpc.Write(m_Cfg.ChangeLockPrice);
+		rpc.Write(storedGroup);
 		rpc.Send(null, OS_RPC_VEHICLE_DATA, true, player.GetIdentity());
 	}
 
@@ -549,6 +567,17 @@ class OS_ServerVehicles
 
 	// ------------------------------------------------------------ garáž
 
+	//! klíč skupinové garáže ("group_<id>"), "" = hráč není ve skupině / sdílení vypnuto
+	protected string GroupGarageKey(string steamId)
+	{
+		if (!m_Cfg.SharedGroupGarage || !m_Groups)
+			return "";
+		OS_Group group = m_Groups.GetGroupOf(steamId);
+		if (!group)
+			return "";
+		return "group_" + group.Id.ToString();
+	}
+
 	protected string GaragePath(string steamId)
 	{
 		return OS_DIR + "Garages/" + steamId + ".json";
@@ -604,14 +633,28 @@ class OS_ServerVehicles
 		string steamId = OS_Util.SteamId(player);
 		if (m_Cfg.OnlyOwnerCanStore && car.OS_HasOwner() && car.OS_GetOwnerId() != steamId)
 		{
-			OS_Util.Notify(player, "Garaz", "Tohle auto ti nepatri.");
-			return;
+			// auto spoluhráče ze skupiny uložit jde
+			if (!m_Groups || !m_Groups.SameGroup(steamId, car.OS_GetOwnerId()))
+			{
+				OS_Util.Notify(player, "Garaz", "Tohle auto ti nepatri.");
+				return;
+			}
 		}
 
-		OS_GarageData garage = LoadGarage(steamId);
-		if (garage.Vehicles.Count() >= m_Cfg.GarageMaxVehicles)
+		// ve skupině se ukládá do společné garáže skupiny
+		string garageKey = steamId;
+		int garageMax = m_Cfg.GarageMaxVehicles;
+		string groupKey = GroupGarageKey(steamId);
+		if (groupKey != "")
 		{
-			OS_Util.Notify(player, "Garaz", "Garaz je plna (max " + m_Cfg.GarageMaxVehicles.ToString() + ").");
+			garageKey = groupKey;
+			garageMax = m_Cfg.GroupGarageMaxVehicles;
+		}
+
+		OS_GarageData garage = LoadGarage(garageKey);
+		if (garage.Vehicles.Count() >= garageMax)
+		{
+			OS_Util.Notify(player, "Garaz", "Garaz je plna (max " + garageMax.ToString() + ").");
 			return;
 		}
 
@@ -652,7 +695,7 @@ class OS_ServerVehicles
 		sv.Locked = car.OS_IsLocked();
 
 		garage.Vehicles.Insert(sv);
-		if (!SaveGarage(steamId, garage))
+		if (!SaveGarage(garageKey, garage))
 		{
 			m_Payments.Pay(player, m_Cfg.GarageStoreFee);
 			OS_Util.Notify(player, "Garaz", "Chyba pri ukladani - auto zustava venku.");
@@ -660,14 +703,31 @@ class OS_ServerVehicles
 		}
 
 		g_Game.ObjectDelete(car);
-		OS_Util.Notify(player, "Garaz", "Auto ulozeno do garaze.");
-		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " ulozil " + sv.ClassName);
+		if (groupKey != "")
+			OS_Util.Notify(player, "Garaz", "Auto ulozeno do garaze skupiny.");
+		else
+			OS_Util.Notify(player, "Garaz", "Auto ulozeno do garaze.");
+		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " ulozil " + sv.ClassName + " (" + garageKey + ")");
 	}
 
 	protected void Retrieve(PlayerBase player, OS_VehicleLocation loc, int index)
 	{
 		string steamId = OS_Util.SteamId(player);
+
+		// seznam = nejdřív osobní auta, potom auta skupiny
+		string garageKey = steamId;
+		bool fromGroup = false;
 		OS_GarageData garage = LoadGarage(steamId);
+		if (index >= garage.Vehicles.Count())
+		{
+			string groupKey = GroupGarageKey(steamId);
+			if (groupKey == "")
+				return;
+			index -= garage.Vehicles.Count();
+			garageKey = groupKey;
+			fromGroup = true;
+			garage = LoadGarage(groupKey);
+		}
 		if (index < 0 || index >= garage.Vehicles.Count())
 			return;
 
@@ -687,7 +747,7 @@ class OS_ServerVehicles
 
 		// nejdřív odebrat z garáže, aby nešlo auto zdvojit
 		garage.Vehicles.Remove(index);
-		if (!SaveGarage(steamId, garage))
+		if (!SaveGarage(garageKey, garage))
 		{
 			g_Game.ObjectDelete(car);
 			OS_Util.Notify(player, "Garaz", "Chyba pri ukladani garaze.");
@@ -714,12 +774,18 @@ class OS_ServerVehicles
 		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE) * sv.Brake);
 		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT) * sv.Coolant);
 
-		// auto z garáže patří tomu, kdo ho vyzvedl; staré klíče dál fungují
+		// osobní garáž: auto patří tomu, kdo ho vyzvedl
+		// skupinová garáž: auto dál patří původnímu majiteli; klíče fungují dál
 		if (sv.KeyCode != 0)
-			car.OS_SetOwnership(sv.KeyCode, steamId);
+		{
+			string owner = steamId;
+			if (fromGroup && sv.OwnerId != "")
+				owner = sv.OwnerId;
+			car.OS_SetOwnership(sv.KeyCode, owner);
+		}
 		car.OS_SetLocked(false);
 
 		OS_Util.Notify(player, "Garaz", "Auto vyzvednuto - stoji na parkovisti.");
-		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " vyzvedl " + sv.ClassName);
+		Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " vyzvedl " + sv.ClassName + " (" + garageKey + ")");
 	}
 }

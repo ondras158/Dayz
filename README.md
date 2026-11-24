@@ -225,6 +225,19 @@ přidej jejich classname a díly).
   známé poloze. Daleko = průhlednější. Při otevřeném inventáři/mapě se jména skryjí.
 - Vidí to jen členové stejné skupiny. Po odchodu ze skupiny značky zmizí.
 
+**Bez zranění ve skupině** (`Groups.json` → `FriendlyFire: false`, výchozí)
+- Členové stejné skupiny si navzájem neublíží střelbou, noži ani pěstmi – zásah se vůbec neprovede (ani krvácení).
+- Výbuchy (granáty, miny) a přejetí autem se nepočítají jako útok hráče a zraňují dál.
+- `FriendlyFire: true` = zranění mezi spoluhráči zapnout.
+
+**Sdílená garáž** (`Vehicles.json` → `SharedGroupGarage: true`, výchozí)
+- Ve skupině se auto ukládá do **garáže skupiny** (max. `GroupGarageMaxVehicles`, výchozí 6 aut).
+  Vyzvednout ho může kterýkoli člen skupiny v kterékoli garáži.
+- V seznamu garáže vidíš svoje osobní auta (uložená dřív) i auta skupiny (popisek „skupina“).
+- Do garáže jde uložit i auto spoluhráče ze skupiny (ne jen svoje).
+- Auto ze skupinové garáže dál patří původnímu majiteli a jeho klíče fungují.
+- Osobní auta uložená před vstupem do skupiny zůstávají v osobní garáži.
+
 **Vlastnictví a klíče**
 - Koupené auto má majitele a zámek, kupující dostane **klíč** (`OS_CarKey`, model klíčků od pout).
 - Zamknutí/odemknutí: klíč do ruky → podívej se na auto → **podrž levé tlačítko**.

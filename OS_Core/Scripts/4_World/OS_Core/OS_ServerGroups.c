@@ -93,6 +93,31 @@ class OS_ServerGroups
 		return m_Cfg.SlotPrice + group.ExtraSlots * m_Cfg.SlotPriceIncrease;
 	}
 
+	//! true = dva hráči jsou ve stejné skupině
+	bool SameGroup(string idA, string idB)
+	{
+		if (idA == "" || idB == "")
+			return false;
+		int groupA;
+		int groupB;
+		if (!m_PlayerGroup.Find(idA, groupA) || !m_PlayerGroup.Find(idB, groupB))
+			return false;
+		return groupA == groupB;
+	}
+
+	//! zranění od spoluhráče se neprovede (když je FriendlyFire vypnutý)
+	bool BlocksDamage(PlayerBase victim, EntityAI source)
+	{
+		if (!m_Cfg.Enabled || m_Cfg.FriendlyFire || !victim || !source)
+			return false;
+
+		PlayerBase attacker = OS_Util.ResolveKillerPlayer(source);
+		if (!attacker || attacker == victim)
+			return false;
+
+		return SameGroup(OS_Util.SteamId(victim), OS_Util.SteamId(attacker));
+	}
+
 	bool CanWithdraw(OS_Group group, string steamId)
 	{
 		return group && (m_Cfg.MembersCanWithdraw || group.LeaderId == steamId);

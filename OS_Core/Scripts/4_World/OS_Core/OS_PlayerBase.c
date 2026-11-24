@@ -16,6 +16,15 @@ modded class PlayerBase
 		SetAllowDamage(!protectedNow);
 	}
 
+	//! spoluhráči ze skupiny si neublíží (Groups.json: FriendlyFire)
+	override bool EEOnDamageCalculated(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef)
+	{
+		if (g_Game.IsServer() && OS_Server.Get() && OS_Server.Get().m_Groups && OS_Server.Get().m_Groups.BlocksDamage(this, source))
+			return false;
+
+		return super.EEOnDamageCalculated(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
+	}
+
 	override void EEKilled(Object killer)
 	{
 		super.EEKilled(killer);

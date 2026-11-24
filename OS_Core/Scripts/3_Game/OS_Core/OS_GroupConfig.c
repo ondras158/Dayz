@@ -11,6 +11,7 @@ class OS_GroupConfig
 	int CreatePrice = 0;             // cena založení skupiny
 	bool MembersCanInvite = false;   // false = zvát může jen vedoucí
 	bool MembersCanWithdraw = true;  // false = ze společného účtu vybírá jen vedoucí
+	bool FriendlyFire = false;       // false = členové skupiny si navzájem neublíží (střelba, nože, pěsti)
 	int InviteValidSeconds = 300;
 	int MinNameLength = 3;
 	int MaxNameLength = 24;

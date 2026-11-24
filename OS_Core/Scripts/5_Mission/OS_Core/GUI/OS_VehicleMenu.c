@@ -26,6 +26,7 @@ class OS_VehicleMenuData
 	int ClaimPrice;
 	int KeyCopyPrice;
 	int ChangeLockPrice;
+	ref array<int> StoredGroup = new array<int>;
 
 	bool Read(ParamsReadContext ctx)
 	{
@@ -42,6 +43,8 @@ class OS_VehicleMenuData
 		if (!ctx.Read(StoreFee) || !ctx.Read(GarageMax) || !ctx.Read(Stored))
 			return false;
 		if (!ctx.Read(OwnerState) || !ctx.Read(ClaimPrice) || !ctx.Read(KeyCopyPrice) || !ctx.Read(ChangeLockPrice))
+			return false;
+		if (!ctx.Read(StoredGroup))
 			return false;
 		return true;
 	}
@@ -167,7 +170,10 @@ class OS_VehicleMenu : OS_MenuBase
 			m_GarageList.ClearItems();
 			for (int g = 0; g < m_Data.Stored.Count(); g++)
 			{
-				m_GarageList.AddItem(OS_Client.DisplayName(m_Data.Stored[g]), null, 0);
+				string storedLabel = OS_Client.DisplayName(m_Data.Stored[g]);
+				if (g < m_Data.StoredGroup.Count() && m_Data.StoredGroup[g] == 1)
+					storedLabel = storedLabel + "  (skupina)";
+				m_GarageList.AddItem(storedLabel, null, 0);
 			}
 		}
 
@@ -206,7 +212,7 @@ class OS_VehicleMenu : OS_MenuBase
 		if (m_BtnStore)
 			m_BtnStore.SetText("Ulozit do garaze (" + m_Data.StoreFee.ToString() + cur + ")");
 		if (m_BtnRetrieve)
-			m_BtnRetrieve.SetText("Vyzvednout (" + m_Data.Stored.Count().ToString() + "/" + m_Data.GarageMax.ToString() + ")");
+			m_BtnRetrieve.SetText("Vyzvednout (aut v garazi: " + m_Data.Stored.Count().ToString() + ")");
 	}
 
 	protected void SetLabel(TextWidget w, string text)

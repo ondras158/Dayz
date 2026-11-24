@@ -54,7 +54,9 @@ class OS_VehicleConfig
 	int ClaimPrice = 500;              // přepsat nalezené auto bez majitele na sebe (dostaneš klíč)
 	int KeyCopyPrice = 100;            // kopie klíče (jen majitel)
 	int ChangeLockPrice = 200;         // nový zámek - staré klíče přestanou fungovat (jen majitel)
-	bool OnlyOwnerCanStore = true;     // auto s majitelem může do garáže uložit jen majitel
+	bool OnlyOwnerCanStore = true;     // auto s majitelem může do garáže uložit jen majitel (nebo člen jeho skupiny)
+	bool SharedGroupGarage = true;     // členové skupiny mají společnou garáž
+	int GroupGarageMaxVehicles = 6;
 	ref array<ref OS_VehicleLocation> Locations = new array<ref OS_VehicleLocation>;
 	ref array<ref OS_VehicleOffer> Offers = new array<ref OS_VehicleOffer>;
 
