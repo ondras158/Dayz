@@ -150,7 +150,14 @@ přidej jejich classname a díly).
 
   Ceny v obchodě a autech jsou jen čísla – při změně měny je uprav (např. násobením kategorie v admin menu obchodu).
   Název bankovky ve hře se přizpůsobí měně ze serveru („Bankovka 20 EUR“).
-- **Potisk bankovek** s názvem měny a serveru vygeneruješ:
+- **Realistický potisk** (výchozí, rytinový styl s pouští, gilošové rozety, vodoznak, ochranný proužek,
+  hologram, mikrotext, sériová čísla):
+  ```bash
+  python3 tools/generate_money_realistic.py --currency EUR --title "OS CORE" --preview 5,10,20,50,100,200,500
+  ```
+  Bankovka je na šířku uprostřed čtvercové textury (`--layout center`). Když se ve hře zobrazí špatně
+  (malá nebo zdeformovaná), zkus `--layout full`. `--size 1024` (výchozí) / `2048` pro ostřejší.
+- **Jednoduchý potisk** (původní, čtvercový):
   ```bash
   python3 tools/generate_money_textures.py --currency EUR --title "OS CORE" --preview 5,10,20,50,100,200,500
   python3 tools/generate_money_textures.py --currency RUB --label "BANKOVKA" --title "MUJ SERVER"
