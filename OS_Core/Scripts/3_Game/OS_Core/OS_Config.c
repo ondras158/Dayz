@@ -262,6 +262,7 @@ class OS_CategoryRule
 	ref array<string> NameContains = new array<string>;  // část classname (např. Bandage)
 	ref array<string> Slots = new array<string>;         // inventorySlot přesně (např. Back)
 	ref array<string> SlotContains = new array<string>;  // část inventorySlot (např. weapon)
+	ref array<string> NameExcludes = new array<string>;  // když classname obsahuje tohle, pravidlo se přeskočí (např. Can = konzervy)
 
 	void OS_CategoryRule(string category = "", int buy = 50, int sell = 10)
 	{
@@ -357,6 +358,10 @@ class OS_TraderConfig
 		produce.SellMultiplier = 1.2;
 		Traders.Insert(produce);
 
+		OS_TraderLocation fisherman = new OS_TraderLocation("Priklad - Rybar", 2500, 1820, 10);
+		fisherman.Categories.Insert("Ryby");
+		Traders.Insert(fisherman);
+
 		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
 		hunter.Categories.Insert("Lov");
 		hunter.Categories.Insert("Zvireci suroviny");
@@ -417,14 +422,31 @@ class OS_TraderConfig
 		r.NameContains.Insert("Detonator");     // dálkový ovladač
 		CategoryRules.Insert(r);
 
-		// lov a zvířata - musí být před medicínou a jídlem (maso je jídlo, kosti/peří by jinak spadly do ostatních)
-		r = new OS_CategoryRule("Lov", 80, 15);
-		r.NameContains.Insert("Trap");          // pasti (na medvědy, králíky, ryby...)
-		r.NameContains.Insert("Snare");
-		r.NameContains.Insert("Fishing");       // rybářské pruty
+		// ryby a rybaření - před lovem (pasti na ryby) a jídlem (ryby jsou jídlo); konzervy zůstávají v jídle
+		r = new OS_CategoryRule("Ryby", 40, 10);
+		r.NameContains.Insert("Fish");          // pruty, sítě, pasti na ryby, ryby z módů
 		r.NameContains.Insert("Hook");          // háčky (i kostěné)
 		r.NameContains.Insert("Bait");
 		r.NameContains.Insert("Worm");
+		r.NameContains.Insert("Carp");
+		r.NameContains.Insert("Mackerel");
+		r.NameContains.Insert("Sardines");
+		r.NameContains.Insert("Pollock");
+		r.NameContains.Insert("Trout");
+		r.NameContains.Insert("Bitterlings");
+		r.NameContains.Insert("Shrimp");
+		r.NameContains.Insert("Caviar");
+		r.NameContains.Insert("Fillet");        // rybí filety
+		r.NameContains.Insert("Pike");
+		r.NameContains.Insert("Perch");
+		r.NameContains.Insert("Salmon");
+		r.NameExcludes.Insert("Can");           // SardinesCan, CrabCan, TunaCan... = jídlo
+		CategoryRules.Insert(r);
+
+		// lov a zvířata - musí být před medicínou a jídlem (maso je jídlo, kosti/peří by jinak spadly do ostatních)
+		r = new OS_CategoryRule("Lov", 80, 15);
+		r.NameContains.Insert("Trap");          // pasti (na medvědy, králíky...)
+		r.NameContains.Insert("Snare");
 		r.NameContains.Insert("BoneKnife");
 		r.NameContains.Insert("HuntingKnife");
 		CategoryRules.Insert(r);
@@ -433,7 +455,6 @@ class OS_TraderConfig
 		r.NameContains.Insert("Pelt");          // kůže
 		r.NameContains.Insert("SteakMeat");     // maso ze zvěře
 		r.NameContains.Insert("BreastMeat");
-		r.NameContains.Insert("FilletMeat");    // rybí filety
 		r.NameContains.Insert("Lard");          // sádlo
 		r.NameContains.Insert("Guts");          // vnitřnosti
 		r.NameContains.Insert("Feather");       // peří

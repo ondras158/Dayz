@@ -100,6 +100,19 @@ class OS_TraderScanner
 
 			bool hasCriteria = false;
 
+			// vyloučené názvy (např. konzervy u ryb)
+			bool excluded = false;
+			if (rule.NameExcludes)
+			{
+				foreach (string excludePart : rule.NameExcludes)
+				{
+					if (lowerName.Contains(Lower(excludePart)))
+						excluded = true;
+				}
+			}
+			if (excluded)
+				continue;
+
 			if (rule.BaseClasses && rule.BaseClasses.Count() > 0)
 			{
 				hasCriteria = true;

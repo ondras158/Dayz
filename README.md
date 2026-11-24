@@ -117,6 +117,7 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
   Ceny, které už v souboru jsou (i upravené adminem), se nikdy nepřepíšou. Vypnutí: `"AutoAddItems": false`.
 - **Pravidla kategorií** (`CategoryRules`, první shoda vyhrává): podle předka v configu (`BaseClasses`, např.
   `Weapon_Base`), části názvu (`NameContains`, např. `Bandage`) nebo slotu (`Slots`, např. `Back` = batohy).
+  `NameExcludes` = názvy, na které se pravidlo nepoužije (např. `Can` u ryb, aby konzervy zůstaly v jídle).
   `DefaultBuy`/`DefaultSell` = cena pro nově přidané věci. Poslední pravidlo bez podmínek bere vše ostatní.
   `ExcludeContains` = co se nikdy nepřidá (testovací a základní třídy).
 - **Výchozí ceny:** zbraně koupit za 4× výkupní cenu (např. AKM: výkup 350, nákup 1400),
@@ -156,8 +157,10 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
     semínka konopí jsou na černém trhu),
   - *Vykupna* – jen **vykupuje úrodu z farem** (vše, co v `Farms.json` vyrábějí zvířata a rostliny: vejce, ovoce,
     zelenina, mléko, maso, sádlo, peří, kůže, konopí) o 20 % lépe (`SellMultiplier: 1.2`), nic neprodává,
-  - *Lovec* – `Lov` (pasti, oka, pruty, háčky, návnady, kostěný a lovecký nůž) a `Zvireci suroviny`
-    (kůže, maso ze zvěře, rybí filety, sádlo, vnitřnosti, peří, kosti),
+  - *Rybar* – `Ryby`: vykupuje ryby (kapr, sumec, makrela, sardinky, treska, pstruh, hořavky, krevety, kaviár, filety)
+    a prodává rybářské vybavení (pruty, sítě, pasti na ryby, háčky, návnady, červi). Konzervy zůstávají v Potravinách,
+  - *Lovec* – `Lov` (pasti a oka na zvěř, kostěný a lovecký nůž) a `Zvireci suroviny`
+    (kůže, maso ze zvěře, sádlo, vnitřnosti, peří, kosti),
   - *Autodily* – `Dily aut` (kola, dveře, kapoty, baterie, svíčky, chladiče, světla, díly helikoptér Expansion).
 
   Názvy musí odpovídat kategoriím v `Categories` (včetně těch, které vytvořila automatika). Obchodníka můžeš
