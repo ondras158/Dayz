@@ -78,6 +78,8 @@ OS_Core/
    ├── Addons/OS_Core.pbo.<jméno>.bisign
    └── Keys/<jméno>.bikey
    ```
+4. Pokud máš **Expansion BaseBuilding** (stavění u vlajky), zabal stejně i složku `OS_Core_Expansion`
+   (prefix `OS_Core_Expansion`) do `@OS_Core\Addons`. Bez Expansionu ho vynech (viz níže).
 
 ### 2. Instalace na server
 1. Zkopíruj `@OS_Core` do složky serveru.
@@ -397,6 +399,22 @@ přidej jejich classname a díly).
 - **Admin menu:** *Odemknout nejbližší auto* (do 15 m).
 - Vlastnictví se ukládá přímo do auta (persistence serveru). **Pokud mód ze serveru odebereš,
   persistence aut se může poškodit** – před odebráním módu udělej zálohu `storage_1`.
+
+### Stavění základen (Expansion BaseBuilding) a skupiny
+Pro Expansion BaseBuilding (stavění jen u územní vlajky) je tu samostatný doplněk **`OS_Core_Expansion`**.
+Zabal ho do vlastního PBO (prefix `OS_Core_Expansion`) a dej ho do stejného `@OS_Core\Addons`
+**jen pokud na serveru máš Expansion BaseBuilding**. Bez Expansionu ho nenahrávej, jinak se server nespustí.
+
+- Kdo je v OS skupině s **majitelem vlajky**, je automaticky **členem jeho území**. Může tam stavět,
+  rozebírat a používat garáž území. Funguje to pro všechny vlajky všech členů skupiny.
+- Kdo ze skupiny odejde nebo je vyhozen, je z území do pár sekund odebrán. Odebírá se jen ten,
+  koho přidal tenhle doplněk; hráče pozvané ručně přes menu vlajky to nechá být.
+- Nastavení `$profile:OS_Core/ExpansionTerritory.json`: `Enabled`, `SyncSeconds` (jak často
+  se kontroluje, výchozí 10 s), `RemoveWhenLeftGroup`, `NotifyPlayers`.
+- V nastavení Expansion `TerritorySettings.json` dej **`OnlyInviteGroupMember: 0`**. Jinak Expansion
+  chce k založení vlajky svoji vlastní skupinu (party) a s naší skupinou by vlajku nešlo založit.
+- Kódové zámky dál fungují na kód. Doplněk mění jen členství v území.
+- Hráč odebraný ze skupiny může do odpojení vidět území ve svém menu, server mu ale stavění už nepovolí.
 
 ### Souřadnice
 - Interaktivní mapa (např. iZurvive): zobrazuje `X / Y` → v konfigu `X` a `Z`.
