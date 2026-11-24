@@ -323,6 +323,11 @@ class OS_TraderConfig
 		hardware.Categories.Insert("Stavba zakladny");
 		Traders.Insert(hardware);
 
+		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
+		hunter.Categories.Insert("Lov");
+		hunter.Categories.Insert("Zvireci suroviny");
+		Traders.Insert(hunter);
+
 		// autodíly - ideálně u autocentra (servis a garáž jsou ve Vehicles.json)
 		OS_TraderLocation autoparts = new OS_TraderLocation("Priklad - Autodily", 2100, 2030, 10);
 		autoparts.Categories.Insert("Dily aut");
@@ -364,6 +369,29 @@ class OS_TraderConfig
 		r.BaseClasses.Insert("ItemSuppressor");
 		r.SlotContains.Insert("weapon");
 		r.SlotContains.Insert("pistol");
+		CategoryRules.Insert(r);
+
+		// lov a zvířata - musí být před medicínou a jídlem (maso je jídlo, kosti/peří by jinak spadly do ostatních)
+		r = new OS_CategoryRule("Lov", 80, 15);
+		r.NameContains.Insert("Trap");          // pasti (na medvědy, králíky, ryby...)
+		r.NameContains.Insert("Snare");
+		r.NameContains.Insert("Fishing");       // rybářské pruty
+		r.NameContains.Insert("Hook");          // háčky (i kostěné)
+		r.NameContains.Insert("Bait");
+		r.NameContains.Insert("Worm");
+		r.NameContains.Insert("BoneKnife");
+		r.NameContains.Insert("HuntingKnife");
+		CategoryRules.Insert(r);
+
+		r = new OS_CategoryRule("Zvireci suroviny", 40, 12);
+		r.NameContains.Insert("Pelt");          // kůže
+		r.NameContains.Insert("SteakMeat");     // maso ze zvěře
+		r.NameContains.Insert("BreastMeat");
+		r.NameContains.Insert("FilletMeat");    // rybí filety
+		r.NameContains.Insert("Lard");          // sádlo
+		r.NameContains.Insert("Guts");          // vnitřnosti
+		r.NameContains.Insert("Feather");       // peří
+		r.NameContains.Insert("Bone");          // kosti
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Medicina", 60, 10);

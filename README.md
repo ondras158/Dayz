@@ -138,6 +138,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
   - *Potraviny* – `Jidlo a piti`,
   - *Lekarna* – `Medicina`,
   - *Zelezarstvi* – `Nastroje a ostatni`, `Stavba zakladny`,
+  - *Lovec* – `Lov` (pasti, oka, pruty, háčky, návnady, kostěný a lovecký nůž) a `Zvireci suroviny`
+    (kůže, maso ze zvěře, rybí filety, sádlo, vnitřnosti, peří, kosti),
   - *Autodily* – `Dily aut` (kola, dveře, kapoty, baterie, svíčky, chladiče, světla, díly helikoptér Expansion).
 
   Názvy musí odpovídat kategoriím v `Categories` (včetně těch, které vytvořila automatika). Obchodníka můžeš
