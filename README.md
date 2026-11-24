@@ -238,18 +238,29 @@ přidej jejich classname a díly).
 - Auto ze skupinové garáže dál patří původnímu majiteli a je sdílené se skupinou (zamyká ho kdokoli ze skupiny).
 - Osobní auta uložená před vstupem do skupiny zůstávají v osobní garáži.
 
-**Helikoptéry** (`Vehicles.json`)
-- Vanilla DayZ žádnou létající helikoptéru nemá – je potřeba mód s helikoptérami (na serveru i u hráčů).
-- Místo prodeje: v `Locations` nastav `"Dealer": true` a `"DealerCategory": "heli"` (ve výchozím nastavení je
-  ukázkový „Heliport“). Menu se pak jmenuje *Helikoptéry*. `SpawnClearRadius` = jak velké volné místo je potřeba
-  (heliport ~12 m), `Radius` = kde musí hráč stát.
-- Nabídka: do `Offers` přidej helikoptéry s `"Category": "heli"`, classname z módu a díly, např.:
-  ```json
-  { "ClassName": "NAZEV_HELIKOPTERY_Z_MODU", "Price": 25000, "Category": "heli", "Parts": ["CarBattery", "HeadlightH7"] }
-  ```
-  Classname a potřebné díly najdeš v popisu módu nebo v jeho `config.cpp`.
-- Helikoptéry postavené na `CarScript` (řada komunitních módů) mají automaticky i palivo, vlastnictví,
-  zamykání klávesou F, servis a garáž. U helikoptér na vanilla `HelicopterScript` funguje jen koupě.
+**Helikoptéry – DayZ Expansion** (`Vehicles.json`)
+- Vanilla DayZ létající helikoptéry nemá. Mód počítá s **DayZ Expansion – Vehicles** (na serveru i u hráčů,
+  včetně jeho závislostí `DayZ-Expansion-Core` a `DayZ-Expansion-Licensed`). Mód `@OS_Core` načítej **až za** Expansion.
+- Výchozí nabídka heliportu (classname a díly ověřené ze skriptů Expansion 1.9.78):
+
+  | Helikoptéra | Classname | Cena |
+  |---|---|---|
+  | Gyrokoptéra | `ExpansionGyrocopter` | 15 000 |
+  | Velká gyrokoptéra | `ExpansionBigGyrocopter` | 20 000 |
+  | MH-6 Little Bird | `ExpansionMh6` | 40 000 |
+  | UH-1H Huey | `ExpansionUh1h` | 60 000 |
+  | Merlin | `ExpansionMerlin` | 90 000 |
+
+  Každá dostane díly (baterie `ExpansionHelicopterBattery`, `ExpansionIgniterPlug`, `ExpansionHydraulicHoses`,
+  dveře / kola podle typu) a plnou nádrž.
+- Expansion helikoptéry jsou postavené na `CarScript`, takže funguje i **vlastnictví, zamykání klávesou F, servis,
+  garáž a sdílení se skupinou**.
+- Heliport: v `Locations` místo s `"Dealer": true`, `"DealerCategory": "heli"` a `"SpawnClearRadius": 12`
+  (ve výchozím nastavení ukázkový „Heliport“ – nastav mu souřadnice). Menu se jmenuje *Helikoptéry*.
+- Díly helikoptér z Expansion (baterie, zapalovač, hydraulika…) se do obchodu přidají automaticky do kategorie *Dily aut*.
+- Expansion má vlastní klíče od vozidel. Aby nekolidovaly s vlastnictvím z OS_Core, nech v nastavení Expansion
+  (`VehicleSettings.json`) `VehicleRequireKeyToStart` na `0` a vozidla nepáruj s klíči Expansion.
+- Bez Expansion: helikoptéry se v nabídce ukážou, ale koupě selže a peníze se vrátí – smaž je z `Offers`.
 
 **Vlastnictví aut (bez klíčů)**
 - Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu

@@ -154,6 +154,50 @@ class OS_VehicleConfig
 		m1025.AddParts("HeadlightH7", 2);
 		Offers.Insert(m1025);
 
+		// --- helikoptéry z módu DayZ Expansion (Vehicles) - bez módu se koupě nepovede a peníze se vrátí ---
+		OS_VehicleOffer gyro = new OS_VehicleOffer("ExpansionGyrocopter", 15000, "heli");
+		gyro.AddParts("ExpansionHelicopterBattery");
+		gyro.AddParts("SparkPlug");
+		gyro.AddParts("HeadlightH7");
+		Offers.Insert(gyro);
+
+		OS_VehicleOffer bigGyro = new OS_VehicleOffer("ExpansionBigGyrocopter", 20000, "heli");
+		bigGyro.AddParts("ExpansionHelicopterBattery");
+		bigGyro.AddParts("SparkPlug");
+		bigGyro.AddParts("HeadlightH7");
+		Offers.Insert(bigGyro);
+
+		OS_VehicleOffer mh6 = new OS_VehicleOffer("ExpansionMh6", 40000, "heli");
+		mh6.AddParts("Expansion_Mh6_Door_1_1");
+		mh6.AddParts("Expansion_Mh6_Door_1_2");
+		mh6.AddParts("Expansion_Mh6_Door_2_1");
+		mh6.AddParts("Expansion_Mh6_Door_2_2");
+		mh6.AddParts("ExpansionHydraulicHoses");
+		mh6.AddParts("ExpansionIgniterPlug");
+		mh6.AddParts("ExpansionHelicopterBattery");
+		mh6.AddParts("HeadlightH7");
+		Offers.Insert(mh6);
+
+		OS_VehicleOffer uh1h = new OS_VehicleOffer("ExpansionUh1h", 60000, "heli");
+		uh1h.AddParts("ExpansionUh1hDoor_1_1");
+		uh1h.AddParts("ExpansionUh1hDoor_1_2");
+		uh1h.AddParts("ExpansionUh1hDoor_2_1");
+		uh1h.AddParts("ExpansionUh1hDoor_2_2");
+		uh1h.AddParts("ExpansionHydraulicHoses");
+		uh1h.AddParts("ExpansionIgniterPlug");
+		uh1h.AddParts("ExpansionHelicopterBattery");
+		uh1h.AddParts("HeadlightH7");
+		Offers.Insert(uh1h);
+
+		OS_VehicleOffer merlin = new OS_VehicleOffer("ExpansionMerlin", 90000, "heli");
+		merlin.AddParts("ExpansionMerlinFrontWheel", 2);
+		merlin.AddParts("ExpansionMerlinBackWheel", 2);
+		merlin.AddParts("ExpansionHydraulicHoses");
+		merlin.AddParts("ExpansionIgniterPlug");
+		merlin.AddParts("ExpansionHelicopterBattery");
+		merlin.AddParts("HeadlightH7");
+		Offers.Insert(merlin);
+
 		OS_VehicleOffer v3s = new OS_VehicleOffer("Truck_01_Covered", 8000);
 		v3s.AddParts("Truck_01_Wheel", 2);
 		v3s.AddParts("Truck_01_WheelDouble", 4);

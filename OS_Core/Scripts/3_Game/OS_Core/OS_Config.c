@@ -373,6 +373,9 @@ class OS_TraderConfig
 		r.BaseClasses.Insert("CarWheel");
 		r.BaseClasses.Insert("CarDoor");
 		r.NameContains.Insert("CarBattery");
+		r.NameContains.Insert("HelicopterBattery");   // Expansion helikoptéry
+		r.NameContains.Insert("IgniterPlug");
+		r.NameContains.Insert("HydraulicHoses");
 		r.NameContains.Insert("TruckBattery");
 		r.NameContains.Insert("SparkPlug");
 		r.NameContains.Insert("GlowPlug");
