@@ -32,15 +32,15 @@ FrameWidgetClass BC_TraderMenu {
      "text valign" center
     }
     TextWidgetClass Balance {
-     position 620 12
-     size 320 36
+     position 560 12
+     size 380 36
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Penize: 0"
-     font "gui/fonts/metron28"
+     text ""
+     font "gui/fonts/metron"
      "text halign" right
      "text valign" center
     }

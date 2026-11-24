@@ -27,6 +27,9 @@ const int BC_RPC_TRADER_ADMIN_BULK = 784512029; // klient -> server: admin náso
 const int BC_RPC_VEHICLE_DATA   = 784512030; // server -> klient: autobazar / servis / garáž
 const int BC_RPC_VEHICLE_ACTION = 784512031; // klient -> server: koupit, opravit, natankovat...
 
+const int BC_RPC_BANK_DATA      = 784512040; // server -> klient: stav hotovosti a účtu
+const int BC_RPC_BANK_ACTION    = 784512041; // klient -> server: vložit / vybrat
+
 const int BC_RPC_FIRST = 784512001;
 const int BC_RPC_LAST  = 784512099;
 
@@ -54,4 +57,10 @@ enum BC_VehicleAction
 	CLAIM,
 	KEY_COPY,
 	CHANGE_LOCK
+}
+
+enum BC_BankAction
+{
+	DEPOSIT,
+	WITHDRAW
 }

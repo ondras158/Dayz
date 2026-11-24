@@ -27,6 +27,7 @@
 | Autobazar | Klávesa **B** v autocentru: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
+| Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
 | Vlastnictví a klíče | Koupené auto dostane zámek a klíč. Zamčené auto: nejde nastoupit, otevřít dveře, do kufru ani sundat díly | `Vehicles.json` |
 
 Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **Badlands Core**.
@@ -76,8 +77,8 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ```
 <profiles>/BadlandsCore/
 ├── Loadouts.json   SpawnZones.json   SafeZones.json
-├── Messages.json   Admins.json       Trader.json     Vehicles.json
-├── Wallets/<SteamID>.json            peníze hráčů
+├── Messages.json   Admins.json       Trader.json     Vehicles.json   Bank.json
+├── Wallets/<SteamID>.json            bankovní účty hráčů
 └── Garages/<SteamID>.json            auta v garáži
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[BadlandsCore]`
@@ -124,6 +125,20 @@ Parkovací místo musí být volné (bez auta v okruhu 5 m).
 Ve výchozím nastavení: Ada, Olga, Sarka, Gunter, M1025, V3S (vanilla auta – pokud má Nasdara vlastní auta,
 přidej jejich classname a díly).
 - Garáž ukládá typ auta, díly, jejich stav a palivo. **Věci v kufru se neukládají** – auto musí být prázdné.
+
+**Peníze a bankomaty** (`Bank.json`)
+- Peníze jsou předmět **„Peníze“** (`BC_Money`, model papíru). Počet kusů = částka, balíčky jdou spojovat
+  a rozdělovat jako hadry (max. 10 000 v jednom balíčku), nic neváží.
+- Obchod, autobazar i servis **vyplácí a berou hotovost**, kterou máš u sebe (i v batohu).
+- Hotovost můžeš ztratit – po smrti zůstane na těle a kdokoli ji sebere.
+- **Bankomat** (klávesa **B** u bankomatu): vložit / vybrat částku, vložit vše, vybrat vše.
+  Peníze na účtu (`Wallets/<SteamID>.json`) jsou v bezpečí i po smrti.
+- `Atms` = místa bankomatů (X, Z, Radius). `AtmObjectClasses` = classname objektů na mapě, které mají fungovat
+  jako bankomat (pokud mapa nějaké má, např. `"Land_..."` – zjistíš v editoru nebo admin nástrojem).
+- `ShopsAcceptBank: true` = když hotovost nestačí, obchod doplatí z účtu (jako kartou).
+- `UseCash: false` = vypne hotovost, vše jde přímo přes účet (původní chování).
+- `DepositFeePercent` = poplatek za vklad. Startovní peníze (`StartingBalance` v `Trader.json`)
+  a peníze od admina (admin menu) jdou **na účet**.
 
 **Vlastnictví a klíče**
 - Koupené auto má majitele a zámek, kupující dostane **klíč** (`BC_CarKey`, model klíčků od pout).

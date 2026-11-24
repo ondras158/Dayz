@@ -4,7 +4,9 @@ class BC_VehicleMenuData
 {
 	string LocationName;
 	string Currency;
-	int Balance;
+	int Balance;   // kolik jde utratit
+	int Cash;
+	int Bank;
 	bool Dealer;
 	bool Service;
 	bool Garage;
@@ -27,7 +29,7 @@ class BC_VehicleMenuData
 
 	bool Read(ParamsReadContext ctx)
 	{
-		if (!ctx.Read(LocationName) || !ctx.Read(Currency) || !ctx.Read(Balance))
+		if (!ctx.Read(LocationName) || !ctx.Read(Currency) || !ctx.Read(Balance) || !ctx.Read(Cash) || !ctx.Read(Bank))
 			return false;
 		if (!ctx.Read(Dealer) || !ctx.Read(Service) || !ctx.Read(Garage))
 			return false;
@@ -121,7 +123,7 @@ class BC_VehicleMenu : BC_MenuBase
 		if (m_Title)
 			m_Title.SetText(m_Data.LocationName);
 		if (m_Balance)
-			m_Balance.SetText("Penize: " + m_Data.Balance.ToString() + cur);
+			m_Balance.SetText("Hotovost: " + m_Data.Cash.ToString() + "  Ucet: " + m_Data.Bank.ToString() + cur);
 
 		// sekce podle toho, co místo nabízí
 		ShowWidget("DealerLabel", m_Data.Dealer);

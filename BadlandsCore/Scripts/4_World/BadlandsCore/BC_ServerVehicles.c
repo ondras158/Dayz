@@ -3,12 +3,12 @@
 class BC_ServerVehicles
 {
 	ref BC_VehicleConfig m_Cfg;
-	protected BC_Wallets m_Wallets;
+	protected BC_Payments m_Payments;
 	protected string m_Currency;
 
-	void BC_ServerVehicles(BC_Wallets wallets, string currency)
+	void BC_ServerVehicles(BC_Payments payments, string currency)
 	{
-		m_Wallets = wallets;
+		m_Payments = payments;
 		m_Currency = currency;
 
 		BC_VehicleConfig defaults = new BC_VehicleConfig();
@@ -266,7 +266,9 @@ class BC_ServerVehicles
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(loc.Name);
 		rpc.Write(m_Currency);
-		rpc.Write(m_Wallets.GetBalance(steamId));
+		rpc.Write(m_Payments.Available(player));
+		rpc.Write(m_Payments.Cash(player));
+		rpc.Write(m_Payments.Bank(player));
 		rpc.Write(loc.Dealer);
 		rpc.Write(loc.Service);
 		rpc.Write(loc.Garage);
@@ -321,7 +323,7 @@ class BC_ServerVehicles
 		}
 
 		string steamId = BC_Util.SteamId(player);
-		if (!m_Wallets.TrySpend(steamId, offer.Price))
+		if (!m_Payments.TrySpend(player, offer.Price))
 		{
 			BC_Util.Notify(player, "Autobazar", "Nemas dost penez.");
 			return;
@@ -330,7 +332,7 @@ class BC_ServerVehicles
 		CarScript car = SpawnCar(offer.ClassName, loc);
 		if (!car)
 		{
-			m_Wallets.Add(steamId, offer.Price);
+			m_Payments.Pay(player, offer.Price);
 			BC_Util.Notify(player, "Autobazar", "Auto se nepodarilo vytvorit (spatny classname v Vehicles.json?).");
 			return;
 		}
@@ -369,7 +371,7 @@ class BC_ServerVehicles
 			return;
 		}
 
-		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), price))
+		if (!m_Payments.TrySpend(player, price))
 		{
 			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + price.ToString() + " " + m_Currency + ").");
 			return;
@@ -409,7 +411,7 @@ class BC_ServerVehicles
 			return;
 		}
 
-		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), price))
+		if (!m_Payments.TrySpend(player, price))
 		{
 			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + price.ToString() + " " + m_Currency + ").");
 			return;
@@ -451,7 +453,7 @@ class BC_ServerVehicles
 		}
 
 		int price = created.Count() * m_Cfg.PartPrice;
-		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), price))
+		if (!m_Payments.TrySpend(player, price))
 		{
 			foreach (EntityAI undo : created)
 			{
@@ -481,7 +483,7 @@ class BC_ServerVehicles
 		}
 
 		string steamId = BC_Util.SteamId(player);
-		if (!m_Wallets.TrySpend(steamId, m_Cfg.ClaimPrice))
+		if (!m_Payments.TrySpend(player, m_Cfg.ClaimPrice))
 		{
 			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ClaimPrice.ToString() + " " + m_Currency + ").");
 			return;
@@ -516,7 +518,7 @@ class BC_ServerVehicles
 		if (!car)
 			return;
 
-		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), m_Cfg.KeyCopyPrice))
+		if (!m_Payments.TrySpend(player, m_Cfg.KeyCopyPrice))
 		{
 			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.KeyCopyPrice.ToString() + " " + m_Currency + ").");
 			return;
@@ -532,7 +534,7 @@ class BC_ServerVehicles
 		if (!car)
 			return;
 
-		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), m_Cfg.ChangeLockPrice))
+		if (!m_Payments.TrySpend(player, m_Cfg.ChangeLockPrice))
 		{
 			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ChangeLockPrice.ToString() + " " + m_Currency + ").");
 			return;
@@ -613,7 +615,7 @@ class BC_ServerVehicles
 			return;
 		}
 
-		if (!m_Wallets.TrySpend(steamId, m_Cfg.GarageStoreFee))
+		if (!m_Payments.TrySpend(player, m_Cfg.GarageStoreFee))
 		{
 			BC_Util.Notify(player, "Garaz", "Nemas dost penez na poplatek.");
 			return;
@@ -652,7 +654,7 @@ class BC_ServerVehicles
 		garage.Vehicles.Insert(sv);
 		if (!SaveGarage(steamId, garage))
 		{
-			m_Wallets.Add(steamId, m_Cfg.GarageStoreFee);
+			m_Payments.Pay(player, m_Cfg.GarageStoreFee);
 			BC_Util.Notify(player, "Garaz", "Chyba pri ukladani - auto zustava venku.");
 			return;
 		}

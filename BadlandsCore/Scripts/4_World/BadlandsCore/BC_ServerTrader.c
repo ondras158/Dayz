@@ -7,14 +7,14 @@ class BC_ServerTrader
 	protected static const int MAX_SEARCH_ITEMS = 300;
 
 	ref BC_TraderConfig m_Cfg;
-	protected BC_Wallets m_Wallets;
+	protected BC_Payments m_Payments;
 	protected BC_ServerAdmin m_Admin;
 	protected ref map<string, BC_TraderItem> m_ByClass = new map<string, BC_TraderItem>;          // malými písmeny
 	protected ref map<string, BC_TraderItem> m_InheritedCache = new map<string, BC_TraderItem>;
 
-	void BC_ServerTrader(BC_Wallets wallets, BC_TraderConfig cfg, BC_ServerAdmin admin)
+	void BC_ServerTrader(BC_Payments payments, BC_TraderConfig cfg, BC_ServerAdmin admin)
 	{
-		m_Wallets = wallets;
+		m_Payments = payments;
 		m_Cfg = cfg;
 		m_Admin = admin;
 
@@ -104,14 +104,14 @@ class BC_ServerTrader
 	void RewardZombieKill(PlayerBase killer)
 	{
 		if (m_Cfg.Enabled && killer && m_Cfg.ZombieKillReward != 0)
-			m_Wallets.Add(BC_Util.SteamId(killer), m_Cfg.ZombieKillReward);
+			m_Payments.Pay(killer, m_Cfg.ZombieKillReward);
 	}
 
 	void RewardPlayerKill(PlayerBase killer)
 	{
 		if (m_Cfg.Enabled && killer && m_Cfg.PlayerKillReward != 0)
 		{
-			m_Wallets.Add(BC_Util.SteamId(killer), m_Cfg.PlayerKillReward);
+			m_Payments.Pay(killer, m_Cfg.PlayerKillReward);
 			BC_Util.Notify(killer, "Odmena", "+" + m_Cfg.PlayerKillReward.ToString() + " " + m_Cfg.CurrencyName);
 		}
 	}
@@ -137,7 +137,7 @@ class BC_ServerTrader
 		BC_TraderLocation trader = NearTrader(player);
 		if (!trader)
 		{
-			BC_Util.Notify(player, "Obchod", "Musis stat u obchodnika, autobazaru, servisu nebo garaze.");
+			BC_Util.Notify(player, "Obchod", "Musis stat u obchodnika, bankomatu, autobazaru, servisu nebo garaze.");
 			return true;
 		}
 
@@ -209,7 +209,7 @@ class BC_ServerTrader
 			return;
 
 		string steamId = BC_Util.SteamId(player);
-		if (!m_Wallets.TrySpend(steamId, priced.Buy))
+		if (!m_Payments.TrySpend(player, priced.Buy))
 		{
 			BC_Util.Notify(player, "Obchod", "Nemas dost penez.");
 			return;
@@ -218,7 +218,7 @@ class BC_ServerTrader
 		EntityAI created = BC_Util.GiveItem(player, priced.ClassName);
 		if (!created)
 		{
-			m_Wallets.Add(steamId, priced.Buy); // vrátit peníze
+			m_Payments.Pay(player, priced.Buy); // vrátit peníze
 			BC_Util.Notify(player, "Obchod", "Predmet se nepodarilo vytvorit.");
 			return;
 		}
@@ -252,7 +252,7 @@ class BC_ServerTrader
 		}
 
 		g_Game.ObjectDelete(item);
-		m_Wallets.Add(BC_Util.SteamId(player), price);
+		m_Payments.Pay(player, price);
 		Print(BC_TAG + "OBCHOD " + BC_Util.PlayerName(player) + " prodal " + className + " za " + price.ToString());
 	}
 
@@ -287,7 +287,12 @@ class BC_ServerTrader
 		if (!item || item.IsRuined())
 			return false;
 
-		BC_TraderItem priced = FindPriced(item.GetType());
+		// peníze a klíče módu se neprodávají
+		string type = item.GetType();
+		if (type.IndexOf("BC_") == 0)
+			return false;
+
+		BC_TraderItem priced = FindPriced(type);
 		if (!priced || priced.Sell < 0)
 			return false;
 
@@ -486,7 +491,9 @@ class BC_ServerTrader
 		}
 
 		ScriptRPC rpc = new ScriptRPC();
-		rpc.Write(m_Wallets.GetBalance(BC_Util.SteamId(player)));
+		rpc.Write(m_Payments.Available(player));
+		rpc.Write(m_Payments.Cash(player));
+		rpc.Write(m_Payments.Bank(player));
 		rpc.Write(classes);
 		rpc.Write(counts);
 		rpc.Write(prices);

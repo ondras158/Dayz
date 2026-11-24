@@ -8,6 +8,7 @@ class BC_Client
 	protected ref BC_AdminMenu m_AdminMenu;
 	protected ref BC_TraderMenu m_TraderMenu;
 	protected ref BC_VehicleMenu m_VehicleMenu;
+	protected ref BC_AtmMenu m_AtmMenu;
 
 	static BC_Client Get()
 	{
@@ -82,6 +83,9 @@ class BC_Client
 				break;
 			case BC_RPC_VEHICLE_DATA:
 				OnVehicleData(ctx);
+				break;
+			case BC_RPC_BANK_DATA:
+				OnBankData(ctx);
 				break;
 		}
 	}
@@ -165,14 +169,16 @@ class BC_Client
 	protected void OnTraderUpdate(ParamsReadContext ctx)
 	{
 		int balance;
+		int cash;
+		int bank;
 		array<string> classes = new array<string>;
 		array<int> counts = new array<int>;
 		array<int> prices = new array<int>;
-		if (!ctx.Read(balance) || !ctx.Read(classes) || !ctx.Read(counts) || !ctx.Read(prices))
+		if (!ctx.Read(balance) || !ctx.Read(cash) || !ctx.Read(bank) || !ctx.Read(classes) || !ctx.Read(counts) || !ctx.Read(prices))
 			return;
 
 		if (m_TraderMenu)
-			m_TraderMenu.SetPlayerState(balance, classes, counts, prices);
+			m_TraderMenu.SetPlayerState(balance, cash, bank, classes, counts, prices);
 	}
 
 	protected void OnVehicleData(ParamsReadContext ctx)
@@ -190,6 +196,25 @@ class BC_Client
 		m_VehicleMenu = new BC_VehicleMenu();
 		m_VehicleMenu.SetData(data);
 		Show(m_VehicleMenu);
+	}
+
+	protected void OnBankData(ParamsReadContext ctx)
+	{
+		string currency;
+		int cash;
+		int bank;
+		float feePercent;
+		if (!ctx.Read(currency) || !ctx.Read(cash) || !ctx.Read(bank) || !ctx.Read(feePercent))
+			return;
+
+		if (!IsOpen(m_AtmMenu))
+		{
+			m_AtmMenu = new BC_AtmMenu();
+			m_AtmMenu.SetData(currency, cash, bank, feePercent);
+			Show(m_AtmMenu);
+			return;
+		}
+		m_AtmMenu.SetData(currency, cash, bank, feePercent);
 	}
 
 	//! Čitelný název předmětu z configu hry

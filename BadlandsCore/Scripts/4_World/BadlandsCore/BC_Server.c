@@ -12,6 +12,8 @@ class BC_Server
 	ref BC_ServerAdmin m_Admin;
 	ref BC_ServerTrader m_Trader;
 	ref BC_ServerVehicles m_Vehicles;
+	ref BC_ServerBank m_Bank;
+	ref BC_Payments m_Payments;
 
 	protected float m_TickTimer;
 	protected static const float TICK_SECONDS = 1.0;
@@ -38,9 +40,13 @@ class BC_Server
 		m_Spawns = new BC_ServerSpawns();
 		m_SafeZones = new BC_ServerSafeZones();
 		m_Messages = new BC_ServerMessages();
+		BC_BankConfig bankCfg = BC_ServerBank.LoadConfig();
+		m_Payments = new BC_Payments(m_Wallets, bankCfg);
+		m_Bank = new BC_ServerBank(m_Wallets, bankCfg, traderCfg.CurrencyName);
+
 		m_Admin = new BC_ServerAdmin(m_Wallets, traderCfg.CurrencyName);
-		m_Trader = new BC_ServerTrader(m_Wallets, traderCfg, m_Admin);
-		m_Vehicles = new BC_ServerVehicles(m_Wallets, traderCfg.CurrencyName);
+		m_Trader = new BC_ServerTrader(m_Payments, traderCfg, m_Admin);
+		m_Vehicles = new BC_ServerVehicles(m_Payments, traderCfg.CurrencyName);
 
 		DayZGame.Event_OnRPC.Insert(OnRPC);
 		Print(BC_TAG + "Server modul spusten.");
@@ -118,9 +124,15 @@ class BC_Server
 		// klávesa obchodu: u obchodníka s věcmi -> obchod, u autocentra -> menu aut
 		if (rpcType == BC_RPC_TRADER_OPEN)
 		{
+			// pořadí: bankomat (malý okruh), obchodník, autocentrum
 			PlayerBase player = BC_Util.FindPlayer(sender);
-			if (player && player.IsAlive() && !m_Trader.NearTrader(player) && m_Vehicles.TryOpen(player))
-				return;
+			if (player && player.IsAlive())
+			{
+				if (m_Bank.TryOpen(player))
+					return;
+				if (!m_Trader.NearTrader(player) && m_Vehicles.TryOpen(player))
+					return;
+			}
 		}
 
 		if (m_Spawns.OnRPC(sender, rpcType, ctx))
@@ -128,6 +140,8 @@ class BC_Server
 		if (m_Admin.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Vehicles.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Bank.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

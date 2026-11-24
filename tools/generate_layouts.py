@@ -128,7 +128,7 @@ LAYOUTS = {
     ]),
     "trader_menu.layout": layout("BC_TraderMenu", 960, 690, [
         text("Title", 20, 12, 600, 36, "Obchod", "gui/fonts/metron28"),
-        text("Balance", 620, 12, 320, 36, "Penize: 0", "gui/fonts/metron28", "right"),
+        text("Balance", 560, 12, 380, 36, "", align="right"),
         text("CatLabel", 20, 56, 220, 24, "Kategorie"),
         listbox("CategoryList", 20, 90, 220, 412),
         edit("EditSearch", 255, 54, 330, 30),
@@ -152,7 +152,7 @@ LAYOUTS = {
     ]),
     "vehicle_menu.layout": layout("BC_VehicleMenu", 960, 600, [
         text("Title", 20, 12, 600, 36, "Autocentrum", "gui/fonts/metron28"),
-        text("Balance", 620, 12, 320, 36, "Penize: 0", "gui/fonts/metron28", "right"),
+        text("Balance", 560, 12, 380, 36, "", align="right"),
         text("DealerLabel", 20, 56, 300, 24, "Autobazar"),
         listbox("OfferList", 20, 84, 300, 410),
         button("BtnBuy", 20, 504, 300, 40, "Koupit auto"),
@@ -173,6 +173,20 @@ LAYOUTS = {
         listbox("GarageList", 640, 84, 300, 410),
         button("BtnRetrieve", 640, 504, 300, 40, "Vyzvednout"),
         text("Status", 20, 560, 920, 26, "", align="center"),
+    ]),
+    "atm_menu.layout": layout("BC_AtmMenu", 520, 400, [
+        text("Title", 20, 12, 480, 36, "Bankomat", "gui/fonts/metron28", "center"),
+        text("CashText", 20, 60, 480, 28, ""),
+        text("BankText", 20, 90, 480, 28, ""),
+        text("FeeText", 20, 120, 480, 24, ""),
+        text("AmountLabel", 20, 160, 120, 34, "Castka"),
+        edit("EditAmount", 140, 160, 360, 34),
+        button("BtnDeposit", 20, 210, 230, 40, "Vlozit"),
+        button("BtnWithdraw", 270, 210, 230, 40, "Vybrat"),
+        button("BtnDepositAll", 20, 258, 230, 40, "Vlozit vse"),
+        button("BtnWithdrawAll", 270, 258, 230, 40, "Vybrat vse"),
+        button("BtnClose", 20, 316, 480, 40, "Zavrit"),
+        text("Status", 20, 364, 480, 26, "", align="center"),
     ]),
 }
 

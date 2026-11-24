@@ -14,7 +14,9 @@ class BC_TraderMenu : BC_MenuBase
 	protected ref array<int> m_ItemBuy = new array<int>;
 	protected ref array<int> m_ItemSell = new array<int>;
 
-	protected int m_Balance;
+	protected int m_Balance;   // kolik jde utratit
+	protected int m_Cash;
+	protected int m_Bank;
 	protected ref array<string> m_SellClasses = new array<string>;
 	protected ref array<int> m_SellCounts = new array<int>;
 	protected ref array<int> m_SellPrices = new array<int>;
@@ -79,9 +81,11 @@ class BC_TraderMenu : BC_MenuBase
 			RefreshItems();
 	}
 
-	void SetPlayerState(int balance, array<string> classes, array<int> counts, array<int> prices)
+	void SetPlayerState(int balance, int cash, int bank, array<string> classes, array<int> counts, array<int> prices)
 	{
 		m_Balance = balance;
+		m_Cash = cash;
+		m_Bank = bank;
 		m_SellClasses.Clear();
 		m_SellClasses.Copy(classes);
 		m_SellCounts.Clear();
@@ -181,7 +185,7 @@ class BC_TraderMenu : BC_MenuBase
 	protected void RefreshPlayer()
 	{
 		if (m_BalanceText)
-			m_BalanceText.SetText("Penize: " + m_Balance.ToString() + " " + m_Currency);
+			m_BalanceText.SetText("Hotovost: " + m_Cash.ToString() + "  Ucet: " + m_Bank.ToString() + " " + m_Currency);
 
 		if (!m_SellList)
 			return;
