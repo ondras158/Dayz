@@ -136,10 +136,11 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
   - *Zbrojir* – `Pistole`, `Zbrane`, `Munice`, `Zasobniky`, `Prislusenstvi zbrani`,
   - *Obleceni* – `Obleceni`, `Batohy`,
   - *Potraviny* – `Jidlo a piti`,
-  - *Lekarna* – `Medicina`.
+  - *Lekarna* – `Medicina`,
+  - *Zelezarstvi* – `Nastroje a ostatni`, `Stavba zakladny`.
 
   Názvy musí odpovídat kategoriím v `Categories` (včetně těch, které vytvořila automatika). Obchodníka můžeš
-  přidat kolik chceš, např. železářství: `{ "Name": "Zelezarstvi", "X": ..., "Z": ..., "Radius": 10, "Categories": ["Nastroje a ostatni", "Stavba zakladny"] }`.
+  přidat kolik chceš, např. autodíly: `{ "Name": "Autodily", "X": ..., "Z": ..., "Radius": 10, "Categories": ["Dily aut"] }`.
 - Obchodník je jen místo (`Traders`: X, Z, Radius) – dej ho do safe zóny a postav tam něco viditelného.
 
 **Auta** (`Vehicles.json`) – `Locations` = místa (autocentra). Každé má `Dealer`/`Service`/`Garage` (true/false),

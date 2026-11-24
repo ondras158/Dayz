@@ -318,6 +318,11 @@ class OS_TraderConfig
 		pharmacy.Categories.Insert("Medicina");
 		Traders.Insert(pharmacy);
 
+		OS_TraderLocation hardware = new OS_TraderLocation("Priklad - Zelezarstvi", 1960, 2040, 10);
+		hardware.Categories.Insert("Nastroje a ostatni");
+		hardware.Categories.Insert("Stavba zakladny");
+		Traders.Insert(hardware);
+
 		ExcludeContains.Insert("_Base");
 		ExcludeContains.Insert("Debug");
 		ExcludeContains.Insert("Static");
