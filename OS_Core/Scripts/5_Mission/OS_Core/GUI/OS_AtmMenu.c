@@ -10,12 +10,17 @@ class OS_AtmData
 	float TransferFeePercent;
 	ref array<string> PlayerNames = new array<string>;
 	ref array<string> PlayerIds = new array<string>;
+	string GroupName;
+	int GroupBalance;
+	bool GroupCanWithdraw;
 
 	bool Read(ParamsReadContext ctx)
 	{
 		if (!ctx.Read(Currency) || !ctx.Read(Cash) || !ctx.Read(Bank) || !ctx.Read(DepositFeePercent))
 			return false;
 		if (!ctx.Read(AllowTransfers) || !ctx.Read(TransferFeePercent) || !ctx.Read(PlayerNames) || !ctx.Read(PlayerIds))
+			return false;
+		if (!ctx.Read(GroupName) || !ctx.Read(GroupBalance) || !ctx.Read(GroupCanWithdraw))
 			return false;
 		return true;
 	}
@@ -40,6 +45,9 @@ class OS_AtmMenu : OS_MenuBase
 	protected EditBoxWidget m_EditTransferAmount;
 	protected ButtonWidget m_BtnTransfer;
 	protected TextWidget m_TransferFeeText;
+	protected TextWidget m_GroupText;
+	protected ButtonWidget m_BtnGroupDeposit;
+	protected ButtonWidget m_BtnGroupWithdraw;
 
 	override string LayoutName()
 	{
@@ -70,6 +78,9 @@ class OS_AtmMenu : OS_MenuBase
 		m_EditTransferAmount = FindEdit("EditTransferAmount");
 		m_BtnTransfer = FindButton("BtnTransfer");
 		m_TransferFeeText = FindText("TransferFeeText");
+		m_GroupText = FindText("GroupText");
+		m_BtnGroupDeposit = FindButton("BtnGroupDeposit");
+		m_BtnGroupWithdraw = FindButton("BtnGroupWithdraw");
 
 		Refresh();
 	}
@@ -91,6 +102,22 @@ class OS_AtmMenu : OS_MenuBase
 			else
 				m_FeeText.SetText("Vklad bez poplatku");
 		}
+
+		// skupinový účet
+		bool hasGroup = m_Data.GroupName != "";
+		if (m_GroupText)
+		{
+			if (hasGroup)
+				m_GroupText.SetText("Ucet skupiny " + m_Data.GroupName + ": " + m_Data.GroupBalance.ToString() + cur);
+			else
+				m_GroupText.SetText("Nejsi ve skupine (klavesa J)");
+		}
+		Widget groupDepositW = layoutRoot.FindAnyWidget("BtnGroupDeposit");
+		if (groupDepositW)
+			groupDepositW.Show(hasGroup);
+		Widget groupWithdrawW = layoutRoot.FindAnyWidget("BtnGroupWithdraw");
+		if (groupWithdrawW)
+			groupWithdrawW.Show(hasGroup && m_Data.GroupCanWithdraw);
 
 		// sekce převodu
 		array<string> transferWidgets = {"TransferLabel", "PlayerListBg", "PlayerList", "TargetIdLabel", "EditTargetIdBg", "EditTargetId", "TransferAmountLabel", "EditTransferAmountBg", "EditTransferAmount", "BtnTransfer", "TransferFeeText"};
@@ -194,6 +221,17 @@ class OS_AtmMenu : OS_MenuBase
 				SendAction(OS_BankAction.DEPOSIT, amount);
 			else
 				SendAction(OS_BankAction.WITHDRAW, amount);
+			return true;
+		}
+		if (w == m_BtnGroupDeposit || w == m_BtnGroupWithdraw)
+		{
+			int groupAmount = ReadInt(m_EditAmount);
+			if (groupAmount <= 0)
+				groupAmount = -1;   // bez částky = vše
+			if (w == m_BtnGroupDeposit)
+				SendAction(OS_BankAction.GROUP_DEPOSIT, groupAmount);
+			else
+				SendAction(OS_BankAction.GROUP_WITHDRAW, groupAmount);
 			return true;
 		}
 		if (w == m_BtnDepositAll)

@@ -9,6 +9,7 @@ class OS_Client
 	protected ref OS_TraderMenu m_TraderMenu;
 	protected ref OS_VehicleMenu m_VehicleMenu;
 	protected ref OS_AtmMenu m_AtmMenu;
+	protected ref OS_GroupMenu m_GroupMenu;
 
 	static OS_Client Get()
 	{
@@ -54,6 +55,11 @@ class OS_Client
 		SendToServer(OS_RPC_TRADER_OPEN);
 	}
 
+	void RequestGroup()
+	{
+		SendToServer(OS_RPC_GROUP_OPEN);
+	}
+
 	void RequestAdmin()
 	{
 		SendToServer(OS_RPC_ADMIN_OPEN);
@@ -89,6 +95,9 @@ class OS_Client
 				break;
 			case OS_RPC_SETTINGS:
 				OnSettings(ctx);
+				break;
+			case OS_RPC_GROUP_DATA:
+				OnGroupData(ctx);
 				break;
 		}
 	}
@@ -199,6 +208,22 @@ class OS_Client
 		m_VehicleMenu = new OS_VehicleMenu();
 		m_VehicleMenu.SetData(data);
 		Show(m_VehicleMenu);
+	}
+
+	protected void OnGroupData(ParamsReadContext ctx)
+	{
+		OS_GroupData data = new OS_GroupData();
+		if (!data.Read(ctx))
+			return;
+
+		if (IsOpen(m_GroupMenu))
+		{
+			m_GroupMenu.SetData(data);
+			return;
+		}
+		m_GroupMenu = new OS_GroupMenu();
+		m_GroupMenu.SetData(data);
+		Show(m_GroupMenu);
 	}
 
 	protected void OnSettings(ParamsReadContext ctx)

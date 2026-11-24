@@ -13,6 +13,7 @@ class OS_Server
 	ref OS_ServerTrader m_Trader;
 	ref OS_ServerVehicles m_Vehicles;
 	ref OS_ServerBank m_Bank;
+	ref OS_ServerGroups m_Groups;
 	ref OS_Payments m_Payments;
 
 	protected string m_Currency;
@@ -47,7 +48,8 @@ class OS_Server
 		m_Messages = new OS_ServerMessages();
 		m_Currency = currency;
 		m_Payments = new OS_Payments(m_Wallets, bankCfg, currency);
-		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency);
+		m_Groups = new OS_ServerGroups(m_Payments, m_Wallets, currency);
+		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
 		m_Admin = new OS_ServerAdmin(m_Wallets, currency);
 		m_Trader = new OS_ServerTrader(m_Payments, traderCfg, m_Admin, currency);
@@ -155,6 +157,8 @@ class OS_Server
 		if (m_Vehicles.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Bank.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Groups.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

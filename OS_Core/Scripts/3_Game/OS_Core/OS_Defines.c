@@ -33,6 +33,10 @@ const int OS_RPC_BANK_TRANSFER  = 784512042; // klient -> server: převod jiném
 
 const int OS_RPC_SETTINGS       = 784512050; // server -> klient: nastavení (měna)
 
+const int OS_RPC_GROUP_OPEN     = 784512060; // klient -> server: chci menu skupiny
+const int OS_RPC_GROUP_DATA     = 784512061; // server -> klient: stav skupiny
+const int OS_RPC_GROUP_ACTION   = 784512062; // klient -> server: akce ve skupině
+
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LAST  = 784512099;
 
@@ -65,5 +69,20 @@ enum OS_VehicleAction
 enum OS_BankAction
 {
 	DEPOSIT,
-	WITHDRAW
+	WITHDRAW,
+	GROUP_DEPOSIT,
+	GROUP_WITHDRAW
+}
+
+enum OS_GroupAction
+{
+	CREATE,
+	INVITE,
+	ACCEPT,
+	DECLINE,
+	LEAVE,
+	KICK,
+	PROMOTE,
+	BUY_SLOT,
+	DISBAND
 }

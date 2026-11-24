@@ -41,6 +41,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
+| Skupiny | Klávesa **J**: založení skupiny, pozvánky, až 4 hráči zdarma, další místa za peníze, společný účet v bankomatu | `Groups.json` |
 | Vlastnictví a klíče | Koupené auto dostane zámek a klíč. Zamčené auto: nejde nastoupit, otevřít dveře, do kufru ani sundat díly | `Vehicles.json` |
 
 Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
@@ -202,6 +203,18 @@ přidej jejich classname a díly).
 - `UseCash: false` = vypne hotovost, vše jde přímo přes účet (původní chování).
 - `DepositFeePercent` = poplatek za vklad. Startovní peníze (`StartingBalance` v `Trader.json`)
   a peníze od admina (admin menu) jdou **na účet**.
+
+**Skupiny** (`Groups.json`, data skupin v `GroupsData.json`)
+- Menu skupiny: klávesa **J**. Kdo není ve skupině, může ji založit (název 3–24 znaků) nebo přijmout pozvánku.
+- **Velikost:** `BaseMaxMembers` (4) zdarma, další místo kupuje vedoucí: první za `SlotPrice` (1000),
+  každé další o `SlotPriceIncrease` (500) dražší, maximálně `MaxMembersLimit` (10) hráčů.
+  Místo se platí ze **skupinového účtu**, a když na něm není dost, z hotovosti vedoucího.
+- **Pozvánky:** vedoucí (nebo všichni, pokud `MembersCanInvite: true`) zve hráče online, kteří nejsou v jiné skupině.
+  Pozvaný dostane oznámení a pozvánku přijme/odmítne v menu skupiny (platí `InviteValidSeconds`).
+- **Vedoucí** může vyhodit člena, předat vedení a rozpustit skupinu. Když vedoucí odejde, vedení převezme další člen.
+- **Společný účet:** v bankomatu *Vložit do skupiny* / *Vybrat ze skupiny* (částka z pole Částka, prázdné = vše).
+  `MembersCanWithdraw: false` = vybírat smí jen vedoucí. Při rozpuštění nebo odchodu posledního člena
+  jde zůstatek na jeho osobní účet. Všechny vklady a výběry se zapisují do logu.
 
 **Vlastnictví a klíče**
 - Koupené auto má majitele a zámek, kupující dostane **klíč** (`OS_CarKey`, model klíčků od pout).

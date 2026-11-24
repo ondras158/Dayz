@@ -1,0 +1,321 @@
+FrameWidgetClass OS_GroupMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 860 560
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 820 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Skupina"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass InfoText {
+     position 20 52
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass MembersLabel {
+     position 20 84
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Clenove"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass MemberListBg {
+     color 0 0 0 0.6
+     position 20 110
+     size 400 260
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass MemberList {
+     position 24 114
+     size 392 252
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnKick {
+     color 0.25 0.22 0.18 1
+     position 20 380
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vyhodit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnPromote {
+     color 0.25 0.22 0.18 1
+     position 225 380
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Predat vedeni"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnLeave {
+     color 0.25 0.22 0.18 1
+     position 20 426
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Opustit skupinu"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnDisband {
+     color 0.25 0.22 0.18 1
+     position 225 426
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Rozpustit skupinu"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass FreeLabel {
+     position 440 84
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Pozvat hrace (online, bez skupiny)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass FreeListBg {
+     color 0 0 0 0.6
+     position 440 110
+     size 400 214
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass FreeList {
+     position 444 114
+     size 392 206
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnInvite {
+     color 0.25 0.22 0.18 1
+     position 440 332
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Pozvat"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuySlot {
+     color 0.25 0.22 0.18 1
+     position 440 380
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit dalsi misto"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass BalanceText {
+     position 440 426
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass CreateLabel {
+     position 20 84
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Zalozit novou skupinu (nazev)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditNameBg {
+     color 0 0 0 0.7
+     position 20 112
+     size 400 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditName {
+     position 26 114
+     size 388 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCreate {
+     color 0.25 0.22 0.18 1
+     position 20 154
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zalozit skupinu"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass InviteText {
+     position 440 84
+     size 400 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass InviteText2 {
+     position 440 110
+     size 400 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnAccept {
+     color 0.25 0.22 0.18 1
+     position 440 154
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Prijmout"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnDecline {
+     color 0.25 0.22 0.18 1
+     position 645 154
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Odmitnout"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 480
+     size 820 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 524
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

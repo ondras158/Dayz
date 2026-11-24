@@ -9,7 +9,7 @@ FrameWidgetClass OS_AtmMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 860 420
+   size 860 480
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -151,9 +151,46 @@ FrameWidgetClass OS_AtmMenu {
      text "Vybrat vse"
      font "gui/fonts/metron"
     }
+    TextWidgetClass GroupText {
+     position 20 306
+     size 400 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnGroupDeposit {
+     color 0.25 0.22 0.18 1
+     position 20 336
+     size 195 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vlozit do skupiny"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnGroupWithdraw {
+     color 0.25 0.22 0.18 1
+     position 225 336
+     size 195 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vybrat ze skupiny"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 330
+     position 20 400
      size 400 40
      hexactpos 1
      vexactpos 1
@@ -288,7 +325,7 @@ FrameWidgetClass OS_AtmMenu {
      "text valign" center
     }
     TextWidgetClass Status {
-     position 20 384
+     position 20 446
      size 820 26
      hexactpos 1
      vexactpos 1

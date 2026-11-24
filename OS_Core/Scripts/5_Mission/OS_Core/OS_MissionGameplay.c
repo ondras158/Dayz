@@ -18,6 +18,10 @@ modded class MissionGameplay
 		if (traderInput && traderInput.LocalPress())
 			OS_Client.Get().RequestTrader();
 
+		UAInput groupInput = GetUApi().GetInputByName("UAOSGroupMenu");
+		if (groupInput && groupInput.LocalPress())
+			OS_Client.Get().RequestGroup();
+
 		UAInput adminInput = GetUApi().GetInputByName("UAOSAdminMenu");
 		if (adminInput && adminInput.LocalPress())
 			OS_Client.Get().RequestAdmin();

@@ -4,11 +4,13 @@ class OS_ServerBank
 {
 	ref OS_BankConfig m_Cfg;
 	protected OS_Wallets m_Wallets;
+	protected OS_ServerGroups m_Groups;
 	protected string m_Currency;
 	protected ref array<string> m_AtmClassesLower = new array<string>;
 
-	void OS_ServerBank(OS_Wallets wallets, OS_BankConfig cfg, string currency)
+	void OS_ServerBank(OS_Wallets wallets, OS_BankConfig cfg, string currency, OS_ServerGroups groups)
 	{
+		m_Groups = groups;
 		m_Wallets = wallets;
 		m_Cfg = cfg;
 		m_Currency = currency;
@@ -98,6 +100,10 @@ class OS_ServerBank
 			Deposit(player, amount);
 		else if (action == OS_BankAction.WITHDRAW)
 			Withdraw(player, amount);
+		else if (action == OS_BankAction.GROUP_DEPOSIT)
+			GroupDeposit(player, amount);
+		else if (action == OS_BankAction.GROUP_WITHDRAW)
+			GroupWithdraw(player, amount);
 
 		SendData(player);
 		return true;
@@ -164,6 +170,79 @@ class OS_ServerBank
 			m_Wallets.Add(steamId, undelivered);
 		OS_Util.Notify(player, "Bankomat", "Vybrano " + amount.ToString() + " " + m_Currency);
 		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vyber " + amount.ToString());
+	}
+
+	// ------------------------------------------------------------ skupinový účet
+
+	protected OS_Group PlayerGroup(PlayerBase player)
+	{
+		if (!m_Groups)
+			return null;
+		OS_Group group = m_Groups.GetGroupOf(OS_Util.SteamId(player));
+		if (!group)
+			OS_Util.Notify(player, "Bankomat", "Nejsi v zadne skupine.");
+		return group;
+	}
+
+	//! hotovost -> skupinový účet (amount -1 = vše)
+	protected void GroupDeposit(PlayerBase player, int amount)
+	{
+		OS_Group group = PlayerGroup(player);
+		if (!group)
+			return;
+
+		int cash = OS_Money.CountCash(player);
+		if (amount < 0)
+			amount = cash;
+		if (amount <= 0 || amount > cash)
+		{
+			OS_Util.Notify(player, "Bankomat", "Tolik hotovosti u sebe nemas.");
+			return;
+		}
+
+		int changeLeftover;
+		if (!OS_Money.TakeCash(player, amount, changeLeftover))
+			return;
+		if (changeLeftover > 0)
+			m_Wallets.Add(OS_Util.SteamId(player), changeLeftover);
+
+		m_Groups.AddBalance(group, amount);
+		OS_Util.Notify(player, "Bankomat", "Vlozeno " + amount.ToString() + " " + m_Currency + " na ucet skupiny " + group.Name);
+		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vklad na skupinu " + group.Name + ": " + amount.ToString());
+	}
+
+	//! skupinový účet -> hotovost (amount -1 = vše)
+	protected void GroupWithdraw(PlayerBase player, int amount)
+	{
+		OS_Group group = PlayerGroup(player);
+		if (!group)
+			return;
+
+		string steamId = OS_Util.SteamId(player);
+		if (!m_Groups.CanWithdraw(group, steamId))
+		{
+			OS_Util.Notify(player, "Bankomat", "Ze skupinoveho uctu vybira jen vedouci.");
+			return;
+		}
+
+		if (amount < 0)
+			amount = group.Balance;
+		int smallest = OS_Money.Smallest();
+		amount = amount - amount % smallest;
+		if (amount <= 0 || amount > group.Balance)
+		{
+			OS_Util.Notify(player, "Bankomat", "Na uctu skupiny neni dost penez.");
+			return;
+		}
+
+		if (!m_Groups.AddBalance(group, -amount))
+			return;
+
+		int undelivered = OS_Money.GiveCash(player, amount);
+		if (undelivered > 0)
+			m_Wallets.Add(steamId, undelivered);
+		OS_Util.Notify(player, "Bankomat", "Vybrano " + amount.ToString() + " " + m_Currency + " z uctu skupiny " + group.Name);
+		Print(OS_TAG + "BANKA " + OS_Util.PlayerName(player) + " vyber ze skupiny " + group.Name + ": " + amount.ToString());
 	}
 
 	protected void Transfer(PlayerBase player, string targetId, int amount)
@@ -253,6 +332,24 @@ class OS_ServerBank
 		rpc.Write(m_Cfg.TransferFeePercent);
 		rpc.Write(names);
 		rpc.Write(ids);
+
+		// skupinový účet
+		string groupName = "";
+		int groupBalance = 0;
+		bool groupCanWithdraw = false;
+		if (m_Groups)
+		{
+			OS_Group group = m_Groups.GetGroupOf(OS_Util.SteamId(player));
+			if (group)
+			{
+				groupName = group.Name;
+				groupBalance = group.Balance;
+				groupCanWithdraw = m_Groups.CanWithdraw(group, OS_Util.SteamId(player));
+			}
+		}
+		rpc.Write(groupName);
+		rpc.Write(groupBalance);
+		rpc.Write(groupCanWithdraw);
 		rpc.Send(null, OS_RPC_BANK_DATA, true, player.GetIdentity());
 	}
 }
