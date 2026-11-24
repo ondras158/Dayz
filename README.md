@@ -37,7 +37,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
 | Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
-| Autobazar | Klávesa **B** v autocentru: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
+| Autobazar / helikoptéry | Klávesa **B** v autocentru nebo na heliportu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
@@ -237,6 +237,19 @@ přidej jejich classname a díly).
 - Do garáže jde uložit i auto spoluhráče ze skupiny (ne jen svoje).
 - Auto ze skupinové garáže dál patří původnímu majiteli a je sdílené se skupinou (zamyká ho kdokoli ze skupiny).
 - Osobní auta uložená před vstupem do skupiny zůstávají v osobní garáži.
+
+**Helikoptéry** (`Vehicles.json`)
+- Vanilla DayZ žádnou létající helikoptéru nemá – je potřeba mód s helikoptérami (na serveru i u hráčů).
+- Místo prodeje: v `Locations` nastav `"Dealer": true` a `"DealerCategory": "heli"` (ve výchozím nastavení je
+  ukázkový „Heliport“). Menu se pak jmenuje *Helikoptéry*. `SpawnClearRadius` = jak velké volné místo je potřeba
+  (heliport ~12 m), `Radius` = kde musí hráč stát.
+- Nabídka: do `Offers` přidej helikoptéry s `"Category": "heli"`, classname z módu a díly, např.:
+  ```json
+  { "ClassName": "NAZEV_HELIKOPTERY_Z_MODU", "Price": 25000, "Category": "heli", "Parts": ["CarBattery", "HeadlightH7"] }
+  ```
+  Classname a potřebné díly najdeš v popisu módu nebo v jeho `config.cpp`.
+- Helikoptéry postavené na `CarScript` (řada komunitních módů) mají automaticky i palivo, vlastnictví,
+  zamykání klávesou F, servis a garáž. U helikoptér na vanilla `HelicopterScript` funguje jen koupě.
 
 **Vlastnictví aut (bez klíčů)**
 - Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu

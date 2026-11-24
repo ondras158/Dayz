@@ -101,10 +101,36 @@ class OS_ServerVehicles
 		return false;
 	}
 
-	protected bool IsSpawnBlocked(vector pos)
+	//! indexy nabídek, které dané místo prodává (podle kategorie)
+	protected array<int> OffersFor(OS_VehicleLocation loc)
+	{
+		array<int> result = new array<int>;
+		string wanted = OS_TraderScanner.Lower(loc.DealerCategory);
+		if (wanted == "")
+			wanted = "car";
+		for (int i = 0; i < m_Cfg.Offers.Count(); i++)
+		{
+			OS_VehicleOffer offer = m_Cfg.Offers[i];
+			if (!offer)
+				continue;
+			string category = OS_TraderScanner.Lower(offer.Category);
+			if (category == "")
+				category = "car";
+			if (category == wanted)
+				result.Insert(i);
+		}
+		return result;
+	}
+
+	protected bool IsHeliLocation(OS_VehicleLocation loc)
+	{
+		return OS_TraderScanner.Lower(loc.DealerCategory) == "heli";
+	}
+
+	protected bool IsSpawnBlocked(vector pos, float radius = 5)
 	{
 		array<Object> objects = new array<Object>;
-		g_Game.GetObjectsAtPosition(pos, 5, objects, null);
+		g_Game.GetObjectsAtPosition(pos, radius, objects, null);
 		foreach (Object obj : objects)
 		{
 			if (Transport.Cast(obj))
@@ -217,10 +243,11 @@ class OS_ServerVehicles
 		array<int> offerPrices = new array<int>;
 		if (loc.Dealer)
 		{
-			foreach (OS_VehicleOffer offer : m_Cfg.Offers)
+			array<int> available = OffersFor(loc);
+			foreach (int offerIdx : available)
 			{
-				offerClasses.Insert(offer.ClassName);
-				offerPrices.Insert(offer.Price);
+				offerClasses.Insert(m_Cfg.Offers[offerIdx].ClassName);
+				offerPrices.Insert(m_Cfg.Offers[offerIdx].Price);
 			}
 		}
 
@@ -280,6 +307,7 @@ class OS_ServerVehicles
 
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(loc.Name);
+		rpc.Write(IsHeliLocation(loc));
 		rpc.Write(m_Currency);
 		rpc.Write(m_Payments.Available(player));
 		rpc.Write(m_Payments.Cash(player));
@@ -307,32 +335,52 @@ class OS_ServerVehicles
 
 	// ------------------------------------------------------------ akce
 
-	protected CarScript SpawnCar(string type, OS_VehicleLocation loc)
+	//! vytvoří libovolné vozidlo (auto i helikoptéru z módu)
+	protected Transport SpawnVehicle(string type, OS_VehicleLocation loc)
 	{
 		vector pos = OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ);
 		Object obj = g_Game.CreateObjectEx(type, pos, ECE_PLACE_ON_SURFACE | ECE_INITAI);
-		CarScript car = CarScript.Cast(obj);
-		if (!car)
+		Transport vehicle = Transport.Cast(obj);
+		if (!vehicle)
 		{
 			if (obj)
 				g_Game.ObjectDelete(obj);
-			Print(OS_TAG + "Nepodarilo se vytvorit auto '" + type + "'");
+			Print(OS_TAG + "Nepodarilo se vytvorit vozidlo '" + type + "' (neexistuje, nebo to neni vozidlo)");
 			return null;
 		}
 
-		car.SetOrientation(Vector(loc.SpawnYaw, 0, 0));
+		vehicle.SetOrientation(Vector(loc.SpawnYaw, 0, 0));
+		return vehicle;
+	}
+
+	protected CarScript SpawnCar(string type, OS_VehicleLocation loc)
+	{
+		Transport vehicle = SpawnVehicle(type, loc);
+		CarScript car = CarScript.Cast(vehicle);
+		if (vehicle && !car)
+		{
+			g_Game.ObjectDelete(vehicle);
+			Print(OS_TAG + "Vozidlo '" + type + "' neni CarScript - garaz ho neumi");
+			return null;
+		}
 		return car;
 	}
 
-	protected void Buy(PlayerBase player, OS_VehicleLocation loc, int offerIndex)
+	protected void Buy(PlayerBase player, OS_VehicleLocation loc, int listIndex)
 	{
-		if (offerIndex < 0 || offerIndex >= m_Cfg.Offers.Count())
+		// index v nabídce tohoto místa -> index v Offers
+		array<int> available = OffersFor(loc);
+		if (listIndex < 0 || listIndex >= available.Count())
 			return;
 
-		OS_VehicleOffer offer = m_Cfg.Offers[offerIndex];
-		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ)))
+		OS_VehicleOffer offer = m_Cfg.Offers[available[listIndex]];
+		string title = "Autobazar";
+		if (IsHeliLocation(loc))
+			title = "Helikoptery";
+
+		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ), loc.SpawnClearRadius))
 		{
-			OS_Util.Notify(player, "Autobazar", "Parkovaci misto je obsazene - odjed s autem, ktere tam stoji.");
+			OS_Util.Notify(player, title, "Misto pro vozidlo je obsazene - nejdriv odvez to, ktere tam stoji.");
 			return;
 		}
 
@@ -343,27 +391,34 @@ class OS_ServerVehicles
 			return;
 		}
 
-		CarScript car = SpawnCar(offer.ClassName, loc);
-		if (!car)
+		Transport vehicle = SpawnVehicle(offer.ClassName, loc);
+		if (!vehicle)
 		{
 			m_Payments.Pay(player, offer.Price);
-			OS_Util.Notify(player, "Autobazar", "Auto se nepodarilo vytvorit (spatny classname v Vehicles.json?).");
+			OS_Util.Notify(player, title, "Vozidlo se nepodarilo vytvorit (spatny classname v Vehicles.json, nebo chybi mod?).");
 			return;
 		}
 
 		foreach (string part : offer.Parts)
 		{
-			car.GetInventory().CreateInInventory(part);
+			vehicle.GetInventory().CreateInInventory(part);
 		}
 
-		car.Fill(CarFluid.FUEL, car.GetFluidCapacity(CarFluid.FUEL));
-		car.Fill(CarFluid.OIL, car.GetFluidCapacity(CarFluid.OIL));
-		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE));
-		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT));
-
-		car.OS_SetOwner(steamId);
-
-		OS_Util.Notify(player, "Autobazar", "Auto je pripravene na parkovisti a patri tobe. Zamknes ho u auta klavesou F.");
+		// auta a helikoptéry postavené na CarScript: palivo + majitel (zamykání, servis, garáž)
+		CarScript car = CarScript.Cast(vehicle);
+		if (car)
+		{
+			car.Fill(CarFluid.FUEL, car.GetFluidCapacity(CarFluid.FUEL));
+			car.Fill(CarFluid.OIL, car.GetFluidCapacity(CarFluid.OIL));
+			car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE));
+			car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT));
+			car.OS_SetOwner(steamId);
+			OS_Util.Notify(player, title, "Vozidlo je pripravene a patri tobe. Zamknes ho klavesou F.");
+		}
+		else
+		{
+			OS_Util.Notify(player, title, "Vozidlo je pripravene.");
+		}
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());
 	}
 
@@ -691,7 +746,7 @@ class OS_ServerVehicles
 		if (index < 0 || index >= garage.Vehicles.Count())
 			return;
 
-		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ)))
+		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ), loc.SpawnClearRadius))
 		{
 			OS_Util.Notify(player, "Garaz", "Parkovaci misto je obsazene.");
 			return;

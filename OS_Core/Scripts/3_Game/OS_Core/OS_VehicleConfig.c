@@ -4,12 +4,14 @@ class OS_VehicleOffer
 {
 	string ClassName;
 	int Price;
-	ref array<string> Parts = new array<string>;   // díly, které auto dostane (a které servis doplní)
+	string Category = "car";                       // "car" = autobazar, "heli" = helikoptéry
+	ref array<string> Parts = new array<string>;   // díly, které vozidlo dostane (a které servis doplní)
 
-	void OS_VehicleOffer(string className = "", int price = 0)
+	void OS_VehicleOffer(string className = "", int price = 0, string category = "car")
 	{
 		ClassName = className;
 		Price = price;
+		Category = category;
 	}
 
 	void AddParts(string part, int count = 1)
@@ -27,7 +29,9 @@ class OS_VehicleLocation
 	float X;
 	float Z;
 	float Radius = 30;      // kde musí hráč stát
-	bool Dealer;            // prodej aut
+	bool Dealer;            // prodej vozidel
+	string DealerCategory = "car";   // co prodává: "car" = auta, "heli" = helikoptéry
+	float SpawnClearRadius = 5;      // místo pro nové vozidlo musí být volné v tomto okruhu (heliport ~12)
 	bool Service;           // oprava, tankování, doplnění dílů
 	bool Garage;            // uložení / vyzvednutí auta
 	float SpawnX;           // kam se postaví koupené / vyzvednuté auto
@@ -69,6 +73,19 @@ class OS_VehicleConfig
 		loc.SpawnZ = 2000;
 		loc.SpawnYaw = 90;
 		Locations.Insert(loc);
+
+		// heliport - classname helikoptér doplň podle módu s helikoptérami (vanilla žádné nemá)
+		OS_VehicleLocation heli = new OS_VehicleLocation("Priklad - Heliport", 2300, 2000);
+		heli.Radius = 40;
+		heli.Dealer = true;
+		heli.DealerCategory = "heli";
+		heli.Service = true;
+		heli.Garage = true;
+		heli.SpawnX = 2330;
+		heli.SpawnZ = 2000;
+		heli.SpawnYaw = 0;
+		heli.SpawnClearRadius = 12;
+		Locations.Insert(heli);
 
 		OS_VehicleOffer ada = new OS_VehicleOffer("OffroadHatchback", 2500);
 		ada.AddParts("HatchbackWheel", 4);
