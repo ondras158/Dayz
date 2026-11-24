@@ -37,7 +37,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
 | Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
-| Autobazar / helikoptéry | Klávesa **B** v autocentru nebo na heliportu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
+| Autobazar / helikoptéry / lodě | Klávesa **B** v autocentru, na heliportu nebo v přístavu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
@@ -261,6 +261,23 @@ přidej jejich classname a díly).
 - Expansion má vlastní klíče od vozidel. Aby nekolidovaly s vlastnictvím z OS_Core, nech v nastavení Expansion
   (`VehicleSettings.json`) `VehicleRequireKeyToStart` na `0` a vozidla nepáruj s klíči Expansion.
 - Bez Expansion: helikoptéry se v nabídce ukážou, ale koupě selže a peníze se vrátí – smaž je z `Offers`.
+
+**Lodě** (`Vehicles.json`)
+- Přístaviště: místo v `Locations` s `"Dealer": true`, `"DealerCategory": "boat"` a `"SpawnOnWater": true`
+  (ve výchozím nastavení ukázkový „Pristav“). `SpawnX`/`SpawnZ` musí ležet **na moři** – loď se postaví na hladinu.
+  Menu se jmenuje *Lode*.
+- Výchozí nabídka:
+
+  | Loď | Classname | Cena | Poznámka |
+  |---|---|---|---|
+  | Motorový člun (modrý/oranžový/černý/maskovaný) | `Boat_01_Blue` / `_Orange` / `_Black` / `_Camo` | 5 000–5 500 | vanilla |
+  | Zodiac | `ExpansionZodiacBoat` | 8 000 | Expansion |
+  | Užitková loď | `ExpansionUtilityBoat` | 15 000 | Expansion |
+  | Vodnik (obojživelník) | `ExpansionVodnik` | 30 000 | Expansion |
+
+- Expansion lodě jsou na `CarScript` → vlastnictví, zamykání (F), servis, garáž a sdílení se skupinou fungují.
+- Vanilla člun (`BoatScript`) jde koupit s plnou nádrží, ale **vlastnictví, zamykání, servis a garáž pro něj zatím nejsou**.
+- Bez Expansion smaž Expansion lodě z `Offers` (koupě by selhala a peníze by se vrátily).
 
 **Vlastnictví aut (bez klíčů)**
 - Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu

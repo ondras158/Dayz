@@ -3,7 +3,7 @@
 class OS_VehicleMenuData
 {
 	string LocationName;
-	bool IsHeli;
+	string Category;   // car / heli / boat
 	string Currency;
 	int Balance;   // kolik jde utratit
 	int Cash;
@@ -29,7 +29,7 @@ class OS_VehicleMenuData
 
 	bool Read(ParamsReadContext ctx)
 	{
-		if (!ctx.Read(LocationName) || !ctx.Read(IsHeli) || !ctx.Read(Currency) || !ctx.Read(Balance) || !ctx.Read(Cash) || !ctx.Read(Bank))
+		if (!ctx.Read(LocationName) || !ctx.Read(Category) || !ctx.Read(Currency) || !ctx.Read(Balance) || !ctx.Read(Cash) || !ctx.Read(Bank))
 			return false;
 		if (!ctx.Read(Dealer) || !ctx.Read(Service) || !ctx.Read(Garage))
 			return false;
@@ -128,15 +128,19 @@ class OS_VehicleMenu : OS_MenuBase
 		TextWidget dealerLabel = FindText("DealerLabel");
 		if (dealerLabel)
 		{
-			if (m_Data.IsHeli)
+			if (m_Data.Category == "heli")
 				dealerLabel.SetText("Helikoptery");
+			else if (m_Data.Category == "boat")
+				dealerLabel.SetText("Lode");
 			else
 				dealerLabel.SetText("Autobazar");
 		}
 		if (m_BtnBuy)
 		{
-			if (m_Data.IsHeli)
+			if (m_Data.Category == "heli")
 				m_BtnBuy.SetText("Koupit helikopteru");
+			else if (m_Data.Category == "boat")
+				m_BtnBuy.SetText("Koupit lod");
 			else
 				m_BtnBuy.SetText("Koupit auto");
 		}

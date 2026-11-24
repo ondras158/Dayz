@@ -122,9 +122,23 @@ class OS_ServerVehicles
 		return result;
 	}
 
-	protected bool IsHeliLocation(OS_VehicleLocation loc)
+	//! "car" / "heli" / "boat"
+	protected string LocationCategory(OS_VehicleLocation loc)
 	{
-		return OS_TraderScanner.Lower(loc.DealerCategory) == "heli";
+		string category = OS_TraderScanner.Lower(loc.DealerCategory);
+		if (category == "")
+			category = "car";
+		return category;
+	}
+
+	protected string DealerTitle(OS_VehicleLocation loc)
+	{
+		string category = LocationCategory(loc);
+		if (category == "heli")
+			return "Helikoptery";
+		if (category == "boat")
+			return "Lode";
+		return "Autobazar";
 	}
 
 	protected bool IsSpawnBlocked(vector pos, float radius = 5)
@@ -307,7 +321,7 @@ class OS_ServerVehicles
 
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(loc.Name);
-		rpc.Write(IsHeliLocation(loc));
+		rpc.Write(LocationCategory(loc));
 		rpc.Write(m_Currency);
 		rpc.Write(m_Payments.Available(player));
 		rpc.Write(m_Payments.Cash(player));
@@ -339,7 +353,16 @@ class OS_ServerVehicles
 	protected Transport SpawnVehicle(string type, OS_VehicleLocation loc)
 	{
 		vector pos = OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ);
-		Object obj = g_Game.CreateObjectEx(type, pos, ECE_PLACE_ON_SURFACE | ECE_INITAI);
+		int flags = ECE_PLACE_ON_SURFACE | ECE_INITAI;
+		if (loc.SpawnOnWater)
+		{
+			// loď na hladinu (ne na dno)
+			float sea = g_Game.SurfaceGetSeaLevel();
+			if (pos[1] < sea)
+				pos[1] = sea;
+			flags = ECE_CREATEPHYSICS | ECE_INITAI | ECE_KEEPHEIGHT;
+		}
+		Object obj = g_Game.CreateObjectEx(type, pos, flags);
 		Transport vehicle = Transport.Cast(obj);
 		if (!vehicle)
 		{
@@ -374,9 +397,7 @@ class OS_ServerVehicles
 			return;
 
 		OS_VehicleOffer offer = m_Cfg.Offers[available[listIndex]];
-		string title = "Autobazar";
-		if (IsHeliLocation(loc))
-			title = "Helikoptery";
+		string title = DealerTitle(loc);
 
 		if (IsSpawnBlocked(OS_Util.GroundPos(loc.SpawnX, loc.SpawnZ), loc.SpawnClearRadius))
 		{
@@ -417,6 +438,10 @@ class OS_ServerVehicles
 		}
 		else
 		{
+			// vanilla loď (BoatScript): plná nádrž, vlastnictví/zamykání zatím jen pro CarScript
+			Boat boat = Boat.Cast(vehicle);
+			if (boat)
+				boat.Fill(BoatFluid.FUEL, boat.GetFluidCapacity(BoatFluid.FUEL));
 			OS_Util.Notify(player, title, "Vozidlo je pripravene.");
 		}
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());

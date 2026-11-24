@@ -4,7 +4,7 @@ class OS_VehicleOffer
 {
 	string ClassName;
 	int Price;
-	string Category = "car";                       // "car" = autobazar, "heli" = helikoptéry
+	string Category = "car";                       // "car" = autobazar, "heli" = helikoptéry, "boat" = lodě
 	ref array<string> Parts = new array<string>;   // díly, které vozidlo dostane (a které servis doplní)
 
 	void OS_VehicleOffer(string className = "", int price = 0, string category = "car")
@@ -30,7 +30,8 @@ class OS_VehicleLocation
 	float Z;
 	float Radius = 30;      // kde musí hráč stát
 	bool Dealer;            // prodej vozidel
-	string DealerCategory = "car";   // co prodává: "car" = auta, "heli" = helikoptéry
+	string DealerCategory = "car";   // co prodává: "car" = auta, "heli" = helikoptéry, "boat" = lodě
+	bool SpawnOnWater = false;       // vozidlo se postaví na hladinu moře (přístaviště)
 	float SpawnClearRadius = 5;      // místo pro nové vozidlo musí být volné v tomto okruhu (heliport ~12)
 	bool Service;           // oprava, tankování, doplnění dílů
 	bool Garage;            // uložení / vyzvednutí auta
@@ -86,6 +87,20 @@ class OS_VehicleConfig
 		heli.SpawnYaw = 0;
 		heli.SpawnClearRadius = 12;
 		Locations.Insert(heli);
+
+		// přístaviště - SpawnX/SpawnZ musí být na moři
+		OS_VehicleLocation harbor = new OS_VehicleLocation("Priklad - Pristav", 2500, 1800);
+		harbor.Radius = 40;
+		harbor.Dealer = true;
+		harbor.DealerCategory = "boat";
+		harbor.Service = true;
+		harbor.Garage = true;
+		harbor.SpawnX = 2500;
+		harbor.SpawnZ = 1760;
+		harbor.SpawnYaw = 180;
+		harbor.SpawnClearRadius = 8;
+		harbor.SpawnOnWater = true;
+		Locations.Insert(harbor);
 
 		OS_VehicleOffer ada = new OS_VehicleOffer("OffroadHatchback", 2500);
 		ada.AddParts("HatchbackWheel", 4);
@@ -197,6 +212,42 @@ class OS_VehicleConfig
 		merlin.AddParts("ExpansionHelicopterBattery");
 		merlin.AddParts("HeadlightH7");
 		Offers.Insert(merlin);
+
+		// --- lodě: vanilla motorový člun ---
+		OS_VehicleOffer boatBlue = new OS_VehicleOffer("Boat_01_Blue", 5000, "boat");
+		boatBlue.AddParts("SparkPlug");
+		Offers.Insert(boatBlue);
+		OS_VehicleOffer boatOrange = new OS_VehicleOffer("Boat_01_Orange", 5000, "boat");
+		boatOrange.AddParts("SparkPlug");
+		Offers.Insert(boatOrange);
+		OS_VehicleOffer boatBlack = new OS_VehicleOffer("Boat_01_Black", 5000, "boat");
+		boatBlack.AddParts("SparkPlug");
+		Offers.Insert(boatBlack);
+		OS_VehicleOffer boatCamo = new OS_VehicleOffer("Boat_01_Camo", 5500, "boat");
+		boatCamo.AddParts("SparkPlug");
+		Offers.Insert(boatCamo);
+
+		// --- lodě z módu DayZ Expansion (Vehicles) ---
+		OS_VehicleOffer zodiac = new OS_VehicleOffer("ExpansionZodiacBoat", 8000, "boat");
+		zodiac.AddParts("GlowPlug");
+		zodiac.AddParts("TruckBattery");
+		Offers.Insert(zodiac);
+
+		OS_VehicleOffer utility = new OS_VehicleOffer("ExpansionUtilityBoat", 15000, "boat");
+		utility.AddParts("GlowPlug");
+		utility.AddParts("TruckBattery");
+		utility.AddParts("HeadlightH7", 2);
+		Offers.Insert(utility);
+
+		OS_VehicleOffer vodnik = new OS_VehicleOffer("ExpansionVodnik", 30000, "boat");
+		vodnik.AddParts("ExpansionVodnikWheel", 4);
+		vodnik.AddParts("TruckBattery");
+		vodnik.AddParts("SparkPlug");
+		vodnik.AddParts("CarRadiator");
+		vodnik.AddParts("ExpansionVodnikDoorDriver");
+		vodnik.AddParts("ExpansionVodnikDoorCoDriver");
+		vodnik.AddParts("HeadlightH7", 2);
+		Offers.Insert(vodnik);
 
 		OS_VehicleOffer v3s = new OS_VehicleOffer("Truck_01_Covered", 8000);
 		v3s.AddParts("Truck_01_Wheel", 2);
