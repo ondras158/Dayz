@@ -424,6 +424,7 @@ class OS_TraderConfig
 		r.NameContains.Insert("StartKitIV");
 		r.NameContains.Insert("Syringe");
 		r.NameContains.Insert("Antidote");
+		r.NameContains.Insert("Tablets");       // všechny tablety (jinak by "Table" spadlo do nábytku)
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Batohy", 200, 30);
@@ -471,6 +472,29 @@ class OS_TraderConfig
 		r.NameContains.Insert("ShelterKit");
 		r.NameContains.Insert("CodeLock");
 		r.NameContains.Insert("CombinationLock");
+		// stany, úložné věci a nábytek (i z módů) - pravidlo je až za oblečením a jídlem,
+		// takže "ChestHolster" zůstane oblečení
+		r.NameContains.Insert("Tent");
+		r.NameContains.Insert("CamoNet");
+		r.NameContains.Insert("Camonet");
+		r.NameContains.Insert("Crate");
+		r.NameContains.Insert("Chest");
+		r.NameContains.Insert("Barrel");
+		r.NameContains.Insert("Stash");
+		r.NameContains.Insert("Safe");
+		r.NameContains.Insert("Locker");
+		r.NameContains.Insert("Cabinet");
+		r.NameContains.Insert("Shelf");
+		r.NameContains.Insert("Table");
+		r.NameContains.Insert("Chair");
+		r.NameContains.Insert("Bench");
+		r.NameContains.Insert("Bed");
+		r.NameContains.Insert("Sofa");
+		r.NameContains.Insert("Furniture");
+		r.NameContains.Insert("Generator");     // elektřina na základně
+		r.NameContains.Insert("Spotlight");
+		r.NameContains.Insert("CableReel");
+		r.NameContains.Insert("Flag_");         // vlajky na stožár
 		CategoryRules.Insert(r);
 
 		// bez podmínek = všechno ostatní
