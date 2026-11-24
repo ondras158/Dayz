@@ -42,7 +42,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
 | Skupiny | Klávesa **J**: založení skupiny, pozvánky, až 4 hráči zdarma, další místa za peníze, společný účet v bankomatu | `Groups.json` |
-| Vlastnictví a klíče | Koupené auto dostane zámek a klíč. Zamčené auto: nejde nastoupit, otevřít dveře, do kufru ani sundat díly | `Vehicles.json` |
+| Vlastnictví aut | Auto patří hráči podle Steam ID, zamyká se klávesou F bez klíče. Ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 
 Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 
@@ -235,23 +235,20 @@ přidej jejich classname a díly).
   Vyzvednout ho může kterýkoli člen skupiny v kterékoli garáži.
 - V seznamu garáže vidíš svoje osobní auta (uložená dřív) i auta skupiny (popisek „skupina“).
 - Do garáže jde uložit i auto spoluhráče ze skupiny (ne jen svoje).
-- Auto ze skupinové garáže dál patří původnímu majiteli a jeho klíče fungují.
+- Auto ze skupinové garáže dál patří původnímu majiteli a je sdílené se skupinou (zamyká ho kdokoli ze skupiny).
 - Osobní auta uložená před vstupem do skupiny zůstávají v osobní garáži.
 
-**Vlastnictví a klíče**
-- Koupené auto má majitele a zámek, kupující dostane **klíč** (`OS_CarKey`, model klíčků od pout).
-- Zamknutí/odemknutí: klíč do ruky → podívej se na auto → **podrž levé tlačítko**.
-  Zamknout jde jen prázdné auto. Klíč funguje jen ke svému autu (číslo na konci názvu klíče pomáhá rozlišit klíče).
+**Vlastnictví aut (bez klíčů)**
+- Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu
+  (*Přepsat auto na sebe*, `ClaimPrice`). Auta, která spawnuje hra, majitele nemají.
+- **Zamknout / odemknout:** podívej se na auto a stiskni **F** (akce „Zamknout auto“ / „Odemknout auto“).
+  Může majitel nebo člen skupiny, se kterou je auto sdílené. Zamknout jde jen prázdné auto.
 - Zamčené auto: nejde nastoupit, otevřít dveře zvenku, dívat se do kufru, nic do něj dávat ani sundávat díly.
   Kdo je uvnitř, může vystoupit.
-- Klíč se dá předat, ztratit nebo ukrást – kdo má klíč, auto odemkne.
-- **Servis:**
-  - *Přepsat auto na sebe* (`ClaimPrice`) – nalezené auto bez majitele → stane se tvým a dostaneš klíč,
-  - *Kopie klíče* (`KeyCopyPrice`) – jen majitel,
-  - *Vyměnit zámek* (`ChangeLockPrice`) – jen majitel, staré klíče přestanou fungovat (při ztrátě/krádeži klíče).
-- **Garáž:** auto s majitelem uloží jen majitel (`OnlyOwnerCanStore`). Zámek zůstává, staré klíče platí dál.
+- **Sdílení se skupinou:** auto uložené do **skupinové garáže** se automaticky přiřadí skupině – po vyzvednutí ho
+  zamyká/odemyká kterýkoli člen. Majitelem zůstává původní hráč. Kdo ze skupiny odejde, přístup ztratí.
+  V servisu je u auta vidět „Majitel: ty / tvoje skupina / jiný hráč / nikdo“.
 - **Admin menu:** *Odemknout nejbližší auto* (do 15 m).
-- Auta, která spawnuje hra (CE), majitele nemají a jdou řídit jako ve vanille.
 - Vlastnictví se ukládá přímo do auta (persistence serveru). **Pokud mód ze serveru odebereš,
   persistence aut se může poškodit** – před odebráním módu udělej zálohu `storage_1`.
 

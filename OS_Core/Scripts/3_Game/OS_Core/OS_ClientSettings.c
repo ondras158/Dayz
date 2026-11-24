@@ -3,4 +3,5 @@
 class OS_ClientSettings
 {
 	static string Currency = "";
+	static int GroupId = 0;   // skupina hráče (pro odemykání sdílených aut)
 }

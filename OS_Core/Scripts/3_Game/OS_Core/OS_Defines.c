@@ -37,6 +37,7 @@ const int OS_RPC_GROUP_OPEN     = 784512060; // klient -> server: chci menu skup
 const int OS_RPC_GROUP_DATA     = 784512061; // server -> klient: stav skupiny
 const int OS_RPC_GROUP_ACTION   = 784512062; // klient -> server: akce ve skupině
 const int OS_RPC_GROUP_POSITIONS = 784512063; // server -> klient: polohy spoluhráčů (mapa, jmenovky)
+const int OS_RPC_GROUP_ID        = 784512064; // server -> klient: ID skupiny hráče
 
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LAST  = 784512099;
@@ -62,9 +63,7 @@ enum OS_VehicleAction
 	PARTS,
 	STORE,
 	RETRIEVE,
-	CLAIM,
-	KEY_COPY,
-	CHANGE_LOCK
+	CLAIM
 }
 
 enum OS_BankAction

@@ -51,9 +51,7 @@ class OS_VehicleConfig
 	int PartPrice = 40;                // cena za každý doplněný chybějící díl
 	int GarageStoreFee = 20;
 	int GarageMaxVehicles = 3;
-	int ClaimPrice = 500;              // přepsat nalezené auto bez majitele na sebe (dostaneš klíč)
-	int KeyCopyPrice = 100;            // kopie klíče (jen majitel)
-	int ChangeLockPrice = 200;         // nový zámek - staré klíče přestanou fungovat (jen majitel)
+	int ClaimPrice = 500;              // přepsat nalezené auto bez majitele na sebe
 	bool OnlyOwnerCanStore = true;     // auto s majitelem může do garáže uložit jen majitel (nebo člen jeho skupiny)
 	bool SharedGroupGarage = true;     // členové skupiny mají společnou garáž
 	int GroupGarageMaxVehicles = 6;
@@ -165,8 +163,8 @@ class OS_StoredVehicle
 	float Oil;
 	float Brake;
 	float Coolant;
-	int KeyCode;
 	string OwnerId;
+	int GroupId;
 	bool Locked;
 }
 

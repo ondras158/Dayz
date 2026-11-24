@@ -1,28 +1,36 @@
-// Vlastnictví aut a zámky. Kód zámku a majitel se ukládají s autem (přežijí restart).
+// Vlastnictví aut podle Steam ID + sdílení se skupinou. Bez klíčů.
 // Zamčené auto: nejde nastoupit, otevřít dveře, sahat do kufru ani sundávat díly.
+// Zamknout/odemknout může majitel nebo člen skupiny, které je auto přiřazené (klávesa F u auta).
 
 modded class CarScript
 {
-	protected int m_OS_KeyCode;      // 0 = auto bez zámku / bez majitele
-	protected bool m_OS_Locked;
 	protected string m_OS_OwnerId;   // Steam64 ID majitele (jen server)
+	protected int m_OS_OwnerHash;    // otisk ID majitele - synchronizuje se klientům (pro nabídku akcí)
+	protected int m_OS_GroupId;      // skupina, se kterou je auto sdílené (0 = žádná)
+	protected bool m_OS_Locked;
 
-	protected static const int OS_STORE_MAGIC = 784512777;
+	protected static const int OS_STORE_MAGIC = 784512778;
 
 	void CarScript()
 	{
-		RegisterNetSyncVariableInt("m_OS_KeyCode");
+		RegisterNetSyncVariableInt("m_OS_OwnerHash");
+		RegisterNetSyncVariableInt("m_OS_GroupId");
 		RegisterNetSyncVariableBool("m_OS_Locked");
 	}
 
-	int OS_GetKeyCode()
+	static int OS_HashId(string steamId)
 	{
-		return m_OS_KeyCode;
+		if (steamId == "")
+			return 0;
+		int h = steamId.Hash();
+		if (h == 0)
+			h = 1;
+		return h;
 	}
 
-	bool OS_IsLocked()
+	bool OS_HasOwner()
 	{
-		return m_OS_Locked;
+		return m_OS_OwnerHash != 0;
 	}
 
 	string OS_GetOwnerId()
@@ -30,33 +38,51 @@ modded class CarScript
 		return m_OS_OwnerId;
 	}
 
-	bool OS_HasOwner()
+	int OS_GetGroupId()
 	{
-		return m_OS_KeyCode != 0;
+		return m_OS_GroupId;
 	}
 
-	//! server: nastaví nový zámek a majitele
-	void OS_SetOwnership(int keyCode, string ownerId)
+	bool OS_IsLocked()
 	{
-		m_OS_KeyCode = keyCode;
+		return m_OS_Locked;
+	}
+
+	//! majitel nebo člen skupiny auta (funguje na serveru i klientovi)
+	bool OS_CanAccess(string steamId, int playerGroupId)
+	{
+		if (!OS_HasOwner())
+			return false;
+		if (OS_HashId(steamId) == m_OS_OwnerHash)
+			return true;
+		return m_OS_GroupId != 0 && m_OS_GroupId == playerGroupId;
+	}
+
+	//! server: nový majitel (koupě, přepsání v servisu). Sdílení se skupinou se ruší.
+	void OS_SetOwner(string ownerId)
+	{
 		m_OS_OwnerId = ownerId;
-		if (keyCode == 0)
+		m_OS_OwnerHash = OS_HashId(ownerId);
+		m_OS_GroupId = 0;
+		if (ownerId == "")
 			m_OS_Locked = false;
+		SetSynchDirty();
+	}
+
+	//! server: sdílet se skupinou (0 = nesdílet)
+	void OS_SetGroup(int groupId)
+	{
+		m_OS_GroupId = groupId;
 		SetSynchDirty();
 	}
 
 	//! server
 	void OS_SetLocked(bool locked)
 	{
-		if (m_OS_KeyCode == 0)
+		if (!OS_HasOwner())
 			locked = false;
 		m_OS_Locked = locked;
 		SetSynchDirty();
-	}
-
-	static int OS_GenerateKeyCode()
-	{
-		return Math.RandomIntInclusive(100000, 999999999);
 	}
 
 	// ------------------------------------------------------------ omezení zamčeného auta
@@ -103,9 +129,9 @@ modded class CarScript
 		super.OnStoreSave(ctx);
 
 		ctx.Write(OS_STORE_MAGIC);
-		ctx.Write(m_OS_KeyCode);
-		ctx.Write(m_OS_Locked);
 		ctx.Write(m_OS_OwnerId);
+		ctx.Write(m_OS_GroupId);
+		ctx.Write(m_OS_Locked);
 	}
 
 	override bool OnStoreLoad(ParamsReadContext ctx, int version)
@@ -118,11 +144,15 @@ modded class CarScript
 		if (!ctx.Read(magic) || magic != OS_STORE_MAGIC)
 			return true;
 
-		if (!ctx.Read(m_OS_KeyCode) || !ctx.Read(m_OS_Locked) || !ctx.Read(m_OS_OwnerId))
+		string ownerId;
+		int groupId;
+		bool locked;
+		if (ctx.Read(ownerId) && ctx.Read(groupId) && ctx.Read(locked))
 		{
-			m_OS_KeyCode = 0;
-			m_OS_Locked = false;
-			m_OS_OwnerId = "";
+			m_OS_OwnerId = ownerId;
+			m_OS_OwnerHash = OS_HashId(ownerId);
+			m_OS_GroupId = groupId;
+			m_OS_Locked = locked;
 		}
 		return true;
 	}

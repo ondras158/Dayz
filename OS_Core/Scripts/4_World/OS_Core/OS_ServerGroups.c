@@ -238,6 +238,7 @@ class OS_ServerGroups
 		m_Invites.Remove(id);
 		SaveData();
 
+		SendGroupId(player);
 		OS_Util.Notify(player, "Skupina", "Skupina " + groupName + " zalozena. Pozvi hrace v menu skupiny.");
 		Print(OS_TAG + "SKUPINA " + name + " zalozil " + groupName);
 	}
@@ -316,6 +317,7 @@ class OS_ServerGroups
 		group.Members.Insert(new OS_GroupMember(id, name));
 		m_PlayerGroup.Set(id, group.Id);
 		SaveData();
+		SendGroupId(player);
 		NotifyGroup(group, name + " se pripojil ke skupine.");
 		Print(OS_TAG + "SKUPINA " + name + " vstoupil do " + group.Name);
 	}
@@ -520,12 +522,31 @@ class OS_ServerGroups
 		rpc.Send(null, OS_RPC_GROUP_POSITIONS, true, recipient.GetIdentity());
 	}
 
-	//! vymaže hráči značky (po odchodu ze skupiny)
+	//! vymaže hráči značky (po odchodu ze skupiny) a pošle mu nové ID skupiny
 	protected void ClearPositions(string steamId)
 	{
 		PlayerBase player = OS_Util.FindPlayerBySteamId(steamId);
 		if (player)
+		{
 			SendPositions(player, null);
+			SendGroupId(player);
+		}
+	}
+
+	//! klient potřebuje znát ID své skupiny (akce odemknout sdílené auto)
+	void SendGroupId(PlayerBase player)
+	{
+		if (!player || !player.GetIdentity())
+			return;
+
+		int groupId = 0;
+		OS_Group group = GetGroupOf(OS_Util.SteamId(player));
+		if (group)
+			groupId = group.Id;
+
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(groupId);
+		rpc.Send(null, OS_RPC_GROUP_ID, true, player.GetIdentity());
 	}
 
 	// ------------------------------------------------------------ data pro klienta

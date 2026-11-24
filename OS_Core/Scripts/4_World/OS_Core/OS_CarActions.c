@@ -1,27 +1,18 @@
-// Akce s klíčem v rukou: podívej se na auto a drž levé tlačítko.
+// Zamknutí / odemknutí auta bez klíče: podívej se na auto a stiskni F.
+// Může majitel nebo člen skupiny, se kterou je auto sdílené.
 
-class ActionOSLockCarCB : ActionContinuousBaseCB
-{
-	override void CreateActionComponent()
-	{
-		m_ActionData.m_ActionComponent = new CAContinuousTime(UATimeSpent.DEFAULT);
-	}
-}
-
-class ActionOSLockCar : ActionContinuousBase
+class ActionOSLockCar : ActionInteractBase
 {
 	void ActionOSLockCar()
 	{
-		m_CallbackClass = ActionOSLockCarCB;
-		m_CommandUID = DayZPlayerConstants.CMD_ACTIONFB_INTERACT;
-		m_FullBody = true;
+		m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_INTERACTONCE;
 		m_StanceMask = DayZPlayerConstants.STANCEMASK_ERECT | DayZPlayerConstants.STANCEMASK_CROUCH;
 		m_Text = "Zamknout auto";
 	}
 
 	override void CreateConditionComponents()
 	{
-		m_ConditionItem = new CCINonRuined;
+		m_ConditionItem = new CCINone;
 		m_ConditionTarget = new CCTCursor;
 	}
 
@@ -37,6 +28,30 @@ class ActionOSLockCar : ActionContinuousBase
 		return car;
 	}
 
+	//! má hráč k autu přístup? (server: skutečná skupina, klient: skupina ze serveru)
+	static bool HasAccess(PlayerBase player, CarScript car)
+	{
+		if (!player || !car || !player.GetIdentity())
+			return false;
+
+		string id = player.GetIdentity().GetPlainId();
+		int groupId = 0;
+		if (g_Game.IsServer())
+		{
+			if (OS_Server.Get() && OS_Server.Get().m_Groups)
+			{
+				OS_Group group = OS_Server.Get().m_Groups.GetGroupOf(id);
+				if (group)
+					groupId = group.Id;
+			}
+		}
+		else
+		{
+			groupId = OS_ClientSettings.GroupId;
+		}
+		return car.OS_CanAccess(id, groupId);
+	}
+
 	//! true = zamykat, false = odemykat
 	bool WantsLocked()
 	{
@@ -45,20 +60,17 @@ class ActionOSLockCar : ActionContinuousBase
 
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
-		OS_CarKey key = OS_CarKey.Cast(item);
 		CarScript car = GetTargetCar(target);
-		if (!key || !car)
-			return false;
-		if (player.GetCommand_Vehicle())
+		if (!car || player.GetCommand_Vehicle())
 			return false;
 		if (!IsInReach(player, target, UAMaxDistances.DEFAULT))
 			return false;
-		if (!key.OS_Fits(car))
-			return false;
-
-		// zamknout jen odemčené (a prázdné) auto, odemknout jen zamčené
 		if (car.OS_IsLocked() == WantsLocked())
 			return false;
+		if (!HasAccess(player, car))
+			return false;
+
+		// zamknout jen prázdné auto
 		if (WantsLocked())
 		{
 			for (int i = 0; i < car.CrewSize(); i++)
@@ -70,11 +82,10 @@ class ActionOSLockCar : ActionContinuousBase
 		return true;
 	}
 
-	override void OnFinishProgressServer(ActionData action_data)
+	override void OnExecuteServer(ActionData action_data)
 	{
-		OS_CarKey key = OS_CarKey.Cast(action_data.m_MainItem);
 		CarScript car = GetTargetCar(action_data.m_Target);
-		if (!key || !car || !key.OS_Fits(car))
+		if (!car || !HasAccess(action_data.m_Player, car))
 			return;
 
 		car.OS_SetLocked(WantsLocked());
@@ -82,11 +93,6 @@ class ActionOSLockCar : ActionContinuousBase
 			OS_Util.Notify(action_data.m_Player, "Auto", "Zamceno", 3);
 		else
 			OS_Util.Notify(action_data.m_Player, "Auto", "Odemceno", 3);
-	}
-
-	override bool IsLockTargetOnUse()
-	{
-		return false;
 	}
 }
 
@@ -110,6 +116,17 @@ modded class ActionConstructor
 		super.RegisterActions(actions);
 		actions.Insert(ActionOSLockCar);
 		actions.Insert(ActionOSUnlockCar);
+	}
+}
+
+// akce bez předmětu v ruce patří hráči
+modded class PlayerBase
+{
+	override void SetActions(out TInputActionMap InputActionMap)
+	{
+		super.SetActions(InputActionMap);
+		AddAction(ActionOSLockCar, InputActionMap);
+		AddAction(ActionOSUnlockCar, InputActionMap);
 	}
 }
 

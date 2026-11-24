@@ -2,10 +2,10 @@ class CfgPatches
 {
 	class OS_Core
 	{
-		units[] = {"OS_CarKey", "OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
+		units[] = {"OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Data", "DZ_Scripts", "DZ_Gear_Tools", "DZ_Gear_Consumables"};
+		requiredAddons[] = {"DZ_Data", "DZ_Scripts", "DZ_Gear_Consumables"};
 	};
 };
 
@@ -43,7 +43,6 @@ class CfgMods
 
 class CfgVehicles
 {
-	class HandcuffKeys;
 	class Paper;
 
 	// Hotovost - bankovky. Model papíru, vlastní potisk, stohovatelné (počet kusů = počet bankovek).
@@ -151,11 +150,4 @@ class CfgVehicles
 		hiddenSelectionsTextures[] = {"OS_Core\data\money_5000_co.paa"};
 	};
 
-	// Klíč od auta - model vanilla klíčků od pout, chování ze skriptu OS_CarKey
-	class OS_CarKey : HandcuffKeys
-	{
-		scope = 2;
-		displayName = "Klic od auta";
-		descriptionShort = "Klic k autu. Vezmi ho do ruky, podivej se na auto a podrz leve tlacitko pro zamknuti nebo odemknuti.";
-	};
 };

@@ -137,15 +137,6 @@ class OS_Util
 		return g_Game.ConfigIsExisting("CfgVehicles " + type) || g_Game.ConfigIsExisting("CfgWeapons " + type) || g_Game.ConfigIsExisting("CfgMagazines " + type);
 	}
 
-	//! Vydá hráči klíč s daným kódem (do inventáře, jinak na zem)
-	static OS_CarKey GiveCarKey(PlayerBase player, int keyCode)
-	{
-		OS_CarKey key = OS_CarKey.Cast(GiveItem(player, "OS_CarKey"));
-		if (key)
-			key.OS_SetKeyCode(keyCode);
-		return key;
-	}
-
 	static void Teleport(PlayerBase player, vector pos)
 	{
 		if (player)

@@ -204,10 +204,6 @@ class OS_ServerVehicles
 			Retrieve(player, loc, arg);
 		else if (action == OS_VehicleAction.CLAIM && loc.Service)
 			Claim(player);
-		else if (action == OS_VehicleAction.KEY_COPY && loc.Service)
-			KeyCopy(player);
-		else if (action == OS_VehicleAction.CHANGE_LOCK && loc.Service)
-			ChangeLock(player);
 
 		SendData(player, loc);
 		return true;
@@ -234,7 +230,7 @@ class OS_ServerVehicles
 		int fuelPct = 0;
 		int repairPrice = 0;
 		int refuelPrice = 0;
-		int ownerState = 0;   // 0 = bez majitele, 1 = moje, 2 = cizí
+		int ownerState = 0;   // 0 = bez majitele, 1 = moje, 2 = cizí, 3 = auto mé skupiny
 		if (loc.Service || loc.Garage)
 		{
 			CarScript car = FindCar(player);
@@ -245,6 +241,8 @@ class OS_ServerVehicles
 					ownerState = 2;
 					if (car.OS_GetOwnerId() == steamId)
 						ownerState = 1;
+					else if (car.OS_GetGroupId() != 0 && car.OS_GetGroupId() == PlayerGroupId(steamId))
+						ownerState = 3;
 				}
 				hasCar = true;
 				carClass = car.GetType();
@@ -303,8 +301,6 @@ class OS_ServerVehicles
 		rpc.Write(stored);
 		rpc.Write(ownerState);
 		rpc.Write(m_Cfg.ClaimPrice);
-		rpc.Write(m_Cfg.KeyCopyPrice);
-		rpc.Write(m_Cfg.ChangeLockPrice);
 		rpc.Write(storedGroup);
 		rpc.Send(null, OS_RPC_VEHICLE_DATA, true, player.GetIdentity());
 	}
@@ -365,11 +361,9 @@ class OS_ServerVehicles
 		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE));
 		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT));
 
-		int keyCode = CarScript.OS_GenerateKeyCode();
-		car.OS_SetOwnership(keyCode, steamId);
-		OS_Util.GiveCarKey(player, keyCode);
+		car.OS_SetOwner(steamId);
 
-		OS_Util.Notify(player, "Autobazar", "Auto je pripravene na parkovisti. Klic mas v inventari.");
+		OS_Util.Notify(player, "Autobazar", "Auto je pripravene na parkovisti a patri tobe. Zamknes ho u auta klavesou F.");
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());
 	}
 
@@ -484,7 +478,18 @@ class OS_ServerVehicles
 		OS_Util.Notify(player, "Servis", "Doplneno dilu: " + created.Count().ToString() + " za " + price.ToString() + " " + m_Currency + ".");
 	}
 
-	// ------------------------------------------------------------ klíče a vlastnictví
+	// ------------------------------------------------------------ vlastnictví
+
+	//! ID skupiny hráče (0 = není ve skupině)
+	protected int PlayerGroupId(string steamId)
+	{
+		if (!m_Groups)
+			return 0;
+		OS_Group group = m_Groups.GetGroupOf(steamId);
+		if (!group)
+			return 0;
+		return group.Id;
+	}
 
 	protected void Claim(PlayerBase player)
 	{
@@ -507,62 +512,9 @@ class OS_ServerVehicles
 			return;
 		}
 
-		int keyCode = CarScript.OS_GenerateKeyCode();
-		car.OS_SetOwnership(keyCode, steamId);
-		OS_Util.GiveCarKey(player, keyCode);
-		OS_Util.Notify(player, "Servis", "Auto je tvoje. Klic mas v inventari.");
+		car.OS_SetOwner(steamId);
+		OS_Util.Notify(player, "Servis", "Auto je tvoje. Zamknes ho u auta klavesou F.");
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " prepsal na sebe " + car.GetType());
-	}
-
-	protected CarScript FindOwnCar(PlayerBase player)
-	{
-		CarScript car = FindCar(player);
-		if (!car)
-		{
-			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
-			return null;
-		}
-		if (!car.OS_HasOwner() || car.OS_GetOwnerId() != OS_Util.SteamId(player))
-		{
-			OS_Util.Notify(player, "Servis", "Tohle auto ti nepatri.");
-			return null;
-		}
-		return car;
-	}
-
-	protected void KeyCopy(PlayerBase player)
-	{
-		CarScript car = FindOwnCar(player);
-		if (!car)
-			return;
-
-		if (!m_Payments.TrySpend(player, m_Cfg.KeyCopyPrice))
-		{
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.KeyCopyPrice.ToString() + " " + m_Currency + ").");
-			return;
-		}
-
-		OS_Util.GiveCarKey(player, car.OS_GetKeyCode());
-		OS_Util.Notify(player, "Servis", "Kopie klice je v inventari.");
-	}
-
-	protected void ChangeLock(PlayerBase player)
-	{
-		CarScript car = FindOwnCar(player);
-		if (!car)
-			return;
-
-		if (!m_Payments.TrySpend(player, m_Cfg.ChangeLockPrice))
-		{
-			OS_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ChangeLockPrice.ToString() + " " + m_Currency + ").");
-			return;
-		}
-
-		int keyCode = CarScript.OS_GenerateKeyCode();
-		car.OS_SetOwnership(keyCode, OS_Util.SteamId(player));
-		car.OS_SetLocked(false);
-		OS_Util.GiveCarKey(player, keyCode);
-		OS_Util.Notify(player, "Servis", "Zamek vymenen - stare klice uz nefunguji. Novy klic mas v inventari.");
 	}
 
 	// ------------------------------------------------------------ garáž
@@ -633,8 +585,9 @@ class OS_ServerVehicles
 		string steamId = OS_Util.SteamId(player);
 		if (m_Cfg.OnlyOwnerCanStore && car.OS_HasOwner() && car.OS_GetOwnerId() != steamId)
 		{
-			// auto spoluhráče ze skupiny uložit jde
-			if (!m_Groups || !m_Groups.SameGroup(steamId, car.OS_GetOwnerId()))
+			// auto spoluhráče ze skupiny (nebo auto sdílené s mou skupinou) uložit jde
+			bool sharedWithMe = car.OS_GetGroupId() != 0 && car.OS_GetGroupId() == PlayerGroupId(steamId);
+			if (!sharedWithMe && (!m_Groups || !m_Groups.SameGroup(steamId, car.OS_GetOwnerId())))
 			{
 				OS_Util.Notify(player, "Garaz", "Tohle auto ti nepatri.");
 				return;
@@ -690,9 +643,16 @@ class OS_ServerVehicles
 		sv.Oil = car.GetFluidFraction(CarFluid.OIL);
 		sv.Brake = car.GetFluidFraction(CarFluid.BRAKE);
 		sv.Coolant = car.GetFluidFraction(CarFluid.COOLANT);
-		sv.KeyCode = car.OS_GetKeyCode();
 		sv.OwnerId = car.OS_GetOwnerId();
+		sv.GroupId = car.OS_GetGroupId();
 		sv.Locked = car.OS_IsLocked();
+		// auto ve skupinové garáži se automaticky přiřadí skupině
+		if (groupKey != "")
+		{
+			sv.GroupId = PlayerGroupId(steamId);
+			if (sv.OwnerId == "")
+				sv.OwnerId = steamId;
+		}
 
 		garage.Vehicles.Insert(sv);
 		if (!SaveGarage(garageKey, garage))
@@ -775,14 +735,14 @@ class OS_ServerVehicles
 		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT) * sv.Coolant);
 
 		// osobní garáž: auto patří tomu, kdo ho vyzvedl
-		// skupinová garáž: auto dál patří původnímu majiteli; klíče fungují dál
-		if (sv.KeyCode != 0)
-		{
-			string owner = steamId;
-			if (fromGroup && sv.OwnerId != "")
-				owner = sv.OwnerId;
-			car.OS_SetOwnership(sv.KeyCode, owner);
-		}
+		// skupinová garáž: auto dál patří původnímu majiteli a je sdílené se skupinou
+		string owner = steamId;
+		if (fromGroup && sv.OwnerId != "")
+			owner = sv.OwnerId;
+		if (sv.OwnerId != "" || fromGroup)
+			car.OS_SetOwner(owner);
+		if (fromGroup)
+			car.OS_SetGroup(sv.GroupId);
 		car.OS_SetLocked(false);
 
 		OS_Util.Notify(player, "Garaz", "Auto vyzvednuto - stoji na parkovisti.");

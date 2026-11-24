@@ -80,6 +80,7 @@ class OS_Server
 			ScriptRPC rpc = new ScriptRPC();
 			rpc.Write(m_Currency);
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
+			m_Groups.SendGroupId(player);
 		}
 
 		// chvíli počkat, než klient dokončí načítání, jinak se zpráva ztratí

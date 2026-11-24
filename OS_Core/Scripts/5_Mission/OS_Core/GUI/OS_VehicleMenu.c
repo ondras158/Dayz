@@ -22,10 +22,8 @@ class OS_VehicleMenuData
 	int StoreFee;
 	int GarageMax;
 	ref array<string> Stored = new array<string>;
-	int OwnerState;      // 0 = bez majitele, 1 = moje, 2 = cizí
+	int OwnerState;      // 0 = bez majitele, 1 = moje, 2 = cizí, 3 = auto mé skupiny
 	int ClaimPrice;
-	int KeyCopyPrice;
-	int ChangeLockPrice;
 	ref array<int> StoredGroup = new array<int>;
 
 	bool Read(ParamsReadContext ctx)
@@ -42,7 +40,7 @@ class OS_VehicleMenuData
 			return false;
 		if (!ctx.Read(StoreFee) || !ctx.Read(GarageMax) || !ctx.Read(Stored))
 			return false;
-		if (!ctx.Read(OwnerState) || !ctx.Read(ClaimPrice) || !ctx.Read(KeyCopyPrice) || !ctx.Read(ChangeLockPrice))
+		if (!ctx.Read(OwnerState) || !ctx.Read(ClaimPrice))
 			return false;
 		if (!ctx.Read(StoredGroup))
 			return false;
@@ -63,8 +61,6 @@ class OS_VehicleMenu : OS_MenuBase
 	protected TextWidget m_CarFuel;
 	protected TextWidget m_CarOwner;
 	protected ButtonWidget m_BtnClaim;
-	protected ButtonWidget m_BtnKeyCopy;
-	protected ButtonWidget m_BtnChangeLock;
 	protected ButtonWidget m_BtnBuy;
 	protected ButtonWidget m_BtnRepair;
 	protected ButtonWidget m_BtnRefuel;
@@ -96,8 +92,6 @@ class OS_VehicleMenu : OS_MenuBase
 		m_CarFuel = FindText("CarFuel");
 		m_CarOwner = FindText("CarOwner");
 		m_BtnClaim = FindButton("BtnClaim");
-		m_BtnKeyCopy = FindButton("BtnKeyCopy");
-		m_BtnChangeLock = FindButton("BtnChangeLock");
 		m_BtnBuy = FindButton("BtnBuy");
 		m_BtnRepair = FindButton("BtnRepair");
 		m_BtnRefuel = FindButton("BtnRefuel");
@@ -141,8 +135,6 @@ class OS_VehicleMenu : OS_MenuBase
 		ShowWidget("CarOwner", m_Data.Service || m_Data.Garage);
 		bool hasCar = m_Data.HasCar;
 		ShowWidget("BtnClaim", m_Data.Service && hasCar && m_Data.OwnerState == 0);
-		ShowWidget("BtnKeyCopy", m_Data.Service && hasCar && m_Data.OwnerState == 1);
-		ShowWidget("BtnChangeLock", m_Data.Service && hasCar && m_Data.OwnerState == 1);
 		ShowWidget("BtnRepair", m_Data.Service);
 		ShowWidget("BtnRefuel", m_Data.Service);
 		ShowWidget("BtnParts", m_Data.Service);
@@ -186,6 +178,8 @@ class OS_VehicleMenu : OS_MenuBase
 				SetLabel(m_CarOwner, "Majitel: nikdo");
 			else if (m_Data.OwnerState == 1)
 				SetLabel(m_CarOwner, "Majitel: ty");
+			else if (m_Data.OwnerState == 3)
+				SetLabel(m_CarOwner, "Majitel: tvoje skupina");
 			else
 				SetLabel(m_CarOwner, "Majitel: jiny hrac");
 		}
@@ -205,10 +199,6 @@ class OS_VehicleMenu : OS_MenuBase
 			m_BtnParts.SetText("Doplnit chybejici dily (" + m_Data.PartPrice.ToString() + cur + "/ks)");
 		if (m_BtnClaim)
 			m_BtnClaim.SetText("Prepsat auto na sebe (" + m_Data.ClaimPrice.ToString() + cur + ")");
-		if (m_BtnKeyCopy)
-			m_BtnKeyCopy.SetText("Kopie klice (" + m_Data.KeyCopyPrice.ToString() + cur + ")");
-		if (m_BtnChangeLock)
-			m_BtnChangeLock.SetText("Vymenit zamek (" + m_Data.ChangeLockPrice.ToString() + cur + ")");
 		if (m_BtnStore)
 			m_BtnStore.SetText("Ulozit do garaze (" + m_Data.StoreFee.ToString() + cur + ")");
 		if (m_BtnRetrieve)
@@ -263,16 +253,6 @@ class OS_VehicleMenu : OS_MenuBase
 		if (w == m_BtnClaim)
 		{
 			SendAction(OS_VehicleAction.CLAIM, 0);
-			return true;
-		}
-		if (w == m_BtnKeyCopy)
-		{
-			SendAction(OS_VehicleAction.KEY_COPY, 0);
-			return true;
-		}
-		if (w == m_BtnChangeLock)
-		{
-			SendAction(OS_VehicleAction.CHANGE_LOCK, 0);
 			return true;
 		}
 		if (w == m_BtnStore)

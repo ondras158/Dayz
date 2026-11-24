@@ -111,6 +111,9 @@ class OS_Client
 			case OS_RPC_GROUP_POSITIONS:
 				OS_ClientGroup.Read(ctx);
 				break;
+			case OS_RPC_GROUP_ID:
+				OnGroupId(ctx);
+				break;
 		}
 	}
 
@@ -236,6 +239,13 @@ class OS_Client
 		m_GroupMenu = new OS_GroupMenu();
 		m_GroupMenu.SetData(data);
 		Show(m_GroupMenu);
+	}
+
+	protected void OnGroupId(ParamsReadContext ctx)
+	{
+		int groupId;
+		if (ctx.Read(groupId))
+			OS_ClientSettings.GroupId = groupId;
 	}
 
 	protected void OnSettings(ParamsReadContext ctx)
