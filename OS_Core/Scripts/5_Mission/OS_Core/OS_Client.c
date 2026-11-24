@@ -199,19 +199,21 @@ class OS_Client
 		array<int> categoryIndexes = new array<int>;
 		float buyMult;
 		float sellMult;
+		bool canBuy;
+		bool canSell;
 		if (!ctx.Read(traderName) || !ctx.Read(currency) || !ctx.Read(isAdmin) || !ctx.Read(categories) || !ctx.Read(counts) || !ctx.Read(categoryIndexes))
 			return;
-		if (!ctx.Read(buyMult) || !ctx.Read(sellMult))
+		if (!ctx.Read(buyMult) || !ctx.Read(sellMult) || !ctx.Read(canBuy) || !ctx.Read(canSell))
 			return;
 
 		if (IsOpen(m_TraderMenu))
 		{
-			m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes, buyMult, sellMult);
+			m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes, buyMult, sellMult, canBuy, canSell);
 			return;
 		}
 
 		m_TraderMenu = new OS_TraderMenu();
-		m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes, buyMult, sellMult);
+		m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes, buyMult, sellMult, canBuy, canSell);
 		Show(m_TraderMenu);
 	}
 

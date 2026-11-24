@@ -13,6 +13,7 @@ class OS_ServerTrader
 	protected ref map<string, OS_TraderItem> m_ByClass = new map<string, OS_TraderItem>;          // malými písmeny
 	protected ref map<string, OS_TraderItem> m_InheritedCache = new map<string, OS_TraderItem>;
 	protected ref map<string, int> m_CategoryOf = new map<string, int>;   // classname (malými) -> index kategorie
+	protected ref array<string> m_FarmProduce = new array<string>;       // výrobky farem (malými)
 
 	void OS_ServerTrader(OS_Payments payments, OS_TraderConfig cfg, OS_ServerAdmin admin, string currency)
 	{
@@ -89,11 +90,57 @@ class OS_ServerTrader
 		return item;
 	}
 
+	//! výrobky farem (z Farms.json) - pro obchodníky s FarmProduce
+	void SetFarmProduce(array<string> classNames)
+	{
+		m_FarmProduce.Clear();
+		foreach (string cls : classNames)
+		{
+			string lower = OS_TraderScanner.Lower(cls);
+			if (m_FarmProduce.Find(lower) == -1)
+				m_FarmProduce.Insert(lower);
+		}
+	}
+
+	//! obchodník nemá žádné omezení (prodává/vykupuje všechno)?
+	protected bool Unrestricted(OS_TraderLocation trader)
+	{
+		if (!trader)
+			return true;
+		bool hasCategories = trader.Categories && trader.Categories.Count() > 0;
+		bool hasItems = trader.Items && trader.Items.Count() > 0;
+		return !hasCategories && !hasItems && !trader.FarmProduce;
+	}
+
+	//! patří konkrétní předmět k obchodníkovi? (kategorie, seznam Items, výrobky farem)
+	protected bool AllowsItem(OS_TraderLocation trader, string className)
+	{
+		if (Unrestricted(trader))
+			return true;
+
+		int categoryIndex = CategoryOfClass(className);
+		if (trader.Categories && trader.Categories.Count() > 0 && Allows(trader, categoryIndex))
+			return true;
+
+		string lower = OS_TraderScanner.Lower(className);
+		if (trader.Items)
+		{
+			foreach (string item : trader.Items)
+			{
+				if (OS_TraderScanner.Lower(item) == lower)
+					return true;
+			}
+		}
+		return trader.FarmProduce && m_FarmProduce.Find(lower) > -1;
+	}
+
 	//! prodává / vykupuje obchodník tuto kategorii?
 	protected bool Allows(OS_TraderLocation trader, int categoryIndex)
 	{
-		if (!trader || !trader.Categories || trader.Categories.Count() == 0)
+		if (Unrestricted(trader))
 			return true;
+		if (!trader.Categories || trader.Categories.Count() == 0)
+			return false;
 		if (categoryIndex < 0 || categoryIndex >= m_Cfg.Categories.Count() || !m_Cfg.Categories[categoryIndex])
 			return false;
 
@@ -187,7 +234,7 @@ class OS_ServerTrader
 		else if (rpcType == OS_RPC_TRADER_CATEGORY)
 		{
 			int viewCategory;
-			if (ctx.Read(viewCategory) && Allows(trader, viewCategory))
+			if (ctx.Read(viewCategory) && trader.PlayersCanBuy && Allows(trader, viewCategory))
 				SendItems(player, trader, viewCategory, "", isAdmin);
 		}
 		else if (rpcType == OS_RPC_TRADER_SEARCH)
@@ -200,7 +247,7 @@ class OS_ServerTrader
 		{
 			int buyCategory;
 			int buyIndex;
-			if (ctx.Read(buyCategory) && ctx.Read(buyIndex) && Allows(trader, buyCategory))
+			if (ctx.Read(buyCategory) && ctx.Read(buyIndex) && trader.PlayersCanBuy && Allows(trader, buyCategory))
 				Buy(player, trader, buyCategory, buyIndex);
 			SendUpdate(player, trader);
 		}
@@ -298,7 +345,7 @@ class OS_ServerTrader
 		if (!priced || priced.Sell < 0)
 			return;
 
-		if (!Allows(trader, CategoryOfClass(className)))
+		if (!trader.PlayersCanSell || !AllowsItem(trader, className))
 		{
 			OS_Util.Notify(player, "Obchod", "Tenhle obchodnik takove veci nevykupuje.");
 			return;
@@ -451,7 +498,7 @@ class OS_ServerTrader
 
 		for (int c = 0; c < m_Cfg.Categories.Count(); c++)
 		{
-			if (!Allows(trader, c))
+			if (!trader.PlayersCanBuy || !Allows(trader, c))
 				continue;
 
 			OS_TraderCategory category = m_Cfg.Categories[c];
@@ -482,6 +529,8 @@ class OS_ServerTrader
 		rpc.Write(categoryIndexes);
 		rpc.Write(BuyMult(trader));
 		rpc.Write(SellMult(trader));
+		rpc.Write(trader.PlayersCanBuy);
+		rpc.Write(trader.PlayersCanSell);
 		rpc.Send(null, OS_RPC_TRADER_DATA, true, player.GetIdentity());
 	}
 
@@ -553,7 +602,7 @@ class OS_ServerTrader
 				continue;
 
 			string type = item.GetType();
-			if (!Allows(trader, CategoryOfClass(type)))
+			if (!trader.PlayersCanSell || !AllowsItem(trader, type))
 				continue;
 			int index = classes.Find(type);
 			if (index == -1)

@@ -7,6 +7,8 @@ class OS_TraderMenu : OS_MenuBase
 	protected ref array<int> m_CategoryIndexes = new array<int>;   // řádek seznamu -> skutečná kategorie na serveru
 	protected float m_BuyMult = 1;    // násobitele cen obchodníka (katalog má základní ceny)
 	protected float m_SellMult = 1;
+	protected bool m_CanBuy = true;    // obchodník prodává
+	protected bool m_CanSell = true;   // obchodník vykupuje
 	protected ref array<int> m_CategoryCounts = new array<int>;
 
 	// aktuálně zobrazené předměty (kategorie nebo hledání)
@@ -51,8 +53,10 @@ class OS_TraderMenu : OS_MenuBase
 
 	// ------------------------------------------------------------ data ze serveru
 
-	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts, array<int> categoryIndexes, float buyMult, float sellMult)
+	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts, array<int> categoryIndexes, float buyMult, float sellMult, bool canBuy, bool canSell)
 	{
+		m_CanBuy = canBuy;
+		m_CanSell = canSell;
 		m_BuyMult = buyMult;
 		m_SellMult = sellMult;
 		m_CategoryIndexes.Clear();
@@ -142,6 +146,24 @@ class OS_TraderMenu : OS_MenuBase
 			}
 			m_Title.SetText(title);
 		}
+
+		// obchodník, který jen vykupuje (nebo jen prodává)
+		array<string> buyWidgets = {"CatLabel", "CategoryListBg", "CategoryList", "EditSearchBg", "EditSearch", "BtnSearch", "ItemListBg", "ItemList", "BtnBuy"};
+		foreach (string buyWidget : buyWidgets)
+		{
+			Widget bw = layoutRoot.FindAnyWidget(buyWidget);
+			if (bw)
+				bw.Show(m_CanBuy);
+		}
+		array<string> sellWidgets = {"SellLabel", "SellListBg", "SellList", "BtnSell"};
+		foreach (string sellWidget : sellWidgets)
+		{
+			Widget sw = layoutRoot.FindAnyWidget(sellWidget);
+			if (sw)
+				sw.Show(m_CanSell);
+		}
+		if (!m_CanBuy)
+			SetStatus("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.");
 
 		// admin panel vidí jen admin
 		array<string> adminWidgets = {"AdminLabel", "BuyLabel", "EditBuyBg", "EditBuy", "SellPriceLabel", "EditSellBg", "EditSell", "BtnSavePrice", "FactorLabel", "EditFactorBg", "EditFactor", "BtnBulk"};

@@ -57,6 +57,20 @@ class OS_Server
 		m_Trader = new OS_ServerTrader(m_Payments, traderCfg, m_Admin, currency);
 		m_Vehicles = new OS_ServerVehicles(m_Payments, currency, m_Groups, m_Admin);
 
+		// výkupna úrody: výrobky farem z Farms.json
+		array<string> farmProduce = new array<string>;
+		foreach (OS_FarmAnimalType farmType : m_Farms.m_Cfg.Animals)
+		{
+			if (!farmType || !farmType.Products)
+				continue;
+			foreach (OS_FarmProduct product : farmType.Products)
+			{
+				if (product)
+					farmProduce.Insert(product.ClassName);
+			}
+		}
+		m_Trader.SetFarmProduce(farmProduce);
+
 		DayZGame.Event_OnRPC.Insert(OnRPC);
 		Print(OS_TAG + "Server modul spusten.");
 	}

@@ -239,6 +239,10 @@ class OS_TraderLocation
 	// SellMultiplier drž pod poměrem nákup/výkup (zbraně 4, ostatní ~5), jinak by šlo koupit jinde a prodat tady se ziskem
 	float BuyMultiplier = 1.0;
 	float SellMultiplier = 1.0;
+	bool PlayersCanBuy = true;        // obchodník hráčům prodává
+	bool PlayersCanSell = true;       // obchodník od hráčů vykupuje
+	ref array<string> Items = new array<string>;   // konkrétní předměty (classname) navíc ke kategoriím
+	bool FarmProduce = false;         // vykupuje všechno, co vyrábějí farmy (podle Farms.json)
 
 	void OS_TraderLocation(string name = "", float x = 0, float z = 0, float radius = 15)
 	{
@@ -345,6 +349,13 @@ class OS_TraderConfig
 		OS_TraderLocation gardener = new OS_TraderLocation("Priklad - Zahradnictvi", 1900, 2060, 10);
 		gardener.Categories.Insert("Zahrada");
 		Traders.Insert(gardener);
+
+		// výkupna úrody z farem - jen vykupuje, o 20 % lépe
+		OS_TraderLocation produce = new OS_TraderLocation("Priklad - Vykupna", 1860, 2100, 10);
+		produce.FarmProduce = true;
+		produce.PlayersCanBuy = false;
+		produce.SellMultiplier = 1.2;
+		Traders.Insert(produce);
 
 		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
 		hunter.Categories.Insert("Lov");

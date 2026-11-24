@@ -126,6 +126,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
   Barevné varianty se vykupují za cenu základní věci (`M4A1_Black` → `M4A1`).
 - **Vojenské věci** nemají vlastní kategorii: vojenské oblečení (uniformy, vesty, helmy, sumky, pouzdra, noktovizor)
   je v *Obleceni*, a co patří ke zbraním (krabice s municí, bajonety, sada na čištění zbraní) je u *Zbrojire*.
+- **Další nastavení obchodníka:** `PlayersCanBuy` (prodává hráčům), `PlayersCanSell` (vykupuje od hráčů),
+  `Items` (konkrétní classname navíc ke kategoriím), `FarmProduce` (vykupuje výrobky farem).
 - **Násobitele cen obchodníka:** v `Traders` má každý obchodník `BuyMultiplier` (nákup) a `SellMultiplier` (výkup),
   výchozí 1. Černý trh: nákup **1,5×**, výkup **1,3×**. Hráč vidí v menu už upravené ceny a v titulku procenta.
   `SellMultiplier` drž pod poměrem nákup/výkup (zbraně 4×, ostatní ~5×), jinak by se vyplatilo koupit u jednoho
@@ -152,6 +154,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
     budík, Geigerův počítač, generátor, reflektor, kabel),
   - *Zahradnictvi* – `Zahrada` (semínka a balíčky semínek, zahradní vápno, motyka, hnojiva a konve z módů;
     semínka konopí jsou na černém trhu),
+  - *Vykupna* – jen **vykupuje úrodu z farem** (vše, co v `Farms.json` vyrábějí zvířata a rostliny: vejce, ovoce,
+    zelenina, mléko, maso, sádlo, peří, kůže, konopí) o 20 % lépe (`SellMultiplier: 1.2`), nic neprodává,
   - *Lovec* – `Lov` (pasti, oka, pruty, háčky, návnady, kostěný a lovecký nůž) a `Zvireci suroviny`
     (kůže, maso ze zvěře, rybí filety, sádlo, vnitřnosti, peří, kosti),
   - *Autodily* – `Dily aut` (kola, dveře, kapoty, baterie, svíčky, chladiče, světla, díly helikoptér Expansion).
