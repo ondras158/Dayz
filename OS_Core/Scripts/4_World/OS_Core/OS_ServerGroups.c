@@ -334,6 +334,11 @@ class OS_ServerGroups
 		}
 		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
+		if (targetId == group.LeaderId)
+		{
+			OS_Util.Notify(player, "Skupina", "Vlastnika skupiny nejde vyhodit.");
+			return;
+		}
 
 		string targetName = group.Members[group.FindMember(targetId)].Name;
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
