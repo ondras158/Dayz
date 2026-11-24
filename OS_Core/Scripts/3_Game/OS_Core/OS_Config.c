@@ -377,6 +377,7 @@ class OS_TraderConfig
 
 		r = new OS_CategoryRule("Munice", 60, 10);
 		r.BaseClasses.Insert("Ammunition_Base");
+		r.NameContains.Insert("AmmoBox");       // krabice s municí
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Zasobniky", 100, 15);
@@ -388,6 +389,8 @@ class OS_TraderConfig
 		r.BaseClasses.Insert("ItemSuppressor");
 		r.SlotContains.Insert("weapon");
 		r.SlotContains.Insert("pistol");
+		r.NameContains.Insert("Bayonet");
+		r.NameContains.Insert("WeaponCleaningKit");
 		CategoryRules.Insert(r);
 
 		// granáty a výbušniny (náboje do granátometu zůstávají v Munice - pravidlo Munice je výš)
@@ -469,6 +472,7 @@ class OS_TraderConfig
 		r = new OS_CategoryRule("Obleceni", 50, 8);
 		r.BaseClasses.Insert("Clothing_Base");
 		r.BaseClasses.Insert("Clothing");
+		r.NameContains.Insert("NVG");           // noktovizor (nasazuje se na helmu)
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Jidlo a piti", 30, 5);
