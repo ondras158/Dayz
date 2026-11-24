@@ -243,14 +243,22 @@ přidej jejich classname a díly).
 
 **Skupiny** (`Groups.json`, data skupin v `GroupsData.json`)
 - Menu skupiny: klávesa **J**. Kdo není ve skupině, může ji založit (název 3–24 znaků) nebo přijmout pozvánku.
-- **Velikost:** `BaseMaxMembers` (4) zdarma, další místo kupuje vedoucí: první za `SlotPrice` (1000),
+- **Velikost:** `BaseMaxMembers` (4) zdarma, další místo kupuje vlastník nebo admin: první za `SlotPrice` (1000),
   každé další o `SlotPriceIncrease` (500) dražší, maximálně `MaxMembersLimit` (10) hráčů.
-  Místo se platí ze **skupinového účtu**, a když na něm není dost, z hotovosti vedoucího.
-- **Pozvánky:** vedoucí (nebo všichni, pokud `MembersCanInvite: true`) zve hráče online, kteří nejsou v jiné skupině.
+  Místo se platí ze **skupinového účtu**, a když na něm není dost, z hotovosti toho, kdo kupuje.
+- **Pozvánky:** vlastník a admini (nebo všichni, pokud `MembersCanInvite: true`) zve hráče online, kteří nejsou v jiné skupině.
   Pozvaný dostane oznámení a pozvánku přijme/odmítne v menu skupiny (platí `InviteValidSeconds`).
-- **Vedoucí** může vyhodit člena, předat vedení a rozpustit skupinu. Když vedoucí odejde, vedení převezme další člen.
+- **Role:**
+  | Role | Co smí |
+  |---|---|
+  | **Vlastník** | vše: zvát, vyhazovat kohokoli, kupovat místa, vybírat z účtu, jmenovat/odvolat adminy (*Admin / člen*), předat vlastnictví, rozpustit skupinu |
+  | **Admin** | vše kromě rozpuštění, předání vlastnictví a jmenování adminů; vyhodit smí jen běžné členy |
+  | **Člen** | zvát a vybírat z účtu jen podle `MembersCanInvite` / `MembersCanWithdraw` |
+
+  Při předání vlastnictví zůstane původní vlastník adminem. Když vlastník odejde, převezme skupinu
+  první admin, a když žádný není, první člen. Starší skupiny fungují dál, dosavadní vedoucí je vlastník.
 - **Společný účet:** v bankomatu *Vložit do skupiny* / *Vybrat ze skupiny* (částka z pole Částka, prázdné = vše).
-  `MembersCanWithdraw: false` = vybírat smí jen vedoucí. Při rozpuštění nebo odchodu posledního člena
+  `MembersCanWithdraw: false` = vybírat smí jen vlastník a admini. Při rozpuštění nebo odchodu posledního člena
   jde zůstatek na jeho osobní účet. Všechny vklady a výběry se zapisují do logu.
 
 **Spoluhráči na mapě a jména nad hlavou** (nastavení v `Groups.json`)
@@ -407,6 +415,7 @@ Zabal ho do vlastního PBO (prefix `OS_Core_Expansion`) a dej ho do stejného `@
 
 - Kdo je v OS skupině s **majitelem vlajky**, je automaticky **členem jeho území**. Může tam stavět,
   rozebírat a používat garáž území. Funguje to pro všechny vlajky všech členů skupiny.
+  Vlastník a admini skupiny jsou v území **moderátoři**, běžní členové **členové**.
 - Kdo ze skupiny odejde nebo je vyhozen, je z území do pár sekund odebrán. Odebírá se jen ten,
   koho přidal tenhle doplněk; hráče pozvané ručně přes menu vlajky to nechá být.
 - Nastavení `$profile:OS_Core/ExpansionTerritory.json`: `Enabled`, `SyncSeconds` (jak často

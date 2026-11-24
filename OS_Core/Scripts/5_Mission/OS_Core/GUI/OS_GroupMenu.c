@@ -9,6 +9,7 @@ class OS_GroupData
 	ref array<string> MemberNames = new array<string>;
 	ref array<string> MemberIds = new array<string>;
 	ref array<int> MemberOnline = new array<int>;
+	ref array<int> MemberRoles = new array<int>;
 	int MaxMembers;
 	int MaxLimit;
 	int SlotPrice;
@@ -23,7 +24,7 @@ class OS_GroupData
 	{
 		if (!ctx.Read(Currency) || !ctx.Read(MyId) || !ctx.Read(GroupName) || !ctx.Read(LeaderId))
 			return false;
-		if (!ctx.Read(MemberNames) || !ctx.Read(MemberIds) || !ctx.Read(MemberOnline))
+		if (!ctx.Read(MemberNames) || !ctx.Read(MemberIds) || !ctx.Read(MemberOnline) || !ctx.Read(MemberRoles))
 			return false;
 		if (!ctx.Read(MaxMembers) || !ctx.Read(MaxLimit) || !ctx.Read(SlotPrice) || !ctx.Read(Balance) || !ctx.Read(MembersCanInvite))
 			return false;
@@ -37,9 +38,28 @@ class OS_GroupData
 		return GroupName != "";
 	}
 
-	bool IsLeader()
+	int RoleAt(int index)
 	{
-		return HasGroup() && LeaderId == MyId;
+		if (index >= 0 && index < MemberRoles.Count())
+			return MemberRoles[index];
+		return OS_GROUP_ROLE_MEMBER;
+	}
+
+	int MyRole()
+	{
+		if (!HasGroup())
+			return OS_GROUP_ROLE_NONE;
+		return RoleAt(MemberIds.Find(MyId));
+	}
+
+	bool IsOwner()
+	{
+		return MyRole() == OS_GROUP_ROLE_OWNER;
+	}
+
+	bool IsManager()
+	{
+		return MyRole() >= OS_GROUP_ROLE_ADMIN;
 	}
 }
 
@@ -57,6 +77,7 @@ class OS_GroupMenu : OS_MenuBase
 	protected EditBoxWidget m_EditName;
 	protected ButtonWidget m_BtnKick;
 	protected ButtonWidget m_BtnPromote;
+	protected ButtonWidget m_BtnSetAdmin;
 	protected ButtonWidget m_BtnLeave;
 	protected ButtonWidget m_BtnDisband;
 	protected ButtonWidget m_BtnInvite;
@@ -90,6 +111,7 @@ class OS_GroupMenu : OS_MenuBase
 		m_EditName = FindEdit("EditName");
 		m_BtnKick = FindButton("BtnKick");
 		m_BtnPromote = FindButton("BtnPromote");
+		m_BtnSetAdmin = FindButton("BtnSetAdmin");
 		m_BtnLeave = FindButton("BtnLeave");
 		m_BtnDisband = FindButton("BtnDisband");
 		m_BtnInvite = FindButton("BtnInvite");
@@ -117,16 +139,19 @@ class OS_GroupMenu : OS_MenuBase
 			return;
 
 		bool inGroup = m_Data.HasGroup();
-		bool leader = m_Data.IsLeader();
-		bool canInvite = inGroup && (leader || m_Data.MembersCanInvite);
+		bool owner = m_Data.IsOwner();
+		bool manager = m_Data.IsManager();
+		bool canInvite = inGroup && (manager || m_Data.MembersCanInvite);
 		string cur = " " + m_Data.Currency;
 
 		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText"};
-		array<string> leaderWidgets = {"BtnKick", "BtnPromote", "BtnDisband", "BtnBuySlot"};
+		array<string> ownerWidgets = {"BtnPromote", "BtnDisband", "BtnSetAdmin"};
+		array<string> managerWidgets = {"BtnKick", "BtnBuySlot"};
 		array<string> inviteWidgets = {"FreeLabel", "FreeListBg", "FreeList", "BtnInvite"};
 		array<string> noGroupWidgets = {"CreateLabel", "EditNameBg", "EditName", "BtnCreate", "InviteText", "InviteText2"};
 		ShowAll(groupWidgets, inGroup);
-		ShowAll(leaderWidgets, leader);
+		ShowAll(ownerWidgets, owner);
+		ShowAll(managerWidgets, manager);
 		ShowAll(inviteWidgets, canInvite);
 		ShowAll(noGroupWidgets, !inGroup);
 
@@ -146,9 +171,7 @@ class OS_GroupMenu : OS_MenuBase
 		{
 			if (inGroup)
 			{
-				string role = "clen";
-				if (leader)
-					role = "vedouci";
+				string role = OS_Group.RoleName(m_Data.MyRole());
 				m_Info.SetText("Clenove: " + m_Data.MemberNames.Count().ToString() + " / " + m_Data.MaxMembers.ToString() + "   Tvoje role: " + role);
 			}
 			else
@@ -164,8 +187,9 @@ class OS_GroupMenu : OS_MenuBase
 			for (int i = 0; i < m_Data.MemberNames.Count(); i++)
 			{
 				string label = m_Data.MemberNames[i];
-				if (m_Data.MemberIds[i] == m_Data.LeaderId)
-					label = label + "  [vedouci]";
+				int memberRole = m_Data.RoleAt(i);
+				if (memberRole != OS_GROUP_ROLE_MEMBER)
+					label = label + "  [" + OS_Group.RoleName(memberRole) + "]";
 				if (i < m_Data.MemberOnline.Count() && m_Data.MemberOnline[i] == 1)
 					label = label + "  (online)";
 				else
@@ -287,6 +311,11 @@ class OS_GroupMenu : OS_MenuBase
 		if (w == m_BtnPromote)
 		{
 			SendForMember(OS_GroupAction.PROMOTE);
+			return true;
+		}
+		if (w == m_BtnSetAdmin)
+		{
+			SendForMember(OS_GroupAction.SET_ADMIN);
 			return true;
 		}
 		if (w == m_BtnLeave)

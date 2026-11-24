@@ -6,6 +6,7 @@
 // (může stavět, rozebírat, používat garáž území...). Kdo ze skupiny odejde
 // nebo je vyhozen, je z území zase odebrán - ale jen pokud ho tam přidal tenhle
 // doplněk. Členy pozvané ručně přes menu vlajky to nechá být.
+// Vlastník a admini skupiny dostanou v území hodnost moderátora, členové hodnost člena.
 
 class OS_TerritoryConfig
 {
@@ -153,10 +154,28 @@ class OS_TerritorySync
 					continue;
 
 				wanted.Insert(member.Id);
-				if (territory.IsMember(member.Id))
+
+				// admin (nebo vlastník) skupiny = moderátor území, člen skupiny = člen území
+				ExpansionTerritoryRank wantedRank = ExpansionTerritoryRank.MEMBER;
+				if (group.IsManager(member.Id))
+					wantedRank = ExpansionTerritoryRank.MODERATOR;
+
+				ExpansionTerritoryMember existing = territory.GetMember(member.Id);
+				if (existing)
+				{
+					// hodnost měníme jen těm, které přidal tenhle doplněk
+					if (link && link.Added.Find(member.Id) != -1 && existing.GetRank() != wantedRank)
+					{
+						existing.SetRank(wantedRank);
+						changedTerritory = true;
+					}
 					continue;
+				}
 
 				territory.AddMember(member.Id, member.Name);
+				ExpansionTerritoryMember added = territory.GetMember(member.Id);
+				if (added)
+					added.SetRank(wantedRank);
 				if (!link)
 					link = GetLink(territoryId, true);
 				if (link.Added.Find(member.Id) == -1)

@@ -9,8 +9,9 @@ class OS_GroupConfig
 	int SlotPrice = 1000;            // cena prvního dokoupeného místa
 	int SlotPriceIncrease = 500;     // každé další místo je dražší o tolik
 	int CreatePrice = 0;             // cena založení skupiny
-	bool MembersCanInvite = false;   // false = zvát může jen vedoucí
-	bool MembersCanWithdraw = true;  // false = ze společného účtu vybírá jen vedoucí
+	// role: vlastník (vše), admin (vše kromě rozpuštění, předání vlastnictví a jmenování adminů), člen
+	bool MembersCanInvite = false;   // false = zvát může jen vlastník a admini
+	bool MembersCanWithdraw = true;  // false = ze společného účtu vybírají jen vlastník a admini
 	bool FriendlyFire = false;       // false = členové skupiny si navzájem neublíží (střelba, nože, pěsti)
 	int InviteValidSeconds = 300;
 	int MinNameLength = 3;
@@ -28,6 +29,7 @@ class OS_GroupMember
 {
 	string Id;      // Steam64 ID
 	string Name;    // poslední známé jméno
+	int Role;       // OS_GROUP_ROLE_MEMBER / OS_GROUP_ROLE_ADMIN (vlastníka určuje LeaderId)
 
 	void OS_GroupMember(string id = "", string name = "")
 	{
@@ -53,6 +55,34 @@ class OS_Group
 				return i;
 		}
 		return -1;
+	}
+
+	//! role hráče ve skupině, OS_GROUP_ROLE_NONE když v ní není
+	int RoleOf(string id)
+	{
+		int index = FindMember(id);
+		if (index < 0)
+			return OS_GROUP_ROLE_NONE;
+		if (id == LeaderId)
+			return OS_GROUP_ROLE_OWNER;
+		if (Members[index].Role == OS_GROUP_ROLE_ADMIN)
+			return OS_GROUP_ROLE_ADMIN;
+		return OS_GROUP_ROLE_MEMBER;
+	}
+
+	//! vlastník nebo admin
+	bool IsManager(string id)
+	{
+		return RoleOf(id) >= OS_GROUP_ROLE_ADMIN;
+	}
+
+	static string RoleName(int role)
+	{
+		if (role == OS_GROUP_ROLE_OWNER)
+			return "vlastnik";
+		if (role == OS_GROUP_ROLE_ADMIN)
+			return "admin";
+		return "clen";
 	}
 }
 

@@ -117,5 +117,12 @@ enum OS_GroupAction
 	KICK,
 	PROMOTE,
 	BUY_SLOT,
-	DISBAND
+	DISBAND,
+	SET_ADMIN      // vlastník přepne člena na admina a zpět
 }
+
+// role ve skupině (vlastník = OS_Group.LeaderId)
+const int OS_GROUP_ROLE_NONE = -1;
+const int OS_GROUP_ROLE_MEMBER = 0;
+const int OS_GROUP_ROLE_ADMIN = 1;
+const int OS_GROUP_ROLE_OWNER = 2;

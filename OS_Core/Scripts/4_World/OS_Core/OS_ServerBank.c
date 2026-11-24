@@ -221,7 +221,7 @@ class OS_ServerBank
 		string steamId = OS_Util.SteamId(player);
 		if (!m_Groups.CanWithdraw(group, steamId))
 		{
-			OS_Util.Notify(player, "Bankomat", "Ze skupinoveho uctu vybira jen vedouci.");
+			OS_Util.Notify(player, "Bankomat", "Ze skupinoveho uctu vybira jen vlastnik a admini.");
 			return;
 		}
 

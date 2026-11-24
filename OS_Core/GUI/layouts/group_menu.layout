@@ -9,7 +9,7 @@ FrameWidgetClass OS_GroupMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 860 560
+   size 860 610
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -89,7 +89,7 @@ FrameWidgetClass OS_GroupMenu {
      text "Vyhodit"
      font "gui/fonts/metron"
     }
-    ButtonWidgetClass BtnPromote {
+    ButtonWidgetClass BtnSetAdmin {
      color 0.25 0.22 0.18 1
      position 225 380
      size 195 38
@@ -98,10 +98,10 @@ FrameWidgetClass OS_GroupMenu {
      hexactsize 1
      vexactsize 1
      style Default
-     text "Predat vedeni"
+     text "Admin / clen"
      font "gui/fonts/metron"
     }
-    ButtonWidgetClass BtnLeave {
+    ButtonWidgetClass BtnPromote {
      color 0.25 0.22 0.18 1
      position 20 426
      size 195 38
@@ -110,7 +110,7 @@ FrameWidgetClass OS_GroupMenu {
      hexactsize 1
      vexactsize 1
      style Default
-     text "Opustit skupinu"
+     text "Predat vlastnictvi"
      font "gui/fonts/metron"
     }
     ButtonWidgetClass BtnDisband {
@@ -123,6 +123,18 @@ FrameWidgetClass OS_GroupMenu {
      vexactsize 1
      style Default
      text "Rozpustit skupinu"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnLeave {
+     color 0.25 0.22 0.18 1
+     position 20 472
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Opustit skupinu"
      font "gui/fonts/metron"
     }
     TextWidgetClass FreeLabel {
@@ -292,7 +304,7 @@ FrameWidgetClass OS_GroupMenu {
     }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 480
+     position 20 526
      size 820 38
      hexactpos 1
      vexactpos 1
@@ -303,7 +315,7 @@ FrameWidgetClass OS_GroupMenu {
      font "gui/fonts/metron"
     }
     TextWidgetClass Status {
-     position 20 524
+     position 20 570
      size 820 26
      hexactpos 1
      vexactpos 1

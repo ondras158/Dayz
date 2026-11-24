@@ -120,7 +120,7 @@ class OS_ServerGroups
 
 	bool CanWithdraw(OS_Group group, string steamId)
 	{
-		return group && (m_Cfg.MembersCanWithdraw || group.LeaderId == steamId);
+		return group && (m_Cfg.MembersCanWithdraw || group.IsManager(steamId));
 	}
 
 	//! společný účet - používá bankomat
@@ -194,6 +194,8 @@ class OS_ServerGroups
 			BuySlot(player, id, group);
 		else if (action == OS_GroupAction.DISBAND)
 			Disband(player, id, group);
+		else if (action == OS_GroupAction.SET_ADMIN)
+			SetAdmin(player, id, group, arg);
 	}
 
 	protected void Create(PlayerBase player, string id, string name, OS_Group current, string groupName)
@@ -245,9 +247,9 @@ class OS_ServerGroups
 
 	protected void Invite(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (!m_Cfg.MembersCanInvite && group.LeaderId != id)
+		if (!m_Cfg.MembersCanInvite && !group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Zvat muze jen vedouci skupiny.");
+			OS_Util.Notify(player, "Skupina", "Zvat muze jen vlastnik nebo admin skupiny.");
 			return;
 		}
 		if (group.Members.Count() >= MaxMembers(group))
@@ -324,13 +326,19 @@ class OS_ServerGroups
 
 	protected void Kick(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (group.LeaderId != id)
+		int myRole = group.RoleOf(id);
+		if (myRole < OS_GROUP_ROLE_ADMIN)
 		{
-			OS_Util.Notify(player, "Skupina", "Vyhazovat muze jen vedouci.");
+			OS_Util.Notify(player, "Skupina", "Vyhazovat muze jen vlastnik nebo admin.");
 			return;
 		}
 		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
+		if (group.RoleOf(targetId) >= myRole)
+		{
+			OS_Util.Notify(player, "Skupina", "Admin muze vyhodit jen bezne cleny.");
+			return;
+		}
 
 		string targetName = group.Members[group.FindMember(targetId)].Name;
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
@@ -341,15 +349,49 @@ class OS_ServerGroups
 
 	protected void Promote(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (group.LeaderId != id || targetId == id || group.FindMember(targetId) < 0)
+		if (group.LeaderId != id)
+		{
+			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik.");
+			return;
+		}
+		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
 
+		// původní vlastník zůstane adminem
+		group.Members[group.FindMember(id)].Role = OS_GROUP_ROLE_ADMIN;
+		group.Members[group.FindMember(targetId)].Role = OS_GROUP_ROLE_MEMBER;
 		group.LeaderId = targetId;
 		SaveData();
-		NotifyGroup(group, group.Members[group.FindMember(targetId)].Name + " je novy vedouci skupiny.");
+		NotifyGroup(group, group.Members[group.FindMember(targetId)].Name + " je novy vlastnik skupiny.");
 	}
 
-	//! odebrání člena; když odejde vedoucí, převezme vedení další; poslední člen dostane zůstatek na svůj účet
+	//! vlastník jmenuje / odvolá admina
+	protected void SetAdmin(PlayerBase player, string id, OS_Group group, string targetId)
+	{
+		if (group.LeaderId != id)
+		{
+			OS_Util.Notify(player, "Skupina", "Adminy jmenuje jen vlastnik.");
+			return;
+		}
+		int index = group.FindMember(targetId);
+		if (targetId == id || index < 0)
+			return;
+
+		OS_GroupMember target = group.Members[index];
+		if (target.Role == OS_GROUP_ROLE_ADMIN)
+		{
+			target.Role = OS_GROUP_ROLE_MEMBER;
+			NotifyGroup(group, target.Name + " uz neni admin skupiny.");
+		}
+		else
+		{
+			target.Role = OS_GROUP_ROLE_ADMIN;
+			NotifyGroup(group, target.Name + " je novy admin skupiny.");
+		}
+		SaveData();
+	}
+
+	//! odebrání člena; když odejde vlastník, převezme to první admin (jinak první člen); poslední člen dostane zůstatek na svůj účet
 	protected void RemoveMember(OS_Group group, string memberId, string message)
 	{
 		int index = group.FindMember(memberId);
@@ -370,8 +412,22 @@ class OS_ServerGroups
 			return;
 		}
 
+		// odešel vlastník: převezme to první admin, jinak první člen
 		if (group.LeaderId == memberId)
-			group.LeaderId = group.Members[0].Id;
+		{
+			OS_GroupMember heir = group.Members[0];
+			foreach (OS_GroupMember candidate : group.Members)
+			{
+				if (candidate.Role == OS_GROUP_ROLE_ADMIN)
+				{
+					heir = candidate;
+					break;
+				}
+			}
+			heir.Role = OS_GROUP_ROLE_MEMBER;
+			group.LeaderId = heir.Id;
+			message = message + " Novy vlastnik: " + heir.Name + ".";
+		}
 
 		SaveData();
 		NotifyGroup(group, message);
@@ -383,9 +439,9 @@ class OS_ServerGroups
 
 	protected void BuySlot(PlayerBase player, string id, OS_Group group)
 	{
-		if (group.LeaderId != id)
+		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Mista kupuje vedouci skupiny.");
+			OS_Util.Notify(player, "Skupina", "Mista kupuje vlastnik nebo admin skupiny.");
 			return;
 		}
 		if (MaxMembers(group) >= m_Cfg.MaxMembersLimit)
@@ -420,7 +476,7 @@ class OS_ServerGroups
 	{
 		if (group.LeaderId != id)
 		{
-			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vedouci.");
+			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik.");
 			return;
 		}
 
@@ -570,6 +626,7 @@ class OS_ServerGroups
 		array<string> memberNames = new array<string>;
 		array<string> memberIds = new array<string>;
 		array<int> memberOnline = new array<int>;
+		array<int> memberRoles = new array<int>;
 		string leaderId = "";
 		string groupName = "";
 		int maxMembers = m_Cfg.BaseMaxMembers;
@@ -587,6 +644,7 @@ class OS_ServerGroups
 			{
 				memberNames.Insert(member.Name);
 				memberIds.Insert(member.Id);
+				memberRoles.Insert(group.RoleOf(member.Id));
 				if (OS_Util.FindPlayerBySteamId(member.Id))
 					memberOnline.Insert(1);
 				else
@@ -627,6 +685,7 @@ class OS_ServerGroups
 		rpc.Write(memberNames);
 		rpc.Write(memberIds);
 		rpc.Write(memberOnline);
+		rpc.Write(memberRoles);
 		rpc.Write(maxMembers);
 		rpc.Write(m_Cfg.MaxMembersLimit);
 		rpc.Write(slotPrice);

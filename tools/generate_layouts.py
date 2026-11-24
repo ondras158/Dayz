@@ -198,15 +198,16 @@ LAYOUTS = {
         text("TransferFeeText", 440, 342, 400, 24, ""),
         text("Status", 20, 446, 820, 26, "", align="center"),
     ]),
-    "group_menu.layout": layout("OS_GroupMenu", 860, 560, [
+    "group_menu.layout": layout("OS_GroupMenu", 860, 610, [
         text("Title", 20, 12, 820, 36, "Skupina", "gui/fonts/metron28", "center"),
         text("InfoText", 20, 52, 820, 26, "", align="center"),
         text("MembersLabel", 20, 84, 400, 24, "Clenove"),
         listbox("MemberList", 20, 110, 400, 260),
         button("BtnKick", 20, 380, 195, 38, "Vyhodit"),
-        button("BtnPromote", 225, 380, 195, 38, "Predat vedeni"),
-        button("BtnLeave", 20, 426, 195, 38, "Opustit skupinu"),
+        button("BtnSetAdmin", 225, 380, 195, 38, "Admin / clen"),
+        button("BtnPromote", 20, 426, 195, 38, "Predat vlastnictvi"),
         button("BtnDisband", 225, 426, 195, 38, "Rozpustit skupinu"),
+        button("BtnLeave", 20, 472, 400, 38, "Opustit skupinu"),
         text("FreeLabel", 440, 84, 400, 24, "Pozvat hrace (online, bez skupiny)"),
         listbox("FreeList", 440, 110, 400, 214),
         button("BtnInvite", 440, 332, 400, 38, "Pozvat"),
@@ -219,8 +220,8 @@ LAYOUTS = {
         text("InviteText2", 440, 110, 400, 26, ""),
         button("BtnAccept", 440, 154, 195, 38, "Prijmout"),
         button("BtnDecline", 645, 154, 195, 38, "Odmitnout"),
-        button("BtnClose", 20, 480, 820, 38, "Zavrit"),
-        text("Status", 20, 524, 820, 26, "", align="center"),
+        button("BtnClose", 20, 526, 820, 38, "Zavrit"),
+        text("Status", 20, 570, 820, 26, "", align="center"),
     ]),
 }
 
