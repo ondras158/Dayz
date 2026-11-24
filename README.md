@@ -157,6 +157,10 @@ přidej jejich classname a díly).
   ```
   Vznikne `OS_Core/data/money_<hodnota>_co.png` pro všech 12 hodnot. Potisk je součást módu – změna měny na potisku
   vyžaduje přebalit mód (název měny ve hře a v menu se mění jen v `Bank.json`).
+- **Vlastní vzhled bankovek:** dej obrázky do `money_images/` pojmenované podle hodnoty (`20.png`, `50.jpg` …)
+  a spusť `python3 tools/import_money_images.py`. Obrázek může mít libovolnou velikost a poměr stran.
+  Volby: `--mode fit|fill|stretch` (vejít / oříznout / roztáhnout), `--rotate 90` (když je ve hře bokem),
+  `--size 1024` (ostřejší), `--mark SPECIMEN` (nápis přes bankovku). Pak převést na .paa a přebalit mód.
 - Bankovky stejné hodnoty se stohují (max. 100 ks v balíčku), nic neváží.
 - Při placení se bankovky rozmění samy: zaplatíš od největších, a když to nejde přesně, vrátí se drobné v bankovkách.
   Částka menší než nejmenší bankovka nejde vyplatit v hotovosti – připíše se na účet.
