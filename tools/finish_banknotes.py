@@ -37,7 +37,7 @@ def paper_color(img):
 def finish(path, value, title, currency):
     img = Image.open(path).convert("RGB")
     W = 2000
-    img = ImageOps.fit(img, (W, W // 2), Image.LANCZOS)   # poměr 2:1 jako skutečná bankovka
+    img = img.resize((W, W // 2), Image.LANCZOS)   # poměr 2:1, bez ořezu (zachová rámeček i hologram)
     H = W // 2
     d = ImageDraw.Draw(img)
     ink, paper = ink_color(img), paper_color(img)
