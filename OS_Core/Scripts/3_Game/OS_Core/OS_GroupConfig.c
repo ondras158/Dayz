@@ -9,7 +9,7 @@ class OS_GroupConfig
 	int SlotPrice = 1000;            // cena prvního dokoupeného místa
 	int SlotPriceIncrease = 500;     // každé další místo je dražší o tolik
 	int CreatePrice = 0;             // cena založení skupiny
-	// role: vlastník (vše), admin (vše kromě vyhození vlastníka a předání vlastnictví), člen
+	// role: vlastník (vše), admin (vše kromě vyhození vlastníka, předání vlastnictví a rozpuštění skupiny), člen
 	bool MembersCanInvite = false;   // false = zvát může jen vlastník a admini
 	bool MembersCanWithdraw = true;  // false = ze společného účtu vybírají jen vlastník a admini
 	bool FriendlyFire = false;       // false = členové skupiny si navzájem neublíží (střelba, nože, pěsti)

@@ -474,9 +474,9 @@ class OS_ServerGroups
 
 	protected void Disband(PlayerBase player, string id, OS_Group group)
 	{
-		if (!group.IsManager(id))
+		if (group.LeaderId != id)
 		{
-			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik nebo admin.");
+			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik.");
 			return;
 		}
 

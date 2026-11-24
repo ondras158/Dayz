@@ -144,9 +144,9 @@ class OS_GroupMenu : OS_MenuBase
 		string cur = " " + m_Data.Currency;
 
 		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText"};
-		// admin smí všechno kromě předání vlastnictví
-		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnDisband", "BtnSetAdmin"};
-		array<string> ownerWidgets = {"BtnPromote"};
+		// admin smí všechno kromě předání vlastnictví a rozpuštění skupiny
+		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnSetAdmin"};
+		array<string> ownerWidgets = {"BtnPromote", "BtnDisband"};
 		array<string> inviteWidgets = {"FreeLabel", "FreeListBg", "FreeList", "BtnInvite"};
 		array<string> noGroupWidgets = {"CreateLabel", "EditNameBg", "EditName", "BtnCreate", "InviteText", "InviteText2"};
 		ShowAll(groupWidgets, inGroup);
