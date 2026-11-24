@@ -322,6 +322,7 @@ class OS_TraderConfig
 		OS_TraderLocation hardware = new OS_TraderLocation("Priklad - Zelezarstvi", 1960, 2040, 10);
 		hardware.Categories.Insert("Nastroje a ostatni");
 		hardware.Categories.Insert("Stavba zakladny");
+		hardware.Categories.Insert("Elektronika");
 		Traders.Insert(hardware);
 
 		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
@@ -457,6 +458,26 @@ class OS_TraderConfig
 		r.NameContains.Insert("Trunk");
 		CategoryRules.Insert(r);
 
+		// elektronika (autobaterie a baterie helikoptér už jsou v Dily aut - pravidlo je výš)
+		r = new OS_CategoryRule("Elektronika", 120, 20);
+		r.NameContains.Insert("Radio");          // osobní a základnová vysílačka
+		r.NameContains.Insert("Megaphone");
+		r.NameContains.Insert("GPS");
+		r.NameContains.Insert("Rangefinder");
+		r.NameContains.Insert("Battery");        // 9V baterie
+		r.NameContains.Insert("Charger");        // nabíječka baterií
+		r.NameContains.Insert("Bulb");           // žárovky
+		r.NameContains.Insert("Flashlight");
+		r.NameContains.Insert("Electronic");     // sada na opravu elektroniky
+		r.NameContains.Insert("AlarmClock");
+		r.NameContains.Insert("KitchenTimer");
+		r.NameContains.Insert("Geiger");
+		r.NameContains.Insert("Dosimeter");
+		r.NameContains.Insert("Generator");      // elektřina na základně
+		r.NameContains.Insert("Spotlight");
+		r.NameContains.Insert("CableReel");
+		CategoryRules.Insert(r);
+
 		r = new OS_CategoryRule("Stavba zakladny", 100, 15);
 		r.BaseClasses.Insert("TentBase");
 		r.BaseClasses.Insert("Container_Base");
@@ -491,9 +512,6 @@ class OS_TraderConfig
 		r.NameContains.Insert("Bed");
 		r.NameContains.Insert("Sofa");
 		r.NameContains.Insert("Furniture");
-		r.NameContains.Insert("Generator");     // elektřina na základně
-		r.NameContains.Insert("Spotlight");
-		r.NameContains.Insert("CableReel");
 		r.NameContains.Insert("Flag_");         // vlajky na stožár
 		CategoryRules.Insert(r);
 
