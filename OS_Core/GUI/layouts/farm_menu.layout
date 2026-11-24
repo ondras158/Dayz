@@ -9,7 +9,7 @@ FrameWidgetClass OS_FarmMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 860 610
+   size 860 700
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -65,7 +65,7 @@ FrameWidgetClass OS_FarmMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Zvirata (vyber a kup dalsi kus)"
+     text "Zvirata, stromy a zahony (vyber a kup)"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
@@ -99,7 +99,7 @@ FrameWidgetClass OS_FarmMenu {
      hexactsize 1
      vexactsize 1
      style Default
-     text "Koupit vybrane zvire"
+     text "Koupit vybrane"
      font "gui/fonts/metron"
     }
     TextWidgetClass StorageLabel {
@@ -160,8 +160,21 @@ FrameWidgetClass OS_FarmMenu {
      font "gui/fonts/metron"
     }
     TextWidgetClass FeedText {
-     position 20 420
-     size 820 26
+     position 20 418
+     size 820 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass FertText {
+     position 20 442
+     size 820 24
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -174,7 +187,7 @@ FrameWidgetClass OS_FarmMenu {
     }
     PanelWidgetClass EditFeedBg {
      color 0 0 0 0.7
-     position 20 452
+     position 20 472
      size 190 34
      hexactpos 1
      vexactpos 1
@@ -184,7 +197,7 @@ FrameWidgetClass OS_FarmMenu {
      style rover_sim_colorable
     }
     EditBoxWidgetClass EditFeed {
-     position 26 454
+     position 26 474
      size 178 30
      hexactpos 1
      vexactpos 1
@@ -194,7 +207,7 @@ FrameWidgetClass OS_FarmMenu {
     }
     ButtonWidgetClass BtnBuyFeed {
      color 0.25 0.22 0.18 1
-     position 220 452
+     position 220 472
      size 200 34
      hexactpos 1
      vexactpos 1
@@ -204,9 +217,66 @@ FrameWidgetClass OS_FarmMenu {
      text "Koupit krmivo"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnBuyFert {
+     color 0.25 0.22 0.18 1
+     position 430 472
+     size 200 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit hnojivo"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass BuildingsLabel {
+     position 20 516
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Stavby na farme"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass BuildingListBg {
+     color 0 0 0 0.6
+     position 20 542
+     size 400 76
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass BuildingList {
+     position 24 546
+     size 392 68
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuildStructure {
+     color 0.25 0.22 0.18 1
+     position 440 542
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Postavit vybranou stavbu"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnBuild {
      color 0.25 0.22 0.18 1
-     position 440 452
+     position 440 542
      size 400 38
      hexactpos 1
      vexactpos 1
@@ -218,8 +288,8 @@ FrameWidgetClass OS_FarmMenu {
     }
     ButtonWidgetClass BtnRemove {
      color 0.25 0.22 0.18 1
-     position 440 500
-     size 400 38
+     position 440 588
+     size 400 34
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -230,7 +300,7 @@ FrameWidgetClass OS_FarmMenu {
     }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 548
+     position 20 632
      size 820 38
      hexactpos 1
      vexactpos 1
@@ -241,8 +311,8 @@ FrameWidgetClass OS_FarmMenu {
      font "gui/fonts/metron"
     }
     TextWidgetClass Status {
-     position 20 590
-     size 820 20
+     position 20 674
+     size 820 22
      hexactpos 1
      vexactpos 1
      hexactsize 1

@@ -304,24 +304,29 @@ PLACER = """FrameWidgetClass OS_Placer {
 """
 LAYOUTS["placer.layout"] = PLACER
 
-LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 610, [
+LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),
     text("Info", 20, 52, 820, 26, "", align="center"),
     text("Info2", 20, 78, 820, 26, "", align="center"),
-    text("AnimalsLabel", 20, 108, 400, 24, "Zvirata (vyber a kup dalsi kus)"),
+    text("AnimalsLabel", 20, 108, 400, 24, "Zvirata, stromy a zahony (vyber a kup)"),
     listbox("AnimalList", 20, 134, 400, 230),
-    button("BtnBuyAnimal", 20, 372, 400, 38, "Koupit vybrane zvire"),
+    button("BtnBuyAnimal", 20, 372, 400, 38, "Koupit vybrane"),
     text("StorageLabel", 440, 108, 400, 24, "Sklad (vyrobene suroviny)"),
     listbox("StorageList", 440, 134, 400, 230),
     button("BtnCollect", 440, 372, 195, 38, "Vybrat vybrane"),
     button("BtnCollectAll", 645, 372, 195, 38, "Vybrat vse"),
-    text("FeedText", 20, 420, 820, 26, ""),
-    edit("EditFeed", 20, 452, 190, 34),
-    button("BtnBuyFeed", 220, 452, 200, 34, "Koupit krmivo"),
-    button("BtnBuild", 440, 452, 400, 38, "Postavit farmu zde"),
-    button("BtnRemove", 440, 500, 400, 38, "Zrusit farmu"),
-    button("BtnClose", 20, 548, 820, 38, "Zavrit"),
-    text("Status", 20, 590, 820, 20, "", align="center"),
+    text("FeedText", 20, 418, 820, 24, ""),
+    text("FertText", 20, 442, 820, 24, ""),
+    edit("EditFeed", 20, 472, 190, 34),
+    button("BtnBuyFeed", 220, 472, 200, 34, "Koupit krmivo"),
+    button("BtnBuyFert", 430, 472, 200, 34, "Koupit hnojivo"),
+    text("BuildingsLabel", 20, 516, 400, 24, "Stavby na farme"),
+    listbox("BuildingList", 20, 542, 400, 76),
+    button("BtnBuildStructure", 440, 542, 400, 38, "Postavit vybranou stavbu"),
+    button("BtnBuild", 440, 542, 400, 38, "Postavit farmu zde"),
+    button("BtnRemove", 440, 588, 400, 34, "Zrusit farmu"),
+    button("BtnClose", 20, 632, 820, 38, "Zavrit"),
+    text("Status", 20, 674, 820, 22, "", align="center"),
 ])
 
 LAYOUTS["pgarage_menu.layout"] = layout("OS_PersonalGarageMenu", 560, 330, [

@@ -292,6 +292,24 @@ přidej jejich classname a díly).
 
 - Výrobky jsou ve **skladu** farmy (max `MaxStoredPerProduct` od každé suroviny), vybírají se v menu
   (*Vybrat vybrané* / *Vybrat vše*, max 50 kusů najednou, co se nevejde, padne na zem).
+- **Sad a skleník:** stavby na farmě (menu farmy → *Stavby na farmě*): **Sad** (4 000) a **Skleník** (6 000).
+  Stromky a záhony se kupují u Farmáře (jako zvířata) a místo krmiva spotřebovávají **hnojivo**
+  (`FertilizerPrice` za kus, zásobník `MaxFertilizer`). Bez hnojiva nerodí.
+
+  | Rostlina | Stavba | Cena | Cyklus | Úroda |
+  |---|---|---|---|---|
+  | Jabloň | Sad | 400 | 120 min | 3 jablka |
+  | Hrušeň | Sad | 400 | 120 min | 2 hrušky |
+  | Švestka | Sad | 400 | 120 min | 3 švestky |
+  | Rajčata | Skleník | 200 | 60 min | 2 rajčata |
+  | Papriky | Skleník | 200 | 60 min | 2 papriky |
+  | Cukety | Skleník | 250 | 90 min | 1 cuketa |
+  | Dýně | Skleník | 300 | 120 min | 1 dýně |
+  | Brambory | Skleník | 150 | 60 min | 2 brambory |
+  | Konopí (max 5) | Skleník | 800 | 120 min | 1 konopí (prodej na černém trhu) |
+
+  Stavby (`Buildings`) i rostliny (`Animals` s `"Resource": "fertilizer"` a `"RequiresBuilding"`) jdou v `Farms.json`
+  přidávat a měnit – třeba další stromy nebo jiný skleník.
 - `GroupCanUse: true` = členové skupiny majitele můžou krmit, kupovat zvířata a vybírat sklad.
 - **Vejce** (`OS_ChickenEgg`) je nový předmět – jí se a vaří jako brambora a **zatím má i model brambory**.
   Model jde změnit v `config.cpp` (`model = "..."` u třídy `OS_ChickenEgg`, cestu najdeš na disku P: v DayZ Tools).

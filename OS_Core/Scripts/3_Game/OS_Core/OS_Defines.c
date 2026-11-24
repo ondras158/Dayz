@@ -89,7 +89,9 @@ enum OS_FarmAction
 	BUY_ANIMAL,
 	BUY_FEED,
 	COLLECT,
-	COLLECT_ALL
+	COLLECT_ALL,
+	BUY_FERTILIZER,
+	BUILD_STRUCTURE
 }
 
 enum OS_PersonalGarageAction

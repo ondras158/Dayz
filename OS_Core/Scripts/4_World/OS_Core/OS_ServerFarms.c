@@ -122,21 +122,28 @@ class OS_ServerFarms
 				continue;
 
 			OS_FarmAnimalType type = m_Cfg.FindAnimal(stock.Id);
-			if (!type || type.CycleMinutes <= 0)
+			if (!type || type.CycleMinutes <= 0 || !farm.HasBuilding(type.RequiresBuilding))
 				continue;
 
+			bool usesFertilizer = type.Resource == "fertilizer";
 			stock.Progress = stock.Progress + minutes;
 			while (stock.Progress >= type.CycleMinutes)
 			{
 				int need = type.FeedPerCycle * stock.Count;
-				if (farm.Feed < need)
+				int available = farm.Feed;
+				if (usesFertilizer)
+					available = farm.Fertilizer;
+				if (available < need)
 				{
-					// bez krmení se nevyrábí - čeká se na krmivo
+					// bez krmiva / hnojiva se nevyrábí - čeká se
 					stock.Progress = type.CycleMinutes;
 					break;
 				}
 
-				farm.Feed = farm.Feed - need;
+				if (usesFertilizer)
+					farm.Fertilizer = farm.Fertilizer - need;
+				else
+					farm.Feed = farm.Feed - need;
 				stock.Progress = stock.Progress - type.CycleMinutes;
 				changed = true;
 
@@ -158,8 +165,8 @@ class OS_ServerFarms
 		return changed;
 	}
 
-	//! krmivo za hodinu při současném počtu zvířat
-	protected int FeedPerHour(OS_Farm farm)
+	//! spotřeba za hodinu: resource "feed" (krmivo) nebo "fertilizer" (hnojivo)
+	protected int UsePerHour(OS_Farm farm, string resource)
 	{
 		float total = 0;
 		foreach (OS_FarmStock stock : farm.Stock)
@@ -167,7 +174,7 @@ class OS_ServerFarms
 			if (!stock || stock.Count <= 0)
 				continue;
 			OS_FarmAnimalType type = m_Cfg.FindAnimal(stock.Id);
-			if (type && type.CycleMinutes > 0)
+			if (type && type.CycleMinutes > 0 && type.Resource == resource)
 				total += type.FeedPerCycle * stock.Count * 60.0 / type.CycleMinutes;
 		}
 		return Math.Ceil(total);
@@ -223,7 +230,7 @@ class OS_ServerFarms
 
 		// u Farmáře: nákup zvířat a krmiva pro vlastní farmu (dovezou se)
 		bool atTrader = NearAnimalTrader(player) != null;
-		if (atTrader && (action == OS_FarmAction.BUY_ANIMAL || action == OS_FarmAction.BUY_FEED))
+		if (atTrader && (action == OS_FarmAction.BUY_ANIMAL || action == OS_FarmAction.BUY_FEED || action == OS_FarmAction.BUY_FERTILIZER))
 		{
 			OS_Farm ownFarm = GetFarmOf(id);
 			if (!ownFarm)
@@ -233,8 +240,10 @@ class OS_ServerFarms
 			}
 			if (action == OS_FarmAction.BUY_ANIMAL)
 				BuyAnimal(player, ownFarm, arg);
+			else if (action == OS_FarmAction.BUY_FEED)
+				BuyFeed(player, ownFarm, amount, false);
 			else
-				BuyFeed(player, ownFarm, amount);
+				BuyFeed(player, ownFarm, amount, true);
 			return;
 		}
 
@@ -252,12 +261,16 @@ class OS_ServerFarms
 			else
 				BuyAnimal(player, farm, arg);
 		}
-		else if (action == OS_FarmAction.BUY_FEED)
+		else if (action == OS_FarmAction.BUY_FEED || action == OS_FarmAction.BUY_FERTILIZER)
 		{
 			if (m_Cfg.FeedAtFarm)
-				BuyFeed(player, farm, amount);
+				BuyFeed(player, farm, amount, action == OS_FarmAction.BUY_FERTILIZER);
 			else
-				OS_Util.Notify(player, "Farma", "Krmivo se kupuje u Farmare.");
+				OS_Util.Notify(player, "Farma", "Krmivo a hnojivo se kupuje u Farmare.");
+		}
+		else if (action == OS_FarmAction.BUILD_STRUCTURE)
+		{
+			BuildStructure(player, farm, arg);
 		}
 		else if (action == OS_FarmAction.COLLECT)
 			Collect(player, farm, arg, amount);
@@ -305,6 +318,16 @@ class OS_ServerFarms
 		if (!type)
 			return;
 
+		if (!farm.HasBuilding(type.RequiresBuilding))
+		{
+			string needed = type.RequiresBuilding;
+			OS_FarmBuilding building = m_Cfg.FindBuilding(type.RequiresBuilding);
+			if (building)
+				needed = building.Name;
+			OS_Util.Notify(player, "Farma", type.Name + ": na farme je potreba postavit " + needed + " (menu farmy, klavesa U).");
+			return;
+		}
+
 		OS_FarmStock stock = farm.GetStock(type.Id, true);
 		if (stock.Count >= type.MaxCount)
 		{
@@ -322,27 +345,64 @@ class OS_ServerFarms
 		OS_Util.Notify(player, "Farma", "Koupeno: " + type.Name + " (" + stock.Count.ToString() + "/" + type.MaxCount.ToString() + ")");
 	}
 
-	protected void BuyFeed(PlayerBase player, OS_Farm farm, int amount)
+	//! fertilizer = true -> hnojivo, jinak krmivo
+	protected void BuyFeed(PlayerBase player, OS_Farm farm, int amount, bool fertilizer)
 	{
-		int space = m_Cfg.MaxFeed - farm.Feed;
+		string what = "krmiva";
+		int current = farm.Feed;
+		int max = m_Cfg.MaxFeed;
+		int unitPrice = m_Cfg.FeedPrice;
+		if (fertilizer)
+		{
+			what = "hnojiva";
+			current = farm.Fertilizer;
+			max = m_Cfg.MaxFertilizer;
+			unitPrice = m_Cfg.FertilizerPrice;
+		}
+
+		int space = max - current;
 		if (amount > space)
 			amount = space;
 		if (amount <= 0)
 		{
-			OS_Util.Notify(player, "Farma", "Zasobnik krmiva je plny.");
+			OS_Util.Notify(player, "Farma", "Zasobnik " + what + " je plny.");
 			return;
 		}
 
-		int price = amount * m_Cfg.FeedPrice;
+		int price = amount * unitPrice;
 		if (!m_Payments.TrySpend(player, price))
 		{
-			OS_Util.Notify(player, "Farma", "Krmivo stoji " + price.ToString() + " " + m_Currency + ".");
+			OS_Util.Notify(player, "Farma", amount.ToString() + " " + what + " stoji " + price.ToString() + " " + m_Currency + ".");
 			return;
 		}
 
-		farm.Feed = farm.Feed + amount;
+		if (fertilizer)
+			farm.Fertilizer = farm.Fertilizer + amount;
+		else
+			farm.Feed = farm.Feed + amount;
 		Save();
-		OS_Util.Notify(player, "Farma", "Koupeno krmiva: " + amount.ToString());
+		OS_Util.Notify(player, "Farma", "Koupeno " + what + ": " + amount.ToString());
+	}
+
+	protected void BuildStructure(PlayerBase player, OS_Farm farm, string buildingId)
+	{
+		OS_FarmBuilding building = m_Cfg.FindBuilding(buildingId);
+		if (!building)
+			return;
+		if (farm.HasBuilding(building.Id))
+		{
+			OS_Util.Notify(player, "Farma", building.Name + " uz na farme je.");
+			return;
+		}
+		if (!m_Payments.TrySpend(player, building.Price))
+		{
+			OS_Util.Notify(player, "Farma", building.Name + " stoji " + building.Price.ToString() + " " + m_Currency + ".");
+			return;
+		}
+
+		farm.Buildings.Insert(building.Id);
+		Save();
+		OS_Util.Notify(player, "Farma", "Postaveno: " + building.Name + ". Sazenice koupis u Farmare.");
 	}
 
 	//! amount -1 = vše (max MAX_COLLECT)
@@ -406,10 +466,20 @@ class OS_ServerFarms
 		array<int> animalCounts = new array<int>;
 		array<int> animalMax = new array<int>;
 		array<int> animalPrices = new array<int>;
+		array<string> animalNeeds = new array<string>;   // název chybějící stavby ("" = nic)
 		foreach (OS_FarmAnimalType type : m_Cfg.Animals)
 		{
 			if (!type)
 				continue;
+			string needs = "";
+			if (type.RequiresBuilding != "" && (!shown || !shown.HasBuilding(type.RequiresBuilding)))
+			{
+				needs = type.RequiresBuilding;
+				OS_FarmBuilding needBuilding = m_Cfg.FindBuilding(type.RequiresBuilding);
+				if (needBuilding)
+					needs = needBuilding.Name;
+			}
+			animalNeeds.Insert(needs);
 			int count = 0;
 			if (shown)
 			{
@@ -428,12 +498,16 @@ class OS_ServerFarms
 		array<int> storedCounts = new array<int>;
 		int feed = 0;
 		int feedPerHour = 0;
+		int fertilizer = 0;
+		int fertilizerPerHour = 0;
 		float fx = 0;
 		float fz = 0;
 		if (shown)
 		{
 			feed = shown.Feed;
-			feedPerHour = FeedPerHour(shown);
+			feedPerHour = UsePerHour(shown, "feed");
+			fertilizer = shown.Fertilizer;
+			fertilizerPerHour = UsePerHour(shown, "fertilizer");
 			fx = shown.X;
 			fz = shown.Z;
 			foreach (OS_FarmStored stored : shown.Storage)
@@ -489,6 +563,33 @@ class OS_ServerFarms
 		rpc.Write(traderName);
 		rpc.Write(m_Cfg.AnimalsOnlyAtTrader);
 		rpc.Write(m_Cfg.FeedAtFarm);
+
+		// hnojivo a stavby
+		array<string> buildingIds = new array<string>;
+		array<string> buildingNames = new array<string>;
+		array<int> buildingPrices = new array<int>;
+		array<int> buildingBuilt = new array<int>;
+		foreach (OS_FarmBuilding b : m_Cfg.Buildings)
+		{
+			if (!b)
+				continue;
+			buildingIds.Insert(b.Id);
+			buildingNames.Insert(b.Name);
+			buildingPrices.Insert(b.Price);
+			if (shown && shown.HasBuilding(b.Id))
+				buildingBuilt.Insert(1);
+			else
+				buildingBuilt.Insert(0);
+		}
+		rpc.Write(animalNeeds);
+		rpc.Write(fertilizer);
+		rpc.Write(m_Cfg.MaxFertilizer);
+		rpc.Write(m_Cfg.FertilizerPrice);
+		rpc.Write(fertilizerPerHour);
+		rpc.Write(buildingIds);
+		rpc.Write(buildingNames);
+		rpc.Write(buildingPrices);
+		rpc.Write(buildingBuilt);
 		rpc.Send(null, OS_RPC_FARM_DATA, true, player.GetIdentity());
 	}
 }

@@ -22,7 +22,9 @@ class OS_FarmAnimalType
 	int Price;               // cena jednoho zvířete
 	int MaxCount = 10;       // kolik jich může farma mít
 	float CycleMinutes = 60; // jak často vyrábí
-	int FeedPerCycle = 1;    // krmivo za cyklus na jedno zvíře
+	int FeedPerCycle = 1;    // krmivo / hnojivo za cyklus na jeden kus
+	string Resource = "feed";       // "feed" = krmivo (zvířata), "fertilizer" = hnojivo (rostliny)
+	string RequiresBuilding = "";   // Id stavby, která je potřeba (např. "orchard" = sad, "greenhouse" = skleník)
 	ref array<ref OS_FarmProduct> Products = new array<ref OS_FarmProduct>;
 
 	void OS_FarmAnimalType(string id = "", string name = "", int price = 0, float cycle = 60, int feed = 1)
@@ -40,6 +42,20 @@ class OS_FarmAnimalType
 	}
 }
 
+class OS_FarmBuilding
+{
+	string Id;
+	string Name;
+	int Price;
+
+	void OS_FarmBuilding(string id = "", string name = "", int price = 0)
+	{
+		Id = id;
+		Name = name;
+		Price = price;
+	}
+}
+
 class OS_FarmConfig
 {
 	bool Enabled = true;
@@ -48,6 +64,9 @@ class OS_FarmConfig
 	float MinDistance = 50;         // minimální vzdálenost od jiné farmy
 	int FeedPrice = 5;              // cena jednoho krmiva
 	int MaxFeed = 2000;             // kolik krmiva se vejde do zásobníku
+	int FertilizerPrice = 4;        // cena jednoho hnojiva (pro sad a skleník)
+	int MaxFertilizer = 2000;
+	ref array<ref OS_FarmBuilding> Buildings = new array<ref OS_FarmBuilding>;   // stavby na farmě (sad, skleník...)
 	int MaxStoredPerProduct = 100;  // sklad: max kusů od jedné suroviny (pak výroba té suroviny stojí)
 	bool GroupCanUse = true;        // členové skupiny majitele mohou krmit a sbírat
 	bool AnimalsOnlyAtTrader = true;  // zvířata se kupují jen u Farmáře (dovezou se na farmu)
@@ -90,6 +109,43 @@ class OS_FarmConfig
 		sheep.AddProduct("SheepSteakMeat", 1, 0.5);
 		sheep.AddProduct("SheepPelt", 1, 0.1);
 		Animals.Insert(sheep);
+
+		// --- stavby ---
+		Buildings.Insert(new OS_FarmBuilding("orchard", "Sad", 4000));
+		Buildings.Insert(new OS_FarmBuilding("greenhouse", "Sklenik", 6000));
+
+		// --- sad (stromy, hnojivo) ---
+		AddPlant("apple", "Jablon", 400, 120, "orchard", "Apple", 3, 10);
+		AddPlant("pear", "Hrusen", 400, 120, "orchard", "Pear", 2, 10);
+		AddPlant("plum", "Svestka", 400, 120, "orchard", "Plum", 3, 10);
+
+		// --- skleník (záhony, hnojivo) ---
+		AddPlant("tomato", "Rajcata (zahon)", 200, 60, "greenhouse", "Tomato", 2, 10);
+		AddPlant("pepper", "Papriky (zahon)", 200, 60, "greenhouse", "GreenBellPepper", 2, 10);
+		AddPlant("zucchini", "Cukety (zahon)", 250, 90, "greenhouse", "Zucchini", 1, 10);
+		AddPlant("pumpkin", "Dyne (zahon)", 300, 120, "greenhouse", "Pumpkin", 1, 10);
+		AddPlant("potato", "Brambory (zahon)", 150, 60, "greenhouse", "Potato", 2, 10);
+		AddPlant("cannabis", "Konopi (zahon)", 800, 120, "greenhouse", "Cannabis", 1, 5);
+	}
+
+	protected void AddPlant(string id, string name, int price, float cycle, string building, string product, int amount, int maxCount)
+	{
+		OS_FarmAnimalType plant = new OS_FarmAnimalType(id, name, price, cycle, 1);
+		plant.Resource = "fertilizer";
+		plant.RequiresBuilding = building;
+		plant.MaxCount = maxCount;
+		plant.AddProduct(product, amount, 1.0);
+		Animals.Insert(plant);
+	}
+
+	OS_FarmBuilding FindBuilding(string id)
+	{
+		foreach (OS_FarmBuilding building : Buildings)
+		{
+			if (building && building.Id == id)
+				return building;
+		}
+		return null;
 	}
 
 	OS_FarmAnimalType FindAnimal(string id)
@@ -122,8 +178,17 @@ class OS_Farm
 	float X;
 	float Z;
 	int Feed;
+	int Fertilizer;
+	ref array<string> Buildings = new array<string>;
 	ref array<ref OS_FarmStock> Stock = new array<ref OS_FarmStock>;
 	ref array<ref OS_FarmStored> Storage = new array<ref OS_FarmStored>;
+
+	bool HasBuilding(string id)
+	{
+		if (id == "")
+			return true;
+		return Buildings && Buildings.Find(id) > -1;
+	}
 
 	OS_FarmStock GetStock(string id, bool create)
 	{
