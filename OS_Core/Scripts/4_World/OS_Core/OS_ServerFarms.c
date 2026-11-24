@@ -67,6 +67,28 @@ class OS_ServerFarms
 		return null;
 	}
 
+	//! Farmář, u kterého hráč stojí (nebo null)
+	OS_TraderLocation NearAnimalTrader(PlayerBase player)
+	{
+		if (!m_Cfg.Enabled || !player || !m_Cfg.AnimalTraders)
+			return null;
+		foreach (OS_TraderLocation trader : m_Cfg.AnimalTraders)
+		{
+			if (trader && OS_Util.Distance2D(player.GetPosition(), trader.X, trader.Z) <= trader.Radius)
+				return trader;
+		}
+		return null;
+	}
+
+	//! klávesa obchodu u Farmáře -> menu farmy v režimu nákupu
+	bool TryOpenTrader(PlayerBase player)
+	{
+		if (!NearAnimalTrader(player))
+			return false;
+		SendData(player);
+		return true;
+	}
+
 	// ------------------------------------------------------------ výroba
 
 	void OnTick(float deltaTime)
@@ -199,17 +221,44 @@ class OS_ServerFarms
 			return;
 		}
 
+		// u Farmáře: nákup zvířat a krmiva pro vlastní farmu (dovezou se)
+		bool atTrader = NearAnimalTrader(player) != null;
+		if (atTrader && (action == OS_FarmAction.BUY_ANIMAL || action == OS_FarmAction.BUY_FEED))
+		{
+			OS_Farm ownFarm = GetFarmOf(id);
+			if (!ownFarm)
+			{
+				OS_Util.Notify(player, "Farmar", "Nejdriv si postav farmu (klavesa U).");
+				return;
+			}
+			if (action == OS_FarmAction.BUY_ANIMAL)
+				BuyAnimal(player, ownFarm, arg);
+			else
+				BuyFeed(player, ownFarm, amount);
+			return;
+		}
+
 		OS_Farm farm = UsableFarmNear(player);
 		if (!farm)
 		{
-			OS_Util.Notify(player, "Farma", "Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny).");
+			OS_Util.Notify(player, "Farma", "Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.");
 			return;
 		}
 
 		if (action == OS_FarmAction.BUY_ANIMAL)
-			BuyAnimal(player, farm, arg);
+		{
+			if (m_Cfg.AnimalsOnlyAtTrader)
+				OS_Util.Notify(player, "Farma", "Zvirata se kupuji u Farmare.");
+			else
+				BuyAnimal(player, farm, arg);
+		}
 		else if (action == OS_FarmAction.BUY_FEED)
-			BuyFeed(player, farm, amount);
+		{
+			if (m_Cfg.FeedAtFarm)
+				BuyFeed(player, farm, amount);
+			else
+				OS_Util.Notify(player, "Farma", "Krmivo se kupuje u Farmare.");
+		}
 		else if (action == OS_FarmAction.COLLECT)
 			Collect(player, farm, arg, amount);
 		else if (action == OS_FarmAction.COLLECT_ALL)
@@ -347,9 +396,10 @@ class OS_ServerFarms
 		string id = OS_Util.SteamId(player);
 		OS_Farm own = GetFarmOf(id);
 		OS_Farm near = UsableFarmNear(player);
+		OS_TraderLocation animalTrader = NearAnimalTrader(player);
 		OS_Farm shown = near;
-		if (!shown)
-			shown = own;
+		if (!shown || animalTrader)
+			shown = own;   // u Farmáře se vždy nakupuje pro vlastní farmu
 
 		array<string> animalIds = new array<string>;
 		array<string> animalNames = new array<string>;
@@ -429,6 +479,16 @@ class OS_ServerFarms
 		rpc.Write(animalPrices);
 		rpc.Write(storedClasses);
 		rpc.Write(storedCounts);
+
+		// režim Farmáře
+		bool atTrader = animalTrader != null;
+		string traderName = "";
+		if (animalTrader)
+			traderName = animalTrader.Name;
+		rpc.Write(atTrader);
+		rpc.Write(traderName);
+		rpc.Write(m_Cfg.AnimalsOnlyAtTrader);
+		rpc.Write(m_Cfg.FeedAtFarm);
 		rpc.Send(null, OS_RPC_FARM_DATA, true, player.GetIdentity());
 	}
 }

@@ -23,6 +23,10 @@ class OS_FarmData
 	ref array<int> AnimalPrices = new array<int>;
 	ref array<string> StoredClasses = new array<string>;
 	ref array<int> StoredCounts = new array<int>;
+	bool AtTrader;              // hráč stojí u Farmáře
+	string TraderName;
+	bool AnimalsOnlyAtTrader;
+	bool FeedAtFarm;
 
 	bool Read(ParamsReadContext ctx)
 	{
@@ -35,6 +39,8 @@ class OS_FarmData
 		if (!ctx.Read(AnimalIds) || !ctx.Read(AnimalNames) || !ctx.Read(AnimalCounts) || !ctx.Read(AnimalMax) || !ctx.Read(AnimalPrices))
 			return false;
 		if (!ctx.Read(StoredClasses) || !ctx.Read(StoredCounts))
+			return false;
+		if (!ctx.Read(AtTrader) || !ctx.Read(TraderName) || !ctx.Read(AnimalsOnlyAtTrader) || !ctx.Read(FeedAtFarm))
 			return false;
 		return true;
 	}
@@ -110,16 +116,33 @@ class OS_FarmMenu : OS_MenuBase
 			return;
 
 		string cur = " " + m_Data.Currency;
-		bool working = m_Data.Enabled && m_Data.IsNear;
+		bool atTrader = m_Data.Enabled && m_Data.AtTrader;
+		bool atFarm = m_Data.Enabled && m_Data.IsNear && !atTrader;
+		bool traderShop = atTrader && m_Data.HasOwn;
 
-		array<string> farmWidgets = {"AnimalsLabel", "AnimalListBg", "AnimalList", "BtnBuyAnimal", "FeedText", "EditFeedBg", "EditFeed", "BtnBuyFeed", "StorageLabel", "StorageListBg", "StorageList", "BtnCollect", "BtnCollectAll"};
-		ShowNames(farmWidgets, working);
+		// u Farmáře: zvířata + krmivo, na farmě: sklad (+ zvířata/krmivo podle nastavení)
+		array<string> animalWidgets = {"AnimalsLabel", "AnimalListBg", "AnimalList"};
+		array<string> feedWidgets = {"FeedText", "EditFeedBg", "EditFeed", "BtnBuyFeed"};
+		array<string> storageWidgets = {"StorageLabel", "StorageListBg", "StorageList", "BtnCollect", "BtnCollectAll"};
+		ShowNames(animalWidgets, traderShop || atFarm);
+		ShowNames(feedWidgets, traderShop || (atFarm && m_Data.FeedAtFarm));
+		ShowNames(storageWidgets, atFarm);
+		if (m_BtnBuyAnimal)
+			m_BtnBuyAnimal.Show(traderShop || (atFarm && !m_Data.AnimalsOnlyAtTrader));
 		if (m_BtnBuild)
-			m_BtnBuild.Show(m_Data.Enabled && !m_Data.HasOwn);
+			m_BtnBuild.Show(m_Data.Enabled && !m_Data.HasOwn && !atTrader);
 		if (m_BtnRemove)
-			m_BtnRemove.Show(m_Data.HasOwn && (!m_Data.IsNear || m_Data.IsOwner));
+			m_BtnRemove.Show(m_Data.HasOwn && !atTrader && (!m_Data.IsNear || m_Data.IsOwner));
 
-		if (!m_Data.Enabled)
+		if (atTrader)
+		{
+			Label(m_Info, m_Data.TraderName + " - zvirata a krmivo pro tvoji farmu");
+			if (m_Data.HasOwn)
+				Label(m_Info2, "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
+			else
+				Label(m_Info2, "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
+		}
+		else if (!m_Data.Enabled)
 		{
 			Label(m_Info, "Farmy jsou na serveru vypnute.");
 			Label(m_Info2, "");
@@ -130,7 +153,10 @@ class OS_FarmMenu : OS_MenuBase
 				Label(m_Info, "Tvoje farma");
 			else
 				Label(m_Info, "Farma spoluhrace ze skupiny");
-			Label(m_Info2, "Zvirata vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
+			if (m_Data.AnimalsOnlyAtTrader)
+				Label(m_Info2, "Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
+			else
+				Label(m_Info2, "Zvirata vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
 		}
 		else if (m_Data.HasOwn)
 		{

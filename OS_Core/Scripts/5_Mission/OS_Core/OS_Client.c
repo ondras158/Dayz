@@ -292,7 +292,8 @@ class OS_Client
 			m_FarmMenu.SetData(data);
 			return;
 		}
-		if (!m_WantFarmMenu)
+		// menu otevřít na klávesu U, nebo u Farmáře (klávesa B)
+		if (!m_WantFarmMenu && !data.AtTrader)
 			return;
 
 		m_WantFarmMenu = false;

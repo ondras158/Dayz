@@ -273,8 +273,10 @@ přidej jejich classname a díly).
 **Farmy** (`Farms.json`, data v `FarmsData.json`) – menu klávesa **U**
 - Hráč si postaví farmu tam, kde stojí (`BuildPrice`, jedna na hráče, min. `MinDistance` od jiné farmy).
   Na mapě je zelená značka „Moje farma“.
-- U farmy koupí **zvířata** a **krmivo** (`FeedPrice` za kus, zásobník `MaxFeed`). Zvířata nejsou ve světě –
-  jsou jen v menu, takže nezmizí po restartu a nikdo je nezabije.
+- **Zvířata se kupují u Farmáře** (`AnimalTraders` v `Farms.json`, klávesa **B** u něj) a dovezou se na tvoji farmu.
+  `AnimalsOnlyAtTrader: false` = jdou koupit i přímo na farmě.
+- **Krmivo** (`FeedPrice` za kus, zásobník `MaxFeed`) jde koupit u Farmáře i na farmě (`FeedAtFarm: false` = jen u Farmáře).
+- Zvířata nejsou ve světě – jsou jen v menu, takže nezmizí po restartu a nikdo je nezabije.
 - Každé zvíře vyrábí jednou za `CycleMinutes` a spotřebuje `FeedPerCycle` krmiva. **Bez krmiva výroba stojí.**
   Výroba běží i když je majitel offline (jen když běží server).
 

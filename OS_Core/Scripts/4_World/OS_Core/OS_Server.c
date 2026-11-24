@@ -154,6 +154,8 @@ class OS_Server
 					return;
 				if (!m_Trader.NearTrader(player) && m_Vehicles.TryOpen(player))
 					return;
+				if (!m_Trader.NearTrader(player) && m_Farms.TryOpenTrader(player))
+					return;
 			}
 		}
 

@@ -50,10 +50,16 @@ class OS_FarmConfig
 	int MaxFeed = 2000;             // kolik krmiva se vejde do zásobníku
 	int MaxStoredPerProduct = 100;  // sklad: max kusů od jedné suroviny (pak výroba té suroviny stojí)
 	bool GroupCanUse = true;        // členové skupiny majitele mohou krmit a sbírat
+	bool AnimalsOnlyAtTrader = true;  // zvířata se kupují jen u Farmáře (dovezou se na farmu)
+	bool FeedAtFarm = true;           // krmivo jde koupit i přímo na farmě (jinak jen u Farmáře)
+	ref array<ref OS_TraderLocation> AnimalTraders = new array<ref OS_TraderLocation>;   // Farmáři (Name, X, Z, Radius)
 	ref array<ref OS_FarmAnimalType> Animals = new array<ref OS_FarmAnimalType>;
 
 	void FillDefaults()
 	{
+		// !!! UKÁZKOVÉ SOUŘADNICE - nahraď skutečným místem z tvé mapy !!!
+		AnimalTraders.Insert(new OS_TraderLocation("Priklad - Farmar", 1900, 2100, 10));
+
 		OS_FarmAnimalType chicken = new OS_FarmAnimalType("chicken", "Slepice", 300, 30, 1);
 		chicken.AddProduct("OS_ChickenEgg", 1, 1.0);
 		chicken.AddProduct("ChickenFeather", 2, 0.5);
