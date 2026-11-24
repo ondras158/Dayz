@@ -35,17 +35,26 @@ class OS_ServerVehicles
 		return null;
 	}
 
-	//! Nejbližší auto u hráče
-	protected CarScript FindCar(PlayerBase player)
+	//! plné všechny kapaliny (vozidlo bez dané kapaliny má kapacitu 0)
+	protected void FillAll(Transport vehicle)
+	{
+		vehicle.FillScript(ETransportFluid.FUEL, vehicle.GetFluidCapacityScript(ETransportFluid.FUEL));
+		vehicle.FillScript(ETransportFluid.OIL, vehicle.GetFluidCapacityScript(ETransportFluid.OIL));
+		vehicle.FillScript(ETransportFluid.BRAKE, vehicle.GetFluidCapacityScript(ETransportFluid.BRAKE));
+		vehicle.FillScript(ETransportFluid.COOLANT, vehicle.GetFluidCapacityScript(ETransportFluid.COOLANT));
+	}
+
+	//! Nejbližší vozidlo u hráče (auto, loď, helikoptéra)
+	protected Transport FindCar(PlayerBase player)
 	{
 		array<Object> objects = new array<Object>;
 		g_Game.GetObjectsAtPosition(player.GetPosition(), m_Cfg.CarSearchRadius, objects, null);
 
-		CarScript best;
+		Transport best;
 		float bestDist = 999999;
 		foreach (Object obj : objects)
 		{
-			CarScript car = CarScript.Cast(obj);
+			Transport car = Transport.Cast(obj);
 			if (!car || car.IsRuined())
 				continue;
 
@@ -76,7 +85,7 @@ class OS_ServerVehicles
 		return null;
 	}
 
-	protected bool HasCrew(CarScript car)
+	protected bool HasCrew(Transport car)
 	{
 		for (int i = 0; i < car.CrewSize(); i++)
 		{
@@ -155,7 +164,7 @@ class OS_ServerVehicles
 
 	// ------------------------------------------------------------ výpočty cen
 
-	protected float DamageFraction(CarScript car)
+	protected float DamageFraction(Transport car)
 	{
 		float total = 1 - car.GetHealth01("", "");
 		int count = 1;
@@ -181,17 +190,17 @@ class OS_ServerVehicles
 		return total / count;
 	}
 
-	protected int RepairPrice(CarScript car)
+	protected int RepairPrice(Transport car)
 	{
 		return Math.Ceil(m_Cfg.RepairFullPrice * DamageFraction(car));
 	}
 
-	protected float MissingFuel(CarScript car)
+	protected float MissingFuel(Transport car)
 	{
-		return car.GetFluidCapacity(CarFluid.FUEL) * (1 - car.GetFluidFraction(CarFluid.FUEL));
+		return car.GetFluidCapacityScript(ETransportFluid.FUEL) * (1 - car.GetFluidFractionScript(ETransportFluid.FUEL));
 	}
 
-	protected int RefuelPrice(CarScript car)
+	protected int RefuelPrice(Transport car)
 	{
 		return Math.Ceil(MissingFuel(car) * m_Cfg.RefuelPricePerLiter);
 	}
@@ -274,7 +283,7 @@ class OS_ServerVehicles
 		int ownerState = 0;   // 0 = bez majitele, 1 = moje, 2 = cizí, 3 = auto mé skupiny
 		if (loc.Service || loc.Garage)
 		{
-			CarScript car = FindCar(player);
+			Transport car = FindCar(player);
 			if (car)
 			{
 				if (car.OS_HasOwner())
@@ -288,7 +297,7 @@ class OS_ServerVehicles
 				hasCar = true;
 				carClass = car.GetType();
 				healthPct = Math.Round((1 - DamageFraction(car)) * 100);
-				fuelPct = Math.Round(car.GetFluidFraction(CarFluid.FUEL) * 100);
+				fuelPct = Math.Round(car.GetFluidFractionScript(ETransportFluid.FUEL) * 100);
 				repairPrice = RepairPrice(car);
 				refuelPrice = RefuelPrice(car);
 			}
@@ -376,19 +385,6 @@ class OS_ServerVehicles
 		return vehicle;
 	}
 
-	protected CarScript SpawnCar(string type, OS_VehicleLocation loc)
-	{
-		Transport vehicle = SpawnVehicle(type, loc);
-		CarScript car = CarScript.Cast(vehicle);
-		if (vehicle && !car)
-		{
-			g_Game.ObjectDelete(vehicle);
-			Print(OS_TAG + "Vozidlo '" + type + "' neni CarScript - garaz ho neumi");
-			return null;
-		}
-		return car;
-	}
-
 	protected void Buy(PlayerBase player, OS_VehicleLocation loc, int listIndex)
 	{
 		// index v nabídce tohoto místa -> index v Offers
@@ -425,31 +421,16 @@ class OS_ServerVehicles
 			vehicle.GetInventory().CreateInInventory(part);
 		}
 
-		// auta a helikoptéry postavené na CarScript: palivo + majitel (zamykání, servis, garáž)
-		CarScript car = CarScript.Cast(vehicle);
-		if (car)
-		{
-			car.Fill(CarFluid.FUEL, car.GetFluidCapacity(CarFluid.FUEL));
-			car.Fill(CarFluid.OIL, car.GetFluidCapacity(CarFluid.OIL));
-			car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE));
-			car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT));
-			car.OS_SetOwner(steamId);
-			OS_Util.Notify(player, title, "Vozidlo je pripravene a patri tobe. Zamknes ho klavesou F.");
-		}
-		else
-		{
-			// vanilla loď (BoatScript): plná nádrž, vlastnictví/zamykání zatím jen pro CarScript
-			Boat boat = Boat.Cast(vehicle);
-			if (boat)
-				boat.Fill(BoatFluid.FUEL, boat.GetFluidCapacity(BoatFluid.FUEL));
-			OS_Util.Notify(player, title, "Vozidlo je pripravene.");
-		}
+		// plné nádrže (auta, lodě i helikoptéry - jen kapaliny, které vozidlo má) + majitel
+		FillAll(vehicle);
+		vehicle.OS_SetOwner(steamId);
+		OS_Util.Notify(player, title, "Vozidlo je pripravene a patri tobe. Zamknes ho klavesou F.");
 		Print(OS_TAG + "AUTO " + OS_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());
 	}
 
 	protected void Repair(PlayerBase player)
 	{
-		CarScript car = FindCar(player);
+		Transport car = FindCar(player);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
@@ -489,7 +470,7 @@ class OS_ServerVehicles
 
 	protected void Refuel(PlayerBase player)
 	{
-		CarScript car = FindCar(player);
+		Transport car = FindCar(player);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
@@ -509,13 +490,13 @@ class OS_ServerVehicles
 			return;
 		}
 
-		car.Fill(CarFluid.FUEL, MissingFuel(car));
+		car.FillScript(ETransportFluid.FUEL, MissingFuel(car));
 		OS_Util.Notify(player, "Servis", "Natankovano za " + price.ToString() + " " + m_Currency + ".");
 	}
 
 	protected void AddMissingParts(PlayerBase player)
 	{
-		CarScript car = FindCar(player);
+		Transport car = FindCar(player);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
@@ -573,7 +554,7 @@ class OS_ServerVehicles
 
 	protected void Claim(PlayerBase player)
 	{
-		CarScript car = FindCar(player);
+		Transport car = FindCar(player);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Servis", "Zadne auto pobliz.");
@@ -645,7 +626,7 @@ class OS_ServerVehicles
 
 	protected void Store(PlayerBase player)
 	{
-		CarScript car = FindCar(player);
+		Transport car = FindCar(player);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Garaz", "Zadne auto pobliz.");
@@ -719,10 +700,10 @@ class OS_ServerVehicles
 			}
 		}
 
-		sv.Fuel = car.GetFluidFraction(CarFluid.FUEL);
-		sv.Oil = car.GetFluidFraction(CarFluid.OIL);
-		sv.Brake = car.GetFluidFraction(CarFluid.BRAKE);
-		sv.Coolant = car.GetFluidFraction(CarFluid.COOLANT);
+		sv.Fuel = car.GetFluidFractionScript(ETransportFluid.FUEL);
+		sv.Oil = car.GetFluidFractionScript(ETransportFluid.OIL);
+		sv.Brake = car.GetFluidFractionScript(ETransportFluid.BRAKE);
+		sv.Coolant = car.GetFluidFractionScript(ETransportFluid.COOLANT);
 		sv.OwnerId = car.OS_GetOwnerId();
 		sv.GroupId = car.OS_GetGroupId();
 		sv.Locked = car.OS_IsLocked();
@@ -778,7 +759,7 @@ class OS_ServerVehicles
 		}
 
 		OS_StoredVehicle sv = garage.Vehicles[index];
-		CarScript car = SpawnCar(sv.ClassName, loc);
+		Transport car = SpawnVehicle(sv.ClassName, loc);
 		if (!car)
 		{
 			OS_Util.Notify(player, "Garaz", "Auto se nepodarilo vytvorit.");
@@ -809,10 +790,10 @@ class OS_ServerVehicles
 		}
 		car.SetHealth01("", "", sv.Health);
 
-		car.Fill(CarFluid.FUEL, car.GetFluidCapacity(CarFluid.FUEL) * sv.Fuel);
-		car.Fill(CarFluid.OIL, car.GetFluidCapacity(CarFluid.OIL) * sv.Oil);
-		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE) * sv.Brake);
-		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT) * sv.Coolant);
+		car.FillScript(ETransportFluid.FUEL, car.GetFluidCapacityScript(ETransportFluid.FUEL) * sv.Fuel);
+		car.FillScript(ETransportFluid.OIL, car.GetFluidCapacityScript(ETransportFluid.OIL) * sv.Oil);
+		car.FillScript(ETransportFluid.BRAKE, car.GetFluidCapacityScript(ETransportFluid.BRAKE) * sv.Brake);
+		car.FillScript(ETransportFluid.COOLANT, car.GetFluidCapacityScript(ETransportFluid.COOLANT) * sv.Coolant);
 
 		// osobní garáž: auto patří tomu, kdo ho vyzvedl
 		// skupinová garáž: auto dál patří původnímu majiteli a je sdílené se skupinou

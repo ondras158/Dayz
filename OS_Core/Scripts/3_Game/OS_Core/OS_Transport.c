@@ -1,8 +1,9 @@
-// Vlastnictví aut podle Steam ID + sdílení se skupinou. Bez klíčů.
-// Zamčené auto: nejde nastoupit, otevřít dveře, sahat do kufru ani sundávat díly.
-// Zamknout/odemknout může majitel nebo člen skupiny, které je auto přiřazené (klávesa F u auta).
+// Vlastnictví vozidel (auta, lodě, helikoptéry) podle Steam ID + sdílení se skupinou. Bez klíčů.
+// Je na Transport = společném základu všech vozidel (CarScript, BoatScript, HelicopterScript...).
+// Zamčené vozidlo: nejde nastoupit, otevřít dveře, sahat do nákladu ani sundávat díly.
+// Zamknout/odemknout může majitel nebo člen skupiny, které je vozidlo přiřazené (klávesa F).
 
-modded class CarScript
+modded class Transport
 {
 	protected string m_OS_OwnerId;   // Steam64 ID majitele (jen server)
 	protected int m_OS_OwnerHash;    // otisk ID majitele - synchronizuje se klientům (pro nabídku akcí)
@@ -11,7 +12,7 @@ modded class CarScript
 
 	protected static const int OS_STORE_MAGIC = 784512778;
 
-	void CarScript()
+	void Transport()
 	{
 		RegisterNetSyncVariableInt("m_OS_OwnerHash");
 		RegisterNetSyncVariableInt("m_OS_GroupId");

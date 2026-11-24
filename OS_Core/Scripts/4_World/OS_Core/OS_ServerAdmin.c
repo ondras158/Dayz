@@ -205,11 +205,11 @@ class OS_ServerAdmin
 		array<Object> objects = new array<Object>;
 		g_Game.GetObjectsAtPosition(admin.GetPosition(), 15, objects, null);
 
-		CarScript best;
+		Transport best;
 		float bestDist = 999999;
 		foreach (Object obj : objects)
 		{
-			CarScript car = CarScript.Cast(obj);
+			Transport car = Transport.Cast(obj);
 			if (!car)
 				continue;
 			float dist = vector.Distance(admin.GetPosition(), car.GetPosition());

@@ -7,7 +7,7 @@ class ActionOSLockCar : ActionInteractBase
 	{
 		m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_INTERACTONCE;
 		m_StanceMask = DayZPlayerConstants.STANCEMASK_ERECT | DayZPlayerConstants.STANCEMASK_CROUCH;
-		m_Text = "Zamknout auto";
+		m_Text = "Zamknout";
 	}
 
 	override void CreateConditionComponents()
@@ -17,19 +17,19 @@ class ActionOSLockCar : ActionInteractBase
 	}
 
 	//! auto, na které se hráč dívá (karoserie nebo dveře)
-	static CarScript GetTargetCar(ActionTarget target)
+	static Transport GetTargetVehicle(ActionTarget target)
 	{
 		if (!target)
 			return null;
 
-		CarScript car = CarScript.Cast(target.GetObject());
+		Transport car = Transport.Cast(target.GetObject());
 		if (!car)
-			car = CarScript.Cast(target.GetParent());
+			car = Transport.Cast(target.GetParent());
 		return car;
 	}
 
 	//! má hráč k autu přístup? (server: skutečná skupina, klient: skupina ze serveru)
-	static bool HasAccess(PlayerBase player, CarScript car)
+	static bool HasAccess(PlayerBase player, Transport car)
 	{
 		if (!player || !car || !player.GetIdentity())
 			return false;
@@ -60,7 +60,7 @@ class ActionOSLockCar : ActionInteractBase
 
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
-		CarScript car = GetTargetCar(target);
+		Transport car = GetTargetVehicle(target);
 		if (!car || player.GetCommand_Vehicle())
 			return false;
 		if (!IsInReach(player, target, UAMaxDistances.DEFAULT))
@@ -84,7 +84,7 @@ class ActionOSLockCar : ActionInteractBase
 
 	override void OnExecuteServer(ActionData action_data)
 	{
-		CarScript car = GetTargetCar(action_data.m_Target);
+		Transport car = GetTargetVehicle(action_data.m_Target);
 		if (!car || !HasAccess(action_data.m_Player, car))
 			return;
 
@@ -100,7 +100,7 @@ class ActionOSUnlockCar : ActionOSLockCar
 {
 	void ActionOSUnlockCar()
 	{
-		m_Text = "Odemknout auto";
+		m_Text = "Odemknout";
 	}
 
 	override bool WantsLocked()
@@ -135,7 +135,7 @@ modded class ActionOpenCarDoorsOutside
 {
 	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
 	{
-		CarScript car = CarScript.Cast(target.GetParent());
+		Transport car = Transport.Cast(target.GetParent());
 		if (car && car.OS_IsLocked())
 			return false;
 		return super.ActionCondition(player, target, item);

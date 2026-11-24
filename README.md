@@ -275,11 +275,11 @@ přidej jejich classname a díly).
   | Užitková loď | `ExpansionUtilityBoat` | 15 000 | Expansion |
   | Vodnik (obojživelník) | `ExpansionVodnik` | 30 000 | Expansion |
 
-- Expansion lodě jsou na `CarScript` → vlastnictví, zamykání (F), servis, garáž a sdílení se skupinou fungují.
-- Vanilla člun (`BoatScript`) jde koupit s plnou nádrží, ale **vlastnictví, zamykání, servis a garáž pro něj zatím nejsou**.
+- Všechny lodě (vanilla člun i Expansion) mají vlastnictví, zamykání (F), servis (oprava, tankování,
+  přepsání na sebe), garáž a sdílení se skupinou – stejně jako auta.
 - Bez Expansion smaž Expansion lodě z `Offers` (koupě by selhala a peníze by se vrátily).
 
-**Vlastnictví aut (bez klíčů)**
+**Vlastnictví vozidel (bez klíčů)** – auta, lodě i helikoptéry
 - Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu
   (*Přepsat auto na sebe*, `ClaimPrice`). Auta, která spawnuje hra, majitele nemají.
 - **Zamknout / odemknout:** podívej se na auto a stiskni **F** (akce „Zamknout auto“ / „Odemknout auto“).
