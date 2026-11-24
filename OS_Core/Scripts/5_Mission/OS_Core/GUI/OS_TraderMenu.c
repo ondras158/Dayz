@@ -4,6 +4,7 @@ class OS_TraderMenu : OS_MenuBase
 	protected string m_Currency;
 	protected bool m_IsAdmin;
 	protected ref array<string> m_Categories = new array<string>;
+	protected ref array<int> m_CategoryIndexes = new array<int>;   // řádek seznamu -> skutečná kategorie na serveru
 	protected ref array<int> m_CategoryCounts = new array<int>;
 
 	// aktuálně zobrazené předměty (kategorie nebo hledání)
@@ -48,8 +49,10 @@ class OS_TraderMenu : OS_MenuBase
 
 	// ------------------------------------------------------------ data ze serveru
 
-	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts)
+	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts, array<int> categoryIndexes)
 	{
+		m_CategoryIndexes.Clear();
+		m_CategoryIndexes.Copy(categoryIndexes);
 		m_TraderName = traderName;
 		m_Currency = currency;
 		m_IsAdmin = isAdmin;
@@ -210,10 +213,10 @@ class OS_TraderMenu : OS_MenuBase
 		if (m_CategoryList)
 		{
 			int selected = m_CategoryList.GetSelectedRow();
-			if (selected >= 0 && selected != m_RequestedCategory)
+			if (selected >= 0 && selected != m_RequestedCategory && selected < m_CategoryIndexes.Count())
 			{
 				m_RequestedCategory = selected;
-				RequestCategory(selected);
+				RequestCategory(m_CategoryIndexes[selected]);
 			}
 		}
 

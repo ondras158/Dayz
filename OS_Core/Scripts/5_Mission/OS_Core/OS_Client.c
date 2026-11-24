@@ -164,17 +164,18 @@ class OS_Client
 		bool isAdmin;
 		array<string> categories = new array<string>;
 		array<int> counts = new array<int>;
-		if (!ctx.Read(traderName) || !ctx.Read(currency) || !ctx.Read(isAdmin) || !ctx.Read(categories) || !ctx.Read(counts))
+		array<int> categoryIndexes = new array<int>;
+		if (!ctx.Read(traderName) || !ctx.Read(currency) || !ctx.Read(isAdmin) || !ctx.Read(categories) || !ctx.Read(counts) || !ctx.Read(categoryIndexes))
 			return;
 
 		if (IsOpen(m_TraderMenu))
 		{
-			m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts);
+			m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes);
 			return;
 		}
 
 		m_TraderMenu = new OS_TraderMenu();
-		m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts);
+		m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts, categoryIndexes);
 		Show(m_TraderMenu);
 	}
 

@@ -233,6 +233,8 @@ class OS_TraderLocation
 	float X;
 	float Z;
 	float Radius = 15;   // jak blízko musí hráč být, aby mohl otevřít obchod
+	// kategorie, které obchodník prodává i vykupuje (názvy z Categories); prázdné = všechno
+	ref array<string> Categories = new array<string>;
 
 	void OS_TraderLocation(string name = "", float x = 0, float z = 0, float radius = 15)
 	{
@@ -293,7 +295,20 @@ class OS_TraderConfig
 	void FillDefaults()
 	{
 		// !!! UKÁZKOVÉ SOUŘADNICE - stejné místo jako ukázková safe zóna !!!
-		Traders.Insert(new OS_TraderLocation("Priklad - Trziste", 2000, 2000, 15));
+		Traders.Insert(new OS_TraderLocation("Priklad - Trziste", 2000, 2000, 15));   // prodává všechno
+
+		OS_TraderLocation gunsmith = new OS_TraderLocation("Priklad - Zbrojir", 2040, 2000, 10);
+		gunsmith.Categories.Insert("Pistole");
+		gunsmith.Categories.Insert("Zbrane");
+		gunsmith.Categories.Insert("Munice");
+		gunsmith.Categories.Insert("Zasobniky");
+		gunsmith.Categories.Insert("Prislusenstvi zbrani");
+		Traders.Insert(gunsmith);
+
+		OS_TraderLocation tailor = new OS_TraderLocation("Priklad - Obleceni", 1960, 2000, 10);
+		tailor.Categories.Insert("Obleceni");
+		tailor.Categories.Insert("Batohy");
+		Traders.Insert(tailor);
 
 		ExcludeContains.Insert("_Base");
 		ExcludeContains.Insert("Debug");

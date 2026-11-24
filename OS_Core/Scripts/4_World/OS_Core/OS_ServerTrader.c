@@ -12,6 +12,7 @@ class OS_ServerTrader
 	protected string m_Currency;
 	protected ref map<string, OS_TraderItem> m_ByClass = new map<string, OS_TraderItem>;          // malými písmeny
 	protected ref map<string, OS_TraderItem> m_InheritedCache = new map<string, OS_TraderItem>;
+	protected ref map<string, int> m_CategoryOf = new map<string, int>;   // classname (malými) -> index kategorie
 
 	void OS_ServerTrader(OS_Payments payments, OS_TraderConfig cfg, OS_ServerAdmin admin, string currency)
 	{
@@ -44,16 +45,21 @@ class OS_ServerTrader
 	{
 		m_ByClass.Clear();
 		m_InheritedCache.Clear();
+		m_CategoryOf.Clear();
 
-		foreach (OS_TraderCategory category : m_Cfg.Categories)
+		for (int c = 0; c < m_Cfg.Categories.Count(); c++)
 		{
+			OS_TraderCategory category = m_Cfg.Categories[c];
 			if (!category || !category.Items)
 				continue;
 
 			foreach (OS_TraderItem item : category.Items)
 			{
-				if (item)
-					m_ByClass.Set(OS_TraderScanner.Lower(item.ClassName), item);
+				if (!item)
+					continue;
+				string key = OS_TraderScanner.Lower(item.ClassName);
+				m_ByClass.Set(key, item);
+				m_CategoryOf.Set(key, c);
 			}
 		}
 	}
@@ -81,6 +87,34 @@ class OS_ServerTrader
 
 		m_InheritedCache.Set(key, item);
 		return item;
+	}
+
+	//! prodává / vykupuje obchodník tuto kategorii?
+	protected bool Allows(OS_TraderLocation trader, int categoryIndex)
+	{
+		if (!trader || !trader.Categories || trader.Categories.Count() == 0)
+			return true;
+		if (categoryIndex < 0 || categoryIndex >= m_Cfg.Categories.Count() || !m_Cfg.Categories[categoryIndex])
+			return false;
+
+		string name = OS_TraderScanner.Lower(m_Cfg.Categories[categoryIndex].Name);
+		foreach (string allowed : trader.Categories)
+		{
+			if (OS_TraderScanner.Lower(allowed) == name)
+				return true;
+		}
+		return false;
+	}
+
+	//! kategorie, do které patří nacenění předmětu (i varianty, např. M4A1_Black)
+	protected int CategoryOfClass(string className)
+	{
+		OS_TraderItem priced = FindPriced(className);
+		if (!priced)
+			return -1;
+		int index = -1;
+		m_CategoryOf.Find(OS_TraderScanner.Lower(priced.ClassName), index);
+		return index;
 	}
 
 	protected static bool IsHidden(OS_TraderItem item)
@@ -148,34 +182,34 @@ class OS_ServerTrader
 		if (rpcType == OS_RPC_TRADER_OPEN)
 		{
 			SendHeader(player, trader, isAdmin);
-			SendUpdate(player);
+			SendUpdate(player, trader);
 		}
 		else if (rpcType == OS_RPC_TRADER_CATEGORY)
 		{
 			int viewCategory;
-			if (ctx.Read(viewCategory))
-				SendItems(player, viewCategory, "", isAdmin);
+			if (ctx.Read(viewCategory) && Allows(trader, viewCategory))
+				SendItems(player, trader, viewCategory, "", isAdmin);
 		}
 		else if (rpcType == OS_RPC_TRADER_SEARCH)
 		{
 			string searchText;
 			if (ctx.Read(searchText))
-				SendItems(player, -1, searchText, isAdmin);
+				SendItems(player, trader, -1, searchText, isAdmin);
 		}
 		else if (rpcType == OS_RPC_TRADER_BUY)
 		{
 			int buyCategory;
 			int buyIndex;
-			if (ctx.Read(buyCategory) && ctx.Read(buyIndex))
+			if (ctx.Read(buyCategory) && ctx.Read(buyIndex) && Allows(trader, buyCategory))
 				Buy(player, buyCategory, buyIndex);
-			SendUpdate(player);
+			SendUpdate(player, trader);
 		}
 		else if (rpcType == OS_RPC_TRADER_SELL)
 		{
 			string className;
 			if (ctx.Read(className))
-				Sell(player, className);
-			SendUpdate(player);
+				Sell(player, trader, className);
+			SendUpdate(player, trader);
 		}
 		else if (rpcType == OS_RPC_TRADER_ADMIN_EDIT)
 		{
@@ -233,11 +267,17 @@ class OS_ServerTrader
 		Print(OS_TAG + "OBCHOD " + OS_Util.PlayerName(player) + " koupil " + priced.ClassName + " za " + priced.Buy.ToString());
 	}
 
-	protected void Sell(PlayerBase player, string className)
+	protected void Sell(PlayerBase player, OS_TraderLocation trader, string className)
 	{
 		OS_TraderItem priced = FindPriced(className);
 		if (!priced || priced.Sell < 0)
 			return;
+
+		if (!Allows(trader, CategoryOfClass(className)))
+		{
+			OS_Util.Notify(player, "Obchod", "Tenhle obchodnik takove veci nevykupuje.");
+			return;
+		}
 
 		ItemBase item = FindSellableItem(player, className);
 		if (!item)
@@ -382,9 +422,14 @@ class OS_ServerTrader
 	{
 		array<string> names = new array<string>;
 		array<int> counts = new array<int>;
+		array<int> categoryIndexes = new array<int>;
 
-		foreach (OS_TraderCategory category : m_Cfg.Categories)
+		for (int c = 0; c < m_Cfg.Categories.Count(); c++)
 		{
+			if (!Allows(trader, c))
+				continue;
+
+			OS_TraderCategory category = m_Cfg.Categories[c];
 			int visible = 0;
 			if (category && category.Items)
 			{
@@ -400,6 +445,7 @@ class OS_ServerTrader
 				name = category.Name;
 			names.Insert(name);
 			counts.Insert(visible);
+			categoryIndexes.Insert(c);
 		}
 
 		ScriptRPC rpc = new ScriptRPC();
@@ -408,11 +454,12 @@ class OS_ServerTrader
 		rpc.Write(isAdmin);
 		rpc.Write(names);
 		rpc.Write(counts);
+		rpc.Write(categoryIndexes);
 		rpc.Send(null, OS_RPC_TRADER_DATA, true, player.GetIdentity());
 	}
 
 	//! categoryIndex >= 0: obsah kategorie, -1: výsledky hledání
-	protected void SendItems(PlayerBase player, int categoryIndex, string searchText, bool isAdmin)
+	protected void SendItems(PlayerBase player, OS_TraderLocation trader, int categoryIndex, string searchText, bool isAdmin)
 	{
 		array<int> cats = new array<int>;
 		array<int> indexes = new array<int>;
@@ -427,7 +474,7 @@ class OS_ServerTrader
 
 		for (int c = 0; c < m_Cfg.Categories.Count() && classes.Count() < limit; c++)
 		{
-			if (categoryIndex >= 0 && c != categoryIndex)
+			if ((categoryIndex >= 0 && c != categoryIndex) || !Allows(trader, c))
 				continue;
 
 			OS_TraderCategory category = m_Cfg.Categories[c];
@@ -464,7 +511,7 @@ class OS_ServerTrader
 		rpc.Send(null, OS_RPC_TRADER_ITEMS, true, player.GetIdentity());
 	}
 
-	protected void SendUpdate(PlayerBase player)
+	protected void SendUpdate(PlayerBase player, OS_TraderLocation trader)
 	{
 		array<string> classes = new array<string>;
 		array<int> counts = new array<int>;
@@ -479,6 +526,8 @@ class OS_ServerTrader
 				continue;
 
 			string type = item.GetType();
+			if (!Allows(trader, CategoryOfClass(type)))
+				continue;
 			int index = classes.Find(type);
 			if (index == -1)
 			{
