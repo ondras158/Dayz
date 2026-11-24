@@ -14,6 +14,8 @@ class OS_Client
 	protected ref OS_SpawnPlacer m_Placer = new OS_SpawnPlacer();
 	protected ref OS_PersonalGarageMenu m_PGarageMenu;
 	protected bool m_WantGarageMenu;
+	protected ref OS_FarmMenu m_FarmMenu;
+	protected bool m_WantFarmMenu;
 
 	static OS_Client Get()
 	{
@@ -42,6 +44,12 @@ class OS_Client
 	void StartPlacer(int target, string category, bool onWater, bool hasCurrent, vector currentPos, float currentYaw)
 	{
 		m_Placer.Start(target, category, onWater, hasCurrent, currentPos, currentYaw);
+	}
+
+	void RequestFarm()
+	{
+		m_WantFarmMenu = true;
+		SendToServer(OS_RPC_FARM_OPEN);
 	}
 
 	void RequestPersonalGarage()
@@ -134,6 +142,9 @@ class OS_Client
 				break;
 			case OS_RPC_PGARAGE_DATA:
 				OnPersonalGarage(ctx);
+				break;
+			case OS_RPC_FARM_DATA:
+				OnFarmData(ctx);
 				break;
 		}
 	}
@@ -265,6 +276,29 @@ class OS_Client
 		m_GroupMenu = new OS_GroupMenu();
 		m_GroupMenu.SetData(data);
 		Show(m_GroupMenu);
+	}
+
+	protected void OnFarmData(ParamsReadContext ctx)
+	{
+		OS_FarmData data = new OS_FarmData();
+		if (!data.Read(ctx))
+			return;
+
+		OS_ClientSettings.HasFarm = data.HasOwn;
+		OS_ClientSettings.FarmPos = Vector(data.OwnX, 0, data.OwnZ);
+
+		if (IsOpen(m_FarmMenu))
+		{
+			m_FarmMenu.SetData(data);
+			return;
+		}
+		if (!m_WantFarmMenu)
+			return;
+
+		m_WantFarmMenu = false;
+		m_FarmMenu = new OS_FarmMenu();
+		m_FarmMenu.SetData(data);
+		Show(m_FarmMenu);
 	}
 
 	protected void OnPersonalGarage(ParamsReadContext ctx)

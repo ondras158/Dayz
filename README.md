@@ -270,6 +270,30 @@ přidej jejich classname a díly).
 - Garáž nejde postavit blíž než `PersonalGarageMinDistance` k jiné garáži nebo obchodu.
 - *Zrušit garáž* – uložená vozidla zůstanou, vyzvedneš je v jakékoli garáži. Data: `PersonalGarages.json`.
 
+**Farmy** (`Farms.json`, data v `FarmsData.json`) – menu klávesa **U**
+- Hráč si postaví farmu tam, kde stojí (`BuildPrice`, jedna na hráče, min. `MinDistance` od jiné farmy).
+  Na mapě je zelená značka „Moje farma“.
+- U farmy koupí **zvířata** a **krmivo** (`FeedPrice` za kus, zásobník `MaxFeed`). Zvířata nejsou ve světě –
+  jsou jen v menu, takže nezmizí po restartu a nikdo je nezabije.
+- Každé zvíře vyrábí jednou za `CycleMinutes` a spotřebuje `FeedPerCycle` krmiva. **Bez krmiva výroba stojí.**
+  Výroba běží i když je majitel offline (jen když běží server).
+
+  | Zvíře | Cena | Cyklus | Krmivo | Vyrábí |
+  |---|---|---|---|---|
+  | Slepice (max 20) | 300 | 30 min | 1 | vejce, peří (50 %), kuřecí maso (10 %) |
+  | Prase (max 10) | 1 500 | 120 min | 3 | 2× vepřové, sádlo (50 %), kůže (5 %) |
+  | Kráva (max 5) | 3 000 | 120 min | 4 | sušené mléko, 2× hovězí (30 %), kůže (5 %) |
+  | Koza (max 10) | 1 200 | 90 min | 2 | sušené mléko (70 %), maso (40 %), kůže (5 %) |
+  | Ovce (max 10) | 1 200 | 90 min | 2 | maso (50 %), kůže (10 %) |
+
+- Výrobky jsou ve **skladu** farmy (max `MaxStoredPerProduct` od každé suroviny), vybírají se v menu
+  (*Vybrat vybrané* / *Vybrat vše*, max 50 kusů najednou, co se nevejde, padne na zem).
+- `GroupCanUse: true` = členové skupiny majitele můžou krmit, kupovat zvířata a vybírat sklad.
+- **Vejce** (`OS_ChickenEgg`) je nový předmět – jí se a vaří jako brambora a **zatím má i model brambory**.
+  Model jde změnit v `config.cpp` (`model = "..."` u třídy `OS_ChickenEgg`, cestu najdeš na disku P: v DayZ Tools).
+  Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
+- Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
+
 **Bez zranění ve skupině** (`Groups.json` → `FriendlyFire: false`, výchozí)
 - Členové stejné skupiny si navzájem neublíží střelbou, noži ani pěstmi – zásah se vůbec neprovede (ani krvácení).
 - Výbuchy (granáty, miny) a přejetí autem se nepočítají jako útok hráče a zraňují dál.

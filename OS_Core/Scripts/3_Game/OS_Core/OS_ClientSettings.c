@@ -6,4 +6,6 @@ class OS_ClientSettings
 	static int GroupId = 0;   // skupina hráče (pro odemykání sdílených aut)
 	static bool HasPersonalGarage = false;
 	static vector PersonalGaragePos;
+	static bool HasFarm = false;
+	static vector FarmPos;
 }

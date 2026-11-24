@@ -43,6 +43,10 @@ const int OS_RPC_GROUP_ACTION   = 784512062; // klient -> server: akce ve skupin
 const int OS_RPC_GROUP_POSITIONS = 784512063; // server -> klient: polohy spoluhráčů (mapa, jmenovky)
 const int OS_RPC_GROUP_ID        = 784512064; // server -> klient: ID skupiny hráče
 
+const int OS_RPC_FARM_OPEN      = 784512070; // klient -> server: menu farmy
+const int OS_RPC_FARM_DATA      = 784512071; // server -> klient: stav farmy
+const int OS_RPC_FARM_ACTION    = 784512072; // klient -> server: akce na farmě
+
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LAST  = 784512099;
 
@@ -76,6 +80,16 @@ enum OS_BankAction
 	WITHDRAW,
 	GROUP_DEPOSIT,
 	GROUP_WITHDRAW
+}
+
+enum OS_FarmAction
+{
+	BUILD,
+	REMOVE,
+	BUY_ANIMAL,
+	BUY_FEED,
+	COLLECT,
+	COLLECT_ALL
 }
 
 enum OS_PersonalGarageAction

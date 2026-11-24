@@ -14,6 +14,7 @@ class OS_Server
 	ref OS_ServerVehicles m_Vehicles;
 	ref OS_ServerBank m_Bank;
 	ref OS_ServerGroups m_Groups;
+	ref OS_ServerFarms m_Farms;
 	ref OS_Payments m_Payments;
 
 	protected string m_Currency;
@@ -49,6 +50,7 @@ class OS_Server
 		m_Currency = currency;
 		m_Payments = new OS_Payments(m_Wallets, bankCfg, currency);
 		m_Groups = new OS_ServerGroups(m_Payments, m_Wallets, currency);
+		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
 		m_Admin = new OS_ServerAdmin(m_Wallets, currency);
@@ -82,6 +84,7 @@ class OS_Server
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
 			m_Groups.SendGroupId(player);
 			m_Vehicles.SendPersonalGarage(player);
+			m_Farms.SendData(player);   // poloha farmy pro mapu
 		}
 
 		// chvíli počkat, než klient dokončí načítání, jinak se zpráva ztratí
@@ -110,6 +113,7 @@ class OS_Server
 		m_SafeZones.OnTick(players, delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
+		m_Farms.OnTick(delta);
 	}
 
 	// ------------------------------------------------------------ události z entit
@@ -162,6 +166,8 @@ class OS_Server
 		if (m_Bank.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Groups.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Farms.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

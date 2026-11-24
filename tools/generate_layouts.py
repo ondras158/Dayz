@@ -304,6 +304,26 @@ PLACER = """FrameWidgetClass OS_Placer {
 """
 LAYOUTS["placer.layout"] = PLACER
 
+LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 610, [
+    text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),
+    text("Info", 20, 52, 820, 26, "", align="center"),
+    text("Info2", 20, 78, 820, 26, "", align="center"),
+    text("AnimalsLabel", 20, 108, 400, 24, "Zvirata (vyber a kup dalsi kus)"),
+    listbox("AnimalList", 20, 134, 400, 230),
+    button("BtnBuyAnimal", 20, 372, 400, 38, "Koupit vybrane zvire"),
+    text("StorageLabel", 440, 108, 400, 24, "Sklad (vyrobene suroviny)"),
+    listbox("StorageList", 440, 134, 400, 230),
+    button("BtnCollect", 440, 372, 195, 38, "Vybrat vybrane"),
+    button("BtnCollectAll", 645, 372, 195, 38, "Vybrat vse"),
+    text("FeedText", 20, 420, 820, 26, ""),
+    edit("EditFeed", 20, 452, 190, 34),
+    button("BtnBuyFeed", 220, 452, 200, 34, "Koupit krmivo"),
+    button("BtnBuild", 440, 452, 400, 38, "Postavit farmu zde"),
+    button("BtnRemove", 440, 500, 400, 38, "Zrusit farmu"),
+    button("BtnClose", 20, 548, 820, 38, "Zavrit"),
+    text("Status", 20, 590, 820, 20, "", align="center"),
+])
+
 LAYOUTS["pgarage_menu.layout"] = layout("OS_PersonalGarageMenu", 560, 330, [
     text("Title", 20, 12, 520, 36, "Osobni garaz", "gui/fonts/metron28", "center"),
     text("Info", 20, 58, 520, 26, "", align="center"),

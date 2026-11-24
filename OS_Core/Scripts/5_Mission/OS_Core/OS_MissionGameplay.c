@@ -21,6 +21,10 @@ modded class MissionGameplay
 		if (traderInput && traderInput.LocalPress())
 			OS_Client.Get().RequestTrader();
 
+		UAInput farmInput = GetUApi().GetInputByName("UAOSFarmMenu");
+		if (farmInput && farmInput.LocalPress())
+			OS_Client.Get().RequestFarm();
+
 		UAInput garageInput = GetUApi().GetInputByName("UAOSGarageMenu");
 		if (garageInput && garageInput.LocalPress())
 			OS_Client.Get().RequestPersonalGarage();

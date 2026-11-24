@@ -1,0 +1,156 @@
+// Farmy: hráč si postaví farmu, koupí zvířata a krmivo, zvířata s časem vyrábějí suroviny.
+// Nastavení: $profile:OS_Core/Farms.json, data farem: $profile:OS_Core/FarmsData.json
+
+class OS_FarmProduct
+{
+	string ClassName;
+	int Amount = 1;      // kolik kusů za cyklus na jedno zvíře
+	float Chance = 1;    // šance 0-1, že se v cyklu vyrobí
+
+	void OS_FarmProduct(string className = "", int amount = 1, float chance = 1)
+	{
+		ClassName = className;
+		Amount = amount;
+		Chance = chance;
+	}
+}
+
+class OS_FarmAnimalType
+{
+	string Id;
+	string Name;
+	int Price;               // cena jednoho zvířete
+	int MaxCount = 10;       // kolik jich může farma mít
+	float CycleMinutes = 60; // jak často vyrábí
+	int FeedPerCycle = 1;    // krmivo za cyklus na jedno zvíře
+	ref array<ref OS_FarmProduct> Products = new array<ref OS_FarmProduct>;
+
+	void OS_FarmAnimalType(string id = "", string name = "", int price = 0, float cycle = 60, int feed = 1)
+	{
+		Id = id;
+		Name = name;
+		Price = price;
+		CycleMinutes = cycle;
+		FeedPerCycle = feed;
+	}
+
+	void AddProduct(string className, int amount, float chance)
+	{
+		Products.Insert(new OS_FarmProduct(className, amount, chance));
+	}
+}
+
+class OS_FarmConfig
+{
+	bool Enabled = true;
+	int BuildPrice = 3000;
+	float Radius = 20;              // jak blízko musí hráč stát, aby mohl farmu používat
+	float MinDistance = 50;         // minimální vzdálenost od jiné farmy
+	int FeedPrice = 5;              // cena jednoho krmiva
+	int MaxFeed = 2000;             // kolik krmiva se vejde do zásobníku
+	int MaxStoredPerProduct = 100;  // sklad: max kusů od jedné suroviny (pak výroba té suroviny stojí)
+	bool GroupCanUse = true;        // členové skupiny majitele mohou krmit a sbírat
+	ref array<ref OS_FarmAnimalType> Animals = new array<ref OS_FarmAnimalType>;
+
+	void FillDefaults()
+	{
+		OS_FarmAnimalType chicken = new OS_FarmAnimalType("chicken", "Slepice", 300, 30, 1);
+		chicken.AddProduct("OS_ChickenEgg", 1, 1.0);
+		chicken.AddProduct("ChickenFeather", 2, 0.5);
+		chicken.AddProduct("ChickenBreastMeat", 1, 0.1);
+		chicken.MaxCount = 20;
+		Animals.Insert(chicken);
+
+		OS_FarmAnimalType pig = new OS_FarmAnimalType("pig", "Prase", 1500, 120, 3);
+		pig.AddProduct("PigSteakMeat", 2, 1.0);
+		pig.AddProduct("Lard", 1, 0.5);
+		pig.AddProduct("PigPelt", 1, 0.05);
+		Animals.Insert(pig);
+
+		OS_FarmAnimalType cow = new OS_FarmAnimalType("cow", "Krava", 3000, 120, 4);
+		cow.AddProduct("PowderedMilk", 1, 1.0);
+		cow.AddProduct("CowSteakMeat", 2, 0.3);
+		cow.AddProduct("CowPelt", 1, 0.05);
+		cow.MaxCount = 5;
+		Animals.Insert(cow);
+
+		OS_FarmAnimalType goat = new OS_FarmAnimalType("goat", "Koza", 1200, 90, 2);
+		goat.AddProduct("PowderedMilk", 1, 0.7);
+		goat.AddProduct("GoatSteakMeat", 1, 0.4);
+		goat.AddProduct("GoatPelt", 1, 0.05);
+		Animals.Insert(goat);
+
+		OS_FarmAnimalType sheep = new OS_FarmAnimalType("sheep", "Ovce", 1200, 90, 2);
+		sheep.AddProduct("SheepSteakMeat", 1, 0.5);
+		sheep.AddProduct("SheepPelt", 1, 0.1);
+		Animals.Insert(sheep);
+	}
+
+	OS_FarmAnimalType FindAnimal(string id)
+	{
+		foreach (OS_FarmAnimalType type : Animals)
+		{
+			if (type && type.Id == id)
+				return type;
+		}
+		return null;
+	}
+}
+
+class OS_FarmStock
+{
+	string Id;          // druh zvířete
+	int Count;
+	float Progress;     // minuty do dalšího cyklu
+}
+
+class OS_FarmStored
+{
+	string ClassName;
+	int Count;
+}
+
+class OS_Farm
+{
+	string OwnerId;
+	float X;
+	float Z;
+	int Feed;
+	ref array<ref OS_FarmStock> Stock = new array<ref OS_FarmStock>;
+	ref array<ref OS_FarmStored> Storage = new array<ref OS_FarmStored>;
+
+	OS_FarmStock GetStock(string id, bool create)
+	{
+		foreach (OS_FarmStock s : Stock)
+		{
+			if (s && s.Id == id)
+				return s;
+		}
+		if (!create)
+			return null;
+		OS_FarmStock added = new OS_FarmStock();
+		added.Id = id;
+		Stock.Insert(added);
+		return added;
+	}
+
+	OS_FarmStored GetStored(string className, bool create)
+	{
+		foreach (OS_FarmStored s : Storage)
+		{
+			if (s && s.ClassName == className)
+				return s;
+		}
+		if (!create)
+			return null;
+		OS_FarmStored added = new OS_FarmStored();
+		added.ClassName = className;
+		Storage.Insert(added);
+		return added;
+	}
+}
+
+class OS_FarmsData
+{
+	ref array<ref OS_Farm> Farms = new array<ref OS_Farm>;
+}

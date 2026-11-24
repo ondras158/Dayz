@@ -6,6 +6,7 @@
 			<input name="UAOSAdminMenu" loc="Admin menu (OS)" />
 			<input name="UAOSGroupMenu" loc="Skupina (OS)" />
 			<input name="UAOSGarageMenu" loc="Osobni garaz (OS)" />
+			<input name="UAOSFarmMenu" loc="Farma (OS)" />
 			<input name="UAOSPlaceConfirm" loc="Ulozit misto vozidla (OS)" />
 			<input name="UAOSPlaceCancel" loc="Zrusit nastaveni mista (OS)" />
 		</actions>
@@ -14,6 +15,7 @@
 			<input name="UAOSAdminMenu" />
 			<input name="UAOSGroupMenu" />
 			<input name="UAOSGarageMenu" />
+			<input name="UAOSFarmMenu" />
 			<input name="UAOSPlaceConfirm" />
 			<input name="UAOSPlaceCancel" />
 		</sorting>
@@ -30,6 +32,9 @@
 		</input>
 		<input name="UAOSGarageMenu">
 			<btn name="kK" />
+		</input>
+		<input name="UAOSFarmMenu">
+			<btn name="kU" />
 		</input>
 		<input name="UAOSPlaceConfirm">
 			<btn name="kY" />

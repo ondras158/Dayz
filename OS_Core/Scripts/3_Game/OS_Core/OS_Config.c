@@ -362,7 +362,7 @@ class OS_TraderConfig
 		ExcludeContains.Insert("Dummy");
 		ExcludeContains.Insert("_TEST");
 		ExcludeContains.Insert("Fx");
-		ExcludeContains.Insert("OS_");   // klíče a peníze módu se v obchodě neprodávají
+		ExcludeContains.Insert("OS_Money");   // peníze módu se v obchodě neprodávají
 
 		// --- pravidla kategorií (pořadí je důležité) ---
 		OS_CategoryRule r;

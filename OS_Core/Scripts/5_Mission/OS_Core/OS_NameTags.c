@@ -138,7 +138,8 @@ modded class MapMenu
 		if (!OS_ClientGroup.ShowMapMarkers)
 			count = 0;
 		bool garage = OS_ClientSettings.HasPersonalGarage;
-		if (count == 0 && !garage && !m_OS_HasMarkers)
+		bool farm = OS_ClientSettings.HasFarm;
+		if (count == 0 && !garage && !farm && !m_OS_HasMarkers)
 			return;
 
 		// obnovit značky: vlastní značky z mapy + spoluhráči
@@ -157,6 +158,12 @@ modded class MapMenu
 			gp[1] = g_Game.SurfaceY(gp[0], gp[2]);
 			m_MapWidgetInstance.AddUserMark(gp, "Moje garaz", ARGB(255, 255, 190, 40), "\\DZ\\gear\\navigation\\data\\map_station_ca.paa");
 		}
-		m_OS_HasMarkers = count > 0 || garage;
+		if (farm)
+		{
+			vector fp = OS_ClientSettings.FarmPos;
+			fp[1] = g_Game.SurfaceY(fp[0], fp[2]);
+			m_MapWidgetInstance.AddUserMark(fp, "Moje farma", ARGB(255, 120, 220, 80), "\\DZ\\gear\\navigation\\data\\map_vineyard_ca.paa");
+		}
+		m_OS_HasMarkers = count > 0 || garage || farm;
 	}
 }

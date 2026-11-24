@@ -354,9 +354,9 @@ class OS_ServerTrader
 		if (!item || item.IsRuined())
 			return false;
 
-		// peníze a klíče módu se neprodávají
+		// peníze módu se neprodávají (vejce z farmy ano)
 		string type = item.GetType();
-		if (type.IndexOf("OS_") == 0)
+		if (type.IndexOf("OS_Money") == 0)
 			return false;
 
 		OS_TraderItem priced = FindPriced(type);

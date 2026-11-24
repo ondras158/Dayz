@@ -1,0 +1,259 @@
+FrameWidgetClass OS_FarmMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 860 610
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 820 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Farma"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass Info {
+     position 20 52
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass Info2 {
+     position 20 78
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass AnimalsLabel {
+     position 20 108
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Zvirata (vyber a kup dalsi kus)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass AnimalListBg {
+     color 0 0 0 0.6
+     position 20 134
+     size 400 230
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass AnimalList {
+     position 24 138
+     size 392 222
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuyAnimal {
+     color 0.25 0.22 0.18 1
+     position 20 372
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit vybrane zvire"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass StorageLabel {
+     position 440 108
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Sklad (vyrobene suroviny)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass StorageListBg {
+     color 0 0 0 0.6
+     position 440 134
+     size 400 230
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass StorageList {
+     position 444 138
+     size 392 222
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCollect {
+     color 0.25 0.22 0.18 1
+     position 440 372
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vybrat vybrane"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCollectAll {
+     color 0.25 0.22 0.18 1
+     position 645 372
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vybrat vse"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass FeedText {
+     position 20 420
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditFeedBg {
+     color 0 0 0 0.7
+     position 20 452
+     size 190 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditFeed {
+     position 26 454
+     size 178 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuyFeed {
+     color 0.25 0.22 0.18 1
+     position 220 452
+     size 200 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit krmivo"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuild {
+     color 0.25 0.22 0.18 1
+     position 440 452
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Postavit farmu zde"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRemove {
+     color 0.25 0.22 0.18 1
+     position 440 500
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zrusit farmu"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 548
+     size 820 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 590
+     size 820 20
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

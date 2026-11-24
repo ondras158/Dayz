@@ -2,10 +2,10 @@ class CfgPatches
 {
 	class OS_Core
 	{
-		units[] = {"OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
+		units[] = {"OS_ChickenEgg", "OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Data", "DZ_Scripts", "DZ_Gear_Consumables"};
+		requiredAddons[] = {"DZ_Data", "DZ_Scripts", "DZ_Gear_Consumables", "DZ_Gear_Food"};
 	};
 };
 
@@ -44,6 +44,16 @@ class CfgMods
 class CfgVehicles
 {
 	class Paper;
+	class Potato;
+
+	// Vejce z farmy - jídlo (vaření, jedení) i model zatím z brambory
+	// (model vajíčka: nastav model = "..." podle P:\dz\gear\... v DayZ Tools)
+	class OS_ChickenEgg : Potato
+	{
+		scope = 2;
+		displayName = "Vejce";
+		descriptionShort = "Slepici vejce z farmy. Da se uvarit nebo upect.";
+	};
 
 	// Hotovost - bankovky. Model papíru, vlastní potisk, stohovatelné (počet kusů = počet bankovek).
 	// Chování ze skriptu OS_Money, hodnota jedné bankovky je v bcValue.
