@@ -467,8 +467,6 @@ class OS_TraderConfig
 		r.NameContains.Insert("Beer");
 		r.NameContains.Insert("Whisk");         // Whisky / Whiskey
 		r.NameContains.Insert("Wine");
-		r.NameContains.Insert("Rum");
-		r.NameContains.Insert("Gin");
 		r.NameContains.Insert("Tequila");
 		r.NameContains.Insert("Brandy");
 		r.NameContains.Insert("Cognac");
