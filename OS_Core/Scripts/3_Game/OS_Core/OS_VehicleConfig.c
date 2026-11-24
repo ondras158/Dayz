@@ -4,7 +4,7 @@ class OS_VehicleOffer
 {
 	string ClassName;
 	int Price;
-	string Category = "car";                       // "car" = autobazar, "heli" = helikoptéry, "boat" = lodě
+	string Category = "car";                       // "car" = auta, "bike" = motorky, "heli" = helikoptéry, "boat" = lodě
 	ref array<string> Parts = new array<string>;   // díly, které vozidlo dostane (a které servis doplní)
 
 	void OS_VehicleOffer(string className = "", int price = 0, string category = "car")
@@ -30,7 +30,7 @@ class OS_VehicleLocation
 	float Z;
 	float Radius = 30;      // kde musí hráč stát
 	bool Dealer;            // prodej vozidel
-	string DealerCategory = "car";   // co prodává: "car" = auta, "heli" = helikoptéry, "boat" = lodě
+	string DealerCategory = "car";   // co prodává: "car", "bike", "heli", "boat" - víc kategorií čárkou, např. "car,bike"
 	bool SpawnOnWater = false;       // vozidlo se postaví na hladinu moře (přístaviště)
 	float SpawnClearRadius = 5;      // místo pro nové vozidlo musí být volné v tomto okruhu (heliport ~12)
 	bool Service;           // oprava, tankování, doplnění dílů
@@ -68,6 +68,7 @@ class OS_VehicleConfig
 		// !!! UKÁZKOVÉ SOUŘADNICE - nahraď skutečnými místy z tvé mapy !!!
 		OS_VehicleLocation loc = new OS_VehicleLocation("Priklad - Autocentrum", 2100, 2000);
 		loc.Dealer = true;
+		loc.DealerCategory = "car,bike";   // auta i motorky
 		loc.Service = true;
 		loc.Garage = true;
 		loc.SpawnX = 2120;
@@ -248,6 +249,28 @@ class OS_VehicleConfig
 		vodnik.AddParts("ExpansionVodnikDoorCoDriver");
 		vodnik.AddParts("HeadlightH7", 2);
 		Offers.Insert(vodnik);
+
+		// --- motorky (vanilla) ---
+		array<string> bikeColors = {"Blue", "Yellow", "Red"};
+		foreach (string bikeColor : bikeColors)
+		{
+			OS_VehicleOffer bike = new OS_VehicleOffer("Motorbike_01_" + bikeColor, 1500, "bike");
+			bike.AddParts("Motorbike_01_Wheel_1");
+			bike.AddParts("Motorbike_01_Wheel_2");
+			bike.AddParts("SparkPlug");
+			bike.AddParts("HeadlightH7");
+			Offers.Insert(bike);
+		}
+
+		OS_VehicleOffer bike2 = new OS_VehicleOffer("Motorbike_02_Red", 2500, "bike");
+		bike2.AddParts("Motorbike_02_Wheel_1");
+		bike2.AddParts("Motorbike_02_Wheel_2");
+		bike2.AddParts("Motorbike_02_ShieldFront_Red");
+		bike2.AddParts("Motorbike_02_ShieldLeft_Red");
+		bike2.AddParts("Motorbike_02_ShieldRight_Red");
+		bike2.AddParts("SparkPlug");
+		bike2.AddParts("HeadlightH7");
+		Offers.Insert(bike2);
 
 		OS_VehicleOffer v3s = new OS_VehicleOffer("Truck_01_Covered", 8000);
 		v3s.AddParts("Truck_01_Wheel", 2);

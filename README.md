@@ -37,7 +37,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
 | Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
-| Autobazar / helikoptéry / lodě | Klávesa **B** v autocentru, na heliportu nebo v přístavu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
+| Autobazar / motorky / helikoptéry / lodě | Klávesa **B** v autocentru, na heliportu nebo v přístavu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
@@ -278,6 +278,13 @@ přidej jejich classname a díly).
 - Všechny lodě (vanilla člun i Expansion) mají vlastnictví, zamykání (F), servis (oprava, tankování,
   přepsání na sebe), garáž a sdílení se skupinou – stejně jako auta.
 - Bez Expansion smaž Expansion lodě z `Offers` (koupě by selhala a peníze by se vrátily).
+
+**Motorky** (`Vehicles.json`)
+- Výchozí autocentrum prodává auta i motorky: `"DealerCategory": "car,bike"` (víc kategorií oddělených čárkou;
+  menu se pak jmenuje *Prodej vozidel*). Samostatný obchod s motorkami = `"DealerCategory": "bike"`.
+- Nabídka (vanilla): `Motorbike_01_Blue` / `_Yellow` / `_Red` (1 500) a `Motorbike_02_Red` (2 500), s koly,
+  svíčkou, světlem (u Motorbike_02 i kapotáží) a plnou nádrží.
+- Vlastnictví, zamykání (F), servis a garáž fungují stejně jako u aut.
 
 **Vlastnictví vozidel (bez klíčů)** – auta, lodě i helikoptéry
 - Auto patří hráči podle **Steam ID**: tomu, kdo ho koupí v autobazaru nebo si nalezené auto přepíše v servisu

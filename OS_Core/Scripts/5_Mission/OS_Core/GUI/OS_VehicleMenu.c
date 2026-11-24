@@ -3,7 +3,7 @@
 class OS_VehicleMenuData
 {
 	string LocationName;
-	string Category;   // car / heli / boat
+	string Category;   // car / bike / heli / boat / mixed
 	string Currency;
 	int Balance;   // kolik jde utratit
 	int Cash;
@@ -132,6 +132,10 @@ class OS_VehicleMenu : OS_MenuBase
 				dealerLabel.SetText("Helikoptery");
 			else if (m_Data.Category == "boat")
 				dealerLabel.SetText("Lode");
+			else if (m_Data.Category == "bike")
+				dealerLabel.SetText("Motorky");
+			else if (m_Data.Category == "mixed")
+				dealerLabel.SetText("Prodej vozidel");
 			else
 				dealerLabel.SetText("Autobazar");
 		}
@@ -141,6 +145,10 @@ class OS_VehicleMenu : OS_MenuBase
 				m_BtnBuy.SetText("Koupit helikopteru");
 			else if (m_Data.Category == "boat")
 				m_BtnBuy.SetText("Koupit lod");
+			else if (m_Data.Category == "bike")
+				m_BtnBuy.SetText("Koupit motorku");
+			else if (m_Data.Category == "mixed")
+				m_BtnBuy.SetText("Koupit vozidlo");
 			else
 				m_BtnBuy.SetText("Koupit auto");
 		}

@@ -110,13 +110,23 @@ class OS_ServerVehicles
 		return false;
 	}
 
+	//! kategorie, které místo prodává ("car,bike" -> [car, bike])
+	protected array<string> LocationCategories(OS_VehicleLocation loc)
+	{
+		array<string> parts = new array<string>;
+		string raw = OS_TraderScanner.Lower(loc.DealerCategory);
+		raw.Replace(" ", "");
+		raw.Split(",", parts);
+		if (parts.Count() == 0)
+			parts.Insert("car");
+		return parts;
+	}
+
 	//! indexy nabídek, které dané místo prodává (podle kategorie)
 	protected array<int> OffersFor(OS_VehicleLocation loc)
 	{
 		array<int> result = new array<int>;
-		string wanted = OS_TraderScanner.Lower(loc.DealerCategory);
-		if (wanted == "")
-			wanted = "car";
+		array<string> wanted = LocationCategories(loc);
 		for (int i = 0; i < m_Cfg.Offers.Count(); i++)
 		{
 			OS_VehicleOffer offer = m_Cfg.Offers[i];
@@ -125,19 +135,19 @@ class OS_ServerVehicles
 			string category = OS_TraderScanner.Lower(offer.Category);
 			if (category == "")
 				category = "car";
-			if (category == wanted)
+			if (wanted.Find(category) > -1)
 				result.Insert(i);
 		}
 		return result;
 	}
 
-	//! "car" / "heli" / "boat"
+	//! "car" / "bike" / "heli" / "boat", víc kategorií = "mixed"
 	protected string LocationCategory(OS_VehicleLocation loc)
 	{
-		string category = OS_TraderScanner.Lower(loc.DealerCategory);
-		if (category == "")
-			category = "car";
-		return category;
+		array<string> categories = LocationCategories(loc);
+		if (categories.Count() > 1)
+			return "mixed";
+		return categories[0];
 	}
 
 	protected string DealerTitle(OS_VehicleLocation loc)
@@ -147,6 +157,10 @@ class OS_ServerVehicles
 			return "Helikoptery";
 		if (category == "boat")
 			return "Lode";
+		if (category == "bike")
+			return "Motorky";
+		if (category == "mixed")
+			return "Prodej vozidel";
 		return "Autobazar";
 	}
 
