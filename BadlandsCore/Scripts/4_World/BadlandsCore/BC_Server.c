@@ -39,7 +39,7 @@ class BC_Server
 		m_SafeZones = new BC_ServerSafeZones();
 		m_Messages = new BC_ServerMessages();
 		m_Admin = new BC_ServerAdmin(m_Wallets, traderCfg.CurrencyName);
-		m_Trader = new BC_ServerTrader(m_Wallets, traderCfg);
+		m_Trader = new BC_ServerTrader(m_Wallets, traderCfg, m_Admin);
 		m_Vehicles = new BC_ServerVehicles(m_Wallets, traderCfg.CurrencyName);
 
 		DayZGame.Event_OnRPC.Insert(OnRPC);

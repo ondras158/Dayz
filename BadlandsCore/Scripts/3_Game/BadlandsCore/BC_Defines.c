@@ -18,6 +18,11 @@ const int BC_RPC_TRADER_DATA   = 784512021; // server -> klient: katalog
 const int BC_RPC_TRADER_BUY    = 784512022; // klient -> server: koupit
 const int BC_RPC_TRADER_SELL   = 784512023; // klient -> server: prodat
 const int BC_RPC_TRADER_UPDATE = 784512024; // server -> klient: nový zůstatek + co lze prodat
+const int BC_RPC_TRADER_CATEGORY   = 784512025; // klient -> server: předměty kategorie
+const int BC_RPC_TRADER_SEARCH     = 784512026; // klient -> server: hledání
+const int BC_RPC_TRADER_ITEMS      = 784512027; // server -> klient: seznam předmětů
+const int BC_RPC_TRADER_ADMIN_EDIT = 784512028; // klient -> server: admin mění cenu
+const int BC_RPC_TRADER_ADMIN_BULK = 784512029; // klient -> server: admin násobí ceny kategorie
 
 const int BC_RPC_VEHICLE_DATA   = 784512030; // server -> klient: autobazar / servis / garáž
 const int BC_RPC_VEHICLE_ACTION = 784512031; // klient -> server: koupit, opravit, natankovat...

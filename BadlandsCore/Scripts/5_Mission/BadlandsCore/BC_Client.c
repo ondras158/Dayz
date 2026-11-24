@@ -74,6 +74,9 @@ class BC_Client
 			case BC_RPC_TRADER_DATA:
 				OnTraderData(ctx);
 				break;
+			case BC_RPC_TRADER_ITEMS:
+				OnTraderItems(ctx);
+				break;
 			case BC_RPC_TRADER_UPDATE:
 				OnTraderUpdate(ctx);
 				break;
@@ -127,27 +130,36 @@ class BC_Client
 	{
 		string traderName;
 		string currency;
+		bool isAdmin;
 		array<string> categories = new array<string>;
-		array<int> itemCategories = new array<int>;
-		array<string> itemClasses = new array<string>;
-		array<int> itemBuy = new array<int>;
-		array<int> itemSell = new array<int>;
-
-		if (!ctx.Read(traderName) || !ctx.Read(currency) || !ctx.Read(categories) || !ctx.Read(itemCategories))
-			return;
-		if (!ctx.Read(itemClasses) || !ctx.Read(itemBuy) || !ctx.Read(itemSell))
+		array<int> counts = new array<int>;
+		if (!ctx.Read(traderName) || !ctx.Read(currency) || !ctx.Read(isAdmin) || !ctx.Read(categories) || !ctx.Read(counts))
 			return;
 
-		if (!IsOpen(m_TraderMenu))
+		if (IsOpen(m_TraderMenu))
 		{
-			m_TraderMenu = new BC_TraderMenu();
-			m_TraderMenu.SetCatalog(traderName, currency, categories, itemCategories, itemClasses, itemBuy, itemSell);
-			Show(m_TraderMenu);
+			m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts);
+			return;
 		}
-		else
-		{
-			m_TraderMenu.SetCatalog(traderName, currency, categories, itemCategories, itemClasses, itemBuy, itemSell);
-		}
+
+		m_TraderMenu = new BC_TraderMenu();
+		m_TraderMenu.SetHeader(traderName, currency, isAdmin, categories, counts);
+		Show(m_TraderMenu);
+	}
+
+	protected void OnTraderItems(ParamsReadContext ctx)
+	{
+		int viewCategory;
+		array<int> cats = new array<int>;
+		array<int> indexes = new array<int>;
+		array<string> classes = new array<string>;
+		array<int> buys = new array<int>;
+		array<int> sells = new array<int>;
+		if (!ctx.Read(viewCategory) || !ctx.Read(cats) || !ctx.Read(indexes) || !ctx.Read(classes) || !ctx.Read(buys) || !ctx.Read(sells))
+			return;
+
+		if (m_TraderMenu)
+			m_TraderMenu.SetItems(viewCategory, cats, indexes, classes, buys, sells);
 	}
 
 	protected void OnTraderUpdate(ParamsReadContext ctx)
@@ -155,11 +167,12 @@ class BC_Client
 		int balance;
 		array<string> classes = new array<string>;
 		array<int> counts = new array<int>;
-		if (!ctx.Read(balance) || !ctx.Read(classes) || !ctx.Read(counts))
+		array<int> prices = new array<int>;
+		if (!ctx.Read(balance) || !ctx.Read(classes) || !ctx.Read(counts) || !ctx.Read(prices))
 			return;
 
 		if (m_TraderMenu)
-			m_TraderMenu.SetPlayerState(balance, classes, counts);
+			m_TraderMenu.SetPlayerState(balance, classes, counts, prices);
 	}
 
 	protected void OnVehicleData(ParamsReadContext ctx)

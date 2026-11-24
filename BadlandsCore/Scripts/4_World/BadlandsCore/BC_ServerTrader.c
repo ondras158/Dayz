@@ -1,31 +1,27 @@
-// Obchod s virtuální měnou. Peníze se získávají prodejem věcí a zabíjením zombíků.
+// Obchod s virtuální měnou. Katalog se automaticky doplňuje o všechny předměty ve hře,
+// admin může ceny měnit přímo v menu obchodu.
 
 class BC_ServerTrader
 {
+	protected static const int MAX_LIST_ITEMS = 1500;
+	protected static const int MAX_SEARCH_ITEMS = 300;
+
 	ref BC_TraderConfig m_Cfg;
 	protected BC_Wallets m_Wallets;
-	protected ref map<string, BC_TraderItem> m_ByClass = new map<string, BC_TraderItem>; // malými písmeny
+	protected BC_ServerAdmin m_Admin;
+	protected ref map<string, BC_TraderItem> m_ByClass = new map<string, BC_TraderItem>;          // malými písmeny
+	protected ref map<string, BC_TraderItem> m_InheritedCache = new map<string, BC_TraderItem>;
 
-	void BC_ServerTrader(BC_Wallets wallets, BC_TraderConfig cfg)
+	void BC_ServerTrader(BC_Wallets wallets, BC_TraderConfig cfg, BC_ServerAdmin admin)
 	{
 		m_Wallets = wallets;
 		m_Cfg = cfg;
+		m_Admin = admin;
 
-		foreach (BC_TraderCategory category : m_Cfg.Categories)
-		{
-			if (!category || !category.Items)
-				continue;
+		if (m_Cfg.AutoAddItems && BC_TraderScanner.AddNewItems(m_Cfg) > 0)
+			Save();
 
-			foreach (BC_TraderItem item : category.Items)
-			{
-				if (!item)
-					continue;
-
-				string key = item.ClassName;
-				key.ToLower();
-				m_ByClass.Set(key, item);
-			}
-		}
+		RebuildIndex();
 	}
 
 	static BC_TraderConfig LoadConfig()
@@ -35,13 +31,35 @@ class BC_ServerTrader
 		return BC_ConfigFile<BC_TraderConfig>.Load("Trader.json", defaults, new BC_TraderConfig());
 	}
 
-	protected ref map<string, BC_TraderItem> m_InheritedCache = new map<string, BC_TraderItem>;
+	protected void Save()
+	{
+		string err;
+		if (!JsonFileLoader<BC_TraderConfig>.SaveFile(BC_DIR + "Trader.json", m_Cfg, err))
+			Print(BC_TAG + "CHYBA pri ukladani Trader.json: " + err);
+	}
+
+	protected void RebuildIndex()
+	{
+		m_ByClass.Clear();
+		m_InheritedCache.Clear();
+
+		foreach (BC_TraderCategory category : m_Cfg.Categories)
+		{
+			if (!category || !category.Items)
+				continue;
+
+			foreach (BC_TraderItem item : category.Items)
+			{
+				if (item)
+					m_ByClass.Set(BC_TraderScanner.Lower(item.ClassName), item);
+			}
+		}
+	}
 
 	//! Přesná shoda classname, jinak varianta (např. M4A1_Black -> M4A1)
 	protected BC_TraderItem FindPriced(string className)
 	{
-		string key = className;
-		key.ToLower();
+		string key = BC_TraderScanner.Lower(className);
 
 		BC_TraderItem item;
 		if (m_ByClass.Find(key, item))
@@ -52,7 +70,7 @@ class BC_ServerTrader
 		item = null;
 		foreach (string pricedKey, BC_TraderItem priced : m_ByClass)
 		{
-			if (g_Game.IsKindOf(className, priced.ClassName))
+			if (priced.Sell >= 0 && g_Game.IsKindOf(className, priced.ClassName))
 			{
 				item = priced;
 				break;
@@ -61,6 +79,11 @@ class BC_ServerTrader
 
 		m_InheritedCache.Set(key, item);
 		return item;
+	}
+
+	protected static bool IsHidden(BC_TraderItem item)
+	{
+		return item.Buy < 0 && item.Sell < 0;
 	}
 
 	BC_TraderLocation NearTrader(PlayerBase player)
@@ -95,9 +118,16 @@ class BC_ServerTrader
 
 	// ------------------------------------------------------------ RPC
 
+	protected bool IsTraderRpc(int rpcType)
+	{
+		return rpcType == BC_RPC_TRADER_OPEN || rpcType == BC_RPC_TRADER_BUY || rpcType == BC_RPC_TRADER_SELL
+			|| rpcType == BC_RPC_TRADER_CATEGORY || rpcType == BC_RPC_TRADER_SEARCH
+			|| rpcType == BC_RPC_TRADER_ADMIN_EDIT || rpcType == BC_RPC_TRADER_ADMIN_BULK;
+	}
+
 	bool OnRPC(PlayerIdentity sender, int rpcType, ParamsReadContext ctx)
 	{
-		if (rpcType != BC_RPC_TRADER_OPEN && rpcType != BC_RPC_TRADER_BUY && rpcType != BC_RPC_TRADER_SELL)
+		if (!IsTraderRpc(rpcType))
 			return false;
 
 		PlayerBase player = BC_Util.FindPlayer(sender);
@@ -111,16 +141,31 @@ class BC_ServerTrader
 			return true;
 		}
 
+		bool isAdmin = m_Admin && m_Admin.IsAdmin(sender);
+
 		if (rpcType == BC_RPC_TRADER_OPEN)
 		{
-			SendCatalog(player, trader);
+			SendHeader(player, trader, isAdmin);
+			SendUpdate(player);
+		}
+		else if (rpcType == BC_RPC_TRADER_CATEGORY)
+		{
+			int viewCategory;
+			if (ctx.Read(viewCategory))
+				SendItems(player, viewCategory, "", isAdmin);
+		}
+		else if (rpcType == BC_RPC_TRADER_SEARCH)
+		{
+			string searchText;
+			if (ctx.Read(searchText))
+				SendItems(player, -1, searchText, isAdmin);
 		}
 		else if (rpcType == BC_RPC_TRADER_BUY)
 		{
-			int categoryIndex;
-			int itemIndex;
-			if (ctx.Read(categoryIndex) && ctx.Read(itemIndex))
-				Buy(player, categoryIndex, itemIndex);
+			int buyCategory;
+			int buyIndex;
+			if (ctx.Read(buyCategory) && ctx.Read(buyIndex))
+				Buy(player, buyCategory, buyIndex);
 			SendUpdate(player);
 		}
 		else if (rpcType == BC_RPC_TRADER_SELL)
@@ -130,19 +175,36 @@ class BC_ServerTrader
 				Sell(player, className);
 			SendUpdate(player);
 		}
+		else if (rpcType == BC_RPC_TRADER_ADMIN_EDIT)
+		{
+			if (isAdmin)
+				AdminEdit(player, ctx);
+		}
+		else if (rpcType == BC_RPC_TRADER_ADMIN_BULK)
+		{
+			if (isAdmin)
+				AdminBulk(player, ctx);
+		}
 		return true;
 	}
 
-	protected void Buy(PlayerBase player, int categoryIndex, int itemIndex)
+	protected BC_TraderItem GetItem(int categoryIndex, int itemIndex)
 	{
 		if (categoryIndex < 0 || categoryIndex >= m_Cfg.Categories.Count())
-			return;
+			return null;
 
 		BC_TraderCategory category = m_Cfg.Categories[categoryIndex];
-		if (!category || itemIndex < 0 || itemIndex >= category.Items.Count())
-			return;
+		if (!category || !category.Items || itemIndex < 0 || itemIndex >= category.Items.Count())
+			return null;
 
-		BC_TraderItem priced = category.Items[itemIndex];
+		return category.Items[itemIndex];
+	}
+
+	// ------------------------------------------------------------ nákup / prodej
+
+	protected void Buy(PlayerBase player, int categoryIndex, int itemIndex)
+	{
+		BC_TraderItem priced = GetItem(categoryIndex, itemIndex);
 		if (!priced || priced.Buy < 0)
 			return;
 
@@ -178,7 +240,7 @@ class BC_ServerTrader
 		ItemBase item = FindSellableItem(player, className);
 		if (!item)
 		{
-			BC_Util.Notify(player, "Obchod", "Predmet nelze prodat. Zbran musi byt bez zasobniku a prislusenstvi a nesmi byt znicena.");
+			BC_Util.Notify(player, "Obchod", "Predmet nelze prodat. Musi byt prazdny, bez prislusenstvi (zbran bez zasobniku) a nesmi byt zniceny.");
 			return;
 		}
 
@@ -194,9 +256,11 @@ class BC_ServerTrader
 		Print(BC_TAG + "OBCHOD " + BC_Util.PlayerName(player) + " prodal " + className + " za " + price.ToString());
 	}
 
-	//! Částečně použité věci (načatá krabička nábojů, snědené jídlo) mají nižší výkupní cenu
+	//! Částečně použité věci (načatá krabička nábojů, snědené jídlo) a opotřebované věci mají nižší cenu
 	protected float SellFraction(ItemBase item)
 	{
+		float fraction = 1;
+
 		if (item.IsAmmoPile())
 		{
 			Magazine pile = Magazine.Cast(item);
@@ -204,16 +268,14 @@ class BC_ServerTrader
 			{
 				float ammoCount = pile.GetAmmoCount();
 				float ammoMax = pile.GetAmmoMax();
-				return ammoCount / ammoMax;
+				fraction = ammoCount / ammoMax;
 			}
-			return 1;
+		}
+		else if (!Magazine.Cast(item) && !item.IsLiquidContainer() && item.HasQuantity())
+		{
+			fraction = item.GetQuantityNormalized();
 		}
 
-		float fraction = 1;
-		if (!Magazine.Cast(item) && !item.IsLiquidContainer() && item.HasQuantity())
-			fraction = item.GetQuantityNormalized();
-
-		// stav předmětu: zničený se neprodá, opotřebovaný za 50-100 % ceny
 		if (m_Cfg.ScaleSellPriceByCondition)
 			fraction = fraction * (0.5 + 0.5 * item.GetHealth01("", ""));
 
@@ -252,14 +314,161 @@ class BC_ServerTrader
 		return null;
 	}
 
-	protected void CollectSellable(PlayerBase player, array<string> classes, array<int> counts)
+	// ------------------------------------------------------------ admin úpravy
+
+	protected void AdminEdit(PlayerBase admin, ParamsReadContext ctx)
 	{
+		int categoryIndex;
+		int itemIndex;
+		int buy;
+		int sell;
+		if (!ctx.Read(categoryIndex) || !ctx.Read(itemIndex) || !ctx.Read(buy) || !ctx.Read(sell))
+			return;
+
+		BC_TraderItem item = GetItem(categoryIndex, itemIndex);
+		if (!item)
+			return;
+
+		if (buy < -1)
+			buy = -1;
+		if (sell < -1)
+			sell = -1;
+
+		Print(BC_TAG + "ADMIN " + BC_Util.PlayerName(admin) + " cena " + item.ClassName + ": nakup " + item.Buy.ToString() + "->" + buy.ToString() + ", vykup " + item.Sell.ToString() + "->" + sell.ToString());
+		item.Buy = buy;
+		item.Sell = sell;
+		m_InheritedCache.Clear();
+		Save();
+		BC_Util.Notify(admin, "Obchod", "Cena ulozena: " + item.ClassName);
+	}
+
+	protected void AdminBulk(PlayerBase admin, ParamsReadContext ctx)
+	{
+		int categoryIndex;
+		float factor;
+		if (!ctx.Read(categoryIndex) || !ctx.Read(factor))
+			return;
+
+		if (categoryIndex < 0 || categoryIndex >= m_Cfg.Categories.Count() || factor <= 0 || factor > 100)
+		{
+			BC_Util.Notify(admin, "Obchod", "Nasobitel musi byt mezi 0 a 100 (napr. 1.5 nebo 0.8).");
+			return;
+		}
+
+		BC_TraderCategory category = m_Cfg.Categories[categoryIndex];
+		foreach (BC_TraderItem item : category.Items)
+		{
+			if (item.Buy > 0)
+				item.Buy = Math.Max(1, Math.Round(item.Buy * factor));
+			if (item.Sell > 0)
+				item.Sell = Math.Max(1, Math.Round(item.Sell * factor));
+		}
+
+		Save();
+		Print(BC_TAG + "ADMIN " + BC_Util.PlayerName(admin) + " nasobil ceny kategorie " + category.Name + " x" + factor.ToString());
+		BC_Util.Notify(admin, "Obchod", "Ceny kategorie " + category.Name + " vynasobeny x" + factor.ToString());
+	}
+
+	// ------------------------------------------------------------ odesílání dat
+
+	protected void SendHeader(PlayerBase player, BC_TraderLocation trader, bool isAdmin)
+	{
+		array<string> names = new array<string>;
+		array<int> counts = new array<int>;
+
+		foreach (BC_TraderCategory category : m_Cfg.Categories)
+		{
+			int visible = 0;
+			if (category && category.Items)
+			{
+				foreach (BC_TraderItem item : category.Items)
+				{
+					if (isAdmin || !IsHidden(item))
+						visible++;
+				}
+			}
+
+			string name = "?";
+			if (category)
+				name = category.Name;
+			names.Insert(name);
+			counts.Insert(visible);
+		}
+
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(trader.Name);
+		rpc.Write(m_Cfg.CurrencyName);
+		rpc.Write(isAdmin);
+		rpc.Write(names);
+		rpc.Write(counts);
+		rpc.Send(null, BC_RPC_TRADER_DATA, true, player.GetIdentity());
+	}
+
+	//! categoryIndex >= 0: obsah kategorie, -1: výsledky hledání
+	protected void SendItems(PlayerBase player, int categoryIndex, string searchText, bool isAdmin)
+	{
+		array<int> cats = new array<int>;
+		array<int> indexes = new array<int>;
+		array<string> classes = new array<string>;
+		array<int> buys = new array<int>;
+		array<int> sells = new array<int>;
+
+		string needle = BC_TraderScanner.Lower(searchText.Trim());
+		int limit = MAX_LIST_ITEMS;
+		if (categoryIndex < 0)
+			limit = MAX_SEARCH_ITEMS;
+
+		for (int c = 0; c < m_Cfg.Categories.Count() && classes.Count() < limit; c++)
+		{
+			if (categoryIndex >= 0 && c != categoryIndex)
+				continue;
+
+			BC_TraderCategory category = m_Cfg.Categories[c];
+			if (!category || !category.Items)
+				continue;
+
+			for (int i = 0; i < category.Items.Count() && classes.Count() < limit; i++)
+			{
+				BC_TraderItem item = category.Items[i];
+				if (!item || (!isAdmin && IsHidden(item)))
+					continue;
+				if (categoryIndex < 0)
+				{
+					string lowerClass = BC_TraderScanner.Lower(item.ClassName);
+					if (needle == "" || !lowerClass.Contains(needle))
+						continue;
+				}
+
+				cats.Insert(c);
+				indexes.Insert(i);
+				classes.Insert(item.ClassName);
+				buys.Insert(item.Buy);
+				sells.Insert(item.Sell);
+			}
+		}
+
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(categoryIndex);
+		rpc.Write(cats);
+		rpc.Write(indexes);
+		rpc.Write(classes);
+		rpc.Write(buys);
+		rpc.Write(sells);
+		rpc.Send(null, BC_RPC_TRADER_ITEMS, true, player.GetIdentity());
+	}
+
+	protected void SendUpdate(PlayerBase player)
+	{
+		array<string> classes = new array<string>;
+		array<int> counts = new array<int>;
+		array<int> prices = new array<int>;
+
 		array<EntityAI> items = new array<EntityAI>;
 		player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, items);
 		foreach (EntityAI ent : items)
 		{
 			ItemBase item = ItemBase.Cast(ent);
-			if (!CanSellItem(item))
+			if (!item || !CanSellItem(item))
 				continue;
 
 			string type = item.GetType();
@@ -268,61 +477,19 @@ class BC_ServerTrader
 			{
 				classes.Insert(type);
 				counts.Insert(1);
+				prices.Insert(FindPriced(type).Sell);
 			}
 			else
 			{
 				counts[index] = counts[index] + 1;
 			}
 		}
-	}
-
-	protected void SendCatalog(PlayerBase player, BC_TraderLocation trader)
-	{
-		array<string> categoryNames = new array<string>;
-		array<int> itemCategories = new array<int>;
-		array<string> itemClasses = new array<string>;
-		array<int> itemBuy = new array<int>;
-		array<int> itemSell = new array<int>;
-
-		for (int c = 0; c < m_Cfg.Categories.Count(); c++)
-		{
-			BC_TraderCategory category = m_Cfg.Categories[c];
-			if (!category)
-				continue;
-
-			categoryNames.Insert(category.Name);
-			foreach (BC_TraderItem item : category.Items)
-			{
-				itemCategories.Insert(c);
-				itemClasses.Insert(item.ClassName);
-				itemBuy.Insert(item.Buy);
-				itemSell.Insert(item.Sell);
-			}
-		}
-
-		ScriptRPC rpc = new ScriptRPC();
-		rpc.Write(trader.Name);
-		rpc.Write(m_Cfg.CurrencyName);
-		rpc.Write(categoryNames);
-		rpc.Write(itemCategories);
-		rpc.Write(itemClasses);
-		rpc.Write(itemBuy);
-		rpc.Write(itemSell);
-		rpc.Send(null, BC_RPC_TRADER_DATA, true, player.GetIdentity());
-
-		SendUpdate(player);
-	}
-
-	protected void SendUpdate(PlayerBase player)
-	{
-		array<string> classes = new array<string>;
-		array<int> counts = new array<int>;
-		CollectSellable(player, classes, counts);
 
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(m_Wallets.GetBalance(BC_Util.SteamId(player)));
 		rpc.Write(classes);
 		rpc.Write(counts);
+		rpc.Write(prices);
 		rpc.Send(null, BC_RPC_TRADER_UPDATE, true, player.GetIdentity());
 	}
 }

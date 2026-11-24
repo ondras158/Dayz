@@ -9,7 +9,7 @@ FrameWidgetClass BC_TraderMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 960 600
+   size 960 690
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -59,8 +59,8 @@ FrameWidgetClass BC_TraderMenu {
     }
     PanelWidgetClass CategoryListBg {
      color 0 0 0 0.6
-     position 20 84
-     size 220 416
+     position 20 90
+     size 220 412
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -69,31 +69,50 @@ FrameWidgetClass BC_TraderMenu {
      style rover_sim_colorable
     }
     TextListboxWidgetClass CategoryList {
-     position 24 88
-     size 212 408
+     position 24 94
+     size 212 404
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
      font "gui/fonts/metron"
     }
-    TextWidgetClass ItemLabel {
-     position 255 56
-     size 430 24
+    PanelWidgetClass EditSearchBg {
+     color 0 0 0 0.7
+     position 255 54
+     size 330 30
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Nabidka (cena nakupu / vykupu)"
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditSearch {
+     position 261 56
+     size 318 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
      font "gui/fonts/metron"
-     "text halign" left
-     "text valign" center
+    }
+    ButtonWidgetClass BtnSearch {
+     color 0.25 0.22 0.18 1
+     position 595 54
+     size 90 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Hledat"
+     font "gui/fonts/metron"
     }
     PanelWidgetClass ItemListBg {
      color 0 0 0 0.6
-     position 255 84
-     size 430 416
+     position 255 90
+     size 430 412
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -102,8 +121,8 @@ FrameWidgetClass BC_TraderMenu {
      style rover_sim_colorable
     }
     TextListboxWidgetClass ItemList {
-     position 259 88
-     size 422 408
+     position 259 94
+     size 422 404
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -112,7 +131,7 @@ FrameWidgetClass BC_TraderMenu {
     }
     ButtonWidgetClass BtnBuy {
      color 0.25 0.22 0.18 1
-     position 255 510
+     position 255 512
      size 430 40
      hexactpos 1
      vexactpos 1
@@ -130,15 +149,15 @@ FrameWidgetClass BC_TraderMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Tvoje zbrane k prodeji"
+     text "Tvoje veci k prodeji"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
     }
     PanelWidgetClass SellListBg {
      color 0 0 0 0.6
-     position 700 84
-     size 240 416
+     position 700 90
+     size 240 412
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -147,8 +166,8 @@ FrameWidgetClass BC_TraderMenu {
      style rover_sim_colorable
     }
     TextListboxWidgetClass SellList {
-     position 704 88
-     size 232 408
+     position 704 94
+     size 232 404
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -157,7 +176,7 @@ FrameWidgetClass BC_TraderMenu {
     }
     ButtonWidgetClass BtnSell {
      color 0.25 0.22 0.18 1
-     position 700 510
+     position 700 512
      size 240 40
      hexactpos 1
      vexactpos 1
@@ -169,7 +188,7 @@ FrameWidgetClass BC_TraderMenu {
     }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 510
+     position 20 512
      size 220 40
      hexactpos 1
      vexactpos 1
@@ -179,8 +198,144 @@ FrameWidgetClass BC_TraderMenu {
      text "Zavrit"
      font "gui/fonts/metron"
     }
+    TextWidgetClass AdminLabel {
+     position 20 566
+     size 920 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass BuyLabel {
+     position 20 596
+     size 60 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Nakup"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditBuyBg {
+     color 0 0 0 0.7
+     position 80 596
+     size 110 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditBuy {
+     position 86 598
+     size 98 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass SellPriceLabel {
+     position 200 596
+     size 60 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Vykup"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditSellBg {
+     color 0 0 0 0.7
+     position 260 596
+     size 110 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditSell {
+     position 266 598
+     size 98 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSavePrice {
+     color 0.25 0.22 0.18 1
+     position 380 596
+     size 200 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Ulozit cenu"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass FactorLabel {
+     position 600 596
+     size 140 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Nasobit kat."
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditFactorBg {
+     color 0 0 0 0.7
+     position 740 596
+     size 80 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditFactor {
+     position 746 598
+     size 68 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBulk {
+     color 0.25 0.22 0.18 1
+     position 830 596
+     size 110 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Nasobit"
+     font "gui/fonts/metron"
+    }
     TextWidgetClass Status {
-     position 20 560
+     position 20 646
      size 920 26
      hexactpos 1
      vexactpos 1

@@ -176,7 +176,7 @@ class BC_MessagesConfig
 	{
 		Broadcasts.Insert("Nezapomeň: v bezpečné zóně je zakázáno střílet.");
 		Broadcasts.Insert("Přidej se na náš Discord!");
-		Broadcasts.Insert("Peníze získáš prodejem nalezených zbraní u obchodníka (klávesa B).");
+		Broadcasts.Insert("Nalezené věci můžeš prodat u obchodníka (klávesa B).");
 	}
 }
 
@@ -195,7 +195,7 @@ class BC_TraderItem
 {
 	string ClassName;
 	int Buy = -1;    // cena nákupu, -1 = nelze koupit
-	int Sell = -1;   // výkupní cena, -1 = nelze prodat
+	int Sell = -1;   // výkupní cena, -1 = nelze prodat (obojí -1 = skryté, vidí jen admin)
 
 	void BC_TraderItem(string className = "", int buy = -1, int sell = -1)
 	{
@@ -219,6 +219,12 @@ class BC_TraderCategory
 	{
 		Items.Insert(new BC_TraderItem(className, buy, sell));
 	}
+
+	//! zbraň: nákup za 4x výkupní cenu
+	void AddWeapon(string className, int sell)
+	{
+		Items.Insert(new BC_TraderItem(className, sell * 4, sell));
+	}
 }
 
 class BC_TraderLocation
@@ -237,115 +243,201 @@ class BC_TraderLocation
 	}
 }
 
+class BC_CategoryRule
+{
+	string Category;
+	int DefaultBuy = 50;     // cena pro automaticky přidané předměty
+	int DefaultSell = 10;
+	ref array<string> BaseClasses = new array<string>;   // předek v configu (např. Weapon_Base)
+	ref array<string> NameContains = new array<string>;  // část classname (např. Bandage)
+	ref array<string> Slots = new array<string>;         // inventorySlot přesně (např. Back)
+	ref array<string> SlotContains = new array<string>;  // část inventorySlot (např. weapon)
+
+	void BC_CategoryRule(string category = "", int buy = 50, int sell = 10)
+	{
+		Category = category;
+		DefaultBuy = buy;
+		DefaultSell = sell;
+	}
+}
+
 class BC_TraderConfig
 {
 	bool Enabled = true;
 	string CurrencyName = "Kr";
 	int StartingBalance = 100;
-	int ZombieKillReward = 0;          // peníze se získávají jen prodejem nalezených zbraní
+	int ZombieKillReward = 0;
 	int PlayerKillReward = 0;
-	bool ScaleSellPriceByCondition = true;  // opotřebovaná zbraň = nižší výkupní cena (50-100 %)
+	bool ScaleSellPriceByCondition = true;  // opotřebovaný předmět = nižší výkupní cena (50-100 %)
+
+	// Při startu serveru projde všechny předměty ve hře (i z módů) a chybějící přidá do obchodu.
+	// Ceny, které už v souboru jsou (i upravené adminem), se nemění.
+	bool AutoAddItems = true;
+	ref array<string> ExcludeContains = new array<string>;     // classname obsahující tento text se nepřidá
+	ref array<ref BC_CategoryRule> CategoryRules = new array<ref BC_CategoryRule>; // první shoda vyhrává
+
 	ref array<ref BC_TraderLocation> Traders = new array<ref BC_TraderLocation>;
 	ref array<ref BC_TraderCategory> Categories = new array<ref BC_TraderCategory>;
+
+	BC_TraderCategory GetOrCreateCategory(string name)
+	{
+		foreach (BC_TraderCategory existing : Categories)
+		{
+			if (existing && existing.Name == name)
+				return existing;
+		}
+		BC_TraderCategory created = new BC_TraderCategory(name);
+		Categories.Insert(created);
+		return created;
+	}
 
 	void FillDefaults()
 	{
 		// !!! UKÁZKOVÉ SOUŘADNICE - stejné místo jako ukázková safe zóna !!!
 		Traders.Insert(new BC_TraderLocation("Priklad - Trziste", 2000, 2000, 15));
 
-		// Prodávají se jen zbraně (výkup), ostatní věci se jen kupují.
-		// Zbraně nejdou koupit - tím nejde zbraň koupit a hned prodat.
-		// Zbraň musí být bez zásobníku a bez příslušenství.
-		BC_TraderCategory pistols = new BC_TraderCategory("Vykup - pistole");
-		pistols.Add("MakarovIJ70", -1, 40);
-		pistols.Add("CZ75", -1, 60);
-		pistols.Add("Glock19", -1, 70);
-		pistols.Add("FNX45", -1, 80);
-		pistols.Add("Colt1911", -1, 70);
-		pistols.Add("MKII", -1, 40);
-		pistols.Add("Deagle", -1, 120);
-		pistols.Add("Magnum", -1, 100);
-		Categories.Insert(pistols);
+		ExcludeContains.Insert("_Base");
+		ExcludeContains.Insert("Debug");
+		ExcludeContains.Insert("Static");
+		ExcludeContains.Insert("Proxy");
+		ExcludeContains.Insert("Land_");
+		ExcludeContains.Insert("Hologram");
+		ExcludeContains.Insert("Preview");
+		ExcludeContains.Insert("Dummy");
+		ExcludeContains.Insert("_TEST");
+		ExcludeContains.Insert("Fx");
 
-		BC_TraderCategory rifles = new BC_TraderCategory("Vykup - pusky a brokovnice");
-		rifles.Add("Izh18", -1, 60);
-		rifles.Add("Ruger1022", -1, 70);
-		rifles.Add("Izh43Shotgun", -1, 80);
-		rifles.Add("Mp133Shotgun", -1, 100);
-		rifles.Add("CZ527", -1, 150);
-		rifles.Add("Mosin9130", -1, 150);
-		rifles.Add("Winchester70", -1, 180);
-		rifles.Add("SKS", -1, 180);
-		rifles.Add("Repeater", -1, 120);
-		rifles.Add("B95", -1, 160);
-		rifles.Add("Saiga", -1, 250);
-		rifles.Add("Scout", -1, 250);
-		Categories.Insert(rifles);
+		// --- pravidla kategorií (pořadí je důležité) ---
+		BC_CategoryRule r;
 
-		BC_TraderCategory military = new BC_TraderCategory("Vykup - samopaly a vojenske");
-		military.Add("CZ61", -1, 120);
-		military.Add("MP5K", -1, 200);
-		military.Add("UMP45", -1, 220);
-		military.Add("AKS74U", -1, 280);
-		military.Add("AKM", -1, 350);
-		military.Add("AK74", -1, 350);
-		military.Add("AK101", -1, 380);
-		military.Add("M4A1", -1, 400);
-		military.Add("M16A2", -1, 380);
-		military.Add("FAL", -1, 450);
-		military.Add("SVD", -1, 500);
-		military.Add("VSS", -1, 500);
-		Categories.Insert(military);
+		r = new BC_CategoryRule("Pistole", 500, 80);
+		r.BaseClasses.Insert("Pistol_Base");
+		CategoryRules.Insert(r);
 
-		BC_TraderCategory food = new BC_TraderCategory("Jidlo a piti");
-		food.Add("WaterBottle", 20, -1);
-		food.Add("Canteen", 40, -1);
-		food.Add("SodaCan_Cola", 15, -1);
-		food.Add("TacticalBaconCan", 30, -1);
-		food.Add("BakedBeansCan", 25, -1);
-		Categories.Insert(food);
+		r = new BC_CategoryRule("Zbrane", 1200, 200);
+		r.BaseClasses.Insert("Weapon_Base");
+		CategoryRules.Insert(r);
 
-		BC_TraderCategory med = new BC_TraderCategory("Medicina");
-		med.Add("BandageDressing", 15, -1);
-		med.Add("PainkillerTablets", 30, -1);
-		med.Add("CharcoalTablets", 30, -1);
-		med.Add("TetracyclineAntibiotics", 60, -1);
-		med.Add("Morphine", 80, -1);
-		med.Add("Epinephrine", 80, -1);
-		med.Add("SalineBagIV", 100, -1);
-		Categories.Insert(med);
+		r = new BC_CategoryRule("Munice", 60, 10);
+		r.BaseClasses.Insert("Ammunition_Base");
+		CategoryRules.Insert(r);
 
-		BC_TraderCategory tools = new BC_TraderCategory("Nastroje a auto");
-		tools.Add("Matchbox", 15, -1);
-		tools.Add("Flashlight", 40, -1);
-		tools.Add("Battery9V", 20, -1);
-		tools.Add("Compass", 50, -1);
-		tools.Add("Hatchet", 60, -1);
-		tools.Add("Shovel", 80, -1);
-		tools.Add("Binoculars", 100, -1);
-		tools.Add("CanisterGasoline", 60, -1);
-		tools.Add("TireRepairKit", 80, -1);
-		tools.Add("Wrench", 40, -1);
-		tools.Add("LugWrench", 40, -1);
-		Categories.Insert(tools);
+		r = new BC_CategoryRule("Zasobniky", 100, 15);
+		r.BaseClasses.Insert("Magazine_Base");
+		CategoryRules.Insert(r);
 
-		BC_TraderCategory bags = new BC_TraderCategory("Batohy");
-		bags.Add("TaloonBag_Blue", 80, -1);
-		bags.Add("HuntingBag", 200, -1);
-		bags.Add("MountainBag_Green", 300, -1);
-		Categories.Insert(bags);
+		r = new BC_CategoryRule("Prislusenstvi zbrani", 250, 40);
+		r.BaseClasses.Insert("ItemOptics");
+		r.BaseClasses.Insert("ItemSuppressor");
+		r.SlotContains.Insert("weapon");
+		r.SlotContains.Insert("pistol");
+		CategoryRules.Insert(r);
 
-		BC_TraderCategory ammo = new BC_TraderCategory("Munice");
-		ammo.Add("Ammo_380", 40, -1);
-		ammo.Add("Ammo_9x19", 40, -1);
-		ammo.Add("Ammo_45ACP", 45, -1);
-		ammo.Add("Ammo_22", 30, -1);
-		ammo.Add("Ammo_12gaPellets", 50, -1);
-		ammo.Add("Ammo_762x39", 70, -1);
-		ammo.Add("Ammo_762x54", 80, -1);
-		ammo.Add("Ammo_545x39", 70, -1);
-		ammo.Add("Ammo_556x45", 80, -1);
-		ammo.Add("Ammo_308Win", 80, -1);
-		Categories.Insert(ammo);
+		r = new BC_CategoryRule("Medicina", 60, 10);
+		r.NameContains.Insert("Bandage");
+		r.NameContains.Insert("Morphine");
+		r.NameContains.Insert("Epinephrine");
+		r.NameContains.Insert("Saline");
+		r.NameContains.Insert("BloodBag");
+		r.NameContains.Insert("BloodTest");
+		r.NameContains.Insert("Tetracycline");
+		r.NameContains.Insert("Painkiller");
+		r.NameContains.Insert("Charcoal");
+		r.NameContains.Insert("Vitamin");
+		r.NameContains.Insert("Iodine");
+		r.NameContains.Insert("Disinfectant");
+		r.NameContains.Insert("PurificationTablets");
+		r.NameContains.Insert("Splint");
+		r.NameContains.Insert("Defibrillator");
+		r.NameContains.Insert("Thermometer");
+		r.NameContains.Insert("StartKitIV");
+		r.NameContains.Insert("Syringe");
+		r.NameContains.Insert("Antidote");
+		CategoryRules.Insert(r);
+
+		r = new BC_CategoryRule("Batohy", 200, 30);
+		r.Slots.Insert("Back");
+		CategoryRules.Insert(r);
+
+		r = new BC_CategoryRule("Obleceni", 50, 8);
+		r.BaseClasses.Insert("Clothing_Base");
+		r.BaseClasses.Insert("Clothing");
+		CategoryRules.Insert(r);
+
+		r = new BC_CategoryRule("Jidlo a piti", 30, 5);
+		r.BaseClasses.Insert("Edible_Base");
+		r.BaseClasses.Insert("Bottle_Base");
+		CategoryRules.Insert(r);
+
+		r = new BC_CategoryRule("Dily aut", 150, 25);
+		r.BaseClasses.Insert("CarWheel");
+		r.BaseClasses.Insert("CarDoor");
+		r.NameContains.Insert("CarBattery");
+		r.NameContains.Insert("TruckBattery");
+		r.NameContains.Insert("SparkPlug");
+		r.NameContains.Insert("GlowPlug");
+		r.NameContains.Insert("CarRadiator");
+		r.NameContains.Insert("HeadlightH7");
+		r.NameContains.Insert("Hood");
+		r.NameContains.Insert("Trunk");
+		CategoryRules.Insert(r);
+
+		r = new BC_CategoryRule("Stavba zakladny", 100, 15);
+		r.BaseClasses.Insert("TentBase");
+		r.BaseClasses.Insert("Container_Base");
+		r.NameContains.Insert("Nail");
+		r.NameContains.Insert("Plank");
+		r.NameContains.Insert("WoodenLog");
+		r.NameContains.Insert("MetalPlate");
+		r.NameContains.Insert("MetalWire");
+		r.NameContains.Insert("BarbedWire");
+		r.NameContains.Insert("FenceKit");
+		r.NameContains.Insert("WatchtowerKit");
+		r.NameContains.Insert("TerritoryFlagKit");
+		r.NameContains.Insert("ShelterKit");
+		r.NameContains.Insert("CodeLock");
+		r.NameContains.Insert("CombinationLock");
+		CategoryRules.Insert(r);
+
+		// bez podmínek = všechno ostatní
+		CategoryRules.Insert(new BC_CategoryRule("Nastroje a ostatni", 40, 6));
+
+		// --- ručně nacenené zbraně (zbytek doplní automatika) ---
+		// nákup = 4x výkupní cena, takže koupit a prodat se nevyplatí
+		BC_TraderCategory pistols = GetOrCreateCategory("Pistole");
+		pistols.AddWeapon("MakarovIJ70", 40);
+		pistols.AddWeapon("CZ75", 60);
+		pistols.AddWeapon("Glock19", 70);
+		pistols.AddWeapon("FNX45", 80);
+		pistols.AddWeapon("Colt1911", 70);
+		pistols.AddWeapon("MKII", 40);
+		pistols.AddWeapon("Deagle", 120);
+		pistols.AddWeapon("Magnum", 100);
+
+		BC_TraderCategory guns = GetOrCreateCategory("Zbrane");
+		guns.AddWeapon("Izh18", 60);
+		guns.AddWeapon("Ruger1022", 70);
+		guns.AddWeapon("Izh43Shotgun", 80);
+		guns.AddWeapon("Mp133Shotgun", 100);
+		guns.AddWeapon("CZ527", 150);
+		guns.AddWeapon("Mosin9130", 150);
+		guns.AddWeapon("Winchester70", 180);
+		guns.AddWeapon("SKS", 180);
+		guns.AddWeapon("Repeater", 120);
+		guns.AddWeapon("B95", 160);
+		guns.AddWeapon("Saiga", 250);
+		guns.AddWeapon("Scout", 250);
+		guns.AddWeapon("CZ61", 120);
+		guns.AddWeapon("MP5K", 200);
+		guns.AddWeapon("UMP45", 220);
+		guns.AddWeapon("AKS74U", 280);
+		guns.AddWeapon("AKM", 350);
+		guns.AddWeapon("AK74", 350);
+		guns.AddWeapon("AK101", 380);
+		guns.AddWeapon("M4A1", 400);
+		guns.AddWeapon("M16A2", 380);
+		guns.AddWeapon("FAL", 450);
+		guns.AddWeapon("SVD", 500);
+		guns.AddWeapon("VSS", 500);
 	}
 }

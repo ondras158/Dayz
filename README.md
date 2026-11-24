@@ -23,7 +23,7 @@
 | Safe zóny | V zóně nejde zranit hráče, zombíci se mažou, hláška při vstupu/odchodu | `SafeZones.json` |
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
-| Obchod | Klávesa **B** u obchodníka. **Peníze jen za prodej nalezených zbraní**, za ně se kupuje jídlo, medicína, nářadí, munice | `Trader.json` |
+| Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
 | Autobazar | Klávesa **B** v autocentru: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
@@ -94,13 +94,27 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[Badla
 
 **Výbava** – `"A|B|C"` znamená náhodně jedno z A, B, C. `Weight` = jak často se sada vybírá.
 
-**Obchod** – `Buy`/`Sell` = cena, `-1` = nelze koupit/prodat. Obchodník je jen místo
-(`Traders`: X, Z, Radius) – dej ho do safe zóny a postav tam něco viditelného.
-- Ve výchozím nastavení mají výkupní cenu **jen zbraně** a zbraně **nejdou koupit** – peníze tedy vzniknou
-  jen z nalezených zbraní (nejde koupit a hned prodat). Za zombíky ani hráče peníze nejsou (`ZombieKillReward: 0`).
-- Zbraň musí být **bez zásobníku a příslušenství** a nesmí být zničená. Opotřebovaná zbraň má 50–100 % ceny
-  (`ScaleSellPriceByCondition`).
-- Barevné varianty (např. `M4A1_Black`) se vykupují za cenu základní zbraně (`M4A1`).
+**Obchod** (`Trader.json`)
+- **Automatický katalog:** při každém startu server projde všechny předměty v configu hry
+  (`CfgVehicles`, `CfgWeapons`, `CfgMagazines`, tedy vanilla i všechny nahrané módy) a ty, které v obchodě
+  ještě nejsou, přidá do kategorie podle `CategoryRules`. Přidáš mód s novými věcmi → po restartu jsou v obchodě.
+  Ceny, které už v souboru jsou (i upravené adminem), se nikdy nepřepíšou. Vypnutí: `"AutoAddItems": false`.
+- **Pravidla kategorií** (`CategoryRules`, první shoda vyhrává): podle předka v configu (`BaseClasses`, např.
+  `Weapon_Base`), části názvu (`NameContains`, např. `Bandage`) nebo slotu (`Slots`, např. `Back` = batohy).
+  `DefaultBuy`/`DefaultSell` = cena pro nově přidané věci. Poslední pravidlo bez podmínek bere vše ostatní.
+  `ExcludeContains` = co se nikdy nepřidá (testovací a základní třídy).
+- **Výchozí ceny:** zbraně koupit za 4× výkupní cenu (např. AKM: výkup 350, nákup 1400),
+  ostatní věci se vykupují zhruba za 1/5 nákupní ceny. Koupit a hned prodat se nikdy nevyplatí.
+- **Prodej:** předmět musí být prázdný, bez příslušenství (zbraň bez zásobníku) a nezničený.
+  Opotřebovaný má 50–100 % ceny, načatý (krabička nábojů, jídlo) poměrnou cenu.
+  Barevné varianty se vykupují za cenu základní věci (`M4A1_Black` → `M4A1`).
+- **Úpravy v menu (admin):** admin vidí dole panel:
+  - vybere předmět → upraví *Nákup* / *Výkup* → **Uložit cenu** (`-1` = nejde koupit/prodat, obojí `-1` = předmět
+    se hráčům skryje, admin ho dál vidí s popiskem SKRYTO),
+  - **Násobit** = vynásobí ceny celé vybrané kategorie (např. `1.5` zdraží o 50 %, `0.8` zlevní o 20 %).
+  Změny se hned uloží do `Trader.json` a platí bez restartu.
+- **Hledání:** pole nad seznamem hledá v classname (min. 2 znaky).
+- Obchodník je jen místo (`Traders`: X, Z, Radius) – dej ho do safe zóny a postav tam něco viditelného.
 
 **Auta** (`Vehicles.json`) – `Locations` = místa (autocentra). Každé má `Dealer`/`Service`/`Garage` (true/false),
 kde hráč stojí (`X`, `Z`, `Radius`) a kam se postaví auto (`SpawnX`, `SpawnZ`, `SpawnYaw`).
