@@ -306,6 +306,7 @@ class BC_TraderConfig
 		ExcludeContains.Insert("Dummy");
 		ExcludeContains.Insert("_TEST");
 		ExcludeContains.Insert("Fx");
+		ExcludeContains.Insert("BC_CarKey");   // klíče se nekupují - vydává je autobazar/servis
 
 		// --- pravidla kategorií (pořadí je důležité) ---
 		BC_CategoryRule r;

@@ -137,6 +137,15 @@ class BC_Util
 		return g_Game.ConfigIsExisting("CfgVehicles " + type) || g_Game.ConfigIsExisting("CfgWeapons " + type) || g_Game.ConfigIsExisting("CfgMagazines " + type);
 	}
 
+	//! Vydá hráči klíč s daným kódem (do inventáře, jinak na zem)
+	static BC_CarKey GiveCarKey(PlayerBase player, int keyCode)
+	{
+		BC_CarKey key = BC_CarKey.Cast(GiveItem(player, "BC_CarKey"));
+		if (key)
+			key.BC_SetKeyCode(keyCode);
+		return key;
+	}
+
 	static void Teleport(PlayerBase player, vector pos)
 	{
 		if (player)

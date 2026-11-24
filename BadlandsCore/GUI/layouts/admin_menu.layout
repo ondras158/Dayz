@@ -251,6 +251,18 @@ FrameWidgetClass BC_AdminMenu {
      text "Teleport na X Z"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnUnlockCar {
+     color 0.25 0.22 0.18 1
+     position 380 460
+     size 360 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Odemknout nejblizsi auto"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
      position 380 510

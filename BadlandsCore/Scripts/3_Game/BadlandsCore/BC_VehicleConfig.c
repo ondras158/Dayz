@@ -51,6 +51,10 @@ class BC_VehicleConfig
 	int PartPrice = 40;                // cena za každý doplněný chybějící díl
 	int GarageStoreFee = 20;
 	int GarageMaxVehicles = 3;
+	int ClaimPrice = 500;              // přepsat nalezené auto bez majitele na sebe (dostaneš klíč)
+	int KeyCopyPrice = 100;            // kopie klíče (jen majitel)
+	int ChangeLockPrice = 200;         // nový zámek - staré klíče přestanou fungovat (jen majitel)
+	bool OnlyOwnerCanStore = true;     // auto s majitelem může do garáže uložit jen majitel
 	ref array<ref BC_VehicleLocation> Locations = new array<ref BC_VehicleLocation>;
 	ref array<ref BC_VehicleOffer> Offers = new array<ref BC_VehicleOffer>;
 
@@ -159,6 +163,9 @@ class BC_StoredVehicle
 	float Oil;
 	float Brake;
 	float Coolant;
+	int KeyCode;
+	string OwnerId;
+	bool Locked;
 }
 
 class BC_GarageData

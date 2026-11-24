@@ -27,6 +27,7 @@
 | Autobazar | Klávesa **B** v autocentru: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
 | Garáže | Uložení auta (bez věcí v kufru) a vyzvednutí v libovolné garáži, max. počet aut na hráče | `Vehicles.json` |
+| Vlastnictví a klíče | Koupené auto dostane zámek a klíč. Zamčené auto: nejde nastoupit, otevřít dveře, do kufru ani sundat díly | `Vehicles.json` |
 
 Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **Badlands Core**.
 
@@ -123,7 +124,23 @@ Parkovací místo musí být volné (bez auta v okruhu 5 m).
 Ve výchozím nastavení: Ada, Olga, Sarka, Gunter, M1025, V3S (vanilla auta – pokud má Nasdara vlastní auta,
 přidej jejich classname a díly).
 - Garáž ukládá typ auta, díly, jejich stav a palivo. **Věci v kufru se neukládají** – auto musí být prázdné.
-- Vanilla DayZ nemá vlastnictví aut: uložit může kdokoli jakékoli auto, které stojí u garáže.
+
+**Vlastnictví a klíče**
+- Koupené auto má majitele a zámek, kupující dostane **klíč** (`BC_CarKey`, model klíčků od pout).
+- Zamknutí/odemknutí: klíč do ruky → podívej se na auto → **podrž levé tlačítko**.
+  Zamknout jde jen prázdné auto. Klíč funguje jen ke svému autu (číslo na konci názvu klíče pomáhá rozlišit klíče).
+- Zamčené auto: nejde nastoupit, otevřít dveře zvenku, dívat se do kufru, nic do něj dávat ani sundávat díly.
+  Kdo je uvnitř, může vystoupit.
+- Klíč se dá předat, ztratit nebo ukrást – kdo má klíč, auto odemkne.
+- **Servis:**
+  - *Přepsat auto na sebe* (`ClaimPrice`) – nalezené auto bez majitele → stane se tvým a dostaneš klíč,
+  - *Kopie klíče* (`KeyCopyPrice`) – jen majitel,
+  - *Vyměnit zámek* (`ChangeLockPrice`) – jen majitel, staré klíče přestanou fungovat (při ztrátě/krádeži klíče).
+- **Garáž:** auto s majitelem uloží jen majitel (`OnlyOwnerCanStore`). Zámek zůstává, staré klíče platí dál.
+- **Admin menu:** *Odemknout nejbližší auto* (do 15 m).
+- Auta, která spawnuje hra (CE), majitele nemají a jdou řídit jako ve vanille.
+- Vlastnictví se ukládá přímo do auta (persistence serveru). **Pokud mód ze serveru odebereš,
+  persistence aut se může poškodit** – před odebráním módu udělej zálohu `storage_1`.
 
 ### Souřadnice
 - Interaktivní mapa (např. iZurvive): zobrazuje `X / Y` → v konfigu `X` a `Z`.

@@ -115,8 +115,21 @@ FrameWidgetClass BC_VehicleMenu {
      "text halign" left
      "text valign" center
     }
+    TextWidgetClass CarOwner {
+     position 340 110
+     size 280 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
     TextWidgetClass CarHealth {
-     position 340 112
+     position 340 136
      size 280 26
      hexactpos 1
      vexactpos 1
@@ -129,7 +142,7 @@ FrameWidgetClass BC_VehicleMenu {
      "text valign" center
     }
     TextWidgetClass CarFuel {
-     position 340 140
+     position 340 162
      size 280 26
      hexactpos 1
      vexactpos 1
@@ -143,7 +156,7 @@ FrameWidgetClass BC_VehicleMenu {
     }
     ButtonWidgetClass BtnRepair {
      color 0.25 0.22 0.18 1
-     position 340 180
+     position 340 196
      size 280 40
      hexactpos 1
      vexactpos 1
@@ -155,7 +168,7 @@ FrameWidgetClass BC_VehicleMenu {
     }
     ButtonWidgetClass BtnRefuel {
      color 0.25 0.22 0.18 1
-     position 340 228
+     position 340 240
      size 280 40
      hexactpos 1
      vexactpos 1
@@ -167,7 +180,7 @@ FrameWidgetClass BC_VehicleMenu {
     }
     ButtonWidgetClass BtnParts {
      color 0.25 0.22 0.18 1
-     position 340 276
+     position 340 284
      size 280 40
      hexactpos 1
      vexactpos 1
@@ -177,9 +190,45 @@ FrameWidgetClass BC_VehicleMenu {
      text "Doplnit dily"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnClaim {
+     color 0.25 0.22 0.18 1
+     position 340 328
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Prepsat auto na sebe"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnKeyCopy {
+     color 0.25 0.22 0.18 1
+     position 340 328
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Kopie klice"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnChangeLock {
+     color 0.25 0.22 0.18 1
+     position 340 372
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vymenit zamek"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnStore {
      color 0.25 0.22 0.18 1
-     position 340 344
+     position 340 416
      size 280 40
      hexactpos 1
      vexactpos 1

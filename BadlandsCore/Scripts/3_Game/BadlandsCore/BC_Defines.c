@@ -39,7 +39,8 @@ enum BC_AdminAction
 	TOGGLE_GOD,
 	SPAWN_ITEM,
 	GIVE_MONEY,
-	TELEPORT_COORDS
+	TELEPORT_COORDS,
+	UNLOCK_CAR
 }
 
 enum BC_VehicleAction
@@ -49,5 +50,8 @@ enum BC_VehicleAction
 	REFUEL,
 	PARTS,
 	STORE,
-	RETRIEVE
+	RETRIEVE,
+	CLAIM,
+	KEY_COPY,
+	CHANGE_LOCK
 }

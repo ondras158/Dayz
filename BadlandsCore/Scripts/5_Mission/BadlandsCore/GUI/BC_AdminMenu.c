@@ -14,6 +14,7 @@ class BC_AdminMenu : BC_MenuBase
 	protected ButtonWidget m_BtnSpawn;
 	protected ButtonWidget m_BtnMoney;
 	protected ButtonWidget m_BtnTpCoords;
+	protected ButtonWidget m_BtnUnlockCar;
 	protected ButtonWidget m_BtnRefresh;
 	protected ButtonWidget m_BtnClose;
 	protected EditBoxWidget m_EditItem;
@@ -48,6 +49,7 @@ class BC_AdminMenu : BC_MenuBase
 		m_BtnSpawn = FindButton("BtnSpawn");
 		m_BtnMoney = FindButton("BtnMoney");
 		m_BtnTpCoords = FindButton("BtnTpCoords");
+		m_BtnUnlockCar = FindButton("BtnUnlockCar");
 		m_BtnRefresh = FindButton("BtnRefresh");
 		m_BtnClose = FindButton("BtnClose");
 		m_EditItem = FindEdit("EditItem");
@@ -175,6 +177,11 @@ class BC_AdminMenu : BC_MenuBase
 		if (w == m_BtnTpCoords && m_EditArg)
 		{
 			SendAction(BC_AdminAction.TELEPORT_COORDS, "", m_EditArg.GetText());
+			return true;
+		}
+		if (w == m_BtnUnlockCar)
+		{
+			SendAction(BC_AdminAction.UNLOCK_CAR, "", "");
 			return true;
 		}
 		if (w == m_BtnRefresh)

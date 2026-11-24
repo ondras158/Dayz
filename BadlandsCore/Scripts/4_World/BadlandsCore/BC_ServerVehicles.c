@@ -200,6 +200,12 @@ class BC_ServerVehicles
 			Store(player);
 		else if (action == BC_VehicleAction.RETRIEVE && loc.Garage)
 			Retrieve(player, loc, arg);
+		else if (action == BC_VehicleAction.CLAIM && loc.Service)
+			Claim(player);
+		else if (action == BC_VehicleAction.KEY_COPY && loc.Service)
+			KeyCopy(player);
+		else if (action == BC_VehicleAction.CHANGE_LOCK && loc.Service)
+			ChangeLock(player);
 
 		SendData(player, loc);
 		return true;
@@ -226,11 +232,18 @@ class BC_ServerVehicles
 		int fuelPct = 0;
 		int repairPrice = 0;
 		int refuelPrice = 0;
+		int ownerState = 0;   // 0 = bez majitele, 1 = moje, 2 = cizí
 		if (loc.Service || loc.Garage)
 		{
 			CarScript car = FindCar(player);
 			if (car)
 			{
+				if (car.BC_HasOwner())
+				{
+					ownerState = 2;
+					if (car.BC_GetOwnerId() == steamId)
+						ownerState = 1;
+				}
 				hasCar = true;
 				carClass = car.GetType();
 				healthPct = Math.Round((1 - DamageFraction(car)) * 100);
@@ -269,6 +282,10 @@ class BC_ServerVehicles
 		rpc.Write(m_Cfg.GarageStoreFee);
 		rpc.Write(m_Cfg.GarageMaxVehicles);
 		rpc.Write(stored);
+		rpc.Write(ownerState);
+		rpc.Write(m_Cfg.ClaimPrice);
+		rpc.Write(m_Cfg.KeyCopyPrice);
+		rpc.Write(m_Cfg.ChangeLockPrice);
 		rpc.Send(null, BC_RPC_VEHICLE_DATA, true, player.GetIdentity());
 	}
 
@@ -328,7 +345,11 @@ class BC_ServerVehicles
 		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE));
 		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT));
 
-		BC_Util.Notify(player, "Autobazar", "Auto je pripravene na parkovisti.");
+		int keyCode = CarScript.BC_GenerateKeyCode();
+		car.BC_SetOwnership(keyCode, steamId);
+		BC_Util.GiveCarKey(player, keyCode);
+
+		BC_Util.Notify(player, "Autobazar", "Auto je pripravene na parkovisti. Klic mas v inventari.");
 		Print(BC_TAG + "AUTO " + BC_Util.PlayerName(player) + " koupil " + offer.ClassName + " za " + offer.Price.ToString());
 	}
 
@@ -443,6 +464,87 @@ class BC_ServerVehicles
 		BC_Util.Notify(player, "Servis", "Doplneno dilu: " + created.Count().ToString() + " za " + price.ToString() + " " + m_Currency + ".");
 	}
 
+	// ------------------------------------------------------------ klíče a vlastnictví
+
+	protected void Claim(PlayerBase player)
+	{
+		CarScript car = FindCar(player);
+		if (!car)
+		{
+			BC_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			return;
+		}
+		if (car.BC_HasOwner())
+		{
+			BC_Util.Notify(player, "Servis", "Auto uz ma majitele.");
+			return;
+		}
+
+		string steamId = BC_Util.SteamId(player);
+		if (!m_Wallets.TrySpend(steamId, m_Cfg.ClaimPrice))
+		{
+			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ClaimPrice.ToString() + " " + m_Currency + ").");
+			return;
+		}
+
+		int keyCode = CarScript.BC_GenerateKeyCode();
+		car.BC_SetOwnership(keyCode, steamId);
+		BC_Util.GiveCarKey(player, keyCode);
+		BC_Util.Notify(player, "Servis", "Auto je tvoje. Klic mas v inventari.");
+		Print(BC_TAG + "AUTO " + BC_Util.PlayerName(player) + " prepsal na sebe " + car.GetType());
+	}
+
+	protected CarScript FindOwnCar(PlayerBase player)
+	{
+		CarScript car = FindCar(player);
+		if (!car)
+		{
+			BC_Util.Notify(player, "Servis", "Zadne auto pobliz.");
+			return null;
+		}
+		if (!car.BC_HasOwner() || car.BC_GetOwnerId() != BC_Util.SteamId(player))
+		{
+			BC_Util.Notify(player, "Servis", "Tohle auto ti nepatri.");
+			return null;
+		}
+		return car;
+	}
+
+	protected void KeyCopy(PlayerBase player)
+	{
+		CarScript car = FindOwnCar(player);
+		if (!car)
+			return;
+
+		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), m_Cfg.KeyCopyPrice))
+		{
+			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.KeyCopyPrice.ToString() + " " + m_Currency + ").");
+			return;
+		}
+
+		BC_Util.GiveCarKey(player, car.BC_GetKeyCode());
+		BC_Util.Notify(player, "Servis", "Kopie klice je v inventari.");
+	}
+
+	protected void ChangeLock(PlayerBase player)
+	{
+		CarScript car = FindOwnCar(player);
+		if (!car)
+			return;
+
+		if (!m_Wallets.TrySpend(BC_Util.SteamId(player), m_Cfg.ChangeLockPrice))
+		{
+			BC_Util.Notify(player, "Servis", "Nemas dost penez (" + m_Cfg.ChangeLockPrice.ToString() + " " + m_Currency + ").");
+			return;
+		}
+
+		int keyCode = CarScript.BC_GenerateKeyCode();
+		car.BC_SetOwnership(keyCode, BC_Util.SteamId(player));
+		car.BC_SetLocked(false);
+		BC_Util.GiveCarKey(player, keyCode);
+		BC_Util.Notify(player, "Servis", "Zamek vymenen - stare klice uz nefunguji. Novy klic mas v inventari.");
+	}
+
 	// ------------------------------------------------------------ garáž
 
 	protected string GaragePath(string steamId)
@@ -498,6 +600,12 @@ class BC_ServerVehicles
 		}
 
 		string steamId = BC_Util.SteamId(player);
+		if (m_Cfg.OnlyOwnerCanStore && car.BC_HasOwner() && car.BC_GetOwnerId() != steamId)
+		{
+			BC_Util.Notify(player, "Garaz", "Tohle auto ti nepatri.");
+			return;
+		}
+
 		BC_GarageData garage = LoadGarage(steamId);
 		if (garage.Vehicles.Count() >= m_Cfg.GarageMaxVehicles)
 		{
@@ -537,6 +645,9 @@ class BC_ServerVehicles
 		sv.Oil = car.GetFluidFraction(CarFluid.OIL);
 		sv.Brake = car.GetFluidFraction(CarFluid.BRAKE);
 		sv.Coolant = car.GetFluidFraction(CarFluid.COOLANT);
+		sv.KeyCode = car.BC_GetKeyCode();
+		sv.OwnerId = car.BC_GetOwnerId();
+		sv.Locked = car.BC_IsLocked();
 
 		garage.Vehicles.Insert(sv);
 		if (!SaveGarage(steamId, garage))
@@ -600,6 +711,11 @@ class BC_ServerVehicles
 		car.Fill(CarFluid.OIL, car.GetFluidCapacity(CarFluid.OIL) * sv.Oil);
 		car.Fill(CarFluid.BRAKE, car.GetFluidCapacity(CarFluid.BRAKE) * sv.Brake);
 		car.Fill(CarFluid.COOLANT, car.GetFluidCapacity(CarFluid.COOLANT) * sv.Coolant);
+
+		// auto z garáže patří tomu, kdo ho vyzvedl; staré klíče dál fungují
+		if (sv.KeyCode != 0)
+			car.BC_SetOwnership(sv.KeyCode, steamId);
+		car.BC_SetLocked(false);
 
 		BC_Util.Notify(player, "Garaz", "Auto vyzvednuto - stoji na parkovisti.");
 		Print(BC_TAG + "GARAZ " + BC_Util.PlayerName(player) + " vyzvedl " + sv.ClassName);

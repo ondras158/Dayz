@@ -148,6 +148,10 @@ class BC_ServerAdmin
 		{
 			TeleportToCoords(admin, arg);
 		}
+		else if (action == BC_AdminAction.UNLOCK_CAR)
+		{
+			UnlockNearestCar(admin);
+		}
 	}
 
 	protected void Heal(PlayerBase player)
@@ -194,6 +198,37 @@ class BC_ServerAdmin
 
 		BC_Util.Notify(admin, "Admin", count.ToString() + "x " + type + " -> " + BC_Util.PlayerName(target));
 		Log(admin, "spawn " + count.ToString() + "x " + type + " -> " + BC_Util.PlayerName(target));
+	}
+
+	protected void UnlockNearestCar(PlayerBase admin)
+	{
+		array<Object> objects = new array<Object>;
+		g_Game.GetObjectsAtPosition(admin.GetPosition(), 15, objects, null);
+
+		CarScript best;
+		float bestDist = 999999;
+		foreach (Object obj : objects)
+		{
+			CarScript car = CarScript.Cast(obj);
+			if (!car)
+				continue;
+			float dist = vector.Distance(admin.GetPosition(), car.GetPosition());
+			if (dist < bestDist)
+			{
+				bestDist = dist;
+				best = car;
+			}
+		}
+
+		if (!best)
+		{
+			BC_Util.Notify(admin, "Admin", "Zadne auto do 15 m.");
+			return;
+		}
+
+		best.BC_SetLocked(false);
+		BC_Util.Notify(admin, "Admin", "Auto odemceno (majitel " + best.BC_GetOwnerId() + ").");
+		Log(admin, "odemkl auto " + best.GetType() + " majitele " + best.BC_GetOwnerId());
 	}
 
 	//! arg = "x z" nebo "x y z"

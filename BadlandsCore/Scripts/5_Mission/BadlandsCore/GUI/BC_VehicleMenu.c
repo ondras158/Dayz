@@ -20,6 +20,10 @@ class BC_VehicleMenuData
 	int StoreFee;
 	int GarageMax;
 	ref array<string> Stored = new array<string>;
+	int OwnerState;      // 0 = bez majitele, 1 = moje, 2 = cizí
+	int ClaimPrice;
+	int KeyCopyPrice;
+	int ChangeLockPrice;
 
 	bool Read(ParamsReadContext ctx)
 	{
@@ -34,6 +38,8 @@ class BC_VehicleMenuData
 		if (!ctx.Read(RepairPrice) || !ctx.Read(RefuelPrice) || !ctx.Read(PartPrice))
 			return false;
 		if (!ctx.Read(StoreFee) || !ctx.Read(GarageMax) || !ctx.Read(Stored))
+			return false;
+		if (!ctx.Read(OwnerState) || !ctx.Read(ClaimPrice) || !ctx.Read(KeyCopyPrice) || !ctx.Read(ChangeLockPrice))
 			return false;
 		return true;
 	}
@@ -50,6 +56,10 @@ class BC_VehicleMenu : BC_MenuBase
 	protected TextWidget m_CarName;
 	protected TextWidget m_CarHealth;
 	protected TextWidget m_CarFuel;
+	protected TextWidget m_CarOwner;
+	protected ButtonWidget m_BtnClaim;
+	protected ButtonWidget m_BtnKeyCopy;
+	protected ButtonWidget m_BtnChangeLock;
 	protected ButtonWidget m_BtnBuy;
 	protected ButtonWidget m_BtnRepair;
 	protected ButtonWidget m_BtnRefuel;
@@ -79,6 +89,10 @@ class BC_VehicleMenu : BC_MenuBase
 		m_CarName = FindText("CarName");
 		m_CarHealth = FindText("CarHealth");
 		m_CarFuel = FindText("CarFuel");
+		m_CarOwner = FindText("CarOwner");
+		m_BtnClaim = FindButton("BtnClaim");
+		m_BtnKeyCopy = FindButton("BtnKeyCopy");
+		m_BtnChangeLock = FindButton("BtnChangeLock");
 		m_BtnBuy = FindButton("BtnBuy");
 		m_BtnRepair = FindButton("BtnRepair");
 		m_BtnRefuel = FindButton("BtnRefuel");
@@ -119,6 +133,11 @@ class BC_VehicleMenu : BC_MenuBase
 		ShowWidget("CarName", m_Data.Service || m_Data.Garage);
 		ShowWidget("CarHealth", m_Data.Service || m_Data.Garage);
 		ShowWidget("CarFuel", m_Data.Service || m_Data.Garage);
+		ShowWidget("CarOwner", m_Data.Service || m_Data.Garage);
+		bool hasCar = m_Data.HasCar;
+		ShowWidget("BtnClaim", m_Data.Service && hasCar && m_Data.OwnerState == 0);
+		ShowWidget("BtnKeyCopy", m_Data.Service && hasCar && m_Data.OwnerState == 1);
+		ShowWidget("BtnChangeLock", m_Data.Service && hasCar && m_Data.OwnerState == 1);
 		ShowWidget("BtnRepair", m_Data.Service);
 		ShowWidget("BtnRefuel", m_Data.Service);
 		ShowWidget("BtnParts", m_Data.Service);
@@ -155,12 +174,19 @@ class BC_VehicleMenu : BC_MenuBase
 			SetLabel(m_CarName, "Auto: " + BC_Client.DisplayName(m_Data.CarClass));
 			SetLabel(m_CarHealth, "Stav: " + m_Data.HealthPct.ToString() + " %");
 			SetLabel(m_CarFuel, "Palivo: " + m_Data.FuelPct.ToString() + " %");
+			if (m_Data.OwnerState == 0)
+				SetLabel(m_CarOwner, "Majitel: nikdo");
+			else if (m_Data.OwnerState == 1)
+				SetLabel(m_CarOwner, "Majitel: ty");
+			else
+				SetLabel(m_CarOwner, "Majitel: jiny hrac");
 		}
 		else
 		{
 			SetLabel(m_CarName, "Zadne auto pobliz - prijed s nim blize");
 			SetLabel(m_CarHealth, "");
 			SetLabel(m_CarFuel, "");
+			SetLabel(m_CarOwner, "");
 		}
 
 		if (m_BtnRepair)
@@ -169,6 +195,12 @@ class BC_VehicleMenu : BC_MenuBase
 			m_BtnRefuel.SetText("Natankovat (" + m_Data.RefuelPrice.ToString() + cur + ")");
 		if (m_BtnParts)
 			m_BtnParts.SetText("Doplnit chybejici dily (" + m_Data.PartPrice.ToString() + cur + "/ks)");
+		if (m_BtnClaim)
+			m_BtnClaim.SetText("Prepsat auto na sebe (" + m_Data.ClaimPrice.ToString() + cur + ")");
+		if (m_BtnKeyCopy)
+			m_BtnKeyCopy.SetText("Kopie klice (" + m_Data.KeyCopyPrice.ToString() + cur + ")");
+		if (m_BtnChangeLock)
+			m_BtnChangeLock.SetText("Vymenit zamek (" + m_Data.ChangeLockPrice.ToString() + cur + ")");
 		if (m_BtnStore)
 			m_BtnStore.SetText("Ulozit do garaze (" + m_Data.StoreFee.ToString() + cur + ")");
 		if (m_BtnRetrieve)
@@ -218,6 +250,21 @@ class BC_VehicleMenu : BC_MenuBase
 		if (w == m_BtnParts)
 		{
 			SendAction(BC_VehicleAction.PARTS, 0);
+			return true;
+		}
+		if (w == m_BtnClaim)
+		{
+			SendAction(BC_VehicleAction.CLAIM, 0);
+			return true;
+		}
+		if (w == m_BtnKeyCopy)
+		{
+			SendAction(BC_VehicleAction.KEY_COPY, 0);
+			return true;
+		}
+		if (w == m_BtnChangeLock)
+		{
+			SendAction(BC_VehicleAction.CHANGE_LOCK, 0);
 			return true;
 		}
 		if (w == m_BtnStore)
