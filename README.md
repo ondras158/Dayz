@@ -159,8 +159,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
     zelenina, mléko, maso, sádlo, peří, kůže, konopí) o 20 % lépe (`SellMultiplier: 1.2`), nic neprodává,
   - *Rybar* – `Ryby`: vykupuje ryby (kapr, sumec, makrela, sardinky, treska, pstruh, hořavky, krevety, kaviár, filety)
     a prodává rybářské vybavení (pruty, sítě, pasti na ryby, háčky, návnady, červi). Konzervy zůstávají v Potravinách,
-  - *Lovec* – `Lov` (pasti a oka na zvěř, kostěný a lovecký nůž) a `Zvireci suroviny`
-    (kůže, maso ze zvěře, sádlo, vnitřnosti, peří, kosti),
+  - *Reznik* – `Maso` (maso ze zvěře i z farmy – zvěřina, vepřové, hovězí, kozí, skopové, kuřecí – a sádlo),
+  - *Lovec* – `Lov` (pasti a oka na zvěř, kostěný a lovecký nůž) a `Zvireci suroviny` (kůže, vnitřnosti, peří, kosti),
   - *Autodily* – `Dily aut` (kola, dveře, kapoty, baterie, svíčky, chladiče, světla, díly helikoptér Expansion).
 
   Názvy musí odpovídat kategoriím v `Categories` (včetně těch, které vytvořila automatika). Obchodníka můžeš

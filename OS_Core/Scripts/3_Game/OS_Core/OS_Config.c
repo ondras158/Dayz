@@ -362,6 +362,10 @@ class OS_TraderConfig
 		fisherman.Categories.Insert("Ryby");
 		Traders.Insert(fisherman);
 
+		OS_TraderLocation butcher = new OS_TraderLocation("Priklad - Reznik", 2040, 2040, 10);
+		butcher.Categories.Insert("Maso");
+		Traders.Insert(butcher);
+
 		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
 		hunter.Categories.Insert("Lov");
 		hunter.Categories.Insert("Zvireci suroviny");
@@ -451,11 +455,16 @@ class OS_TraderConfig
 		r.NameContains.Insert("HuntingKnife");
 		CategoryRules.Insert(r);
 
+		// maso ze zvěře i z farmy (rybí filety už zachytilo pravidlo Ryby)
+		r = new OS_CategoryRule("Maso", 35, 10);
+		r.NameContains.Insert("SteakMeat");     // zvěřina, vepřové, hovězí, kozí, skopové...
+		r.NameContains.Insert("BreastMeat");    // kuřecí
+		r.NameContains.Insert("Meat");          // maso z módů
+		r.NameContains.Insert("Lard");          // sádlo
+		CategoryRules.Insert(r);
+
 		r = new OS_CategoryRule("Zvireci suroviny", 40, 12);
 		r.NameContains.Insert("Pelt");          // kůže
-		r.NameContains.Insert("SteakMeat");     // maso ze zvěře
-		r.NameContains.Insert("BreastMeat");
-		r.NameContains.Insert("Lard");          // sádlo
 		r.NameContains.Insert("Guts");          // vnitřnosti
 		r.NameContains.Insert("Feather");       // peří
 		r.NameContains.Insert("Bone");          // kosti
