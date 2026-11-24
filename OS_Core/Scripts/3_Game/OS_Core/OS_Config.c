@@ -303,6 +303,7 @@ class OS_TraderConfig
 		gunsmith.Categories.Insert("Munice");
 		gunsmith.Categories.Insert("Zasobniky");
 		gunsmith.Categories.Insert("Prislusenstvi zbrani");
+		gunsmith.Categories.Insert("Vybusniny");
 		Traders.Insert(gunsmith);
 
 		OS_TraderLocation tailor = new OS_TraderLocation("Priklad - Obleceni", 1960, 2000, 10);
@@ -369,6 +370,15 @@ class OS_TraderConfig
 		r.BaseClasses.Insert("ItemSuppressor");
 		r.SlotContains.Insert("weapon");
 		r.SlotContains.Insert("pistol");
+		CategoryRules.Insert(r);
+
+		// granáty a výbušniny (náboje do granátometu zůstávají v Munice - pravidlo Munice je výš)
+		r = new OS_CategoryRule("Vybusniny", 300, 50);
+		r.NameContains.Insert("Grenade");       // M67, RGD5, záblesková, kouřové
+		r.NameContains.Insert("Explosive");     // plastická a improvizovaná výbušnina
+		r.NameContains.Insert("ClaymoreMine");
+		r.NameContains.Insert("LandMine");
+		r.NameContains.Insert("Detonator");     // dálkový ovladač
 		CategoryRules.Insert(r);
 
 		// lov a zvířata - musí být před medicínou a jídlem (maso je jídlo, kosti/peří by jinak spadly do ostatních)

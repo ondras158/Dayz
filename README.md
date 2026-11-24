@@ -133,7 +133,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
 - **Specializovaní obchodníci:** každý obchodník v `Traders` má `Categories` = seznam kategorií, které prodává
   **i vykupuje** (prázdné = všechno). Výchozí:
   - *Trziste* – všechno,
-  - *Zbrojir* – `Pistole`, `Zbrane`, `Munice`, `Zasobniky`, `Prislusenstvi zbrani`,
+  - *Zbrojir* – `Pistole`, `Zbrane`, `Munice`, `Zasobniky`, `Prislusenstvi zbrani`, `Vybusniny` (granáty, kouřové a
+    zábleskové granáty, plastická a improvizovaná výbušnina, Claymore, nášlapná mina, dálkový ovladač),
   - *Obleceni* – `Obleceni`, `Batohy`,
   - *Potraviny* – `Jidlo a piti`,
   - *Lekarna* – `Medicina`,
