@@ -107,6 +107,7 @@ class OS_Server
 		m_Spawns.OnTick();
 		m_SafeZones.OnTick(players, delta);
 		m_Messages.OnTick(delta);
+		m_Groups.OnTick(delta);
 	}
 
 	// ------------------------------------------------------------ události z entit

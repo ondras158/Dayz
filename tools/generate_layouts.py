@@ -225,6 +225,35 @@ LAYOUTS = {
     ]),
 }
 
+# jmenovka nad hlavou spoluhráče (bez okna, pozici nastavuje skript v pixelech)
+NAMETAG = """FrameWidgetClass OS_NameTag {
+ ignorepointer 1
+ position 0 0
+ size 300 40
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  TextWidgetClass Text {
+   ignorepointer 1
+   color 0.55 0.85 1 1
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   text ""
+   font "gui/fonts/metron"
+   "text halign" center
+   "text valign" center
+  }
+ }
+}
+"""
+LAYOUTS["nametag.layout"] = NAMETAG
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for name, content in LAYOUTS.items():

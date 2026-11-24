@@ -14,6 +14,13 @@ class OS_GroupConfig
 	int InviteValidSeconds = 300;
 	int MinNameLength = 3;
 	int MaxNameLength = 24;
+
+	// spoluhráči na mapě a jména nad hlavou
+	bool ShowMapMarkers = true;
+	bool ShowNameTags = true;
+	float NameTagMaxDistance = 1000;   // jména dál než tohle (m) se nezobrazí
+	bool NameTagShowDistance = true;   // u jména ukázat i vzdálenost
+	float PositionUpdateSeconds = 3;
 }
 
 class OS_GroupMember

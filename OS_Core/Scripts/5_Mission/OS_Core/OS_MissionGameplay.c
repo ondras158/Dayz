@@ -10,6 +10,9 @@ modded class MissionGameplay
 	{
 		super.OnUpdate(timeslice);
 
+		if (OS_Client.Get())
+			OS_Client.Get().OnFrame();
+
 		// klávesy jen když není otevřené žádné jiné menu (inventář, chat...)
 		if (g_Game.GetUIManager().GetMenu() || !g_Game.GetPlayer())
 			return;

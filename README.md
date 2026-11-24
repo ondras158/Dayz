@@ -216,6 +216,15 @@ přidej jejich classname a díly).
   `MembersCanWithdraw: false` = vybírat smí jen vedoucí. Při rozpuštění nebo odchodu posledního člena
   jde zůstatek na jeho osobní účet. Všechny vklady a výběry se zapisují do logu.
 
+**Spoluhráči na mapě a jména nad hlavou** (nastavení v `Groups.json`)
+- Server každé `PositionUpdateSeconds` (3 s) pošle členům skupiny polohy ostatních online členů.
+- **Mapa** (`ShowMapMarkers`): spoluhráči jsou na mapě jako modré značky se jménem, i na druhém konci mapy.
+  Vlastní značky z mapy zůstávají.
+- **Jména nad hlavou** (`ShowNameTags`): jméno + vzdálenost (`NameTagShowDistance`) do `NameTagMaxDistance` (1000 m).
+  Blízký spoluhráč – jméno přesně nad hlavou a hýbe se s ním. Vzdálený (mimo dosah sítě) – jméno v jeho poslední
+  známé poloze. Daleko = průhlednější. Při otevřeném inventáři/mapě se jména skryjí.
+- Vidí to jen členové stejné skupiny. Po odchodu ze skupiny značky zmizí.
+
 **Vlastnictví a klíče**
 - Koupené auto má majitele a zámek, kupující dostane **klíč** (`OS_CarKey`, model klíčků od pout).
 - Zamknutí/odemknutí: klíč do ruky → podívej se na auto → **podrž levé tlačítko**.

@@ -36,6 +36,7 @@ const int OS_RPC_SETTINGS       = 784512050; // server -> klient: nastavení (m�
 const int OS_RPC_GROUP_OPEN     = 784512060; // klient -> server: chci menu skupiny
 const int OS_RPC_GROUP_DATA     = 784512061; // server -> klient: stav skupiny
 const int OS_RPC_GROUP_ACTION   = 784512062; // klient -> server: akce ve skupině
+const int OS_RPC_GROUP_POSITIONS = 784512063; // server -> klient: polohy spoluhráčů (mapa, jmenovky)
 
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LAST  = 784512099;

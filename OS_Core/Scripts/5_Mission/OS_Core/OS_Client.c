@@ -10,6 +10,7 @@ class OS_Client
 	protected ref OS_VehicleMenu m_VehicleMenu;
 	protected ref OS_AtmMenu m_AtmMenu;
 	protected ref OS_GroupMenu m_GroupMenu;
+	protected ref OS_NameTags m_NameTags = new OS_NameTags();
 
 	static OS_Client Get()
 	{
@@ -27,8 +28,16 @@ class OS_Client
 		DayZGame.Event_OnRPC.Insert(OnRPC);
 	}
 
+	//! každý snímek z MissionGameplay
+	void OnFrame()
+	{
+		m_NameTags.Update();
+	}
+
 	void ~OS_Client()
 	{
+		if (m_NameTags)
+			m_NameTags.Destroy();
 		DayZGame.Event_OnRPC.Remove(OnRPC);
 	}
 
@@ -98,6 +107,9 @@ class OS_Client
 				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);
+				break;
+			case OS_RPC_GROUP_POSITIONS:
+				OS_ClientGroup.Read(ctx);
 				break;
 		}
 	}

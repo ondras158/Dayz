@@ -18,6 +18,7 @@ class OS_ServerGroups
 	protected string m_Currency;
 
 	protected static const string DATA_FILE = "GroupsData.json";
+	protected float m_PositionTimer;
 
 	void OS_ServerGroups(OS_Payments payments, OS_Wallets wallets, string currency)
 	{
@@ -330,6 +331,7 @@ class OS_ServerGroups
 
 		group.Members.Remove(index);
 		m_PlayerGroup.Remove(memberId);
+		ClearPositions(memberId);
 
 		if (group.Members.Count() == 0)
 		{
@@ -405,10 +407,100 @@ class OS_ServerGroups
 		foreach (OS_GroupMember member : group.Members)
 		{
 			m_PlayerGroup.Remove(member.Id);
+			ClearPositions(member.Id);
 		}
 		Print(OS_TAG + "SKUPINA " + group.Name + " rozpustena (" + OS_Util.PlayerName(player) + ")");
 		m_Data.Groups.RemoveItem(group);
 		SaveData();
+	}
+
+	// ------------------------------------------------------------ polohy spoluhráčů
+
+	void OnTick(float deltaTime)
+	{
+		if (!m_Cfg.Enabled || (!m_Cfg.ShowMapMarkers && !m_Cfg.ShowNameTags))
+			return;
+
+		m_PositionTimer += deltaTime;
+		if (m_PositionTimer < m_Cfg.PositionUpdateSeconds)
+			return;
+		m_PositionTimer = 0;
+
+		foreach (OS_Group group : m_Data.Groups)
+		{
+			if (!group || group.Members.Count() < 2)
+				continue;
+
+			// online členové skupiny
+			array<PlayerBase> online = new array<PlayerBase>;
+			foreach (OS_GroupMember member : group.Members)
+			{
+				PlayerBase p = OS_Util.FindPlayerBySteamId(member.Id);
+				if (p && p.IsAlive())
+					online.Insert(p);
+			}
+			if (online.Count() < 2)
+				continue;
+
+			foreach (PlayerBase recipient : online)
+			{
+				SendPositions(recipient, online);
+			}
+		}
+	}
+
+	//! pošle hráči polohy ostatních online členů (bez něj samotného)
+	protected void SendPositions(PlayerBase recipient, array<PlayerBase> members)
+	{
+		if (!recipient.GetIdentity())
+			return;
+
+		array<string> names = new array<string>;
+		array<float> posX = new array<float>;
+		array<float> posY = new array<float>;
+		array<float> posZ = new array<float>;
+		array<int> netLow = new array<int>;
+		array<int> netHigh = new array<int>;
+
+		if (members)
+		{
+			foreach (PlayerBase other : members)
+			{
+				if (other == recipient)
+					continue;
+				int low;
+				int high;
+				other.GetNetworkID(low, high);
+				names.Insert(OS_Util.PlayerName(other));
+				vector pos = other.GetPosition();
+				posX.Insert(pos[0]);
+				posY.Insert(pos[1]);
+				posZ.Insert(pos[2]);
+				netLow.Insert(low);
+				netHigh.Insert(high);
+			}
+		}
+
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(m_Cfg.ShowMapMarkers);
+		rpc.Write(m_Cfg.ShowNameTags);
+		rpc.Write(m_Cfg.NameTagMaxDistance);
+		rpc.Write(m_Cfg.NameTagShowDistance);
+		rpc.Write(names);
+		rpc.Write(posX);
+		rpc.Write(posY);
+		rpc.Write(posZ);
+		rpc.Write(netLow);
+		rpc.Write(netHigh);
+		rpc.Send(null, OS_RPC_GROUP_POSITIONS, true, recipient.GetIdentity());
+	}
+
+	//! vymaže hráči značky (po odchodu ze skupiny)
+	protected void ClearPositions(string steamId)
+	{
+		PlayerBase player = OS_Util.FindPlayerBySteamId(steamId);
+		if (player)
+			SendPositions(player, null);
 	}
 
 	// ------------------------------------------------------------ data pro klienta
