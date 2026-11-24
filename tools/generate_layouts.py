@@ -166,6 +166,7 @@ LAYOUTS = {
         button("BtnParts", 340, 284, 280, 40, "Doplnit dily"),
         button("BtnClaim", 340, 328, 280, 40, "Prepsat auto na sebe"),
         button("BtnStore", 340, 400, 280, 40, "Ulozit do garaze"),
+        button("BtnSetSpawn", 340, 452, 280, 40, "Nastavit misto spawnu"),
         button("BtnClose", 340, 504, 280, 40, "Zavrit"),
         text("GarageLabel", 640, 56, 300, 24, "Garaz"),
         listbox("GarageList", 640, 84, 300, 410),
@@ -251,6 +252,68 @@ NAMETAG = """FrameWidgetClass OS_NameTag {
 }
 """
 LAYOUTS["nametag.layout"] = NAMETAG
+
+# plátno pro obdélník místa spawnu + nápověda (přes celou obrazovku, nepřebírá myš)
+PLACER = """FrameWidgetClass OS_Placer {
+ ignorepointer 1
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  CanvasWidgetClass Canvas {
+   ignorepointer 1
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+  }
+  PanelWidgetClass HintBg {
+   ignorepointer 1
+   color 0 0 0 0.6
+   position 0 40
+   size 1100 40
+   halign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+  }
+  TextWidgetClass Hint {
+   ignorepointer 1
+   color 0.6 1 0.65 1
+   position 0 40
+   size 1100 40
+   halign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   text ""
+   font "gui/fonts/metron"
+   "text halign" center
+   "text valign" center
+  }
+ }
+}
+"""
+LAYOUTS["placer.layout"] = PLACER
+
+LAYOUTS["pgarage_menu.layout"] = layout("OS_PersonalGarageMenu", 560, 330, [
+    text("Title", 20, 12, 520, 36, "Osobni garaz", "gui/fonts/metron28", "center"),
+    text("Info", 20, 58, 520, 26, "", align="center"),
+    text("Info2", 20, 86, 520, 26, "", align="center"),
+    button("BtnBuild", 20, 124, 520, 40, "Postavit garaz zde"),
+    button("BtnSetSpawn", 20, 124, 520, 40, "Nastavit misto pro vozidlo"),
+    button("BtnRemove", 20, 172, 520, 40, "Zrusit garaz"),
+    button("BtnClose", 20, 240, 520, 40, "Zavrit"),
+    text("Status", 20, 290, 520, 26, "", align="center"),
+])
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)

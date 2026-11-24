@@ -5,11 +5,17 @@
 			<input name="UAOSTraderMenu" loc="Obchod (OS)" />
 			<input name="UAOSAdminMenu" loc="Admin menu (OS)" />
 			<input name="UAOSGroupMenu" loc="Skupina (OS)" />
+			<input name="UAOSGarageMenu" loc="Osobni garaz (OS)" />
+			<input name="UAOSPlaceConfirm" loc="Ulozit misto vozidla (OS)" />
+			<input name="UAOSPlaceCancel" loc="Zrusit nastaveni mista (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
 			<input name="UAOSAdminMenu" />
 			<input name="UAOSGroupMenu" />
+			<input name="UAOSGarageMenu" />
+			<input name="UAOSPlaceConfirm" />
+			<input name="UAOSPlaceCancel" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -21,6 +27,15 @@
 		</input>
 		<input name="UAOSGroupMenu">
 			<btn name="kJ" />
+		</input>
+		<input name="UAOSGarageMenu">
+			<btn name="kK" />
+		</input>
+		<input name="UAOSPlaceConfirm">
+			<btn name="kY" />
+		</input>
+		<input name="UAOSPlaceCancel">
+			<btn name="kN" />
 		</input>
 	</preset>
 </modded_inputs>

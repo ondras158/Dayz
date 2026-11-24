@@ -5,11 +5,16 @@ class OS_ServerVehicles
 	ref OS_VehicleConfig m_Cfg;
 	protected OS_Payments m_Payments;
 	protected OS_ServerGroups m_Groups;
+	protected OS_ServerAdmin m_Admin;
 	protected string m_Currency;
+	protected ref OS_PersonalGaragesData m_Personal;
 
-	void OS_ServerVehicles(OS_Payments payments, string currency, OS_ServerGroups groups)
+	protected static const string PERSONAL_FILE = "PersonalGarages.json";
+
+	void OS_ServerVehicles(OS_Payments payments, string currency, OS_ServerGroups groups, OS_ServerAdmin admin)
 	{
 		m_Groups = groups;
+		m_Admin = admin;
 		m_Payments = payments;
 		m_Currency = currency;
 
@@ -18,6 +23,232 @@ class OS_ServerVehicles
 		m_Cfg = OS_ConfigFile<OS_VehicleConfig>.Load("Vehicles.json", defaults, new OS_VehicleConfig());
 
 		MakeDirectory(OS_DIR + "Garages");
+		LoadPersonal();
+	}
+
+	protected void SaveConfig()
+	{
+		string err;
+		if (!JsonFileLoader<OS_VehicleConfig>.SaveFile(OS_DIR + "Vehicles.json", m_Cfg, err))
+			Print(OS_TAG + "CHYBA pri ukladani Vehicles.json: " + err);
+	}
+
+	// ------------------------------------------------------------ osobní garáže
+
+	protected void LoadPersonal()
+	{
+		m_Personal = new OS_PersonalGaragesData();
+		string path = OS_DIR + PERSONAL_FILE;
+		string err;
+		if (FileExist(path) && !JsonFileLoader<OS_PersonalGaragesData>.LoadFile(path, m_Personal, err))
+		{
+			Print(OS_TAG + "CHYBA pri nacitani " + path + ": " + err);
+			m_Personal = new OS_PersonalGaragesData();
+		}
+		if (!m_Personal.Garages)
+			m_Personal.Garages = new array<ref OS_PersonalGarage>;
+	}
+
+	protected void SavePersonal()
+	{
+		string err;
+		if (!JsonFileLoader<OS_PersonalGaragesData>.SaveFile(OS_DIR + PERSONAL_FILE, m_Personal, err))
+			Print(OS_TAG + "CHYBA pri ukladani osobnich garazi: " + err);
+	}
+
+	protected OS_PersonalGarage GetPersonal(string steamId)
+	{
+		foreach (OS_PersonalGarage garage : m_Personal.Garages)
+		{
+			if (garage && garage.OwnerId == steamId)
+				return garage;
+		}
+		return null;
+	}
+
+	//! osobní garáž hráče jako dočasné "místo" (jen garáž, žádný prodej ani servis)
+	protected OS_VehicleLocation PersonalLocation(OS_PersonalGarage garage)
+	{
+		OS_VehicleLocation loc = new OS_VehicleLocation("Moje garaz", garage.X, garage.Z);
+		loc.Radius = m_Cfg.PersonalGarageRadius;
+		loc.Garage = true;
+		loc.Personal = true;
+		loc.SpawnX = garage.SpawnX;
+		loc.SpawnZ = garage.SpawnZ;
+		loc.SpawnYaw = garage.SpawnYaw;
+		loc.SpawnClearRadius = 5;
+		return loc;
+	}
+
+	//! klientovi poloha jeho garáže (mapa, menu K)
+	void SendPersonalGarage(PlayerBase player)
+	{
+		if (!player || !player.GetIdentity())
+			return;
+
+		OS_PersonalGarage garage = GetPersonal(OS_Util.SteamId(player));
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(m_Cfg.PersonalGarages);
+		rpc.Write(m_Cfg.PersonalGarageBuildPrice);
+		rpc.Write(m_Currency);
+		bool hasGarage = garage != null;
+		rpc.Write(hasGarage);
+		float gx = 0;
+		float gz = 0;
+		if (garage)
+		{
+			gx = garage.X;
+			gz = garage.Z;
+		}
+		rpc.Write(gx);
+		rpc.Write(gz);
+		rpc.Write(m_Cfg.PersonalGarageRadius);
+		rpc.Send(null, OS_RPC_PGARAGE_DATA, true, player.GetIdentity());
+	}
+
+	protected bool TooCloseToOtherGarage(vector pos, string exceptOwner)
+	{
+		foreach (OS_PersonalGarage other : m_Personal.Garages)
+		{
+			if (other && other.OwnerId != exceptOwner && OS_Util.Distance2D(pos, other.X, other.Z) < m_Cfg.PersonalGarageMinDistance)
+				return true;
+		}
+		foreach (OS_VehicleLocation loc : m_Cfg.Locations)
+		{
+			if (loc && OS_Util.Distance2D(pos, loc.X, loc.Z) < m_Cfg.PersonalGarageMinDistance + loc.Radius)
+				return true;
+		}
+		return false;
+	}
+
+	protected void HandlePersonalAction(PlayerBase player, int action)
+	{
+		string steamId = OS_Util.SteamId(player);
+		OS_PersonalGarage garage = GetPersonal(steamId);
+
+		if (action == OS_PersonalGarageAction.BUILD)
+		{
+			if (!m_Cfg.PersonalGarages)
+				return;
+			if (garage)
+			{
+				OS_Util.Notify(player, "Garaz", "Uz mas osobni garaz. Nejdriv ji zrus.");
+				return;
+			}
+			if (TooCloseToOtherGarage(player.GetPosition(), steamId))
+			{
+				OS_Util.Notify(player, "Garaz", "Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.");
+				return;
+			}
+			if (!m_Payments.TrySpend(player, m_Cfg.PersonalGarageBuildPrice))
+			{
+				OS_Util.Notify(player, "Garaz", "Stavba stoji " + m_Cfg.PersonalGarageBuildPrice.ToString() + " " + m_Currency + ".");
+				return;
+			}
+
+			// místo pro vozidlo: 8 m před hráčem, ve směru pohledu (hráč si ho pak upraví)
+			vector dir = player.GetDirection();
+			dir[1] = 0;
+			dir.Normalize();
+			vector playerPos = player.GetPosition();
+			vector spawn = playerPos + dir * 8;
+			vector angles = dir.VectorToAngles();
+
+			garage = new OS_PersonalGarage();
+			garage.OwnerId = steamId;
+			garage.X = playerPos[0];
+			garage.Z = playerPos[2];
+			garage.SpawnX = spawn[0];
+			garage.SpawnZ = spawn[2];
+			garage.SpawnYaw = angles[0];
+			m_Personal.Garages.Insert(garage);
+			SavePersonal();
+
+			OS_Util.Notify(player, "Garaz", "Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).");
+			Print(OS_TAG + "GARAZ " + OS_Util.PlayerName(player) + " postavil osobni garaz na " + garage.X.ToString() + " " + garage.Z.ToString());
+		}
+		else if (action == OS_PersonalGarageAction.REMOVE)
+		{
+			if (!garage)
+				return;
+			m_Personal.Garages.RemoveItem(garage);
+			SavePersonal();
+			OS_Util.Notify(player, "Garaz", "Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).");
+		}
+	}
+
+	// ------------------------------------------------------------ místo spawnu
+
+	protected void HandleSetSpawn(PlayerBase player, ParamsReadContext ctx)
+	{
+		int target;
+		float x;
+		float z;
+		float yaw;
+		if (!ctx.Read(target) || !ctx.Read(x) || !ctx.Read(z) || !ctx.Read(yaw))
+			return;
+
+		vector pos = Vector(x, 0, z);
+
+		if (target == OS_SpawnTarget.PERSONAL_GARAGE)
+		{
+			OS_PersonalGarage garage = GetPersonal(OS_Util.SteamId(player));
+			if (!garage)
+			{
+				OS_Util.Notify(player, "Garaz", "Nemas osobni garaz.");
+				return;
+			}
+			if (OS_Util.Distance2D(pos, garage.X, garage.Z) > m_Cfg.PersonalSpawnMaxDistance)
+			{
+				OS_Util.Notify(player, "Garaz", "Misto je moc daleko od garaze (max " + m_Cfg.PersonalSpawnMaxDistance.ToString() + " m).");
+				return;
+			}
+			garage.SpawnX = x;
+			garage.SpawnZ = z;
+			garage.SpawnYaw = yaw;
+			SavePersonal();
+			OS_Util.Notify(player, "Garaz", "Misto pro vozidlo ulozeno.");
+			return;
+		}
+
+		// místo z Vehicles.json - jen admin
+		if (!m_Admin || !m_Admin.IsAdmin(player.GetIdentity()))
+		{
+			OS_Util.Notify(player, "Auta", "Misto spawnu tady nastavuje jen admin.");
+			return;
+		}
+
+		OS_VehicleLocation loc = NearestConfigLocation(pos);
+		if (!loc)
+		{
+			OS_Util.Notify(player, "Auta", "Zadne autocentrum, heliport, pristav ani verejna garaz pobliz (max " + m_Cfg.AdminSpawnMaxDistance.ToString() + " m).");
+			return;
+		}
+
+		loc.SpawnX = x;
+		loc.SpawnZ = z;
+		loc.SpawnYaw = yaw;
+		SaveConfig();
+		OS_Util.Notify(player, "Auta", "Misto spawnu ulozeno: " + loc.Name);
+		Print(OS_TAG + "ADMIN " + OS_Util.PlayerName(player) + " nastavil spawn " + loc.Name + " na " + x.ToString() + " " + z.ToString() + " (" + yaw.ToString() + ")");
+	}
+
+	protected OS_VehicleLocation NearestConfigLocation(vector pos)
+	{
+		OS_VehicleLocation best;
+		float bestDist = m_Cfg.AdminSpawnMaxDistance;
+		foreach (OS_VehicleLocation loc : m_Cfg.Locations)
+		{
+			if (!loc)
+				continue;
+			float dist = OS_Util.Distance2D(pos, loc.X, loc.Z);
+			if (dist <= bestDist)
+			{
+				bestDist = dist;
+				best = loc;
+			}
+		}
+		return best;
 	}
 
 	// ------------------------------------------------------------ hledání
@@ -31,6 +262,14 @@ class OS_ServerVehicles
 		{
 			if (loc && OS_Util.Distance2D(player.GetPosition(), loc.X, loc.Z) <= loc.Radius)
 				return loc;
+		}
+
+		// vlastní osobní garáž
+		if (m_Cfg.PersonalGarages)
+		{
+			OS_PersonalGarage garage = GetPersonal(OS_Util.SteamId(player));
+			if (garage && OS_Util.Distance2D(player.GetPosition(), garage.X, garage.Z) <= m_Cfg.PersonalGarageRadius)
+				return PersonalLocation(garage);
 		}
 		return null;
 	}
@@ -234,12 +473,26 @@ class OS_ServerVehicles
 
 	bool OnRPC(PlayerIdentity sender, int rpcType, ParamsReadContext ctx)
 	{
-		if (rpcType != OS_RPC_VEHICLE_ACTION)
+		if (rpcType != OS_RPC_VEHICLE_ACTION && rpcType != OS_RPC_VEHICLE_SET_SPAWN && rpcType != OS_RPC_PGARAGE_OPEN && rpcType != OS_RPC_PGARAGE_ACTION)
 			return false;
 
 		PlayerBase player = OS_Util.FindPlayer(sender);
 		if (!player || !player.IsAlive())
 			return true;
+
+		if (rpcType == OS_RPC_VEHICLE_SET_SPAWN)
+		{
+			HandleSetSpawn(player, ctx);
+			return true;
+		}
+		if (rpcType == OS_RPC_PGARAGE_OPEN || rpcType == OS_RPC_PGARAGE_ACTION)
+		{
+			int garageAction;
+			if (rpcType == OS_RPC_PGARAGE_ACTION && ctx.Read(garageAction))
+				HandlePersonalAction(player, garageAction);
+			SendPersonalGarage(player);
+			return true;
+		}
 
 		OS_VehicleLocation loc = NearLocation(player);
 		if (!loc)
@@ -367,6 +620,17 @@ class OS_ServerVehicles
 		rpc.Write(ownerState);
 		rpc.Write(m_Cfg.ClaimPrice);
 		rpc.Write(storedGroup);
+
+		// nastavení místa spawnu: admin u míst z konfigu, hráč u své garáže
+		bool isAdmin = m_Admin && m_Admin.IsAdmin(player.GetIdentity());
+		rpc.Write(loc.Personal);
+		rpc.Write(isAdmin && !loc.Personal && (loc.Dealer || loc.Garage));
+		rpc.Write(loc.X);
+		rpc.Write(loc.Z);
+		rpc.Write(loc.SpawnX);
+		rpc.Write(loc.SpawnZ);
+		rpc.Write(loc.SpawnYaw);
+		rpc.Write(loc.SpawnOnWater);
 		rpc.Send(null, OS_RPC_VEHICLE_DATA, true, player.GetIdentity());
 	}
 

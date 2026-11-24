@@ -237,6 +237,25 @@ přidej jejich classname a díly).
   známé poloze. Daleko = průhlednější. Při otevřeném inventáři/mapě se jména skryjí.
 - Vidí to jen členové stejné skupiny. Po odchodu ze skupiny značky zmizí.
 
+**Místo spawnu vozidel – nastavení ve hře**
+- U autocentra, heliportu, přístavu a veřejné garáže má **admin** v menu (klávesa B) tlačítko
+  *ADMIN: nastavit místo spawnu*. Hráčům se nezobrazí.
+- Po kliknutí se menu zavře a na zemi se ukáže **zelený obdélník ve velikosti vozidla** (auto, motorka, loď,
+  helikoptéra) se šipkou ve směru jízdy. Obdélník je vždy před tebou – postav se a otoč, jak má vozidlo stát.
+  **Žlutý** obdélník = dosavadní místo.
+- **Y** = uložit, **N** = zrušit (klávesy jdou změnit v nastavení ovládání, sekce OS Core).
+  Uloží se do `Vehicles.json` (`SpawnX`, `SpawnZ`, `SpawnYaw`) a platí hned, bez restartu.
+
+**Veřejné a osobní garáže**
+- **Veřejné garáže** = místa v `Vehicles.json` s `"Garage": true`. Může je použít kdokoli (každý vidí jen svoje
+  auta a auta své skupiny). Místo spawnu nastavuje admin.
+- **Osobní garáž** (`PersonalGarages: true`): menu klávesa **K** → *Postavit garáž zde* (`PersonalGarageBuildPrice`,
+  každý hráč max. jednu). Používá ji jen majitel – u ní klávesa **B** = uložit / vyzvednout vozidlo.
+  Místo pro vozidlo si hráč nastaví sám (stejný obdélník, max. `PersonalSpawnMaxDistance` m od garáže)
+  v menu K nebo v menu garáže. Garáž je na mapě jako žlutá značka „Moje garáž“.
+- Garáž nejde postavit blíž než `PersonalGarageMinDistance` k jiné garáži nebo obchodu.
+- *Zrušit garáž* – uložená vozidla zůstanou, vyzvedneš je v jakékoli garáži. Data: `PersonalGarages.json`.
+
 **Bez zranění ve skupině** (`Groups.json` → `FriendlyFire: false`, výchozí)
 - Členové stejné skupiny si navzájem neublíží střelbou, noži ani pěstmi – zásah se vůbec neprovede (ani krvácení).
 - Výbuchy (granáty, miny) a přejetí autem se nepočítají jako útok hráče a zraňují dál.

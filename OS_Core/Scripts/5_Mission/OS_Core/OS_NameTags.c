@@ -135,7 +135,10 @@ modded class MapMenu
 		m_OS_MarkerTimer = 0;
 
 		int count = OS_ClientGroup.Count();
-		if (!OS_ClientGroup.ShowMapMarkers || (count == 0 && !m_OS_HasMarkers))
+		if (!OS_ClientGroup.ShowMapMarkers)
+			count = 0;
+		bool garage = OS_ClientSettings.HasPersonalGarage;
+		if (count == 0 && !garage && !m_OS_HasMarkers)
 			return;
 
 		// obnovit značky: vlastní značky z mapy + spoluhráči
@@ -148,6 +151,12 @@ modded class MapMenu
 		{
 			m_MapWidgetInstance.AddUserMark(OS_ClientGroup.GetPosition(i), OS_ClientGroup.Names[i], color, "\\DZ\\gear\\navigation\\data\\map_viewpoint_ca.paa");
 		}
-		m_OS_HasMarkers = count > 0;
+		if (garage)
+		{
+			vector gp = OS_ClientSettings.PersonalGaragePos;
+			gp[1] = g_Game.SurfaceY(gp[0], gp[2]);
+			m_MapWidgetInstance.AddUserMark(gp, "Moje garaz", ARGB(255, 255, 190, 40), "\\DZ\\gear\\navigation\\data\\map_station_ca.paa");
+		}
+		m_OS_HasMarkers = count > 0 || garage;
 	}
 }

@@ -11,6 +11,9 @@ class OS_Client
 	protected ref OS_AtmMenu m_AtmMenu;
 	protected ref OS_GroupMenu m_GroupMenu;
 	protected ref OS_NameTags m_NameTags = new OS_NameTags();
+	protected ref OS_SpawnPlacer m_Placer = new OS_SpawnPlacer();
+	protected ref OS_PersonalGarageMenu m_PGarageMenu;
+	protected bool m_WantGarageMenu;
 
 	static OS_Client Get()
 	{
@@ -32,12 +35,27 @@ class OS_Client
 	void OnFrame()
 	{
 		m_NameTags.Update();
+		m_Placer.Update();
+	}
+
+	//! nástroj na nastavení místa spawnu vozidla
+	void StartPlacer(int target, string category, bool onWater, bool hasCurrent, vector currentPos, float currentYaw)
+	{
+		m_Placer.Start(target, category, onWater, hasCurrent, currentPos, currentYaw);
+	}
+
+	void RequestPersonalGarage()
+	{
+		m_WantGarageMenu = true;
+		SendToServer(OS_RPC_PGARAGE_OPEN);
 	}
 
 	void ~OS_Client()
 	{
 		if (m_NameTags)
 			m_NameTags.Destroy();
+		if (m_Placer)
+			m_Placer.Destroy();
 		DayZGame.Event_OnRPC.Remove(OnRPC);
 	}
 
@@ -113,6 +131,9 @@ class OS_Client
 				break;
 			case OS_RPC_GROUP_ID:
 				OnGroupId(ctx);
+				break;
+			case OS_RPC_PGARAGE_DATA:
+				OnPersonalGarage(ctx);
 				break;
 		}
 	}
@@ -240,6 +261,36 @@ class OS_Client
 		m_GroupMenu = new OS_GroupMenu();
 		m_GroupMenu.SetData(data);
 		Show(m_GroupMenu);
+	}
+
+	protected void OnPersonalGarage(ParamsReadContext ctx)
+	{
+		bool enabled;
+		int price;
+		string currency;
+		bool hasGarage;
+		float gx;
+		float gz;
+		float radius;
+		if (!ctx.Read(enabled) || !ctx.Read(price) || !ctx.Read(currency) || !ctx.Read(hasGarage) || !ctx.Read(gx) || !ctx.Read(gz) || !ctx.Read(radius))
+			return;
+
+		vector pos = Vector(gx, 0, gz);
+		OS_ClientSettings.HasPersonalGarage = hasGarage;
+		OS_ClientSettings.PersonalGaragePos = pos;
+
+		if (IsOpen(m_PGarageMenu))
+		{
+			m_PGarageMenu.SetData(enabled, price, currency, hasGarage, pos, radius);
+			return;
+		}
+		if (!m_WantGarageMenu)
+			return;
+
+		m_WantGarageMenu = false;
+		m_PGarageMenu = new OS_PersonalGarageMenu();
+		m_PGarageMenu.SetData(enabled, price, currency, hasGarage, pos, radius);
+		Show(m_PGarageMenu);
 	}
 
 	protected void OnGroupId(ParamsReadContext ctx)

@@ -26,6 +26,10 @@ const int OS_RPC_TRADER_ADMIN_BULK = 784512029; // klient -> server: admin náso
 
 const int OS_RPC_VEHICLE_DATA   = 784512030; // server -> klient: autobazar / servis / garáž
 const int OS_RPC_VEHICLE_ACTION = 784512031; // klient -> server: koupit, opravit, natankovat...
+const int OS_RPC_VEHICLE_SET_SPAWN = 784512032; // klient -> server: nové místo spawnu vozidel (admin / osobní garáž)
+const int OS_RPC_PGARAGE_OPEN   = 784512033; // klient -> server: menu osobní garáže
+const int OS_RPC_PGARAGE_DATA   = 784512034; // server -> klient: stav osobní garáže
+const int OS_RPC_PGARAGE_ACTION = 784512035; // klient -> server: postavit / zrušit osobní garáž
 
 const int OS_RPC_BANK_DATA      = 784512040; // server -> klient: stav hotovosti a účtu
 const int OS_RPC_BANK_ACTION    = 784512041; // klient -> server: vložit / vybrat
@@ -72,6 +76,19 @@ enum OS_BankAction
 	WITHDRAW,
 	GROUP_DEPOSIT,
 	GROUP_WITHDRAW
+}
+
+enum OS_PersonalGarageAction
+{
+	BUILD,
+	REMOVE
+}
+
+//! kam se ukládá nastavené místo spawnu
+enum OS_SpawnTarget
+{
+	LOCATION,        // autocentrum / heliport / přístav / veřejná garáž (admin)
+	PERSONAL_GARAGE  // vlastní garáž hráče
 }
 
 enum OS_GroupAction

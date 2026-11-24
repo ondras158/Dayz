@@ -214,6 +214,18 @@ FrameWidgetClass OS_VehicleMenu {
      text "Ulozit do garaze"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnSetSpawn {
+     color 0.25 0.22 0.18 1
+     position 340 452
+     size 280 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Nastavit misto spawnu"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
      position 340 504

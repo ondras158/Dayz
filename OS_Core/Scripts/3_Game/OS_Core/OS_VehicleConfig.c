@@ -32,6 +32,7 @@ class OS_VehicleLocation
 	bool Dealer;            // prodej vozidel
 	string DealerCategory = "car";   // co prodává: "car", "bike", "heli", "boat" - víc kategorií čárkou, např. "car,bike"
 	bool SpawnOnWater = false;       // vozidlo se postaví na hladinu moře (přístaviště)
+	bool Personal = false;           // (interní) osobní garáž hráče - v konfigu nenastavuj
 	float SpawnClearRadius = 5;      // místo pro nové vozidlo musí být volné v tomto okruhu (heliport ~12)
 	bool Service;           // oprava, tankování, doplnění dílů
 	bool Garage;            // uložení / vyzvednutí auta
@@ -60,6 +61,14 @@ class OS_VehicleConfig
 	bool OnlyOwnerCanStore = true;     // auto s majitelem může do garáže uložit jen majitel (nebo člen jeho skupiny)
 	bool SharedGroupGarage = true;     // členové skupiny mají společnou garáž
 	int GroupGarageMaxVehicles = 6;
+
+	// osobní garáže - hráč si je postaví sám (menu klávesa K)
+	bool PersonalGarages = true;
+	int PersonalGarageBuildPrice = 2000;
+	float PersonalGarageRadius = 15;       // jak blízko musí hráč stát, aby ji mohl použít
+	float PersonalGarageMinDistance = 30;  // minimální vzdálenost od jiných garáží a míst z Locations
+	float PersonalSpawnMaxDistance = 40;   // místo pro vozidlo nesmí být dál od garáže
+	float AdminSpawnMaxDistance = 300;     // místo spawnu u Locations nesmí být dál od středu místa
 	ref array<ref OS_VehicleLocation> Locations = new array<ref OS_VehicleLocation>;
 	ref array<ref OS_VehicleOffer> Offers = new array<ref OS_VehicleOffer>;
 
@@ -301,6 +310,23 @@ class OS_StoredVehicle
 	string OwnerId;
 	int GroupId;
 	bool Locked;
+}
+
+// Osobní garáže hráčů: $profile:OS_Core/PersonalGarages.json
+
+class OS_PersonalGarage
+{
+	string OwnerId;
+	float X;
+	float Z;
+	float SpawnX;
+	float SpawnZ;
+	float SpawnYaw;
+}
+
+class OS_PersonalGaragesData
+{
+	ref array<ref OS_PersonalGarage> Garages = new array<ref OS_PersonalGarage>;
 }
 
 class OS_GarageData

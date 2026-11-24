@@ -53,7 +53,7 @@ class OS_Server
 
 		m_Admin = new OS_ServerAdmin(m_Wallets, currency);
 		m_Trader = new OS_ServerTrader(m_Payments, traderCfg, m_Admin, currency);
-		m_Vehicles = new OS_ServerVehicles(m_Payments, currency, m_Groups);
+		m_Vehicles = new OS_ServerVehicles(m_Payments, currency, m_Groups, m_Admin);
 
 		DayZGame.Event_OnRPC.Insert(OnRPC);
 		Print(OS_TAG + "Server modul spusten.");
@@ -81,6 +81,7 @@ class OS_Server
 			rpc.Write(m_Currency);
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
 			m_Groups.SendGroupId(player);
+			m_Vehicles.SendPersonalGarage(player);
 		}
 
 		// chvíli počkat, než klient dokončí načítání, jinak se zpráva ztratí

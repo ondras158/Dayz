@@ -26,6 +26,14 @@ class OS_VehicleMenuData
 	int OwnerState;      // 0 = bez majitele, 1 = moje, 2 = cizí, 3 = auto mé skupiny
 	int ClaimPrice;
 	ref array<int> StoredGroup = new array<int>;
+	bool IsPersonal;          // osobní garáž hráče
+	bool CanAdminSetSpawn;    // admin smí nastavit místo spawnu tohoto místa
+	float LocX;
+	float LocZ;
+	float SpawnX;
+	float SpawnZ;
+	float SpawnYaw;
+	bool OnWater;
 
 	bool Read(ParamsReadContext ctx)
 	{
@@ -44,6 +52,10 @@ class OS_VehicleMenuData
 		if (!ctx.Read(OwnerState) || !ctx.Read(ClaimPrice))
 			return false;
 		if (!ctx.Read(StoredGroup))
+			return false;
+		if (!ctx.Read(IsPersonal) || !ctx.Read(CanAdminSetSpawn) || !ctx.Read(LocX) || !ctx.Read(LocZ))
+			return false;
+		if (!ctx.Read(SpawnX) || !ctx.Read(SpawnZ) || !ctx.Read(SpawnYaw) || !ctx.Read(OnWater))
 			return false;
 		return true;
 	}
@@ -69,6 +81,7 @@ class OS_VehicleMenu : OS_MenuBase
 	protected ButtonWidget m_BtnStore;
 	protected ButtonWidget m_BtnRetrieve;
 	protected ButtonWidget m_BtnClose;
+	protected ButtonWidget m_BtnSetSpawn;
 
 	override string LayoutName()
 	{
@@ -100,6 +113,7 @@ class OS_VehicleMenu : OS_MenuBase
 		m_BtnStore = FindButton("BtnStore");
 		m_BtnRetrieve = FindButton("BtnRetrieve");
 		m_BtnClose = FindButton("BtnClose");
+		m_BtnSetSpawn = FindButton("BtnSetSpawn");
 
 		Refresh();
 	}
@@ -167,6 +181,15 @@ class OS_VehicleMenu : OS_MenuBase
 		ShowWidget("BtnRefuel", m_Data.Service);
 		ShowWidget("BtnParts", m_Data.Service);
 		ShowWidget("BtnStore", m_Data.Garage);
+
+		ShowWidget("BtnSetSpawn", m_Data.IsPersonal || m_Data.CanAdminSetSpawn);
+		if (m_BtnSetSpawn)
+		{
+			if (m_Data.IsPersonal)
+				m_BtnSetSpawn.SetText("Nastavit misto pro vozidlo");
+			else
+				m_BtnSetSpawn.SetText("ADMIN: nastavit misto spawnu");
+		}
 
 		ShowWidget("GarageLabel", m_Data.Garage);
 		ShowWidget("GarageListBg", m_Data.Garage);
@@ -295,6 +318,20 @@ class OS_VehicleMenu : OS_MenuBase
 				SetStatus("Vyber auto v garazi.");
 			else
 				SendAction(OS_VehicleAction.RETRIEVE, stored);
+			return true;
+		}
+		if (w == m_BtnSetSpawn)
+		{
+			int target = OS_SpawnTarget.LOCATION;
+			if (m_Data.IsPersonal)
+				target = OS_SpawnTarget.PERSONAL_GARAGE;
+			string category = m_Data.Category;
+			if (category == "mixed")
+				category = "car";
+			vector current = Vector(m_Data.SpawnX, 0, m_Data.SpawnZ);
+			bool hasCurrent = m_Data.SpawnX != 0 || m_Data.SpawnZ != 0;
+			Close();
+			OS_Client.Get().StartPlacer(target, category, m_Data.OnWater, hasCurrent, current, m_Data.SpawnYaw);
 			return true;
 		}
 		if (w == m_BtnClose)
