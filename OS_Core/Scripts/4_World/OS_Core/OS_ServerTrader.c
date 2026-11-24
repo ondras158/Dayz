@@ -201,7 +201,7 @@ class OS_ServerTrader
 			int buyCategory;
 			int buyIndex;
 			if (ctx.Read(buyCategory) && ctx.Read(buyIndex) && Allows(trader, buyCategory))
-				Buy(player, buyCategory, buyIndex);
+				Buy(player, trader, buyCategory, buyIndex);
 			SendUpdate(player, trader);
 		}
 		else if (rpcType == OS_RPC_TRADER_SELL)
@@ -238,14 +238,39 @@ class OS_ServerTrader
 
 	// ------------------------------------------------------------ nákup / prodej
 
-	protected void Buy(PlayerBase player, int categoryIndex, int itemIndex)
+	//! cena s násobitelem obchodníka (-1 zůstává -1 = nelze)
+	static int ApplyMultiplier(int basePrice, float multiplier)
+	{
+		if (basePrice < 0)
+			return basePrice;
+		if (multiplier <= 0)
+			multiplier = 1;
+		return Math.Round(basePrice * multiplier);
+	}
+
+	protected float BuyMult(OS_TraderLocation trader)
+	{
+		if (!trader || trader.BuyMultiplier <= 0)
+			return 1;
+		return trader.BuyMultiplier;
+	}
+
+	protected float SellMult(OS_TraderLocation trader)
+	{
+		if (!trader || trader.SellMultiplier <= 0)
+			return 1;
+		return trader.SellMultiplier;
+	}
+
+	protected void Buy(PlayerBase player, OS_TraderLocation trader, int categoryIndex, int itemIndex)
 	{
 		OS_TraderItem priced = GetItem(categoryIndex, itemIndex);
 		if (!priced || priced.Buy < 0)
 			return;
 
+		int price = ApplyMultiplier(priced.Buy, BuyMult(trader));
 		string steamId = OS_Util.SteamId(player);
-		if (!m_Payments.TrySpend(player, priced.Buy))
+		if (!m_Payments.TrySpend(player, price))
 		{
 			OS_Util.Notify(player, "Obchod", "Nemas dost penez.");
 			return;
@@ -254,7 +279,7 @@ class OS_ServerTrader
 		EntityAI created = OS_Util.GiveItem(player, priced.ClassName);
 		if (!created)
 		{
-			m_Payments.Pay(player, priced.Buy); // vrátit peníze
+			m_Payments.Pay(player, price); // vrátit peníze
 			OS_Util.Notify(player, "Obchod", "Predmet se nepodarilo vytvorit.");
 			return;
 		}
@@ -264,7 +289,7 @@ class OS_ServerTrader
 		if (pile && created.IsAmmoPile())
 			pile.ServerSetAmmoCount(pile.GetAmmoMax());
 
-		Print(OS_TAG + "OBCHOD " + OS_Util.PlayerName(player) + " koupil " + priced.ClassName + " za " + priced.Buy.ToString());
+		Print(OS_TAG + "OBCHOD " + OS_Util.PlayerName(player) + " koupil " + priced.ClassName + " za " + price.ToString() + " (" + trader.Name + ")");
 	}
 
 	protected void Sell(PlayerBase player, OS_TraderLocation trader, string className)
@@ -286,7 +311,7 @@ class OS_ServerTrader
 			return;
 		}
 
-		int price = Math.Round(priced.Sell * SellFraction(item));
+		int price = Math.Round(priced.Sell * SellFraction(item) * SellMult(trader));
 		if (price <= 0)
 		{
 			OS_Util.Notify(player, "Obchod", "Tento kus uz nema zadnou hodnotu.");
@@ -455,6 +480,8 @@ class OS_ServerTrader
 		rpc.Write(names);
 		rpc.Write(counts);
 		rpc.Write(categoryIndexes);
+		rpc.Write(BuyMult(trader));
+		rpc.Write(SellMult(trader));
 		rpc.Send(null, OS_RPC_TRADER_DATA, true, player.GetIdentity());
 	}
 
@@ -533,7 +560,7 @@ class OS_ServerTrader
 			{
 				classes.Insert(type);
 				counts.Insert(1);
-				prices.Insert(FindPriced(type).Sell);
+				prices.Insert(ApplyMultiplier(FindPriced(type).Sell, SellMult(trader)));
 			}
 			else
 			{

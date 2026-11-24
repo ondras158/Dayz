@@ -235,6 +235,10 @@ class OS_TraderLocation
 	float Radius = 15;   // jak blízko musí hráč být, aby mohl otevřít obchod
 	// kategorie, které obchodník prodává i vykupuje (názvy z Categories); prázdné = všechno
 	ref array<string> Categories = new array<string>;
+	// násobitele cen u tohoto obchodníka (1 = ceny z katalogu)
+	// SellMultiplier drž pod poměrem nákup/výkup (zbraně 4, ostatní ~5), jinak by šlo koupit jinde a prodat tady se ziskem
+	float BuyMultiplier = 1.0;
+	float SellMultiplier = 1.0;
 
 	void OS_TraderLocation(string name = "", float x = 0, float z = 0, float radius = 15)
 	{
@@ -317,6 +321,8 @@ class OS_TraderConfig
 
 		// černý trh - drogy, zbraně, munice a výbušniny
 		OS_TraderLocation blackMarket = new OS_TraderLocation("Priklad - Cerny trh", 1900, 1900, 8);
+		blackMarket.BuyMultiplier = 1.5;    // prodává o 50 % dráž
+		blackMarket.SellMultiplier = 1.3;   // vykupuje o 30 % líp
 		blackMarket.Categories.Insert("Drogy");
 		blackMarket.Categories.Insert("Pistole");
 		blackMarket.Categories.Insert("Zbrane");

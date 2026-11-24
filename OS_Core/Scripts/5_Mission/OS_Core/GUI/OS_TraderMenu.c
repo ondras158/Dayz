@@ -5,6 +5,8 @@ class OS_TraderMenu : OS_MenuBase
 	protected bool m_IsAdmin;
 	protected ref array<string> m_Categories = new array<string>;
 	protected ref array<int> m_CategoryIndexes = new array<int>;   // řádek seznamu -> skutečná kategorie na serveru
+	protected float m_BuyMult = 1;    // násobitele cen obchodníka (katalog má základní ceny)
+	protected float m_SellMult = 1;
 	protected ref array<int> m_CategoryCounts = new array<int>;
 
 	// aktuálně zobrazené předměty (kategorie nebo hledání)
@@ -49,8 +51,10 @@ class OS_TraderMenu : OS_MenuBase
 
 	// ------------------------------------------------------------ data ze serveru
 
-	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts, array<int> categoryIndexes)
+	void SetHeader(string traderName, string currency, bool isAdmin, array<string> categories, array<int> counts, array<int> categoryIndexes, float buyMult, float sellMult)
 	{
+		m_BuyMult = buyMult;
+		m_SellMult = sellMult;
 		m_CategoryIndexes.Clear();
 		m_CategoryIndexes.Copy(categoryIndexes);
 		m_TraderName = traderName;
@@ -128,7 +132,16 @@ class OS_TraderMenu : OS_MenuBase
 	protected void RefreshHeader()
 	{
 		if (m_Title)
-			m_Title.SetText("Obchod - " + m_TraderName);
+		{
+			string title = "Obchod - " + m_TraderName;
+			if (m_BuyMult != 1 || m_SellMult != 1)
+			{
+				int buyPct = Math.Round(m_BuyMult * 100);
+				int sellPct = Math.Round(m_SellMult * 100);
+				title = title + "  (nakup " + buyPct.ToString() + " %, vykup " + sellPct.ToString() + " %)";
+			}
+			m_Title.SetText(title);
+		}
 
 		// admin panel vidí jen admin
 		array<string> adminWidgets = {"AdminLabel", "BuyLabel", "EditBuyBg", "EditBuy", "SellPriceLabel", "EditSellBg", "EditSell", "BtnSavePrice", "FactorLabel", "EditFactorBg", "EditFactor", "BtnBulk"};
@@ -155,6 +168,18 @@ class OS_TraderMenu : OS_MenuBase
 			m_CategoryList.SelectRow(previous);
 	}
 
+	protected int EffectiveBuy(int row)
+	{
+		return Effective(m_ItemBuy[row], m_BuyMult);
+	}
+
+	protected int Effective(int basePrice, float mult)
+	{
+		if (basePrice < 0)
+			return basePrice;
+		return Math.Round(basePrice * mult);
+	}
+
 	protected string PriceText(int price)
 	{
 		if (price < 0)
@@ -170,7 +195,7 @@ class OS_TraderMenu : OS_MenuBase
 		m_ItemList.ClearItems();
 		for (int i = 0; i < m_ItemClass.Count(); i++)
 		{
-			string label = OS_Client.DisplayName(m_ItemClass[i]) + "   [koupit " + PriceText(m_ItemBuy[i]) + " / vykup " + PriceText(m_ItemSell[i]) + "]";
+			string label = OS_Client.DisplayName(m_ItemClass[i]) + "   [koupit " + PriceText(Effective(m_ItemBuy[i], m_BuyMult)) + " / vykup " + PriceText(Effective(m_ItemSell[i], m_SellMult)) + "]";
 			if (m_IsAdmin)
 			{
 				label = label + "  " + m_ItemClass[i];
@@ -334,7 +359,7 @@ class OS_TraderMenu : OS_MenuBase
 			SetStatus("Tento predmet se neprodava.");
 			return;
 		}
-		if (m_ItemBuy[row] > m_Balance)
+		if (EffectiveBuy(row) > m_Balance)
 		{
 			SetStatus("Nemas dost penez.");
 			return;

@@ -124,6 +124,10 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
 - **Prodej:** předmět musí být prázdný, bez příslušenství (zbraň bez zásobníku) a nezničený.
   Opotřebovaný má 50–100 % ceny, načatý (krabička nábojů, jídlo) poměrnou cenu.
   Barevné varianty se vykupují za cenu základní věci (`M4A1_Black` → `M4A1`).
+- **Násobitele cen obchodníka:** v `Traders` má každý obchodník `BuyMultiplier` (nákup) a `SellMultiplier` (výkup),
+  výchozí 1. Černý trh: nákup **1,5×**, výkup **1,3×**. Hráč vidí v menu už upravené ceny a v titulku procenta.
+  `SellMultiplier` drž pod poměrem nákup/výkup (zbraně 4×, ostatní ~5×), jinak by se vyplatilo koupit u jednoho
+  obchodníka a prodat u druhého. Admin v panelu obchodu vždy upravuje **základní** cenu z katalogu.
 - **Úpravy v menu (admin):** admin vidí dole panel:
   - vybere předmět → upraví *Nákup* / *Výkup* → **Uložit cenu** (`-1` = nejde koupit/prodat, obojí `-1` = předmět
     se hráčům skryje, admin ho dál vidí s popiskem SKRYTO),
