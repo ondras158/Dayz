@@ -43,7 +43,7 @@ def finish(path, value, title, currency):
     ink, paper = ink_color(img), paper_color(img)
     stroke = dict(stroke_width=6, stroke_fill=paper)
 
-    d.text((W * 0.5, H * 0.10), title, font=ImageFont.truetype(SERIF_BOLD, 72), fill=ink, anchor="mm", **stroke)
+    d.text((W * 0.5, H * 0.14), title, font=ImageFont.truetype(SERIF_BOLD, 72), fill=ink, anchor="mm", **stroke)
     size = 130 if value < 100 else (108 if value < 1000 else 86)
     big = ImageFont.truetype(SERIF_BOLD, size)
     d.text((W * 0.115, H * 0.16), str(value), font=big, fill=ink, anchor="mm", **stroke)
