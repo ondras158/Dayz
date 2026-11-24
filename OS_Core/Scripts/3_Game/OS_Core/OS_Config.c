@@ -342,6 +342,10 @@ class OS_TraderConfig
 		hardware.Categories.Insert("Elektronika");
 		Traders.Insert(hardware);
 
+		OS_TraderLocation gardener = new OS_TraderLocation("Priklad - Zahradnictvi", 1900, 2060, 10);
+		gardener.Categories.Insert("Zahrada");
+		Traders.Insert(gardener);
+
 		OS_TraderLocation hunter = new OS_TraderLocation("Priklad - Lovec", 1960, 1960, 10);
 		hunter.Categories.Insert("Lov");
 		hunter.Categories.Insert("Zvireci suroviny");
@@ -440,6 +444,16 @@ class OS_TraderConfig
 		r.NameContains.Insert("Opium");
 		r.NameContains.Insert("Narcotic");
 		r.NameContains.Insert("Drug");
+		CategoryRules.Insert(r);
+
+		// zahrada - za drogami (semínka konopí zůstávají na černém trhu), před jídlem (dýňová semínka jsou jídlo)
+		r = new OS_CategoryRule("Zahrada", 25, 5);
+		r.NameContains.Insert("Seed");          // semínka i balíčky semínek (rajčata, paprika, dýně, cuketa...)
+		r.NameContains.Insert("GardenLime");    // zahradní vápno (hnojivo)
+		r.NameContains.Insert("FarmingHoe");    // motyka
+		r.NameContains.Insert("Fertilizer");
+		r.NameContains.Insert("Compost");
+		r.NameContains.Insert("WateringCan");
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Medicina", 60, 10);

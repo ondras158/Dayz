@@ -150,6 +150,8 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
     zámky, stany, maskovací sítě, bedny, truhly, sudy, skrýše, nábytek, trezory, vlajky) a `Elektronika`
     (vysílačky, megafon, GPS, dálkoměr, 9V baterie, nabíječka, žárovky, svítilny, sada na opravu elektroniky,
     budík, Geigerův počítač, generátor, reflektor, kabel),
+  - *Zahradnictvi* – `Zahrada` (semínka a balíčky semínek, zahradní vápno, motyka, hnojiva a konve z módů;
+    semínka konopí jsou na černém trhu),
   - *Lovec* – `Lov` (pasti, oka, pruty, háčky, návnady, kostěný a lovecký nůž) a `Zvireci suroviny`
     (kůže, maso ze zvěře, rybí filety, sádlo, vnitřnosti, peří, kosti),
   - *Autodily* – `Dily aut` (kola, dveře, kapoty, baterie, svíčky, chladiče, světla, díly helikoptér Expansion).
