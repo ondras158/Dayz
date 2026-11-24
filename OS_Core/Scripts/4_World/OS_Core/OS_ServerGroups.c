@@ -349,16 +349,16 @@ class OS_ServerGroups
 
 	protected void Promote(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (!group.IsManager(id))
+		if (group.LeaderId != id)
 		{
-			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik nebo admin.");
+			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik.");
 			return;
 		}
-		if (targetId == group.LeaderId || group.FindMember(targetId) < 0)
+		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
 
 		// původní vlastník zůstane adminem
-		group.Members[group.FindMember(group.LeaderId)].Role = OS_GROUP_ROLE_ADMIN;
+		group.Members[group.FindMember(id)].Role = OS_GROUP_ROLE_ADMIN;
 		group.Members[group.FindMember(targetId)].Role = OS_GROUP_ROLE_MEMBER;
 		group.LeaderId = targetId;
 		SaveData();

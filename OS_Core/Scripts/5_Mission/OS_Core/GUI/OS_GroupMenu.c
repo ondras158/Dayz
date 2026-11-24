@@ -144,12 +144,14 @@ class OS_GroupMenu : OS_MenuBase
 		string cur = " " + m_Data.Currency;
 
 		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText"};
-		// vlastník i admin mají stejná práva
-		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnPromote", "BtnDisband", "BtnSetAdmin"};
+		// admin smí všechno kromě předání vlastnictví
+		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnDisband", "BtnSetAdmin"};
+		array<string> ownerWidgets = {"BtnPromote"};
 		array<string> inviteWidgets = {"FreeLabel", "FreeListBg", "FreeList", "BtnInvite"};
 		array<string> noGroupWidgets = {"CreateLabel", "EditNameBg", "EditName", "BtnCreate", "InviteText", "InviteText2"};
 		ShowAll(groupWidgets, inGroup);
 		ShowAll(managerWidgets, manager);
+		ShowAll(ownerWidgets, m_Data.IsOwner());
 		ShowAll(inviteWidgets, canInvite);
 		ShowAll(noGroupWidgets, !inGroup);
 
