@@ -1,19 +1,32 @@
-# DayZ – Badlands (Nasdara) server
+# OS_Core – serverový mód pro DayZ
+
+Funguje na **jakékoli mapě** (Chernarus, Livonia, Sakhal, Nasdara, komunitní mapy). Vše, co závisí na mapě
+(souřadnice obchodníků, safe zón, spawnů, bankomatů, autocenter), je v konfiguračních JSON souborech serveru –
+mód se kvůli jiné mapě nemusí znovu balit.
 
 | Složka | Co to je |
 |---|---|
-| `BadlandsCore/` | **Mód** (zdroj pro `.pbo`): výbava, výběr spawnu, safe zóny, zprávy, admin menu, obchod, auta |
+| `OS_Core/` | **Mód** (zdroj pro `.pbo`): výbava, výběr spawnu, safe zóny, zprávy, admin menu, obchod, auta |
 | `economy/`, `tools/tune_economy.py` | Úprava spawnování zbraní a aut (types.xml, events.xml) |
-| `mpmissions/dayzOffline.nasdara/` | Vanilla spawn body (`cfgplayerspawnpoints.xml`) |
-| `nasdara-spawns/`, `tools/generate_spawnpoints.py` | Generátor vanilla spawn bodů z CSV |
+| `spawnpoints/`, `tools/generate_spawnpoints.py` | Generátor vanilla spawn bodů (`cfgplayerspawnpoints.xml`) z CSV |
+| `tools/generate_money_textures.py` | Vygeneruje potisky bankovek pro zvolenou měnu |
 | `tools/generate_layouts.py` | Přegeneruje vzhled menu (`.layout`) |
 
-> ⚠️ Všechny souřadnice v módu i v CSV jsou zatím **ukázkové** (např. 1000/1000), ne skutečná místa na Nasdaře.
+> ⚠️ Všechny souřadnice v módu i v CSV jsou zatím **ukázkové** (např. 1000/1000), ne skutečná místa na mapě.
 > Před ostrým provozem je nahraď.
+
+### Použití na jiné mapě
+1. Nainstaluj mód (viz níže) a jednou spusť server – v profilové složce se vytvoří `OS_Core/*.json`.
+2. V JSON souborech nahraď ukázkové souřadnice místy z tvé mapy:
+   `SpawnZones.json`, `SafeZones.json`, `Trader.json` (`Traders`), `Vehicles.json` (`Locations`), `Bank.json` (`Atms`).
+   Souřadnice zjistíš na interaktivní mapě (např. iZurvive) nebo ve hře v admin menu (teleport na X Z).
+3. Restartuj server. Obchod se sám naplní předměty, které na serveru jsou (vanilla + nahrané módy).
+
+Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc serverů s různým nastavením a jedním módem.
 
 ---
 
-## Mód BadlandsCore
+## Mód OS_Core
 
 ### Funkce
 | Funkce | Popis | Konfig |
@@ -30,58 +43,58 @@
 | Peníze a bankomaty | Peníze jsou předmět (bankovky) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, kde jsou v bezpečí | `Bank.json` |
 | Vlastnictví a klíče | Koupené auto dostane zámek a klíč. Zamčené auto: nejde nastoupit, otevřít dveře, do kufru ani sundat díly | `Vehicles.json` |
 
-Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **Badlands Core**.
+Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 
 ### Struktura
 ```
-BadlandsCore/
+OS_Core/
 ├── config.cpp                     definice módu
 ├── GUI/layouts/*.layout           vzhled menu (lze upravit v DayZ Tools → Workbench)
 └── Scripts/
     ├── Inputs.xml                 klávesy
-    ├── 3_Game/   BC_Defines.c     RPC ID, konstanty
-    │             BC_Config.c      třídy konfigurace + výchozí hodnoty
-    ├── 4_World/  BC_Server*.c     serverová logika (každá funkce zvlášť)
-    │             BC_PlayerBase.c  nesmrtelnost, kill feed
-    │             BC_ZombieBase.c  odměna za zombíka
-    └── 5_Mission/BC_Mission*.c    napojení na server/klienta
-                  BC_Client.c      příjem dat ze serveru
+    ├── 3_Game/   OS_Defines.c     RPC ID, konstanty
+    │             OS_Config.c      třídy konfigurace + výchozí hodnoty
+    ├── 4_World/  OS_Server*.c     serverová logika (každá funkce zvlášť)
+    │             OS_PlayerBase.c  nesmrtelnost, kill feed
+    │             OS_ZombieBase.c  odměna za zombíka
+    └── 5_Mission/OS_Mission*.c    napojení na server/klienta
+                  OS_Client.c      příjem dat ze serveru
                   GUI/*.c          menu (spawn, admin, obchod)
 ```
 
 ### 1. Zabalení do .pbo
 1. Nainstaluj ze Steamu **DayZ Tools**.
 2. Spusť **Addon Builder**:
-   - *Addon source directory*: složka `BadlandsCore` z tohoto repozitáře
-   - *Destination*: např. `C:\DayZMods\@BadlandsCore\Addons`
-   - V *Options* nastav **Prefix** na `BadlandsCore`.
+   - *Addon source directory*: složka `OS_Core` z tohoto repozitáře
+   - *Destination*: např. `C:\DayZMods\@OS_Core\Addons`
+   - V *Options* nastav **Prefix** na `OS_Core`.
    - Zaškrtni *Binarize* (config.cpp) a nech `*.c;*.layout;*.xml` v seznamu souborů ke zkopírování.
    - Pro podpis: *Sign output* + tvůj `.biprivatekey` (vytvoříš v DS Utils → DSCreateKey).
 3. Výsledek:
    ```
-   @BadlandsCore/
-   ├── Addons/BadlandsCore.pbo
-   ├── Addons/BadlandsCore.pbo.<jméno>.bisign
+   @OS_Core/
+   ├── Addons/OS_Core.pbo
+   ├── Addons/OS_Core.pbo.<jméno>.bisign
    └── Keys/<jméno>.bikey
    ```
 
 ### 2. Instalace na server
-1. Zkopíruj `@BadlandsCore` do složky serveru.
+1. Zkopíruj `@OS_Core` do složky serveru.
 2. `<jméno>.bikey` zkopíruj do složky `keys` serveru.
-3. Spouštěcí parametr: `-mod=@BadlandsCore`
+3. Spouštěcí parametr: `-mod=@OS_Core`
    (ne `-servermod` – mód má menu, takže ho musí mít i hráči).
 4. Hráči si mód stáhnou (Workshop nebo ručně) a spouští hru se stejným `-mod`.
 
 ### 3. Konfigurace
 Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`) vytvoří:
 ```
-<profiles>/BadlandsCore/
+<profiles>/OS_Core/
 ├── Loadouts.json   SpawnZones.json   SafeZones.json
 ├── Messages.json   Admins.json       Trader.json     Vehicles.json   Bank.json
 ├── Wallets/<SteamID>.json            bankovní účty hráčů
 └── Garages/<SteamID>.json            auta v garáži
 ```
-Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[BadlandsCore]`
+Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
 (server pak použije výchozí hodnoty – soubor nepřepíše).
 
 **Nastavení admina** – do `Admins.json` dej svoje Steam64 ID (17 číslic):
@@ -122,22 +135,37 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[Badla
 kde hráč stojí (`X`, `Z`, `Radius`) a kam se postaví auto (`SpawnX`, `SpawnZ`, `SpawnYaw`).
 Parkovací místo musí být volné (bez auta v okruhu 5 m).
 `Offers` = auta na prodej s cenou a seznamem dílů (stejný seznam používá servis pro doplnění dílů).
-Ve výchozím nastavení: Ada, Olga, Sarka, Gunter, M1025, V3S (vanilla auta – pokud má Nasdara vlastní auta,
+Ve výchozím nastavení: Ada, Olga, Sarka, Gunter, M1025, V3S (vanilla auta – pokud má tvoje mapa vlastní auta,
 přidej jejich classname a díly).
 - Garáž ukládá typ auta, díly, jejich stav a palivo. **Věci v kufru se neukládají** – auto musí být prázdné.
 
 **Peníze a bankomaty** (`Bank.json`)
-- Peníze jsou **bankovky 10, 50, 100, 500 a 1000 Kr** (`BC_Money_10` … `BC_Money_1000`), každá s vlastním potiskem
-  (`BadlandsCore/data/money_*_co.png`, náhled `preview_bankovky.png`). Bankovky stejné hodnoty se stohují
-  (max. 100 ks v balíčku), nic neváží.
+- **Měna** se nastavuje v `Bank.json`: `CurrencyName` (např. `"EUR"`, `"RUB"`, `"USD"`, `"Kc"`) a `Denominations`
+  = které bankovky se vydávají. Mód obsahuje bankovky v hodnotách **1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000
+  a 5000** (`OS_Money_<hodnota>`), server použije jen ty z `Denominations`. Příklady:
+  - euro (výchozí): `"CurrencyName": "EUR", "Denominations": [500, 200, 100, 50, 20, 10, 5]`
+  - rubl: `"CurrencyName": "RUB", "Denominations": [5000, 1000, 500, 100, 50]`
+  - dolar: `"CurrencyName": "USD", "Denominations": [100, 50, 20, 10, 5, 1]`
+  - koruna: `"CurrencyName": "Kc", "Denominations": [2000, 1000, 500, 200, 100]`
+
+  Ceny v obchodě a autech jsou jen čísla – při změně měny je uprav (např. násobením kategorie v admin menu obchodu).
+  Název bankovky ve hře se přizpůsobí měně ze serveru („Bankovka 20 EUR“).
+- **Potisk bankovek** s názvem měny a serveru vygeneruješ:
+  ```bash
+  python3 tools/generate_money_textures.py --currency EUR --title "OS CORE" --preview 5,10,20,50,100,200,500
+  python3 tools/generate_money_textures.py --currency RUB --label "BANKOVKA" --title "MUJ SERVER"
+  ```
+  Vznikne `OS_Core/data/money_<hodnota>_co.png` pro všech 12 hodnot. Potisk je součást módu – změna měny na potisku
+  vyžaduje přebalit mód (název měny ve hře a v menu se mění jen v `Bank.json`).
+- Bankovky stejné hodnoty se stohují (max. 100 ks v balíčku), nic neváží.
 - Při placení se bankovky rozmění samy: zaplatíš od největších, a když to nejde přesně, vrátí se drobné v bankovkách.
-  Částky pod 10 Kr (drobné) nejdou vyplatit v hotovosti – připíšou se na účet.
+  Částka menší než nejmenší bankovka nejde vyplatit v hotovosti – připíše se na účet.
 - **Textury je potřeba převést na .paa** před zabalením: DayZ Tools → *ImageToPAA* (nebo TexView2 → Save As .paa)
-  na všechny `BadlandsCore/data/money_*_co.png`. Výsledné `money_*_co.paa` nech ve stejné složce a v Addon Builderu
-  přidej `*.paa` do souborů ke kopírování. Textury znovu vygeneruješ: `python3 tools/generate_money_textures.py`.
+  na všechny `OS_Core/data/money_*_co.png`. Výsledné `money_*_co.paa` nech ve stejné složce a v Addon Builderu
+  přidej `*.paa` do souborů ke kopírování.
 - Potisk se nanáší na model papíru přes `hiddenSelections[] = {"zbytek"}`. Pokud se bankovky ve hře ukážou
   jako obyčejný papír, má model jiný název oblasti: otevři v Object Builderu `dz\gear\consumables\Paper.p3d`
-  (z disku P:), podívej se do *Named Selections* a název přepiš v `config.cpp` u třídy `BC_Money`.
+  (z disku P:), podívej se do *Named Selections* a název přepiš v `config.cpp` u třídy `OS_Money`.
 - Obchod, autobazar i servis **vyplácí a berou hotovost**, kterou máš u sebe (i v batohu).
 - Hotovost můžeš ztratit – po smrti zůstane na těle a kdokoli ji sebere.
 - **Bankomat** (klávesa **B** u bankomatu): vložit / vybrat částku, vložit vše, vybrat vše.
@@ -154,7 +182,7 @@ přidej jejich classname a díly).
   a peníze od admina (admin menu) jdou **na účet**.
 
 **Vlastnictví a klíče**
-- Koupené auto má majitele a zámek, kupující dostane **klíč** (`BC_CarKey`, model klíčků od pout).
+- Koupené auto má majitele a zámek, kupující dostane **klíč** (`OS_CarKey`, model klíčků od pout).
 - Zamknutí/odemknutí: klíč do ruky → podívej se na auto → **podrž levé tlačítko**.
   Zamknout jde jen prázdné auto. Klíč funguje jen ke svému autu (číslo na konci názvu klíče pomáhá rozlišit klíče).
 - Zamčené auto: nejde nastoupit, otevřít dveře zvenku, dívat se do kufru, nic do něj dávat ani sundávat díly.
@@ -177,7 +205,7 @@ přidej jejich classname a díly).
 ### Testování a ladění
 Mód je napsaný proti vanilla skriptům **DayZ 1.30**, ale **nebyl zatím spuštěn ve hře**.
 Po prvním startu zkontroluj:
-- `script_*.log` na serveru i klientovi – chyby kompilace / `[BadlandsCore]` hlášky,
+- `script_*.log` na serveru i klientovi – chyby kompilace / `[OS_Core]` hlášky,
 - v Addon Builderu případné chyby při binarizaci configu.
 
 Chybu z logu mi pošli a opravím ji.
@@ -187,9 +215,9 @@ Chybu z logu mi pošli a opravím ji.
 ## Spawnování zbraní a aut (centrální ekonomika)
 
 Kolik zbraní a aut se na mapě objevuje, neurčuje mód, ale soubory mise serveru:
-- `mpmissions/dayzOffline.nasdara/db/types.xml` – předměty (`nominal` = cílový počet na mapě, `min` = kdy doplnit)
-- `mpmissions/dayzOffline.nasdara/db/events.xml` – auta (eventy `Vehicle...`)
-- `mpmissions/dayzOffline.nasdara/cfgeventspawns.xml` – **kde** se auta mohou objevit
+- `mpmissions/<mise>/db/types.xml` – předměty (`nominal` = cílový počet na mapě, `min` = kdy doplnit)
+- `mpmissions/<mise>/db/events.xml` – auta (eventy `Vehicle...`)
+- `mpmissions/<mise>/cfgeventspawns.xml` – **kde** se auta mohou objevit
 
 Nastavení je v `economy/economy_tuning.json` (násobitel 1.0 = beze změny, 2.0 = dvakrát víc, 0.5 = polovina).
 Zbraně jsou rozdělené na skupiny (vojenské, pušky, pistole, zásobníky, munice) a jednotlivé kusy jdou nastavit přesně
@@ -212,8 +240,8 @@ Vanilla spawny serveru určuje `cfgplayerspawnpoints.xml`. Mód je nepotřebuje
 (menu teleportuje hráče až po spawnu), ale hodí se jako záloha, když hráč menu zavře.
 
 ```bash
-python3 tools/generate_spawnpoints.py nasdara-spawns/spawnpoints.csv \
-    mpmissions/dayzOffline.nasdara/cfgplayerspawnpoints.xml
+python3 tools/generate_spawnpoints.py spawnpoints/example.csv \
+    mpmissions/<mise>/cfgplayerspawnpoints.xml
 ```
 CSV formát: `skupina,x,z`. Soubor nahraj do kořene mise (vedle `init.c`).
 Pokud se hráči spawnují na `0,0,0`, zkus `--no-groups`.

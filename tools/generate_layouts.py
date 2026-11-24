@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Generuje .layout soubory menu módu BadlandsCore (jednotný vzhled).
+"""Generuje .layout soubory menu módu OS_Core (jednotný vzhled).
 
 Použití:  python3 tools/generate_layouts.py
-Výstup:   BadlandsCore/GUI/layouts/*.layout
+Výstup:   OS_Core/GUI/layouts/*.layout
 Pozice a velikosti jsou v pixelech vůči oknu menu (okno je vycentrované).
 """
 import os
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "BadlandsCore", "GUI", "layouts")
+OUT = os.path.join(os.path.dirname(__file__), "..", "OS_Core", "GUI", "layouts")
 
 
 def props(x, y, w, h):
@@ -96,7 +96,7 @@ def layout(root, w, h, children):
 
 
 LAYOUTS = {
-    "spawn_menu.layout": layout("BC_SpawnMenu", 520, 500, [
+    "spawn_menu.layout": layout("OS_SpawnMenu", 520, 500, [
         text("Title", 20, 12, 480, 36, "Vyber misto spawnu", "gui/fonts/metron28", "center"),
         text("Countdown", 20, 50, 480, 26, "", align="center"),
         listbox("ZoneList", 20, 85, 480, 300),
@@ -104,7 +104,7 @@ LAYOUTS = {
         button("BtnStay", 270, 400, 230, 50, "Zustat tady"),
         text("Status", 20, 460, 480, 26, "", align="center"),
     ]),
-    "admin_menu.layout": layout("BC_AdminMenu", 760, 600, [
+    "admin_menu.layout": layout("OS_AdminMenu", 760, 600, [
         text("Title", 20, 12, 720, 36, "Admin menu", "gui/fonts/metron28", "center"),
         text("PlayersLabel", 20, 52, 340, 24, "Hraci online"),
         listbox("PlayerList", 20, 80, 340, 420),
@@ -126,7 +126,7 @@ LAYOUTS = {
         button("BtnClose", 380, 510, 360, 38, "Zavrit"),
         text("Status", 20, 558, 720, 26, "", align="center"),
     ]),
-    "trader_menu.layout": layout("BC_TraderMenu", 960, 690, [
+    "trader_menu.layout": layout("OS_TraderMenu", 960, 690, [
         text("Title", 20, 12, 600, 36, "Obchod", "gui/fonts/metron28"),
         text("Balance", 560, 12, 380, 36, "", align="right"),
         text("CatLabel", 20, 56, 220, 24, "Kategorie"),
@@ -150,7 +150,7 @@ LAYOUTS = {
         button("BtnBulk", 830, 596, 110, 34, "Nasobit"),
         text("Status", 20, 646, 920, 26, "", align="center"),
     ]),
-    "vehicle_menu.layout": layout("BC_VehicleMenu", 960, 600, [
+    "vehicle_menu.layout": layout("OS_VehicleMenu", 960, 600, [
         text("Title", 20, 12, 600, 36, "Autocentrum", "gui/fonts/metron28"),
         text("Balance", 560, 12, 380, 36, "", align="right"),
         text("DealerLabel", 20, 56, 300, 24, "Autobazar"),
@@ -174,7 +174,7 @@ LAYOUTS = {
         button("BtnRetrieve", 640, 504, 300, 40, "Vyzvednout"),
         text("Status", 20, 560, 920, 26, "", align="center"),
     ]),
-    "atm_menu.layout": layout("BC_AtmMenu", 860, 420, [
+    "atm_menu.layout": layout("OS_AtmMenu", 860, 420, [
         text("Title", 20, 12, 820, 36, "Bankomat", "gui/fonts/metron28", "center"),
         text("CashText", 20, 60, 400, 28, ""),
         text("BankText", 20, 90, 400, 28, ""),

@@ -10,8 +10,8 @@ CSV formát (oddělovač čárka, řádky začínající # se ignorují):
   z        - souřadnice Z (jih -> sever; na mapách jako iZurvive je to "Y")
 
 Použití:
-    python3 tools/generate_spawnpoints.py nasdara-spawns/spawnpoints.csv \
-        mpmissions/dayzOffline.nasdara/cfgplayerspawnpoints.xml
+    python3 tools/generate_spawnpoints.py spawnpoints/example.csv \
+        <mise>/cfgplayerspawnpoints.xml
 """
 import argparse
 import csv
