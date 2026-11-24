@@ -323,6 +323,11 @@ class OS_TraderConfig
 		hardware.Categories.Insert("Stavba zakladny");
 		Traders.Insert(hardware);
 
+		// autodíly - ideálně u autocentra (servis a garáž jsou ve Vehicles.json)
+		OS_TraderLocation autoparts = new OS_TraderLocation("Priklad - Autodily", 2100, 2030, 10);
+		autoparts.Categories.Insert("Dily aut");
+		Traders.Insert(autoparts);
+
 		ExcludeContains.Insert("_Base");
 		ExcludeContains.Insert("Debug");
 		ExcludeContains.Insert("Static");
