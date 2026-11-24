@@ -44,10 +44,10 @@ def finish(path, value, title, currency):
     stroke = dict(stroke_width=6, stroke_fill=paper)
 
     d.text((W * 0.5, H * 0.14), title, font=ImageFont.truetype(SERIF_BOLD, 72), fill=ink, anchor="mm", **stroke)
-    size = 130 if value < 100 else (108 if value < 1000 else 86)
+    size = 130 if value < 100 else (108 if value < 1000 else 70)
     big = ImageFont.truetype(SERIF_BOLD, size)
-    d.text((W * 0.115, H * 0.16), str(value), font=big, fill=ink, anchor="mm", **stroke)
-    d.text((W * 0.905, H * 0.84), str(value), font=big, fill=ink, anchor="mm", **stroke)
+    d.text((W * (0.115 if value < 1000 else 0.125), H * 0.16), str(value), font=big, fill=ink, anchor="mm", **stroke)
+    d.text((W * (0.905 if value < 1000 else 0.892), H * 0.84), str(value), font=big, fill=ink, anchor="mm", **stroke)
     d.text((W * 0.5, H * 0.865), f"{value} {currency}", font=ImageFont.truetype(SERIF_BOLD, 50), fill=ink, anchor="mm", **stroke)
     d.text((W * 0.115, H * 0.27), currency, font=ImageFont.truetype(SANS_BOLD, 40), fill=ink, anchor="mm", **stroke)
     return img

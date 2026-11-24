@@ -143,7 +143,7 @@ přidej jejich classname a díly).
 - **Měna** se nastavuje v `Bank.json`: `CurrencyName` (např. `"EUR"`, `"RUB"`, `"USD"`, `"Kc"`) a `Denominations`
   = které bankovky se vydávají. Mód obsahuje bankovky v hodnotách **1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000
   a 5000** (`OS_Money_<hodnota>`), server použije jen ty z `Denominations`. Příklady:
-  - euro (výchozí): `"CurrencyName": "EUR", "Denominations": [500, 200, 100, 50, 20, 10, 5]`
+  - euro (výchozí): `"CurrencyName": "EUR", "Denominations": [5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5]`
   - rubl: `"CurrencyName": "RUB", "Denominations": [5000, 1000, 500, 100, 50]`
   - dolar: `"CurrencyName": "USD", "Denominations": [100, 50, 20, 10, 5, 1]`
   - koruna: `"CurrencyName": "Kc", "Denominations": [2000, 1000, 500, 200, 100]`
@@ -165,6 +165,9 @@ přidej jejich classname a díly).
   python3 tools/import_money_images.py --mode fill                    # textury módu
   ```
   Model jde změnit `--model` (`gemini-3.1-flash-image` výchozí, `gemini-3-pro-image` kvalitnější a dražší).
+- **Přebarvení bankovky** na novou hodnotu (stejný design, hologram zůstane):
+  `python3 tools/recolor_banknote.py --src money_images/raw/10.jpg --value 2000 --ink 18,92,98`
+  (`--ink` = nejtmavší tón inkoustu R,G,B). Pak `finish_banknotes.py` a `import_money_images.py`.
 - **Jednoduchý potisk** (původní, čtvercový):
   ```bash
   python3 tools/generate_money_textures.py --currency EUR --title "OS CORE" --preview 5,10,20,50,100,200,500

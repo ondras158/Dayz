@@ -37,7 +37,10 @@ class OS_BankConfig
 
 	void FillDefaults()
 	{
-		// euro
+		// euro (+ vyšší bankovky 1000, 2000, 5000)
+		Denominations.Insert(5000);
+		Denominations.Insert(2000);
+		Denominations.Insert(1000);
 		Denominations.Insert(500);
 		Denominations.Insert(200);
 		Denominations.Insert(100);
