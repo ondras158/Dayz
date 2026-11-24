@@ -334,11 +334,6 @@ class OS_ServerGroups
 		}
 		if (targetId == id || group.FindMember(targetId) < 0)
 			return;
-		if (group.RoleOf(targetId) >= myRole)
-		{
-			OS_Util.Notify(player, "Skupina", "Admin muze vyhodit jen bezne cleny.");
-			return;
-		}
 
 		string targetName = group.Members[group.FindMember(targetId)].Name;
 		PlayerBase target = OS_Util.FindPlayerBySteamId(targetId);
@@ -349,16 +344,16 @@ class OS_ServerGroups
 
 	protected void Promote(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (group.LeaderId != id)
+		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik.");
+			OS_Util.Notify(player, "Skupina", "Vlastnictvi muze predat jen vlastnik nebo admin.");
 			return;
 		}
-		if (targetId == id || group.FindMember(targetId) < 0)
+		if (targetId == group.LeaderId || group.FindMember(targetId) < 0)
 			return;
 
 		// původní vlastník zůstane adminem
-		group.Members[group.FindMember(id)].Role = OS_GROUP_ROLE_ADMIN;
+		group.Members[group.FindMember(group.LeaderId)].Role = OS_GROUP_ROLE_ADMIN;
 		group.Members[group.FindMember(targetId)].Role = OS_GROUP_ROLE_MEMBER;
 		group.LeaderId = targetId;
 		SaveData();
@@ -368,13 +363,13 @@ class OS_ServerGroups
 	//! vlastník jmenuje / odvolá admina
 	protected void SetAdmin(PlayerBase player, string id, OS_Group group, string targetId)
 	{
-		if (group.LeaderId != id)
+		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Adminy jmenuje jen vlastnik.");
+			OS_Util.Notify(player, "Skupina", "Adminy jmenuje jen vlastnik nebo admin.");
 			return;
 		}
 		int index = group.FindMember(targetId);
-		if (targetId == id || index < 0)
+		if (targetId == id || targetId == group.LeaderId || index < 0)
 			return;
 
 		OS_GroupMember target = group.Members[index];
@@ -474,9 +469,9 @@ class OS_ServerGroups
 
 	protected void Disband(PlayerBase player, string id, OS_Group group)
 	{
-		if (group.LeaderId != id)
+		if (!group.IsManager(id))
 		{
-			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik.");
+			OS_Util.Notify(player, "Skupina", "Rozpustit skupinu muze jen vlastnik nebo admin.");
 			return;
 		}
 

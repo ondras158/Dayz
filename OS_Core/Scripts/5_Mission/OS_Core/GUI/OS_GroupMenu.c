@@ -139,18 +139,16 @@ class OS_GroupMenu : OS_MenuBase
 			return;
 
 		bool inGroup = m_Data.HasGroup();
-		bool owner = m_Data.IsOwner();
 		bool manager = m_Data.IsManager();
 		bool canInvite = inGroup && (manager || m_Data.MembersCanInvite);
 		string cur = " " + m_Data.Currency;
 
 		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText"};
-		array<string> ownerWidgets = {"BtnPromote", "BtnDisband", "BtnSetAdmin"};
-		array<string> managerWidgets = {"BtnKick", "BtnBuySlot"};
+		// vlastník i admin mají stejná práva
+		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnPromote", "BtnDisband", "BtnSetAdmin"};
 		array<string> inviteWidgets = {"FreeLabel", "FreeListBg", "FreeList", "BtnInvite"};
 		array<string> noGroupWidgets = {"CreateLabel", "EditNameBg", "EditName", "BtnCreate", "InviteText", "InviteText2"};
 		ShowAll(groupWidgets, inGroup);
-		ShowAll(ownerWidgets, owner);
 		ShowAll(managerWidgets, manager);
 		ShowAll(inviteWidgets, canInvite);
 		ShowAll(noGroupWidgets, !inGroup);

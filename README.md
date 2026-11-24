@@ -252,10 +252,11 @@ přidej jejich classname a díly).
   | Role | Co smí |
   |---|---|
   | **Vlastník** | vše: zvát, vyhazovat kohokoli, kupovat místa, vybírat z účtu, jmenovat/odvolat adminy (*Admin / člen*), předat vlastnictví, rozpustit skupinu |
-  | **Admin** | vše kromě rozpuštění, předání vlastnictví a jmenování adminů; vyhodit smí jen běžné členy |
+  | **Admin** | úplně totéž co vlastník (může vyhodit i vlastníka nebo jiného admina, předat vlastnictví, rozpustit skupinu) |
   | **Člen** | zvát a vybírat z účtu jen podle `MembersCanInvite` / `MembersCanWithdraw` |
 
-  Při předání vlastnictví zůstane původní vlastník adminem. Když vlastník odejde, převezme skupinu
+  Vlastník se od admina liší jen tím, že ho nejde odvolat tlačítkem *Admin / člen*.
+  Při předání vlastnictví zůstane původní vlastník adminem. Při rozpuštění jde zůstatek účtu tomu, kdo skupinu rozpustil. Když vlastník odejde, převezme skupinu
   první admin, a když žádný není, první člen. Starší skupiny fungují dál, dosavadní vedoucí je vlastník.
 - **Společný účet:** v bankomatu *Vložit do skupiny* / *Vybrat ze skupiny* (částka z pole Částka, prázdné = vše).
   `MembersCanWithdraw: false` = vybírat smí jen vlastník a admini. Při rozpuštění nebo odchodu posledního člena
