@@ -315,6 +315,11 @@ class OS_TraderConfig
 		grocer.Categories.Insert("Jidlo a piti");
 		Traders.Insert(grocer);
 
+		// černý trh - drogy
+		OS_TraderLocation blackMarket = new OS_TraderLocation("Priklad - Cerny trh", 1900, 1900, 8);
+		blackMarket.Categories.Insert("Drogy");
+		Traders.Insert(blackMarket);
+
 		OS_TraderLocation pharmacy = new OS_TraderLocation("Priklad - Lekarna", 2000, 1960, 10);
 		pharmacy.Categories.Insert("Medicina");
 		Traders.Insert(pharmacy);
@@ -405,6 +410,23 @@ class OS_TraderConfig
 		r.NameContains.Insert("Bone");          // kosti
 		CategoryRules.Insert(r);
 
+		// drogy (černý trh) - před medicínou a jídlem (lysohlávka je jinak jídlo)
+		r = new OS_CategoryRule("Drogy", 500, 120);
+		r.NameContains.Insert("Psilocybe");     // lysohlávka (vanilla)
+		r.NameContains.Insert("Weed");
+		r.NameContains.Insert("Marijuana");
+		r.NameContains.Insert("Cannabis");
+		r.NameContains.Insert("Cocaine");
+		r.NameContains.Insert("Heroin");
+		r.NameContains.Insert("Meth");
+		r.NameContains.Insert("Pervitin");
+		r.NameContains.Insert("LSD");
+		r.NameContains.Insert("Ecstasy");
+		r.NameContains.Insert("Opium");
+		r.NameContains.Insert("Narcotic");
+		r.NameContains.Insert("Drug");
+		CategoryRules.Insert(r);
+
 		r = new OS_CategoryRule("Medicina", 60, 10);
 		r.NameContains.Insert("Bandage");
 		r.NameContains.Insert("Morphine");
@@ -440,6 +462,21 @@ class OS_TraderConfig
 		r = new OS_CategoryRule("Jidlo a piti", 30, 5);
 		r.BaseClasses.Insert("Edible_Base");
 		r.BaseClasses.Insert("Bottle_Base");
+		// alkohol (hlavně z módů) - desinfekční alkohol zůstává v medicíně (pravidlo je výš)
+		r.NameContains.Insert("Vodka");
+		r.NameContains.Insert("Beer");
+		r.NameContains.Insert("Whisk");         // Whisky / Whiskey
+		r.NameContains.Insert("Wine");
+		r.NameContains.Insert("Rum");
+		r.NameContains.Insert("Gin");
+		r.NameContains.Insert("Tequila");
+		r.NameContains.Insert("Brandy");
+		r.NameContains.Insert("Cognac");
+		r.NameContains.Insert("Liquor");
+		r.NameContains.Insert("Moonshine");
+		r.NameContains.Insert("Slivovice");
+		r.NameContains.Insert("Becherovka");
+		r.NameContains.Insert("Alcohol");
 		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Dily aut", 150, 25);
