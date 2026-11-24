@@ -120,8 +120,12 @@ class BC_ServerBank
 			return;
 		}
 
-		if (!BC_Money.TakeCash(player, amount))
+		int changeLeftover;
+		if (!BC_Money.TakeCash(player, amount, changeLeftover))
 			return;
+		// drobné pod 10 Kr, které nešly vrátit v bankovkách, jdou taky na účet
+		if (changeLeftover > 0)
+			m_Wallets.Add(BC_Util.SteamId(player), changeLeftover);
 
 		int fee = Math.Floor(amount * m_Cfg.DepositFeePercent / 100);
 		int deposited = amount - fee;
@@ -140,9 +144,11 @@ class BC_ServerBank
 		int bank = m_Wallets.GetBalance(steamId);
 		if (amount < 0)
 			amount = bank;
+		// bankomat vydává jen bankovky (násobky 10)
+		amount = amount - amount % 10;
 		if (amount <= 0)
 		{
-			BC_Util.Notify(player, "Bankomat", "Na uctu nic neni.");
+			BC_Util.Notify(player, "Bankomat", "Vybrat jde nejmene 10 Kr (bankomat vydava jen bankovky).");
 			return;
 		}
 
@@ -152,7 +158,9 @@ class BC_ServerBank
 			return;
 		}
 
-		BC_Money.GiveCash(player, amount);
+		int undelivered = BC_Money.GiveCash(player, amount);
+		if (undelivered > 0)
+			m_Wallets.Add(steamId, undelivered);
 		BC_Util.Notify(player, "Bankomat", "Vybrano " + amount.ToString() + " " + m_Currency);
 		Print(BC_TAG + "BANKA " + BC_Util.PlayerName(player) + " vyber " + amount.ToString());
 	}

@@ -42,9 +42,15 @@ class BC_Payments
 		if (!m_Cfg.UseCash)
 			return m_Wallets.TrySpend(steamId, amount);
 
+		int leftover;
 		int cash = Cash(player);
 		if (cash >= amount)
-			return BC_Money.TakeCash(player, amount);
+		{
+			if (!BC_Money.TakeCash(player, amount, leftover))
+				return false;
+			DepositSmallChange(player, leftover);
+			return true;
+		}
 
 		if (!m_Cfg.ShopsAcceptBank || cash + Bank(player) < amount)
 			return false;
@@ -52,19 +58,33 @@ class BC_Payments
 		// zbytek z účtu
 		if (!m_Wallets.TrySpend(steamId, amount - cash))
 			return false;
-		BC_Money.TakeCash(player, cash);
+		BC_Money.TakeCash(player, cash, leftover);
+		DepositSmallChange(player, leftover);
 		return true;
 	}
 
-	//! Výplata (prodej, odměna, vrácení peněz)
+	//! Výplata (prodej, odměna, vrácení peněz). Část pod 10 Kr jde na účet.
 	void Pay(PlayerBase player, int amount)
 	{
 		if (amount <= 0 || !player)
 			return;
 
-		if (m_Cfg.UseCash)
-			BC_Money.GiveCash(player, amount);
-		else
+		if (!m_Cfg.UseCash)
+		{
 			m_Wallets.Add(BC_Util.SteamId(player), amount);
+			return;
+		}
+
+		int leftover = BC_Money.GiveCash(player, amount);
+		DepositSmallChange(player, leftover);
+	}
+
+	//! drobné, které nejde vyplatit bankovkami, připsat na účet
+	protected void DepositSmallChange(PlayerBase player, int amount)
+	{
+		if (amount <= 0)
+			return;
+		m_Wallets.Add(BC_Util.SteamId(player), amount);
+		BC_Util.Notify(player, "Banka", "Drobne " + amount.ToString() + " Kr pripsany na ucet.", 4);
 	}
 }

@@ -1,23 +1,51 @@
-// Hotovost jako předmět. Počet kusů (quantity) = částka.
+// Hotovost jako bankovky 10 / 50 / 100 / 500 / 1000 Kr.
+// Jeden předmět = balíček bankovek stejné hodnoty, počet kusů (quantity) = počet bankovek.
+// Hodnota bankovky je v configu (bcValue). Částky pod 10 Kr nejde vyplatit v hotovosti - jdou na účet.
 
 class BC_Money : Inventory_Base
 {
-	int BC_GetAmount()
+	//! hodnoty od největší (musí odpovídat třídám BC_Money_<hodnota> v config.cpp)
+	static array<int> Denominations()
+	{
+		array<int> values = {1000, 500, 100, 50, 10};
+		return values;
+	}
+
+	int BC_GetDenomination()
+	{
+		int value = ConfigGetInt("bcValue");
+		if (value <= 0)
+			value = 1;
+		return value;
+	}
+
+	int BC_GetNotes()
 	{
 		return Math.Round(GetQuantity());
 	}
 
+	int BC_GetAmount()
+	{
+		return BC_GetNotes() * BC_GetDenomination();
+	}
+
 	// --------------------------------------------------------- práce s hotovostí hráče (server)
 
+	//! balíčky hráče seřazené od nejvyšší hodnoty
 	protected static void Collect(PlayerBase player, array<BC_Money> result)
 	{
 		array<EntityAI> items = new array<EntityAI>;
 		player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, items);
-		foreach (EntityAI ent : items)
+
+		array<int> denominations = Denominations();
+		foreach (int denomination : denominations)
 		{
-			BC_Money money = BC_Money.Cast(ent);
-			if (money && !money.IsRuined())
-				result.Insert(money);
+			foreach (EntityAI ent : items)
+			{
+				BC_Money money = BC_Money.Cast(ent);
+				if (money && !money.IsRuined() && money.BC_GetDenomination() == denomination)
+					result.Insert(money);
+			}
 		}
 	}
 
@@ -38,9 +66,21 @@ class BC_Money : Inventory_Base
 		return total;
 	}
 
-	//! Odebere hotovost (z více balíčků). false = hráč nemá dost.
-	static bool TakeCash(PlayerBase player, int amount)
+	protected static void RemoveNotes(BC_Money stack, int notes)
 	{
+		if (notes <= 0)
+			return;
+		if (notes >= stack.BC_GetNotes())
+			g_Game.ObjectDelete(stack);
+		else
+			stack.SetQuantity(stack.BC_GetNotes() - notes);
+	}
+
+	//! Odebere hotovost a vrátí drobné. false = hráč nemá dost.
+	//! leftover = část drobných pod 10 Kr, kterou nejde vrátit v bankovkách (volající ji dá na účet)
+	static bool TakeCash(PlayerBase player, int amount, out int leftover)
+	{
+		leftover = 0;
 		if (amount <= 0)
 			return true;
 		if (CountCash(player) < amount)
@@ -49,52 +89,88 @@ class BC_Money : Inventory_Base
 		array<BC_Money> stacks = new array<BC_Money>;
 		Collect(player, stacks);
 
+		// 1) zaplatit co nejpřesněji od největších bankovek
 		int remaining = amount;
+		array<BC_Money> leftoverStacks = new array<BC_Money>;
 		foreach (BC_Money stack : stacks)
 		{
-			if (remaining <= 0)
-				break;
+			int denomination = stack.BC_GetDenomination();
+			int notes = stack.BC_GetNotes();
+			int use = remaining / denomination;
+			if (use > notes)
+				use = notes;
 
-			int have = stack.BC_GetAmount();
-			if (have <= remaining)
+			remaining -= use * denomination;
+			if (use < notes)
+				leftoverStacks.Insert(stack);
+			RemoveNotes(stack, use);
+		}
+
+		if (remaining <= 0)
+			return true;
+
+		// 2) zbytek zaplatit nejmenší bankovkou, která stačí, a vrátit drobné
+		BC_Money breakStack;
+		foreach (BC_Money candidate : leftoverStacks)
+		{
+			if (candidate && candidate.BC_GetDenomination() >= remaining)
 			{
-				remaining -= have;
-				g_Game.ObjectDelete(stack);
-			}
-			else
-			{
-				stack.SetQuantity(have - remaining);
-				remaining = 0;
+				if (!breakStack || candidate.BC_GetDenomination() < breakStack.BC_GetDenomination())
+					breakStack = candidate;
 			}
 		}
+
+		if (!breakStack)
+		{
+			// nemělo by nastat (celkem má dost), pro jistotu vzít libovolnou zbývající bankovku
+			if (leftoverStacks.Count() == 0)
+				return false;
+			breakStack = leftoverStacks[0];
+		}
+
+		int change = breakStack.BC_GetDenomination() - remaining;
+		RemoveNotes(breakStack, 1);
+		leftover = GiveCash(player, change);
 		return true;
 	}
 
-	//! Vydá hotovost (do inventáře, co se nevejde, na zem)
-	static void GiveCash(PlayerBase player, int amount)
+	//! Vydá hotovost v bankovkách (do inventáře, co se nevejde, na zem).
+	//! Vrací zbytek pod 10 Kr, který v bankovkách vyplatit nejde.
+	static int GiveCash(PlayerBase player, int amount)
 	{
-		int safety = 0;
-		while (amount > 0 && safety < 100)
+		if (amount <= 0)
+			return 0;
+
+		array<int> denominations = Denominations();
+		foreach (int denomination : denominations)
 		{
-			safety++;
+			int notes = amount / denomination;
+			amount -= notes * denomination;
 
-			BC_Money stack = BC_Money.Cast(BC_Util.GiveItem(player, "BC_Money"));
-			if (!stack)
+			int safety = 0;
+			while (notes > 0 && safety < 50)
 			{
-				Print(BC_TAG + "CHYBA: nepodarilo se vytvorit BC_Money pro " + BC_Util.PlayerName(player));
-				return;
+				safety++;
+
+				BC_Money stack = BC_Money.Cast(BC_Util.GiveItem(player, "BC_Money_" + denomination.ToString()));
+				if (!stack)
+				{
+					Print(BC_TAG + "CHYBA: nepodarilo se vytvorit BC_Money_" + denomination.ToString());
+					return amount + notes * denomination;
+				}
+
+				int max = stack.GetQuantityMax();
+				if (max <= 0)
+					max = 100;
+
+				int chunk = notes;
+				if (chunk > max)
+					chunk = max;
+
+				stack.SetQuantity(chunk);
+				notes -= chunk;
 			}
-
-			int max = stack.GetQuantityMax();
-			if (max <= 0)
-				max = 10000;
-
-			int chunk = amount;
-			if (chunk > max)
-				chunk = max;
-
-			stack.SetQuantity(chunk);
-			amount -= chunk;
 		}
+		return amount;
 	}
 }

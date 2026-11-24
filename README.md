@@ -127,8 +127,17 @@ přidej jejich classname a díly).
 - Garáž ukládá typ auta, díly, jejich stav a palivo. **Věci v kufru se neukládají** – auto musí být prázdné.
 
 **Peníze a bankomaty** (`Bank.json`)
-- Peníze jsou předmět **„Peníze“** (`BC_Money`, model papíru). Počet kusů = částka, balíčky jdou spojovat
-  a rozdělovat jako hadry (max. 10 000 v jednom balíčku), nic neváží.
+- Peníze jsou **bankovky 10, 50, 100, 500 a 1000 Kr** (`BC_Money_10` … `BC_Money_1000`), každá s vlastním potiskem
+  (`BadlandsCore/data/money_*_co.png`, náhled `preview_bankovky.png`). Bankovky stejné hodnoty se stohují
+  (max. 100 ks v balíčku), nic neváží.
+- Při placení se bankovky rozmění samy: zaplatíš od největších, a když to nejde přesně, vrátí se drobné v bankovkách.
+  Částky pod 10 Kr (drobné) nejdou vyplatit v hotovosti – připíšou se na účet.
+- **Textury je potřeba převést na .paa** před zabalením: DayZ Tools → *ImageToPAA* (nebo TexView2 → Save As .paa)
+  na všechny `BadlandsCore/data/money_*_co.png`. Výsledné `money_*_co.paa` nech ve stejné složce a v Addon Builderu
+  přidej `*.paa` do souborů ke kopírování. Textury znovu vygeneruješ: `python3 tools/generate_money_textures.py`.
+- Potisk se nanáší na model papíru přes `hiddenSelections[] = {"zbytek"}`. Pokud se bankovky ve hře ukážou
+  jako obyčejný papír, má model jiný název oblasti: otevři v Object Builderu `dz\gear\consumables\Paper.p3d`
+  (z disku P:), podívej se do *Named Selections* a název přepiš v `config.cpp` u třídy `BC_Money`.
 - Obchod, autobazar i servis **vyplácí a berou hotovost**, kterou máš u sebe (i v batohu).
 - Hotovost můžeš ztratit – po smrti zůstane na těle a kdokoli ji sebere.
 - **Bankomat** (klávesa **B** u bankomatu): vložit / vybrat částku, vložit vše, vybrat vše.
