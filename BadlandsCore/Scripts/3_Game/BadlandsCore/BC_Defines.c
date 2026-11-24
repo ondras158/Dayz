@@ -1,0 +1,32 @@
+// Společné konstanty pro klienta i server.
+
+const string BC_DIR = "$profile:BadlandsCore/";
+const string BC_TAG = "[BadlandsCore] ";
+const string BC_LAYOUT_DIR = "BadlandsCore/GUI/layouts/";
+
+// ID vzdálených volání (RPC). Musí být unikátní - neměň je, pokud nemusíš.
+const int BC_RPC_SPAWN_MENU    = 784512001; // server -> klient: otevři menu spawnu
+const int BC_RPC_SPAWN_ACK     = 784512002; // klient -> server: menu je otevřené
+const int BC_RPC_SPAWN_CHOICE  = 784512003; // klient -> server: vybraná zóna
+
+const int BC_RPC_ADMIN_OPEN    = 784512010; // klient -> server: chci admin menu
+const int BC_RPC_ADMIN_DATA    = 784512011; // server -> klient: seznam hráčů
+const int BC_RPC_ADMIN_ACTION  = 784512012; // klient -> server: proveď akci
+
+const int BC_RPC_TRADER_OPEN   = 784512020; // klient -> server: chci obchod
+const int BC_RPC_TRADER_DATA   = 784512021; // server -> klient: katalog
+const int BC_RPC_TRADER_BUY    = 784512022; // klient -> server: koupit
+const int BC_RPC_TRADER_SELL   = 784512023; // klient -> server: prodat
+const int BC_RPC_TRADER_UPDATE = 784512024; // server -> klient: nový zůstatek + co lze prodat
+
+enum BC_AdminAction
+{
+	HEAL,
+	KILL,
+	TELEPORT_TO,
+	TELEPORT_HERE,
+	TOGGLE_GOD,
+	SPAWN_ITEM,
+	GIVE_MONEY,
+	TELEPORT_COORDS
+}

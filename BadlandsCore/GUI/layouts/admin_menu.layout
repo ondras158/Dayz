@@ -1,0 +1,282 @@
+FrameWidgetClass BC_AdminMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 760 600
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 720 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Admin menu"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass PlayersLabel {
+     position 20 52
+     size 340 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Hraci online"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass PlayerListBg {
+     color 0 0 0 0.6
+     position 20 80
+     size 340 420
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass PlayerList {
+     position 24 84
+     size 332 412
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRefresh {
+     color 0.25 0.22 0.18 1
+     position 20 510
+     size 340 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Obnovit seznam"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Target {
+     position 380 52
+     size 360 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Cil:"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnHeal {
+     color 0.25 0.22 0.18 1
+     position 380 80
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vylecit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnKill {
+     color 0.25 0.22 0.18 1
+     position 565 80
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zabit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnTpTo {
+     color 0.25 0.22 0.18 1
+     position 380 125
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Teleport k nemu"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnTpHere {
+     color 0.25 0.22 0.18 1
+     position 565 125
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Teleport ke mne"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnGod {
+     color 0.25 0.22 0.18 1
+     position 380 170
+     size 360 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Godmode"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass ItemLabel {
+     position 380 222
+     size 360 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Predmet: classname [pocet]  napr. Apple 5"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditItemBg {
+     color 0 0 0 0.7
+     position 380 250
+     size 360 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditItem {
+     position 386 252
+     size 348 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSpawn {
+     color 0.25 0.22 0.18 1
+     position 380 292
+     size 360 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Dat predmet cili"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass ArgLabel {
+     position 380 344
+     size 360 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Castka penez / souradnice X Z"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditArgBg {
+     color 0 0 0 0.7
+     position 380 372
+     size 360 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditArg {
+     position 386 374
+     size 348 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnMoney {
+     color 0.25 0.22 0.18 1
+     position 380 414
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Dat penize cili"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnTpCoords {
+     color 0.25 0.22 0.18 1
+     position 565 414
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Teleport na X Z"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 380 510
+     size 360 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 558
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}
