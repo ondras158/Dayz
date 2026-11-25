@@ -162,6 +162,12 @@ Akce se týkají hráče vybraného v seznamu admin menu (bez výběru tebe). V�
 - **Přidat / Odebrat admina:** vyber hráče v seznamu online hráčů v admin menu (admini mají `[ADMIN]`),
   nebo napiš do pole jeho Steam64 ID (funguje i pro hráče offline). Uloží se do `Admins.json`
   a platí hned, bez restartu. Sám sebe odebrat nejde. Prvního admina je pořád potřeba zapsat do `Admins.json` ručně.
+- **Hlavní admin:** Steam64 ID dej do `HeadAdminSteamIds` v `Admins.json` (je admin i bez zápisu v `AdminSteamIds`).
+  Ve hře ho nikdo neodebere, nevyhodí, nezabanuje, nezabije ani nevysvlékne – kromě jiného hlavního admina.
+  V seznamu má `[HLAVNI ADMIN]`. `OnlyHeadAdminsManageAdmins: true` = adminy ve hře přidává a odebírá jen hlavní admin.
+  ```json
+  { "AdminSteamIds": [], "HeadAdminSteamIds": ["76561198000000000"], "OnlyHeadAdminsManageAdmins": false }
+  ```
 
 **Spawn zóna** – body jsou `[x, 0, z]` (výška se dopočítá):
 ```json

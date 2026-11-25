@@ -121,10 +121,12 @@ class OS_LangData
 		m.Set("Bankovka %1 %2", "Bankovka %1 %2");
 		m.Set("Banka", "Banka");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Drobne %1 %2 pripsany na ucet.");
+		m.Set("Admin", "Admin");
+		m.Set("Na hlavniho admina tohle nejde.", "Na hlavniho admina tohle nejde.");
 		m.Set("%1 [mrtvy]", "%1 [mrtvy]");
 		m.Set("%1 [GOD]", "%1 [GOD]");
+		m.Set("%1 [HLAVNI ADMIN]", "%1 [HLAVNI ADMIN]");
 		m.Set("%1 [ADMIN]", "%1 [ADMIN]");
-		m.Set("Admin", "Admin");
 		m.Set("Hrac uz neni na serveru.", "Hrac uz neni na serveru.");
 		m.Set("Vyleceno: %1", "Vyleceno: %1");
 		m.Set("Godmode ZAPNUT", "Godmode ZAPNUT");
@@ -159,6 +161,8 @@ class OS_LangData
 		m.Set("Vyhozen: %1", "Vyhozen: %1");
 		m.Set("%1 Duvod: %2", "%1 Duvod: %2");
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).");
+		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminy muze pridavat a odebirat jen hlavni admin.");
+		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 je hlavni admin - to jde zmenit jen v Admins.json.");
 		m.Set("%1 uz je admin.", "%1 uz je admin.");
 		m.Set("%1 je novy admin.", "%1 je novy admin.");
 		m.Set("Jsi admin serveru. Admin menu otevres klavesou Home.", "Jsi admin serveru. Admin menu otevres klavesou Home.");
@@ -189,14 +193,14 @@ class OS_LangData
 		m.Set("Odeslano %1 %2 hraci %3", "Odeslano %1 %2 hraci %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 ti poslal %2 %3 na ucet.");
 		m.Set("Farma", "Farma");
-		m.Set("Farma zrusena.", "Farma zrusena.");
-		m.Set("Farmar", "Farmar");
-		m.Set("Nejdriv si postav farmu (klavesa U).", "Nejdriv si postav farmu (klavesa U).");
-		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.");
 	}
 
 	protected static void Fill_cs_1(map<string, string> m)
 	{
+		m.Set("Farma zrusena.", "Farma zrusena.");
+		m.Set("Farmar", "Farmar");
+		m.Set("Nejdriv si postav farmu (klavesa U).", "Nejdriv si postav farmu (klavesa U).");
+		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.");
 		m.Set("Zvirata se kupuji u Farmare.", "Zvirata se kupuji u Farmare.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Krmivo a hnojivo se kupuje u Farmare.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Uz mas farmu. Nejdriv ji zrus.");
@@ -343,14 +347,14 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Vyber predmet v seznamu.");
 		m.Set("Hotovost u sebe: %1%2", "Hotovost u sebe: %1%2");
 		m.Set("Na uctu: %1%2", "Na uctu: %1%2");
-		m.Set("Poplatek za vklad: %1 %", "Poplatek za vklad: %1 %");
-		m.Set("Vklad bez poplatku", "Vklad bez poplatku");
-		m.Set("Ucet skupiny %1: %2%3", "Ucet skupiny %1: %2%3");
-		m.Set("Nejsi ve skupine (klavesa J)", "Nejsi ve skupine (klavesa J)");
 	}
 
 	protected static void Fill_cs_2(map<string, string> m)
 	{
+		m.Set("Poplatek za vklad: %1 %", "Poplatek za vklad: %1 %");
+		m.Set("Vklad bez poplatku", "Vklad bez poplatku");
+		m.Set("Ucet skupiny %1: %2%3", "Ucet skupiny %1: %2%3");
+		m.Set("Nejsi ve skupine (klavesa J)", "Nejsi ve skupine (klavesa J)");
 		m.Set("Poplatek za prevod: %1 %", "Poplatek za prevod: %1 %");
 		m.Set("Prevod z uctu na ucet, bez poplatku", "Prevod z uctu na ucet, bez poplatku");
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.");
@@ -497,14 +501,14 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Postavit garaz zde");
 		m.Set("Nastavit misto pro vozidlo", "Nastavit misto pro vozidlo");
 		m.Set("Zrusit garaz", "Zrusit garaz");
-		m.Set("Osobni garaze jsou na serveru vypnute.", "Osobni garaze jsou na serveru vypnute.");
-		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Tvoje garaz: %1 / %2   (%3 m)");
-		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.");
-		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaz je i na mape. Dojdi k ni a pouzij klavesu B.");
 	}
 
 	protected static void Fill_cs_3(map<string, string> m)
 	{
+		m.Set("Osobni garaze jsou na serveru vypnute.", "Osobni garaze jsou na serveru vypnute.");
+		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Tvoje garaz: %1 / %2   (%3 m)");
+		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.");
+		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaz je i na mape. Dojdi k ni a pouzij klavesu B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nemas osobni garaz. Postav ji tam, kde stojis.");
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Postavit garaz zde (%1 %2)");
@@ -631,10 +635,12 @@ class OS_LangData
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Change of %1 %2 credited to your account.");
+		m.Set("Admin", "Admin");
+		m.Set("Na hlavniho admina tohle nejde.", "This can't be done to a head admin.");
 		m.Set("%1 [mrtvy]", "%1 [dead]");
 		m.Set("%1 [GOD]", "%1 [GOD]");
+		m.Set("%1 [HLAVNI ADMIN]", "%1 [HEAD ADMIN]");
 		m.Set("%1 [ADMIN]", "%1 [ADMIN]");
-		m.Set("Admin", "Admin");
 		m.Set("Hrac uz neni na serveru.", "The player is no longer on the server.");
 		m.Set("Vyleceno: %1", "Healed: %1");
 		m.Set("Godmode ZAPNUT", "Godmode ON");
@@ -669,6 +675,8 @@ class OS_LangData
 		m.Set("Vyhozen: %1", "Kicked: %1");
 		m.Set("%1 Duvod: %2", "%1 Reason: %2");
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Select a player in the list, or type their Steam64 ID (17 digits) into the field.");
+		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Only a head admin can add and remove admins.");
+		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 is a head admin - this can only be changed in Admins.json.");
 		m.Set("%1 uz je admin.", "%1 is already an admin.");
 		m.Set("%1 je novy admin.", "%1 is a new admin.");
 		m.Set("Jsi admin serveru. Admin menu otevres klavesou Home.", "You are a server admin. Open the admin menu with the Home key.");
@@ -699,14 +707,14 @@ class OS_LangData
 		m.Set("Odeslano %1 %2 hraci %3", "Sent %1 %2 to player %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 sent %2 %3 to your account.");
 		m.Set("Farma", "Farm");
-		m.Set("Farma zrusena.", "Farm removed.");
-		m.Set("Farmar", "Farmer");
-		m.Set("Nejdriv si postav farmu (klavesa U).", "Build a farm first (key U).");
-		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "You must stand at your farm (or a group mate's farm) or at the Farmer.");
 	}
 
 	protected static void Fill_en_1(map<string, string> m)
 	{
+		m.Set("Farma zrusena.", "Farm removed.");
+		m.Set("Farmar", "Farmer");
+		m.Set("Nejdriv si postav farmu (klavesa U).", "Build a farm first (key U).");
+		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "You must stand at your farm (or a group mate's farm) or at the Farmer.");
 		m.Set("Zvirata se kupuji u Farmare.", "Animals are bought at the Farmer.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Feed and fertilizer are bought at the Farmer.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "You already have a farm. Remove it first.");
@@ -853,14 +861,14 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Select an item in the list.");
 		m.Set("Hotovost u sebe: %1%2", "Cash on you: %1%2");
 		m.Set("Na uctu: %1%2", "In account: %1%2");
-		m.Set("Poplatek za vklad: %1 %", "Deposit fee: %1 %");
-		m.Set("Vklad bez poplatku", "Deposit without fee");
-		m.Set("Ucet skupiny %1: %2%3", "Account of group %1: %2%3");
-		m.Set("Nejsi ve skupine (klavesa J)", "You are not in a group (key J)");
 	}
 
 	protected static void Fill_en_2(map<string, string> m)
 	{
+		m.Set("Poplatek za vklad: %1 %", "Deposit fee: %1 %");
+		m.Set("Vklad bez poplatku", "Deposit without fee");
+		m.Set("Ucet skupiny %1: %2%3", "Account of group %1: %2%3");
+		m.Set("Nejsi ve skupine (klavesa J)", "You are not in a group (key J)");
 		m.Set("Poplatek za prevod: %1 %", "Transfer fee: %1 %");
 		m.Set("Prevod z uctu na ucet, bez poplatku", "Account to account transfer, no fee");
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Select a player from the list or enter their Steam64 ID.");
@@ -1007,14 +1015,14 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Build garage here");
 		m.Set("Nastavit misto pro vozidlo", "Set vehicle spot");
 		m.Set("Zrusit garaz", "Remove garage");
-		m.Set("Osobni garaze jsou na serveru vypnute.", "Personal garages are disabled on the server.");
-		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Your garage: %1 / %2   (%3 m)");
-		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "You are at the garage - key B = store / retrieve vehicle.");
-		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "The garage is also on the map. Go there and use key B.");
 	}
 
 	protected static void Fill_en_3(map<string, string> m)
 	{
+		m.Set("Osobni garaze jsou na serveru vypnute.", "Personal garages are disabled on the server.");
+		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Your garage: %1 / %2   (%3 m)");
+		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "You are at the garage - key B = store / retrieve vehicle.");
+		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "The garage is also on the map. Go there and use key B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "You have no personal garage. Build it where you are standing.");
 		m.Set("Cena: %1 %2", "Price: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Build garage here (%1 %2)");
@@ -1141,10 +1149,12 @@ class OS_LangData
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Wechselgeld %1 %2 wurde deinem Konto gutgeschrieben.");
+		m.Set("Admin", "Admin");
+		m.Set("Na hlavniho admina tohle nejde.", "Das geht bei einem Hauptadmin nicht.");
 		m.Set("%1 [mrtvy]", "%1 [tot]");
 		m.Set("%1 [GOD]", "%1 [GOD]");
+		m.Set("%1 [HLAVNI ADMIN]", "%1 [HAUPTADMIN]");
 		m.Set("%1 [ADMIN]", "%1 [ADMIN]");
-		m.Set("Admin", "Admin");
 		m.Set("Hrac uz neni na serveru.", "Der Spieler ist nicht mehr auf dem Server.");
 		m.Set("Vyleceno: %1", "Geheilt: %1");
 		m.Set("Godmode ZAPNUT", "Godmode AN");
@@ -1179,6 +1189,8 @@ class OS_LangData
 		m.Set("Vyhozen: %1", "Rausgeworfen: %1");
 		m.Set("%1 Duvod: %2", "%1 Grund: %2");
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wähle einen Spieler in der Liste oder gib seine Steam64-ID (17 Ziffern) ins Feld ein.");
+		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Nur ein Hauptadmin kann Admins hinzufügen und entfernen.");
+		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 ist Hauptadmin - das lässt sich nur in Admins.json ändern.");
 		m.Set("%1 uz je admin.", "%1 ist schon Admin.");
 		m.Set("%1 je novy admin.", "%1 ist neuer Admin.");
 		m.Set("Jsi admin serveru. Admin menu otevres klavesou Home.", "Du bist Server-Admin. Das Adminmenü öffnest du mit der Taste Home.");
@@ -1209,14 +1221,14 @@ class OS_LangData
 		m.Set("Odeslano %1 %2 hraci %3", "%1 %2 an Spieler %3 gesendet");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 hat dir %2 %3 aufs Konto geschickt.");
 		m.Set("Farma", "Farm");
-		m.Set("Farma zrusena.", "Farm abgerissen.");
-		m.Set("Farmar", "Bauer");
-		m.Set("Nejdriv si postav farmu (klavesa U).", "Bau zuerst eine Farm (Taste U).");
-		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Du musst bei deiner Farm (oder der Farm eines Gruppenmitglieds) oder beim Bauern stehen.");
 	}
 
 	protected static void Fill_de_1(map<string, string> m)
 	{
+		m.Set("Farma zrusena.", "Farm abgerissen.");
+		m.Set("Farmar", "Bauer");
+		m.Set("Nejdriv si postav farmu (klavesa U).", "Bau zuerst eine Farm (Taste U).");
+		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Du musst bei deiner Farm (oder der Farm eines Gruppenmitglieds) oder beim Bauern stehen.");
 		m.Set("Zvirata se kupuji u Farmare.", "Tiere kauft man beim Bauern.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Futter und Dünger kauft man beim Bauern.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Du hast schon eine Farm. Reiß sie zuerst ab.");
@@ -1363,14 +1375,14 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Wähle einen Gegenstand in der Liste.");
 		m.Set("Hotovost u sebe: %1%2", "Bargeld dabei: %1%2");
 		m.Set("Na uctu: %1%2", "Auf dem Konto: %1%2");
-		m.Set("Poplatek za vklad: %1 %", "Einzahlungsgebühr: %1 %");
-		m.Set("Vklad bez poplatku", "Einzahlung ohne Gebühr");
-		m.Set("Ucet skupiny %1: %2%3", "Konto der Gruppe %1: %2%3");
-		m.Set("Nejsi ve skupine (klavesa J)", "Du bist in keiner Gruppe (Taste J)");
 	}
 
 	protected static void Fill_de_2(map<string, string> m)
 	{
+		m.Set("Poplatek za vklad: %1 %", "Einzahlungsgebühr: %1 %");
+		m.Set("Vklad bez poplatku", "Einzahlung ohne Gebühr");
+		m.Set("Ucet skupiny %1: %2%3", "Konto der Gruppe %1: %2%3");
+		m.Set("Nejsi ve skupine (klavesa J)", "Du bist in keiner Gruppe (Taste J)");
 		m.Set("Poplatek za prevod: %1 %", "Überweisungsgebühr: %1 %");
 		m.Set("Prevod z uctu na ucet, bez poplatku", "Überweisung von Konto zu Konto, ohne Gebühr");
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Wähle einen Spieler aus der Liste oder gib seine Steam64-ID ein.");
@@ -1517,14 +1529,14 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Garage hier bauen");
 		m.Set("Nastavit misto pro vozidlo", "Fahrzeugplatz festlegen");
 		m.Set("Zrusit garaz", "Garage abreißen");
-		m.Set("Osobni garaze jsou na serveru vypnute.", "Eigene Garagen sind auf dem Server deaktiviert.");
-		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Deine Garage: %1 / %2   (%3 m)");
-		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Du bist an der Garage - Taste B = Fahrzeug einlagern / abholen.");
-		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Die Garage ist auch auf der Karte. Geh hin und drück Taste B.");
 	}
 
 	protected static void Fill_de_3(map<string, string> m)
 	{
+		m.Set("Osobni garaze jsou na serveru vypnute.", "Eigene Garagen sind auf dem Server deaktiviert.");
+		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Deine Garage: %1 / %2   (%3 m)");
+		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Du bist an der Garage - Taste B = Fahrzeug einlagern / abholen.");
+		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Die Garage ist auch auf der Karte. Geh hin und drück Taste B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Du hast keine eigene Garage. Bau sie dort, wo du stehst.");
 		m.Set("Cena: %1 %2", "Preis: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Garage hier bauen (%1 %2)");
@@ -1651,10 +1663,12 @@ class OS_LangData
 		m.Set("Bankovka %1 %2", "Banknot %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Reszta %1 %2 została przelana na twoje konto.");
+		m.Set("Admin", "Admin");
+		m.Set("Na hlavniho admina tohle nejde.", "Tego nie można zrobić głównemu adminowi.");
 		m.Set("%1 [mrtvy]", "%1 [martwy]");
 		m.Set("%1 [GOD]", "%1 [GOD]");
+		m.Set("%1 [HLAVNI ADMIN]", "%1 [GŁÓWNY ADMIN]");
 		m.Set("%1 [ADMIN]", "%1 [ADMIN]");
-		m.Set("Admin", "Admin");
 		m.Set("Hrac uz neni na serveru.", "Gracza nie ma już na serwerze.");
 		m.Set("Vyleceno: %1", "Uleczono: %1");
 		m.Set("Godmode ZAPNUT", "Godmode WŁĄCZONY");
@@ -1689,6 +1703,8 @@ class OS_LangData
 		m.Set("Vyhozen: %1", "Wyrzucono: %1");
 		m.Set("%1 Duvod: %2", "%1 Powód: %2");
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wybierz gracza z listy lub wpisz w pole jego Steam64 ID (17 cyfr).");
+		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminów może dodawać i usuwać tylko główny admin.");
+		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 jest głównym adminem - można to zmienić tylko w Admins.json.");
 		m.Set("%1 uz je admin.", "%1 jest już adminem.");
 		m.Set("%1 je novy admin.", "%1 jest nowym adminem.");
 		m.Set("Jsi admin serveru. Admin menu otevres klavesou Home.", "Jesteś adminem serwera. Menu admina otworzysz klawiszem Home.");
@@ -1719,14 +1735,14 @@ class OS_LangData
 		m.Set("Odeslano %1 %2 hraci %3", "Wysłano %1 %2 do gracza %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 przesłał ci %2 %3 na konto.");
 		m.Set("Farma", "Farma");
-		m.Set("Farma zrusena.", "Farma usunięta.");
-		m.Set("Farmar", "Rolnik");
-		m.Set("Nejdriv si postav farmu (klavesa U).", "Najpierw zbuduj farmę (klawisz U).");
-		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Musisz stać przy swojej farmie (lub farmie członka grupy) albo u Rolnika.");
 	}
 
 	protected static void Fill_pl_1(map<string, string> m)
 	{
+		m.Set("Farma zrusena.", "Farma usunięta.");
+		m.Set("Farmar", "Rolnik");
+		m.Set("Nejdriv si postav farmu (klavesa U).", "Najpierw zbuduj farmę (klawisz U).");
+		m.Set("Musis stat u sve farmy (nebo farmy spoluhrace ze skupiny) nebo u Farmare.", "Musisz stać przy swojej farmie (lub farmie członka grupy) albo u Rolnika.");
 		m.Set("Zvirata se kupuji u Farmare.", "Zwierzęta kupuje się u Rolnika.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Paszę i nawóz kupuje się u Rolnika.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Masz już farmę. Najpierw ją usuń.");
@@ -1873,14 +1889,14 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Wybierz przedmiot z listy.");
 		m.Set("Hotovost u sebe: %1%2", "Gotówka przy sobie: %1%2");
 		m.Set("Na uctu: %1%2", "Na koncie: %1%2");
-		m.Set("Poplatek za vklad: %1 %", "Opłata za wpłatę: %1 %");
-		m.Set("Vklad bez poplatku", "Wpłata bez opłaty");
-		m.Set("Ucet skupiny %1: %2%3", "Konto grupy %1: %2%3");
-		m.Set("Nejsi ve skupine (klavesa J)", "Nie jesteś w grupie (klawisz J)");
 	}
 
 	protected static void Fill_pl_2(map<string, string> m)
 	{
+		m.Set("Poplatek za vklad: %1 %", "Opłata za wpłatę: %1 %");
+		m.Set("Vklad bez poplatku", "Wpłata bez opłaty");
+		m.Set("Ucet skupiny %1: %2%3", "Konto grupy %1: %2%3");
+		m.Set("Nejsi ve skupine (klavesa J)", "Nie jesteś w grupie (klawisz J)");
 		m.Set("Poplatek za prevod: %1 %", "Opłata za przelew: %1 %");
 		m.Set("Prevod z uctu na ucet, bez poplatku", "Przelew z konta na konto, bez opłaty");
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Wybierz gracza z listy lub wpisz jego Steam64 ID.");
@@ -2027,14 +2043,14 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Zbuduj garaż tutaj");
 		m.Set("Nastavit misto pro vozidlo", "Ustaw miejsce dla pojazdu");
 		m.Set("Zrusit garaz", "Usuń garaż");
-		m.Set("Osobni garaze jsou na serveru vypnute.", "Własne garaże są na serwerze wyłączone.");
-		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Twój garaż: %1 / %2   (%3 m)");
-		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jesteś przy garażu - klawisz B = zaparkuj / odbierz pojazd.");
-		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaż jest też na mapie. Idź do niego i użyj klawisza B.");
 	}
 
 	protected static void Fill_pl_3(map<string, string> m)
 	{
+		m.Set("Osobni garaze jsou na serveru vypnute.", "Własne garaże są na serwerze wyłączone.");
+		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Twój garaż: %1 / %2   (%3 m)");
+		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jesteś przy garażu - klawisz B = zaparkuj / odbierz pojazd.");
+		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaż jest też na mapie. Idź do niego i użyj klawisza B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nie masz własnego garażu. Zbuduj go tam, gdzie stoisz.");
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Zbuduj garaż tutaj (%1 %2)");

@@ -186,6 +186,10 @@ class OS_AdminConfig
 {
 	// Steam64 ID adminů (17 číslic, např. 76561198000000000)
 	ref array<string> AdminSteamIds = new array<string>;
+	// hlavní admini: jsou admini vždy, ve hře je nikdo nemůže odebrat, vyhodit, zabanovat ani vysvléknout
+	// (změna jen tady v souboru)
+	ref array<string> HeadAdminSteamIds = new array<string>;
+	bool OnlyHeadAdminsManageAdmins = false;   // true = přidávat/odebírat adminy ve hře smí jen hlavní admini
 	bool LogActions = true;
 	// zabanovaní hráči (Steam64 ID) - přidává tlačítko Ban v admin nástrojích, odebírá Unban
 	ref array<string> BannedSteamIds = new array<string>;

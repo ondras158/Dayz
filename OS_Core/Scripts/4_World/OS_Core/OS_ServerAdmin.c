@@ -17,9 +17,28 @@ class OS_ServerAdmin
 
 	bool IsAdmin(PlayerIdentity identity)
 	{
-		if (!identity || !m_Cfg.AdminSteamIds)
+		if (!identity)
 			return false;
-		return m_Cfg.AdminSteamIds.Find(identity.GetPlainId()) > -1;
+		if (IsHeadAdminId(identity.GetPlainId()))
+			return true;
+		return m_Cfg.AdminSteamIds && m_Cfg.AdminSteamIds.Find(identity.GetPlainId()) > -1;
+	}
+
+	bool IsHeadAdminId(string steamId)
+	{
+		return steamId != "" && m_Cfg.HeadAdminSteamIds && m_Cfg.HeadAdminSteamIds.Find(steamId) > -1;
+	}
+
+	//! hlavního admina smí cílit jen on sám nebo jiný hlavní admin
+	protected bool ProtectedFrom(PlayerBase admin, PlayerBase target)
+	{
+		if (!target || target == admin)
+			return false;
+		string targetId = OS_Util.SteamId(target);
+		if (!IsHeadAdminId(targetId) || IsHeadAdminId(OS_Util.SteamId(admin)))
+			return false;
+		OS_Util.Notify(admin, OS_T("Admin"), OS_T("Na hlavniho admina tohle nejde."));
+		return true;
 	}
 
 	protected void Log(PlayerBase admin, string text)
@@ -69,7 +88,9 @@ class OS_ServerAdmin
 				label = OS_F("%1 [mrtvy]", label);
 			if (player.m_OS_AdminGod)
 				label = OS_F("%1 [GOD]", label);
-			if (IsAdmin(player.GetIdentity()))
+			if (IsHeadAdminId(player.GetIdentity().GetPlainId()))
+				label = OS_F("%1 [HLAVNI ADMIN]", label);
+			else if (IsAdmin(player.GetIdentity()))
 				label = OS_F("%1 [ADMIN]", label);
 
 			names.Insert(label);
@@ -112,6 +133,8 @@ class OS_ServerAdmin
 		}
 		else if (action == OS_AdminAction.KILL)
 		{
+			if (ProtectedFrom(admin, target))
+				return;
 			target.SetHealth("", "", 0);
 			Log(admin, "kill " + targetName);
 		}
@@ -395,6 +418,8 @@ class OS_ServerAdmin
 		}
 		else if (action == OS_AdminAction.STRIP)
 		{
+			if (ProtectedFrom(admin, target))
+				return;
 			target.RemoveAllItems();
 			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Odebrany vsechny veci: %1", targetName));
 			Log(admin, "vysvlekl " + targetName);
@@ -606,6 +631,8 @@ class OS_ServerAdmin
 			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Nejdriv vyber hrace v seznamu."));
 			return;
 		}
+		if (ProtectedFrom(admin, target))
+			return;
 		reason = reason.Trim();
 		string targetName = OS_Util.PlayerName(target);
 		string targetId = OS_Util.SteamId(target);
@@ -655,6 +682,16 @@ class OS_ServerAdmin
 		if (!OS_Wallets.IsValidSteamId(steamId))
 		{
 			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic)."));
+			return;
+		}
+		if (m_Cfg.OnlyHeadAdminsManageAdmins && !IsHeadAdminId(OS_Util.SteamId(admin)))
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Adminy muze pridavat a odebirat jen hlavni admin."));
+			return;
+		}
+		if (IsHeadAdminId(steamId))
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1 je hlavni admin - to jde zmenit jen v Admins.json.", name));
 			return;
 		}
 		if (!m_Cfg.AdminSteamIds)
