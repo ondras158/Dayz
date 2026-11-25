@@ -733,7 +733,11 @@ nejvíc vadí, a řídí vojáky z OS_Core. Nastavení `$profile:OS_Core/Expansi
   - **Přepadení:** výstřel do auta, zabitý voják nebo hráč blíž než `AmbushDistance` (35 m) – konvoj zastaví,
     vojáci vystoupí a bojují. Kufr jde vybrat, až padnou.
   - **Útok:** projíždí-li konvoj do `AttackBaseRadius` (250 m) od hráče v jeho base, zastaví a vojáci jdou na base.
-  - Auto jede skriptem po bodech trasy (spolehlivé, nesjede z cesty), ne řízením AI. Po zastavení se vrátí na fyziku.
+  - **Hybridní jízda** (`RealDriving`): když je hráč blíž než `PhysicsDistance` (400 m), auto **opravdu řídí voják**
+    za volantem – vlastní řidič OS drží trasu (míří na bod před autem), do zatáček zpomaluje až na `MinCornerSpeedKmh`,
+    řadí (manuál podle otáček), brzdí před autem / člověkem / zdí a po `StuckSeconds` zaseknutí couvne.
+    Když nikdo blízko není, posouvá se po trase skriptem. Zaseknuté (`RecoverSeconds`) nebo převrácené auto se vrátí
+    na trasu, jen když nikdo není blíž než `UnseenDistance` (200 m). Zastřelený řidič = konvoj zastaví.
     Po `LifetimeMinutes` od zastavení nebo dojetí konvoj (auto i zbylí vojáci) zmizí.
   - Admin nástroje: *Vyslat konvoj*.
 - Přesnost, poškození a další chování dál nastavuješ v nastavení Expansion AI (`AISettings.json`).
