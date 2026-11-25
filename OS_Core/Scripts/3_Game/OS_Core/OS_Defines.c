@@ -79,7 +79,9 @@ enum OS_AdminAction
 	STRIP,          // odebrat cíli všechny věci
 	KICK,           // arg = důvod
 	BAN,            // arg = důvod
-	UNBAN           // arg = Steam64 ID
+	UNBAN,          // arg = Steam64 ID
+	ADD_ADMIN,      // vybraný hráč, nebo Steam64 ID v arg
+	REMOVE_ADMIN    // vybraný hráč, nebo Steam64 ID v arg
 }
 
 enum OS_VehicleAction

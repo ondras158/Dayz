@@ -110,7 +110,7 @@ class OS_LayoutTexts
 			Set(root, "BtnInvis", "Neviditelnost");
 			Set(root, "BtnEsp", "ESP");
 			Set(root, "BtnFreecam", "Freecam");
-			Set(root, "ReasonLabel", "Duvod (kick/ban) nebo Steam ID (unban)");
+			Set(root, "ReasonLabel", "Duvod (kick/ban) nebo Steam ID (unban, admin)");
 			Set(root, "BtnKick", "Kick");
 			Set(root, "BtnBan", "Ban");
 			Set(root, "BtnUnban", "Unban");
@@ -119,6 +119,8 @@ class OS_LayoutTexts
 			Set(root, "BtnCarDestroy", "Znicit");
 			Set(root, "BtnCarDelete", "Smazat");
 			Set(root, "BtnSpawner", "Spawner predmetu a vozidel");
+			Set(root, "BtnAddAdmin", "Pridat admina");
+			Set(root, "BtnRemoveAdmin", "Odebrat admina");
 			Set(root, "TimeLabel", "Cas");
 			Set(root, "BtnMorning", "6:00");
 			Set(root, "BtnNoon", "12:00");

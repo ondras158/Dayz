@@ -366,6 +366,14 @@ class OS_AdminToolsMenu : OS_MenuBase
 			if (NeedTarget())
 				Send(OS_AdminAction.BAN, EditText(m_EditReason));
 		}
+		else if (name == "BtnAddAdmin")
+		{
+			Send(OS_AdminAction.ADD_ADMIN, EditText(m_EditReason));
+		}
+		else if (name == "BtnRemoveAdmin")
+		{
+			Send(OS_AdminAction.REMOVE_ADMIN, EditText(m_EditReason));
+		}
 		else if (name == "BtnUnban")
 		{
 			OS_ClientAdmin.SendAction(OS_AdminAction.UNBAN, "", EditText(m_EditReason));

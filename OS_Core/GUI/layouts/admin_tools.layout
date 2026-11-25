@@ -113,7 +113,7 @@ FrameWidgetClass OS_AdminToolsMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Duvod (kick/ban) nebo Steam ID (unban)"
+     text "Duvod (kick/ban) nebo Steam ID (unban, admin)"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
@@ -233,6 +233,30 @@ FrameWidgetClass OS_AdminToolsMenu {
      vexactsize 1
      style Default
      text "Spawner predmetu a vozidel"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnAddAdmin {
+     color 0.25 0.22 0.18 1
+     position 20 452
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Pridat admina"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRemoveAdmin {
+     color 0.25 0.22 0.18 1
+     position 225 452
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Odebrat admina"
      font "gui/fonts/metron"
     }
     TextWidgetClass TimeLabel {

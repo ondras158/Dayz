@@ -159,6 +159,9 @@ Akce se týkají hráče vybraného v seznamu admin menu (bez výběru tebe). V�
 - **Vozidlo do 15 m od cíle:** opravit (vše včetně dílů a kapalin), zničit, smazat.
 - **Hráč:** *Vysvléknout* (odebere všechny věci), *Kick*, *Ban* (důvod z pole, Steam ID se uloží do
   `Admins.json` → `BannedSteamIds`, zprávu změníš v `BanMessage`), *Unban* (Steam ID napiš do pole).
+- **Přidat / Odebrat admina:** vyber hráče v seznamu online hráčů v admin menu (admini mají `[ADMIN]`),
+  nebo napiš do pole jeho Steam64 ID (funguje i pro hráče offline). Uloží se do `Admins.json`
+  a platí hned, bez restartu. Sám sebe odebrat nejde. Prvního admina je pořád potřeba zapsat do `Admins.json` ručně.
 
 **Spawn zóna** – body jsou `[x, 0, z]` (výška se dopočítá):
 ```json

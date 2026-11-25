@@ -69,6 +69,8 @@ class OS_ServerAdmin
 				label = OS_F("%1 [mrtvy]", label);
 			if (player.m_OS_AdminGod)
 				label = OS_F("%1 [GOD]", label);
+			if (IsAdmin(player.GetIdentity()))
+				label = OS_F("%1 [ADMIN]", label);
 
 			names.Insert(label);
 			ids.Insert(player.GetIdentity().GetPlainId());
@@ -401,6 +403,10 @@ class OS_ServerAdmin
 		{
 			KickOrBan(admin, target, action == OS_AdminAction.BAN, arg);
 		}
+		else if (action == OS_AdminAction.ADD_ADMIN || action == OS_AdminAction.REMOVE_ADMIN)
+		{
+			SetAdminRights(admin, target, action == OS_AdminAction.ADD_ADMIN, arg);
+		}
 		else if (action == OS_AdminAction.UNBAN)
 		{
 			string unbanId = arg.Trim();
@@ -625,6 +631,78 @@ class OS_ServerAdmin
 		if (reason != "")
 			message = OS_F("%1 Duvod: %2", message, reason);
 		Disconnect(target, message);
+	}
+
+	//! přidání / odebrání admina ve hře: vybraný hráč, nebo Steam64 ID z pole (i offline hráč)
+	protected void SetAdminRights(PlayerBase admin, PlayerBase target, bool add, string arg)
+	{
+		string steamId = arg.Trim();
+		string name = steamId;
+		PlayerBase player;
+		if (target != admin)
+		{
+			steamId = OS_Util.SteamId(target);
+			name = OS_Util.PlayerName(target);
+			player = target;
+		}
+		else if (steamId != "")
+		{
+			player = OS_Util.FindPlayerBySteamId(steamId);
+			if (player)
+				name = OS_Util.PlayerName(player);
+		}
+
+		if (!OS_Wallets.IsValidSteamId(steamId))
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic)."));
+			return;
+		}
+		if (!m_Cfg.AdminSteamIds)
+			m_Cfg.AdminSteamIds = new array<string>;
+
+		if (add)
+		{
+			if (m_Cfg.AdminSteamIds.Find(steamId) > -1)
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1 uz je admin.", name));
+				return;
+			}
+			m_Cfg.AdminSteamIds.Insert(steamId);
+			SaveConfig();
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1 je novy admin.", name));
+			if (player)
+				OS_Util.Notify(player, OS_T("Admin"), OS_T("Jsi admin serveru. Admin menu otevres klavesou Home."), 10);
+			Log(admin, "pridal admina " + name + " (" + steamId + ")");
+		}
+		else
+		{
+			if (steamId == OS_Util.SteamId(admin))
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Sam sebe odebrat nemuzes (uprav Admins.json)."));
+				return;
+			}
+			if (m_Cfg.AdminSteamIds.Find(steamId) == -1)
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1 neni admin.", name));
+				return;
+			}
+			m_Cfg.AdminSteamIds.RemoveItem(steamId);
+			SaveConfig();
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1 uz neni admin.", name));
+			if (player)
+			{
+				// vypnout admin výhody
+				player.m_OS_AdminGod = false;
+				player.OS_RefreshDamage();
+				if (player.OS_IsInvisible())
+					player.OS_SetInvisible(false);
+				OS_Util.Notify(player, OS_T("Admin"), OS_T("Uz nejsi admin serveru."), 10);
+			}
+			Log(admin, "odebral admina " + name + " (" + steamId + ")");
+		}
+
+		if (player)
+			SendAdminFlag(player);
 	}
 
 	//! klient potřebuje vědět, že je admin (teleport z mapy, ESP, freecam)
