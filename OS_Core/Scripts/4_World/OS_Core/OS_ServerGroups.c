@@ -196,6 +196,8 @@ class OS_ServerGroups
 			Disband(player, id, group);
 		else if (action == OS_GroupAction.SET_ADMIN)
 			SetAdmin(player, id, group, arg);
+		else if (action == OS_GroupAction.TUNE_RADIO)
+			TuneRadios(player, true);
 	}
 
 	protected void Create(PlayerBase player, string id, string name, OS_Group current, string groupName)
@@ -242,6 +244,8 @@ class OS_ServerGroups
 
 		SendGroupId(player);
 		OS_Util.Notify(player, OS_T("Skupina"), OS_F("Skupina %1 zalozena. Pozvi hrace v menu skupiny.", groupName));
+		if (m_Cfg.AutoTuneOnJoin)
+			TuneRadios(player, false);
 		Print(OS_TAG + "SKUPINA " + name + " zalozil " + groupName);
 	}
 
@@ -321,6 +325,8 @@ class OS_ServerGroups
 		SaveData();
 		SendGroupId(player);
 		NotifyGroup(group, OS_F("%1 se pripojil ke skupine.", name));
+		if (m_Cfg.AutoTuneOnJoin)
+			TuneRadios(player, true);
 		Print(OS_TAG + "SKUPINA " + name + " vstoupil do " + group.Name);
 	}
 
@@ -389,6 +395,53 @@ class OS_ServerGroups
 			NotifyGroup(group, OS_F("%1 je novy admin skupiny.", target.Name));
 		}
 		SaveData();
+	}
+
+	// ------------------------------------------------------------ skupinová vysílačka
+
+	int RadioChannel(OS_Group group)
+	{
+		int channels = Math.Max(2, m_Cfg.RadioChannels);
+		return 1 + (group.Id % (channels - 1));
+	}
+
+	//! vysílačky v inventáři hráče naladí na kanál skupiny; vrací počet
+	int TuneRadios(PlayerBase player, bool notify)
+	{
+		if (!m_Cfg.GroupRadio || !player)
+			return 0;
+		OS_Group group = GetGroupOf(OS_Util.SteamId(player));
+		if (!group)
+		{
+			if (notify)
+				OS_Util.Notify(player, OS_T("Vysilacka"), OS_T("Nejsi v zadne skupine."));
+			return 0;
+		}
+
+		int channel = RadioChannel(group);
+		int tuned = 0;
+		float frequency = 0;
+		array<EntityAI> items = new array<EntityAI>;
+		player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, items);
+		foreach (EntityAI item : items)
+		{
+			ItemTransmitter radio = ItemTransmitter.Cast(item);
+			if (!radio || BaseRadio.Cast(item))
+				continue;
+			radio.SetFrequencyByIndex(channel);
+			radio.SetSynchDirty();
+			frequency = radio.GetTunedFrequency();
+			tuned++;
+		}
+
+		if (notify)
+		{
+			if (tuned > 0)
+				OS_Util.Notify(player, OS_T("Vysilacka"), OS_F("Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.", channel.ToString(), frequency.ToString()), 8);
+			else
+				OS_Util.Notify(player, OS_T("Vysilacka"), OS_F("Nemas u sebe vysilacku. Kanal skupiny je %1.", channel.ToString()), 6);
+		}
+		return tuned;
 	}
 
 	//! odebrání člena; když odejde vlastník, převezme to první admin (jinak první člen); poslední člen dostane zůstatek na svůj účet

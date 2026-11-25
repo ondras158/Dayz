@@ -78,6 +78,7 @@ class OS_GroupMenu : OS_MenuBase
 	protected ButtonWidget m_BtnKick;
 	protected ButtonWidget m_BtnPromote;
 	protected ButtonWidget m_BtnSetAdmin;
+	protected ButtonWidget m_BtnRadio;
 	protected ButtonWidget m_BtnLeave;
 	protected ButtonWidget m_BtnDisband;
 	protected ButtonWidget m_BtnInvite;
@@ -112,6 +113,7 @@ class OS_GroupMenu : OS_MenuBase
 		m_BtnKick = FindButton("BtnKick");
 		m_BtnPromote = FindButton("BtnPromote");
 		m_BtnSetAdmin = FindButton("BtnSetAdmin");
+		m_BtnRadio = FindButton("BtnRadio");
 		m_BtnLeave = FindButton("BtnLeave");
 		m_BtnDisband = FindButton("BtnDisband");
 		m_BtnInvite = FindButton("BtnInvite");
@@ -143,7 +145,7 @@ class OS_GroupMenu : OS_MenuBase
 		bool canInvite = inGroup && (manager || m_Data.MembersCanInvite);
 		string cur = " " + m_Data.Currency;
 
-		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText"};
+		array<string> groupWidgets = {"MembersLabel", "MemberListBg", "MemberList", "BtnLeave", "BalanceText", "BtnRadio"};
 		// admin smí všechno kromě předání vlastnictví a rozpuštění skupiny
 		array<string> managerWidgets = {"BtnKick", "BtnBuySlot", "BtnSetAdmin"};
 		array<string> ownerWidgets = {"BtnPromote", "BtnDisband"};
@@ -312,6 +314,11 @@ class OS_GroupMenu : OS_MenuBase
 		if (w == m_BtnPromote)
 		{
 			SendForMember(OS_GroupAction.PROMOTE);
+			return true;
+		}
+		if (w == m_BtnRadio)
+		{
+			SendAction(OS_GroupAction.TUNE_RADIO, "");
 			return true;
 		}
 		if (w == m_BtnSetAdmin)

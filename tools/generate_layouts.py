@@ -212,6 +212,7 @@ LAYOUTS = {
         button("BtnPromote", 20, 426, 195, 38, "Predat vlastnictvi"),
         button("BtnDisband", 225, 426, 195, 38, "Rozpustit skupinu"),
         button("BtnLeave", 20, 472, 400, 38, "Opustit skupinu"),
+        button("BtnRadio", 440, 472, 400, 38, "Naladit vysilacku skupiny"),
         text("FreeLabel", 440, 84, 400, 24, "Pozvat hrace (online, bez skupiny)"),
         listbox("FreeList", 440, 110, 400, 214),
         button("BtnInvite", 440, 332, 400, 38, "Pozvat"),
@@ -460,6 +461,7 @@ for i, key in enumerate(["Health", "Blood", "Food", "Water", "Stamina", "Heat", 
 _group = [hud_text("GroupTitle", 10, 2, 280, 22, "")] + [hud_text(f"G{i}", 14, 24 + i * 19, 276, 19, "") for i in range(6)]
 _info = [hud_text("Info1", 10, 2, 280, 20, ""), hud_text("Info2", 10, 22, 280, 20, "")]
 _med = [hud_text("MedTitle", 10, 2, 280, 22, "")] + [hud_text(f"M{i}", 14, 24 + i * 19, 276, 19, "") for i in range(6)]
+_voice = [hud_text("VoiceTitle", 10, 2, 280, 22, "")] + [hud_text(f"VC{i}", 14, 24 + i * 19, 276, 19, "") for i in range(4)]
 HUD = f"""FrameWidgetClass OS_Hud {{
  ignorepointer 1
  position 0 0
@@ -472,6 +474,7 @@ HUD = f"""FrameWidgetClass OS_Hud {{
 {indent(hud_panel("Bg", 0, 0, HUD_W, 400, "0 0 0 0.45"), 2)}
 {indent(hud_box("StatusBox", 0, 220, _status), 2)}
 {indent(hud_box("MedBox", 196, 140, _med), 2)}
+{indent(hud_box("VoiceBox", 196, 110, _voice), 2)}
 {indent(hud_box("GroupBox", 196, 140, _group), 2)}
 {indent(hud_box("InfoBox", 336, 46, _info), 2)}
  }}

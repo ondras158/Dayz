@@ -4,6 +4,11 @@
 class OS_GroupConfig
 {
 	bool Enabled = true;
+
+	// skupinová vysílačka: vysílačky členů (PersonalRadio) se naladí na kanál skupiny
+	bool GroupRadio = true;
+	int RadioChannels = 8;            // počet kanálů vysílačky (kanál 1 a výš; 0 nechává veřejný)
+	bool AutoTuneOnJoin = true;       // naladit po založení / vstupu do skupiny a po připojení
 	int BaseMaxMembers = 4;          // velikost skupiny zdarma
 	int MaxMembersLimit = 10;        // víc míst koupit nejde
 	int SlotPrice = 1000;            // cena prvního dokoupeného místa

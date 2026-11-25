@@ -131,6 +131,7 @@ class OS_ServerHud
 		if (server && server.m_Sleep && server.m_Sleep.m_Cfg.Enabled)
 			fatigue = server.m_Sleep.Fatigue(OS_Util.SteamId(player)) / 100;
 		rpc.Write(fatigue);
+		rpc.Write(m_Cfg.ShowVoice);
 		rpc.Send(null, OS_RPC_HUD, false, player.GetIdentity());
 	}
 

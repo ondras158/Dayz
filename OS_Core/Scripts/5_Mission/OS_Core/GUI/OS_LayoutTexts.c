@@ -92,6 +92,7 @@ class OS_LayoutTexts
 			Set(root, "BtnPromote", "Predat vlastnictvi");
 			Set(root, "BtnDisband", "Rozpustit skupinu");
 			Set(root, "BtnLeave", "Opustit skupinu");
+			Set(root, "BtnRadio", "Naladit vysilacku skupiny");
 			Set(root, "FreeLabel", "Pozvat hrace (online, bez skupiny)");
 			Set(root, "BtnInvite", "Pozvat");
 			Set(root, "BtnBuySlot", "Koupit dalsi misto");

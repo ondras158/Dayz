@@ -137,6 +137,18 @@ FrameWidgetClass OS_GroupMenu {
      text "Opustit skupinu"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnRadio {
+     color 0.25 0.22 0.18 1
+     position 440 472
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Naladit vysilacku skupiny"
+     font "gui/fonts/metron"
+    }
     TextWidgetClass FreeLabel {
      position 440 84
      size 400 24

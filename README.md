@@ -72,6 +72,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
+| Hlasový chat | Vanilla hlas + **skupinová vysílačka** (každá skupina má svůj kanál, vysílačky se naladí samy) a v HUDu kdo právě mluví | `Groups.json`, `Hud.json` |
 | Únava, spánek a emoce | Únava roste časem a během (menší výdrž, při vyčerpání ubývá zdraví); spánek přes menu **L** – postava si lehne, obrazovka ztmavne, ve stanu nebo v base rychleji; menu 21 emocí s oznámením v okolí; animace u vaření, farmy, bankomatu, obchodu, base a skupiny | `Sleep.json` |
 | HUD | Panel v rohu obrazovky: zdraví, krev, jídlo, voda, výdrž, teplo, zóna (bezpečná / PvP / PvE) a odpočet PvP, base, spoluhráči se vzdáleností, souřadnice, směr, čas, počet hráčů; klávesa **H** skryje | `Hud.json` |
 | Dovednosti | Klávesa **O**: zkušenosti za zombíky, zvířata, hráče, vaření, farmu a čas na serveru; za úroveň bod do odolnosti, výdrže, regenerace, krve, metabolismu nebo otužilosti; zůstává i po smrti | `Skills.json` |
@@ -507,6 +508,16 @@ přidej jejich classname a díly).
   Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
 - Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
 
+**Hlasový chat a skupinová vysílačka**
+- Hlas přenáší **vanilla hlasový chat** DayZ (mluvení v okolí, šepot / normálně / křik a vysílačky) – vlastní
+  zvukový kanál mód vytvořit nemůže, staví nad vanillou:
+- **Skupinová vysílačka** (`Groups.json` → `GroupRadio`): každá skupina má vlastní kanál vysílačky
+  (`RadioChannels`, kanál 0 zůstává veřejný). Menu skupiny (J) → *Naladit vysílačku skupiny* naladí všechny
+  vysílačky (Personal Radio) v inventáři na kanál skupiny. `AutoTuneOnJoin` = naladí se samy po založení
+  skupiny, vstupu do ní a po připojení na server. Vysílačku je potřeba zapnout (baterie) a pro vysílání držet v ruce.
+- **Kdo mluví** (HUD, `Hud.json` → `ShowVoice`): seznam hráčů, kteří právě mluví – spoluhráči modře se vzdáleností
+  a popiskem „skupina“, ostatní se vzdáleností, pokud jsou blízko.
+
 **Únava a spánek** (`Sleep.json`, únava hráčů v `SleepData.json`)
 - **Únava** (0–100 %, pruh v HUDu) roste o `FatiguePerMinute` (1 %) za minutu, při běhu ×`JogMultiplier` (1,5),
   při sprintu ×`SprintMultiplier` (2,5). Nová postava po smrti začíná odpočatá.
@@ -723,6 +734,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
+- **Hlasový chat:** skupinová vysílačka (vlastní kanál skupiny, automatické naladění) a v HUDu kdo právě mluví.
 - **Únava, spánek a emoce:** únava v HUDu, spaní ve stanu / base, menu emocí (L), animace u akcí módu.
 - **HUD:** stav hráče, nemoci s radou, čím léčit, působící léky, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).
 - **Dovednosti:** zkušenosti a úrovně, body do odolnosti, výdrže, regenerace, krve, metabolismu a otužilosti (klávesa O).

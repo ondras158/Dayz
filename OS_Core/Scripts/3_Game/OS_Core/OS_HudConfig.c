@@ -8,6 +8,7 @@ class OS_HudConfig
 	bool ShowGroup = true;         // spoluhráči online se vzdáleností
 	bool ShowInfo = true;          // souřadnice, směr, čas ve hře, počet hráčů
 	bool ShowDiseases = true;      // nemoci (s radou, čím léčit) a léky, které právě působí
+	bool ShowVoice = true;         // kdo právě mluví (hlasový chat), spoluhráči zvýraznění
 	bool ShowEarlyInfection = false; // ukázat i nákazu před příznaky (jinak až když se nemoc projeví)
 	bool ShowCoordinates = true;   // souřadnice X / Z (na některých serverech nechtěné)
 	string Position = "right";     // right / left
@@ -22,6 +23,7 @@ class OS_ClientHud
 	static bool ShowGroup = true;
 	static bool ShowInfo = true;
 	static bool ShowDiseases = true;
+	static bool ShowVoice = true;
 	static ref array<string> Diseases = new array<string>;   // "nemoc|čím léčit"
 	static ref array<string> Drugs = new array<string>;
 	static bool ShowCoordinates = true;
@@ -73,6 +75,9 @@ class OS_ClientHud
 		if (!ctx.Read(fatigue))
 			return;
 		Fatigue = fatigue;
+		bool showVoice;
+		if (ctx.Read(showVoice))
+			ShowVoice = showVoice;
 
 		Enabled = enabled;
 		ShowStatus = showStatus;

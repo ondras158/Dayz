@@ -162,7 +162,8 @@ enum OS_GroupAction
 	PROMOTE,
 	BUY_SLOT,
 	DISBAND,
-	SET_ADMIN      // vlastník přepne člena na admina a zpět
+	SET_ADMIN,     // vlastník přepne člena na admina a zpět
+	TUNE_RADIO     // naladit vysílačku na kanál skupiny
 }
 
 // role ve skupině (vlastník = OS_Group.LeaderId)

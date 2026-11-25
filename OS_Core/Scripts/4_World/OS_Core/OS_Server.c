@@ -118,6 +118,8 @@ class OS_Server
 			rpc.Write(m_Currency);
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
 			m_Groups.SendGroupId(player);
+			if (m_Groups.m_Cfg.AutoTuneOnJoin)
+				m_Groups.TuneRadios(player, false);
 			m_Vehicles.SendPersonalGarage(player);
 			m_Farms.SendData(player);   // poloha farmy pro mapu
 			m_PvP.SendZones(player.GetIdentity());   // PvP a bezpečné zóny na mapě

@@ -9,6 +9,7 @@ class OS_Hud
 	protected Widget m_GroupBox;
 	protected Widget m_InfoBox;
 	protected Widget m_MedBox;
+	protected Widget m_VoiceBox;
 	protected bool m_Hidden;          // skryto klávesou
 	protected float m_SlowTimer = 10;
 
@@ -30,6 +31,7 @@ class OS_Hud
 		m_GroupBox = m_Root.FindAnyWidget("GroupBox");
 		m_InfoBox = m_Root.FindAnyWidget("InfoBox");
 		m_MedBox = m_Root.FindAnyWidget("MedBox");
+		m_VoiceBox = m_Root.FindAnyWidget("VoiceBox");
 
 		SetLabel("L_Health", OS_T("Zdravi"));
 		SetLabel("L_Blood", OS_T("Krev"));
@@ -40,6 +42,7 @@ class OS_Hud
 		SetLabel("L_Fatigue", OS_T("Unava"));
 		SetLabel("GroupTitle", OS_T("Skupina"));
 		SetLabel("MedTitle", OS_T("Zdravotni stav"));
+		SetLabel("VoiceTitle", OS_T("Mluvi"));
 	}
 
 	void Destroy()
@@ -173,6 +176,19 @@ class OS_Hud
 			}
 		}
 
+		// kdo mluví (bez mě)
+		array<string> speakers = VoiceSpeakers(player);
+		bool showVoice = OS_ClientHud.ShowVoice && speakers.Count() > 0;
+		if (m_VoiceBox)
+		{
+			m_VoiceBox.Show(showVoice);
+			if (showVoice)
+			{
+				m_VoiceBox.SetPos(0, y);
+				y += 26 + Math.Min(speakers.Count(), 4) * 19;
+			}
+		}
+
 		int groupCount = OS_ClientGroup.Count();
 		bool showGroup = OS_ClientHud.ShowGroup && groupCount > 0;
 		if (m_GroupBox)
@@ -209,6 +225,8 @@ class OS_Hud
 			UpdateStatus(player);
 		if (showMed)
 			UpdateMed();
+		if (showVoice)
+			UpdateVoice(player, speakers);
 		if (showGroup)
 			UpdateGroup(player, groupCount);
 		if (OS_ClientHud.ShowInfo)
@@ -298,6 +316,60 @@ class OS_Hud
 			else if (fatigue >= 0.7)
 				fatigueColor = ARGB(240, 230, 160, 50);
 			SetBar("Fatigue", fatigue, Percent(fatigue), fatigueColor);
+		}
+	}
+
+	protected array<string> VoiceSpeakers(PlayerBase player)
+	{
+		array<string> names = new array<string>;
+		string myName = "";
+		if (player.GetIdentity())
+			myName = player.GetIdentity().GetName();
+		foreach (string speaker : OS_ClientVoice.SpeakerNames)
+		{
+			if (speaker != myName)
+				names.Insert(speaker);
+		}
+		return names;
+	}
+
+	//! mluvčí: spoluhráč modře se vzdáleností, ostatní bíle (vzdálenost, je-li blízko)
+	protected void UpdateVoice(PlayerBase player, array<string> speakers)
+	{
+		array<Man> players = new array<Man>;
+		g_Game.GetPlayers(players);
+		for (int i = 0; i < 4; i++)
+		{
+			string line = "";
+			int color = ARGB(255, 230, 230, 230);
+			if (i < speakers.Count())
+			{
+				string speaker = speakers[i];
+				string distance = "";
+				int groupIndex = OS_ClientGroup.Names.Find(speaker);
+				if (groupIndex > -1)
+				{
+					int groupMeters = Math.Round(vector.Distance(player.GetPosition(), OS_ClientGroup.GetPosition(groupIndex)));
+					distance = OS_F("%1 m, skupina", groupMeters.ToString());
+					color = ARGB(255, 120, 200, 255);
+				}
+				else
+				{
+					foreach (Man man : players)
+					{
+						if (man && man.GetIdentity() && man.GetIdentity().GetName() == speaker)
+						{
+							int meters = Math.Round(vector.Distance(player.GetPosition(), man.GetPosition()));
+							distance = meters.ToString() + " m";
+							break;
+						}
+					}
+				}
+				line = "> " + speaker;
+				if (distance != "")
+					line = line + "   (" + distance + ")";
+			}
+			SetLabel("VC" + i.ToString(), line, color);
 		}
 	}
 

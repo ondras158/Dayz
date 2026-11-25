@@ -328,6 +328,9 @@ class OS_LangData
 		m.Set("Adminy jmenuje jen vlastnik nebo admin.", "Adminy jmenuje jen vlastnik nebo admin.");
 		m.Set("%1 uz neni admin skupiny.", "%1 uz neni admin skupiny.");
 		m.Set("%1 je novy admin skupiny.", "%1 je novy admin skupiny.");
+		m.Set("Vysilacka", "Vysilacka");
+		m.Set("Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.", "Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.");
+		m.Set("Nemas u sebe vysilacku. Kanal skupiny je %1.", "Nemas u sebe vysilacku. Kanal skupiny je %1.");
 		m.Set("%1 Novy vlastnik: %2.", "%1 Novy vlastnik: %2.");
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Mista kupuje vlastnik nebo admin skupiny.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Skupina uz ma maximum mist (%1).");
@@ -348,13 +351,13 @@ class OS_LangData
 		m.Set("Zapal plic", "Zapal plic");
 		m.Set("Tetracyklin, teplo", "Tetracyklin, teplo");
 		m.Set("Nachlazeni", "Nachlazeni");
-		m.Set("Vitaminy, teplo a suche obleceni", "Vitaminy, teplo a suche obleceni");
-		m.Set("Salmonela", "Salmonela");
-		m.Set("Aktivni uhli", "Aktivni uhli");
 	}
 
 	protected static void Fill_cs_2(map<string, string> m)
 	{
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitaminy, teplo a suche obleceni");
+		m.Set("Salmonela", "Salmonela");
+		m.Set("Aktivni uhli", "Aktivni uhli");
 		m.Set("Otrava jidlem", "Otrava jidlem");
 		m.Set("Aktivni uhli, voda, nejist zkazene", "Aktivni uhli, voda, nejist zkazene");
 		m.Set("Infekce rany", "Infekce rany");
@@ -485,6 +488,7 @@ class OS_LangData
 		m.Set("Voda", "Voda");
 		m.Set("Teplo", "Teplo");
 		m.Set("Zdravotni stav", "Zdravotni stav");
+		m.Set("Mluvi", "Mluvi");
 		m.Set("S", "S");
 		m.Set("SV", "SV");
 		m.Set("V", "V");
@@ -501,14 +505,15 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Zima");
 		m.Set("Chladno", "Chladno");
-		m.Set("Horko", "Horko");
-		m.Set("Pusobi: %1", "Pusobi: %1");
-		m.Set("Hracu online: %1", "Hracu online: %1");
-		m.Set("Moje farma", "Moje farma");
 	}
 
 	protected static void Fill_cs_3(map<string, string> m)
 	{
+		m.Set("Horko", "Horko");
+		m.Set("%1 m, skupina", "%1 m, skupina");
+		m.Set("Pusobi: %1", "Pusobi: %1");
+		m.Set("Hracu online: %1", "Hracu online: %1");
+		m.Set("Moje farma", "Moje farma");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: ZAPNUTO");
 		m.Set("Godmode: VYPNUTO", "Godmode: VYPNUTO");
@@ -654,15 +659,15 @@ class OS_LangData
 		m.Set("Vykup", "Vykup");
 		m.Set("Ulozit cenu", "Ulozit cenu");
 		m.Set("Nasobit kat.", "Nasobit kat.");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Nasobit", "Nasobit");
 		m.Set("Autocentrum", "Autocentrum");
 		m.Set("Koupit auto", "Koupit auto");
 		m.Set("Opravit", "Opravit");
 		m.Set("Natankovat", "Natankovat");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Doplnit dily", "Doplnit dily");
 		m.Set("Prepsat auto na sebe", "Prepsat auto na sebe");
 		m.Set("Ulozit do garaze", "Ulozit do garaze");
@@ -684,6 +689,7 @@ class OS_LangData
 		m.Set("Predat vlastnictvi", "Predat vlastnictvi");
 		m.Set("Rozpustit skupinu", "Rozpustit skupinu");
 		m.Set("Opustit skupinu", "Opustit skupinu");
+		m.Set("Naladit vysilacku skupiny", "Naladit vysilacku skupiny");
 		m.Set("Pozvat hrace (online, bez skupiny)", "Pozvat hrace (online, bez skupiny)");
 		m.Set("Pozvat", "Pozvat");
 		m.Set("Koupit dalsi misto", "Koupit dalsi misto");
@@ -1087,6 +1093,9 @@ class OS_LangData
 		m.Set("Adminy jmenuje jen vlastnik nebo admin.", "Only the owner or an admin can appoint admins.");
 		m.Set("%1 uz neni admin skupiny.", "%1 is no longer a group admin.");
 		m.Set("%1 je novy admin skupiny.", "%1 is a new group admin.");
+		m.Set("Vysilacka", "Radio");
+		m.Set("Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.", "Tuned to group channel %1 (%2 MHz). Turn the radio on, hold it in your hands to transmit.");
+		m.Set("Nemas u sebe vysilacku. Kanal skupiny je %1.", "You don't have a radio. The group channel is %1.");
 		m.Set("%1 Novy vlastnik: %2.", "%1 New owner: %2.");
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Slots are bought by the group owner or an admin.");
 		m.Set("Skupina uz ma maximum mist (%1).", "The group already has the maximum number of slots (%1).");
@@ -1107,13 +1116,13 @@ class OS_LangData
 		m.Set("Zapal plic", "Pneumonia");
 		m.Set("Tetracyklin, teplo", "Tetracycline, warmth");
 		m.Set("Nachlazeni", "Common cold");
-		m.Set("Vitaminy, teplo a suche obleceni", "Vitamins, warmth and dry clothes");
-		m.Set("Salmonela", "Salmonella");
-		m.Set("Aktivni uhli", "Charcoal tablets");
 	}
 
 	protected static void Fill_en_2(map<string, string> m)
 	{
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitamins, warmth and dry clothes");
+		m.Set("Salmonela", "Salmonella");
+		m.Set("Aktivni uhli", "Charcoal tablets");
 		m.Set("Otrava jidlem", "Food poisoning");
 		m.Set("Aktivni uhli, voda, nejist zkazene", "Charcoal, water, don't eat spoiled food");
 		m.Set("Infekce rany", "Wound infection");
@@ -1244,6 +1253,7 @@ class OS_LangData
 		m.Set("Voda", "Water");
 		m.Set("Teplo", "Warmth");
 		m.Set("Zdravotni stav", "Health condition");
+		m.Set("Mluvi", "Speaking");
 		m.Set("S", "N");
 		m.Set("SV", "NE");
 		m.Set("V", "E");
@@ -1260,14 +1270,15 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Cold");
 		m.Set("Chladno", "Chilly");
-		m.Set("Horko", "Hot");
-		m.Set("Pusobi: %1", "Active: %1");
-		m.Set("Hracu online: %1", "Players online: %1");
-		m.Set("Moje farma", "My farm");
 	}
 
 	protected static void Fill_en_3(map<string, string> m)
 	{
+		m.Set("Horko", "Hot");
+		m.Set("%1 m, skupina", "%1 m, group");
+		m.Set("Pusobi: %1", "Active: %1");
+		m.Set("Hracu online: %1", "Players online: %1");
+		m.Set("Moje farma", "My farm");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "VEHICLE SPOT (green) - stand and face the driving direction.   Y = save   N = cancel   (yellow = current spot)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: ON");
 		m.Set("Godmode: VYPNUTO", "Godmode: OFF");
@@ -1413,15 +1424,15 @@ class OS_LangData
 		m.Set("Vykup", "Sell");
 		m.Set("Ulozit cenu", "Save price");
 		m.Set("Nasobit kat.", "Multiply cat.");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Nasobit", "Multiply");
 		m.Set("Autocentrum", "Car dealer");
 		m.Set("Koupit auto", "Buy car");
 		m.Set("Opravit", "Repair");
 		m.Set("Natankovat", "Refuel");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Doplnit dily", "Add parts");
 		m.Set("Prepsat auto na sebe", "Claim the car");
 		m.Set("Ulozit do garaze", "Store in garage");
@@ -1443,6 +1454,7 @@ class OS_LangData
 		m.Set("Predat vlastnictvi", "Transfer ownership");
 		m.Set("Rozpustit skupinu", "Disband group");
 		m.Set("Opustit skupinu", "Leave group");
+		m.Set("Naladit vysilacku skupiny", "Tune group radio");
 		m.Set("Pozvat hrace (online, bez skupiny)", "Invite players (online, without group)");
 		m.Set("Pozvat", "Invite");
 		m.Set("Koupit dalsi misto", "Buy another slot");
@@ -1846,6 +1858,9 @@ class OS_LangData
 		m.Set("Adminy jmenuje jen vlastnik nebo admin.", "Admins ernennt nur der Besitzer oder ein Admin.");
 		m.Set("%1 uz neni admin skupiny.", "%1 ist kein Gruppenadmin mehr.");
 		m.Set("%1 je novy admin skupiny.", "%1 ist neuer Gruppenadmin.");
+		m.Set("Vysilacka", "Funkgerät");
+		m.Set("Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.", "Auf Gruppenkanal %1 (%2 MHz) eingestellt. Schalte das Funkgerät ein, zum Senden halte es in der Hand.");
+		m.Set("Nemas u sebe vysilacku. Kanal skupiny je %1.", "Du hast kein Funkgerät dabei. Der Gruppenkanal ist %1.");
 		m.Set("%1 Novy vlastnik: %2.", "%1 Neuer Besitzer: %2.");
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Plätze kauft der Besitzer oder ein Admin der Gruppe.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Die Gruppe hat schon die maximale Anzahl an Plätzen (%1).");
@@ -1866,13 +1881,13 @@ class OS_LangData
 		m.Set("Zapal plic", "Lungenentzündung");
 		m.Set("Tetracyklin, teplo", "Tetracyclin, Wärme");
 		m.Set("Nachlazeni", "Erkältung");
-		m.Set("Vitaminy, teplo a suche obleceni", "Vitamine, Wärme und trockene Kleidung");
-		m.Set("Salmonela", "Salmonellen");
-		m.Set("Aktivni uhli", "Aktivkohle");
 	}
 
 	protected static void Fill_de_2(map<string, string> m)
 	{
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitamine, Wärme und trockene Kleidung");
+		m.Set("Salmonela", "Salmonellen");
+		m.Set("Aktivni uhli", "Aktivkohle");
 		m.Set("Otrava jidlem", "Lebensmittelvergiftung");
 		m.Set("Aktivni uhli, voda, nejist zkazene", "Aktivkohle, Wasser, nichts Verdorbenes essen");
 		m.Set("Infekce rany", "Wundinfektion");
@@ -2003,6 +2018,7 @@ class OS_LangData
 		m.Set("Voda", "Wasser");
 		m.Set("Teplo", "Wärme");
 		m.Set("Zdravotni stav", "Gesundheitszustand");
+		m.Set("Mluvi", "Spricht");
 		m.Set("S", "N");
 		m.Set("SV", "NO");
 		m.Set("V", "O");
@@ -2019,14 +2035,15 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Kalt");
 		m.Set("Chladno", "Kühl");
-		m.Set("Horko", "Heiß");
-		m.Set("Pusobi: %1", "Wirkt: %1");
-		m.Set("Hracu online: %1", "Spieler online: %1");
-		m.Set("Moje farma", "Meine Farm");
 	}
 
 	protected static void Fill_de_3(map<string, string> m)
 	{
+		m.Set("Horko", "Heiß");
+		m.Set("%1 m, skupina", "%1 m, Gruppe");
+		m.Set("Pusobi: %1", "Wirkt: %1");
+		m.Set("Hracu online: %1", "Spieler online: %1");
+		m.Set("Moje farma", "Meine Farm");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "FAHRZEUGPLATZ (grün) - stell dich hin und schau in Fahrtrichtung.   Y = speichern   N = abbrechen   (gelb = bisheriger Platz)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: AN");
 		m.Set("Godmode: VYPNUTO", "Godmode: AUS");
@@ -2172,15 +2189,15 @@ class OS_LangData
 		m.Set("Vykup", "Ankauf");
 		m.Set("Ulozit cenu", "Preis speichern");
 		m.Set("Nasobit kat.", "Kat. multiplizieren");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Nasobit", "Multiplizieren");
 		m.Set("Autocentrum", "Autohaus");
 		m.Set("Koupit auto", "Auto kaufen");
 		m.Set("Opravit", "Reparieren");
 		m.Set("Natankovat", "Tanken");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Doplnit dily", "Teile ergänzen");
 		m.Set("Prepsat auto na sebe", "Auto auf dich umschreiben");
 		m.Set("Ulozit do garaze", "In Garage einlagern");
@@ -2202,6 +2219,7 @@ class OS_LangData
 		m.Set("Predat vlastnictvi", "Besitz übertragen");
 		m.Set("Rozpustit skupinu", "Gruppe auflösen");
 		m.Set("Opustit skupinu", "Gruppe verlassen");
+		m.Set("Naladit vysilacku skupiny", "Gruppenfunk einstellen");
 		m.Set("Pozvat hrace (online, bez skupiny)", "Spieler einladen (online, ohne Gruppe)");
 		m.Set("Pozvat", "Einladen");
 		m.Set("Koupit dalsi misto", "Weiteren Platz kaufen");
@@ -2605,6 +2623,9 @@ class OS_LangData
 		m.Set("Adminy jmenuje jen vlastnik nebo admin.", "Adminów mianuje tylko właściciel lub admin.");
 		m.Set("%1 uz neni admin skupiny.", "%1 nie jest już adminem grupy.");
 		m.Set("%1 je novy admin skupiny.", "%1 jest nowym adminem grupy.");
+		m.Set("Vysilacka", "Krótkofalówka");
+		m.Set("Naladeno na kanal skupiny %1 (%2 MHz). Vysilacku zapni, pro vysilani ji drz v ruce.", "Nastawiono na kanał grupy %1 (%2 MHz). Włącz krótkofalówkę, aby nadawać, trzymaj ją w rękach.");
+		m.Set("Nemas u sebe vysilacku. Kanal skupiny je %1.", "Nie masz krótkofalówki. Kanał grupy to %1.");
 		m.Set("%1 Novy vlastnik: %2.", "%1 Nowy właściciel: %2.");
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Miejsca kupuje właściciel lub admin grupy.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Grupa ma już maksymalną liczbę miejsc (%1).");
@@ -2625,13 +2646,13 @@ class OS_LangData
 		m.Set("Zapal plic", "Zapalenie płuc");
 		m.Set("Tetracyklin, teplo", "Tetracyklina, ciepło");
 		m.Set("Nachlazeni", "Przeziębienie");
-		m.Set("Vitaminy, teplo a suche obleceni", "Witaminy, ciepło i suche ubranie");
-		m.Set("Salmonela", "Salmonella");
-		m.Set("Aktivni uhli", "Węgiel aktywny");
 	}
 
 	protected static void Fill_pl_2(map<string, string> m)
 	{
+		m.Set("Vitaminy, teplo a suche obleceni", "Witaminy, ciepło i suche ubranie");
+		m.Set("Salmonela", "Salmonella");
+		m.Set("Aktivni uhli", "Węgiel aktywny");
 		m.Set("Otrava jidlem", "Zatrucie pokarmowe");
 		m.Set("Aktivni uhli, voda, nejist zkazene", "Węgiel, woda, nie jedz zepsutego");
 		m.Set("Infekce rany", "Zakażenie rany");
@@ -2762,6 +2783,7 @@ class OS_LangData
 		m.Set("Voda", "Woda");
 		m.Set("Teplo", "Ciepło");
 		m.Set("Zdravotni stav", "Stan zdrowia");
+		m.Set("Mluvi", "Mówi");
 		m.Set("S", "Pn");
 		m.Set("SV", "Pn-Wsch");
 		m.Set("V", "Wsch");
@@ -2778,14 +2800,15 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Zimno");
 		m.Set("Chladno", "Chłodno");
-		m.Set("Horko", "Gorąco");
-		m.Set("Pusobi: %1", "Działa: %1");
-		m.Set("Hracu online: %1", "Graczy online: %1");
-		m.Set("Moje farma", "Moja farma");
 	}
 
 	protected static void Fill_pl_3(map<string, string> m)
 	{
+		m.Set("Horko", "Gorąco");
+		m.Set("%1 m, skupina", "%1 m, grupa");
+		m.Set("Pusobi: %1", "Działa: %1");
+		m.Set("Hracu online: %1", "Graczy online: %1");
+		m.Set("Moje farma", "Moja farma");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MIEJSCE DLA POJAZDU (zielone) - stań i obróć się w kierunku jazdy.   Y = zapisz   N = anuluj   (żółte = obecne miejsce)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: WŁĄCZONY");
 		m.Set("Godmode: VYPNUTO", "Godmode: WYŁĄCZONY");
@@ -2931,15 +2954,15 @@ class OS_LangData
 		m.Set("Vykup", "Skup");
 		m.Set("Ulozit cenu", "Zapisz cenę");
 		m.Set("Nasobit kat.", "Pomnóż kat.");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Nasobit", "Pomnóż");
 		m.Set("Autocentrum", "Salon samochodowy");
 		m.Set("Koupit auto", "Kup samochód");
 		m.Set("Opravit", "Napraw");
 		m.Set("Natankovat", "Zatankuj");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Doplnit dily", "Uzupełnij części");
 		m.Set("Prepsat auto na sebe", "Przepisz pojazd na siebie");
 		m.Set("Ulozit do garaze", "Zaparkuj w garażu");
@@ -2961,6 +2984,7 @@ class OS_LangData
 		m.Set("Predat vlastnictvi", "Przekaż własność");
 		m.Set("Rozpustit skupinu", "Rozwiąż grupę");
 		m.Set("Opustit skupinu", "Opuść grupę");
+		m.Set("Naladit vysilacku skupiny", "Nastaw krótkofalówkę grupy");
 		m.Set("Pozvat hrace (online, bez skupiny)", "Zaproś graczy (online, bez grupy)");
 		m.Set("Pozvat", "Zaproś");
 		m.Set("Koupit dalsi misto", "Kup kolejne miejsce");
