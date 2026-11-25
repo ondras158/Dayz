@@ -152,6 +152,16 @@ class OS_ServerAdmin
 		{
 			UnlockNearestCar(admin);
 		}
+		else if (action == OS_AdminAction.PVP_ADD && OS_Server.Get())
+		{
+			OS_Server.Get().m_PvP.AdminAdd(admin, arg);
+			Log(admin, "pvp zona + " + arg);
+		}
+		else if (action == OS_AdminAction.PVP_REMOVE && OS_Server.Get())
+		{
+			OS_Server.Get().m_PvP.AdminRemoveNearest(admin);
+			Log(admin, "pvp zona -");
+		}
 	}
 
 	protected void Heal(PlayerBase player)

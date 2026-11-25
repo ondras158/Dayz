@@ -8,6 +8,7 @@ class OS_Server
 	ref OS_ServerLoadouts m_Loadouts;
 	ref OS_ServerSpawns m_Spawns;
 	ref OS_ServerSafeZones m_SafeZones;
+	ref OS_ServerPvP m_PvP;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -49,6 +50,7 @@ class OS_Server
 		m_Loadouts = new OS_ServerLoadouts();
 		m_Spawns = new OS_ServerSpawns();
 		m_SafeZones = new OS_ServerSafeZones();
+		m_PvP = new OS_ServerPvP(m_SafeZones);
 		m_Messages = new OS_ServerMessages();
 		m_Currency = currency;
 		m_Payments = new OS_Payments(m_Wallets, bankCfg, currency);
@@ -107,6 +109,7 @@ class OS_Server
 			m_Groups.SendGroupId(player);
 			m_Vehicles.SendPersonalGarage(player);
 			m_Farms.SendData(player);   // poloha farmy pro mapu
+			m_PvP.SendZones(player.GetIdentity());   // PvP a bezpečné zóny na mapě
 		}
 
 		// chvíli počkat, než klient dokončí načítání, jinak se zpráva ztratí
@@ -133,6 +136,7 @@ class OS_Server
 
 		m_Spawns.OnTick();
 		m_SafeZones.OnTick(players, delta);
+		m_PvP.OnTick(players);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
 		m_Farms.OnTick(delta);

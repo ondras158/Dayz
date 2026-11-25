@@ -105,11 +105,11 @@ LAYOUTS = {
         button("BtnStay", 270, 400, 230, 50, "Zustat tady"),
         text("Status", 20, 460, 480, 26, "", align="center"),
     ]),
-    "admin_menu.layout": layout("OS_AdminMenu", 760, 600, [
+    "admin_menu.layout": layout("OS_AdminMenu", 760, 650, [
         text("Title", 20, 12, 720, 36, "Admin menu", "gui/fonts/metron28", "center"),
         text("PlayersLabel", 20, 52, 340, 24, "Hraci online"),
-        listbox("PlayerList", 20, 80, 340, 420),
-        button("BtnRefresh", 20, 510, 340, 38, "Obnovit seznam"),
+        listbox("PlayerList", 20, 80, 340, 466),
+        button("BtnRefresh", 20, 556, 340, 38, "Obnovit seznam"),
         text("Target", 380, 52, 360, 24, "Cil:"),
         button("BtnHeal", 380, 80, 175, 38, "Vylecit"),
         button("BtnKill", 565, 80, 175, 38, "Zabit"),
@@ -119,13 +119,15 @@ LAYOUTS = {
         text("ItemLabel", 380, 222, 360, 24, "Predmet: classname [pocet]  napr. Apple 5"),
         edit("EditItem", 380, 250, 360, 34),
         button("BtnSpawn", 380, 292, 360, 38, "Dat predmet cili"),
-        text("ArgLabel", 380, 344, 360, 24, "Castka penez / souradnice X Z"),
+        text("ArgLabel", 380, 344, 360, 24, "Castka penez / souradnice X Z / polomer [nazev]"),
         edit("EditArg", 380, 372, 360, 34),
         button("BtnMoney", 380, 414, 175, 38, "Dat penize cili"),
         button("BtnTpCoords", 565, 414, 175, 38, "Teleport na X Z"),
         button("BtnUnlockCar", 380, 460, 360, 38, "Odemknout nejblizsi auto"),
-        button("BtnClose", 380, 510, 360, 38, "Zavrit"),
-        text("Status", 20, 558, 720, 26, "", align="center"),
+        button("BtnPvpAdd", 380, 506, 175, 38, "PvP zona zde"),
+        button("BtnPvpRemove", 565, 506, 175, 38, "Smazat PvP zonu"),
+        button("BtnClose", 380, 556, 360, 38, "Zavrit"),
+        text("Status", 20, 606, 720, 26, "", align="center"),
     ]),
     "trader_menu.layout": layout("OS_TraderMenu", 960, 690, [
         text("Title", 20, 12, 600, 36, "Obchod", "gui/fonts/metron28"),
@@ -305,6 +307,18 @@ PLACER = """FrameWidgetClass OS_Placer {
 }
 """
 LAYOUTS["placer.layout"] = PLACER
+
+# plátno pro kruhy zón na mapě (vkládá se do mapy, velikost = mapa)
+LAYOUTS["mapzones.layout"] = """CanvasWidgetClass OS_MapZones {
+ ignorepointer 1
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+}
+"""
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),

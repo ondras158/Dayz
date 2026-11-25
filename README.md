@@ -18,7 +18,7 @@ mód se kvůli jiné mapě nemusí znovu balit.
 ### Použití na jiné mapě
 1. Nainstaluj mód (viz níže) a jednou spusť server – v profilové složce se vytvoří `OS_Core/*.json`.
 2. V JSON souborech nahraď ukázkové souřadnice místy z tvé mapy:
-   `SpawnZones.json`, `SafeZones.json`, `Trader.json` (`Traders`), `Vehicles.json` (`Locations`), `Bank.json` (`Atms`).
+   `SpawnZones.json`, `SafeZones.json`, `PvP.json` (`Zones`), `Trader.json` (`Traders`), `Vehicles.json` (`Locations`), `Bank.json` (`Atms`).
    Souřadnice zjistíš na interaktivní mapě (např. iZurvive) nebo ve hře v admin menu (teleport na X Z).
 3. Restartuj server. Obchod se sám naplní předměty, které na serveru jsou (vanilla + nahrané módy).
 
@@ -34,6 +34,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Startovní výbava | Nová postava dostane náhodnou sadu oblečení a věcí (podle váhy) | `Loadouts.json` |
 | Výběr spawnu | Po vytvoření postavy se otevře menu se seznamem oblastí; během výběru je hráč nesmrtelný | `SpawnZones.json` |
 | Safe zóny | V zóně nejde zranit hráče, zombíci se mažou, hláška při vstupu/odchodu | `SafeZones.json` |
+| PvP zóny a mapa | Klávesa **M** otevře mapu i bez mapy v inventáři; PvP zóny (červeně) a safe zóny (zeleně) na mapě; PvP jen v PvP zónách | `PvP.json` |
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
 | Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
@@ -93,7 +94,7 @@ OS_Core/
 Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`) vytvoří:
 ```
 <profiles>/OS_Core/
-├── Loadouts.json   SpawnZones.json   SafeZones.json
+├── Loadouts.json   SpawnZones.json   SafeZones.json   PvP.json
 ├── Messages.json   Admins.json       Trader.json     Vehicles.json   Bank.json
 ├── Language.json   Lang/cs.json  Lang/en.json  Lang/de.json  Lang/pl.json
 ├── Wallets/<SteamID>.json            bankovní účty hráčů
@@ -122,6 +123,21 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
 ```json
 { "AdminSteamIds": ["76561198000000000"], "LogActions": true }
 ```
+
+**PvP zóny a mapa** (`PvP.json`)
+- **Mapa:** klávesa **M** (dá se změnit v Nastavení → Ovládání → OS Core) otevře mapu i bez mapy v inventáři,
+  stejnou klávesou nebo Esc se zavře. Vypnutí: `MapWithoutItem: false` (pak jen s mapou jako ve vanille).
+- Na mapě jsou **PvP zóny červeně** a **bezpečné zóny zeleně** (kruh + název). Barvy: `PvPColor`,
+  `SafeColor` jako `"R G B"`. Skrytí: `ShowPvPZonesOnMap` / `ShowSafeZonesOnMap: false`.
+- `PvPOnlyInZones: true` = hráč může zranit hráče **jen v PvP zóně**, jinde je server PvE (zombíci,
+  zvířata, pád… zraňují dál). `false` = PvP všude a zóny jsou jen vyznačené na mapě.
+- `BothPlayersInZone: true` = útočník i oběť musí stát v zóně (nejde střílet do zóny zvenku ani ven).
+- Při vstupu a odchodu přijde hláška (`EnterMessage`, `LeaveMessage`, vypnutí `NotifyOnEnter: false`).
+- Zóna: `{ "Name": "Letiste", "X": 4500, "Z": 9500, "Radius": 600 }`.
+- **Ve hře (admin menu, Home):** do pole *Částka / souřadnice / poloměr* napiš `poloměr [název]`
+  (např. `400 Letiste`) a klikni **PvP zóna zde** – zóna vznikne kolem tebe, uloží se do `PvP.json`
+  a hráčům se hned ukáže na mapě. **Smazat PvP zónu** smaže tu nejbližší.
+- Bezpečná zóna má přednost (v ní je hráč nesmrtelný), skupiny bez friendly fire si neublíží ani v PvP zóně.
 
 **Spawn zóna** – body jsou `[x, 0, z]` (výška se dopočítá):
 ```json

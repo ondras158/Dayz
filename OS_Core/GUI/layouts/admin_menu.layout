@@ -9,7 +9,7 @@ FrameWidgetClass OS_AdminMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 760 600
+   size 760 650
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -47,7 +47,7 @@ FrameWidgetClass OS_AdminMenu {
     PanelWidgetClass PlayerListBg {
      color 0 0 0 0.6
      position 20 80
-     size 340 420
+     size 340 466
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -57,7 +57,7 @@ FrameWidgetClass OS_AdminMenu {
     }
     TextListboxWidgetClass PlayerList {
      position 24 84
-     size 332 412
+     size 332 458
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -66,7 +66,7 @@ FrameWidgetClass OS_AdminMenu {
     }
     ButtonWidgetClass BtnRefresh {
      color 0.25 0.22 0.18 1
-     position 20 510
+     position 20 556
      size 340 38
      hexactpos 1
      vexactpos 1
@@ -202,7 +202,7 @@ FrameWidgetClass OS_AdminMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Castka penez / souradnice X Z"
+     text "Castka penez / souradnice X Z / polomer [nazev]"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
@@ -263,9 +263,33 @@ FrameWidgetClass OS_AdminMenu {
      text "Odemknout nejblizsi auto"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnPvpAdd {
+     color 0.25 0.22 0.18 1
+     position 380 506
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "PvP zona zde"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnPvpRemove {
+     color 0.25 0.22 0.18 1
+     position 565 506
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Smazat PvP zonu"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 380 510
+     position 380 556
      size 360 38
      hexactpos 1
      vexactpos 1
@@ -276,7 +300,7 @@ FrameWidgetClass OS_AdminMenu {
      font "gui/fonts/metron"
     }
     TextWidgetClass Status {
-     position 20 558
+     position 20 606
      size 720 26
      hexactpos 1
      vexactpos 1

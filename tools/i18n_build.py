@@ -29,6 +29,7 @@ CONFIG_PATTERNS = [
     re.compile(r"new OS_TraderLocation\(" + STR),
     re.compile(r"new OS_SpawnZone\(" + STR),
     re.compile(r"new OS_SafeZone\(" + STR),
+    re.compile(r"new OS_PvPZone\(" + STR),
     re.compile(r"new OS_VehicleLocation\(" + STR),
     re.compile(r"new OS_FarmAnimalType\(" + STR + ", " + STR),
     re.compile(r"new OS_FarmBuilding\(" + STR + ", " + STR),
@@ -36,7 +37,7 @@ CONFIG_PATTERNS = [
     re.compile(r"Broadcasts\.Insert\(" + STR),
     re.compile(r"string (?:WelcomeTitle|WelcomeText|EnterMessage|LeaveMessage) = " + STR),
 ]
-CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c"]
+CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c"]
 
 
 def unescape(s):

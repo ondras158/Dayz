@@ -15,6 +15,8 @@ class OS_AdminMenu : OS_MenuBase
 	protected ButtonWidget m_BtnMoney;
 	protected ButtonWidget m_BtnTpCoords;
 	protected ButtonWidget m_BtnUnlockCar;
+	protected ButtonWidget m_BtnPvpAdd;
+	protected ButtonWidget m_BtnPvpRemove;
 	protected ButtonWidget m_BtnRefresh;
 	protected ButtonWidget m_BtnClose;
 	protected EditBoxWidget m_EditItem;
@@ -50,6 +52,8 @@ class OS_AdminMenu : OS_MenuBase
 		m_BtnMoney = FindButton("BtnMoney");
 		m_BtnTpCoords = FindButton("BtnTpCoords");
 		m_BtnUnlockCar = FindButton("BtnUnlockCar");
+		m_BtnPvpAdd = FindButton("BtnPvpAdd");
+		m_BtnPvpRemove = FindButton("BtnPvpRemove");
 		m_BtnRefresh = FindButton("BtnRefresh");
 		m_BtnClose = FindButton("BtnClose");
 		m_EditItem = FindEdit("EditItem");
@@ -177,6 +181,16 @@ class OS_AdminMenu : OS_MenuBase
 		if (w == m_BtnTpCoords && m_EditArg)
 		{
 			SendAction(OS_AdminAction.TELEPORT_COORDS, "", m_EditArg.GetText());
+			return true;
+		}
+		if (w == m_BtnPvpAdd && m_EditArg)
+		{
+			SendAction(OS_AdminAction.PVP_ADD, "", m_EditArg.GetText());
+			return true;
+		}
+		if (w == m_BtnPvpRemove)
+		{
+			SendAction(OS_AdminAction.PVP_REMOVE, "", "");
 			return true;
 		}
 		if (w == m_BtnUnlockCar)

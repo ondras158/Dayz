@@ -101,6 +101,9 @@ class OS_LangData
 		m.Set("vlastnik", "vlastnik");
 		m.Set("admin", "admin");
 		m.Set("clen", "clen");
+		m.Set("Priklad - PvP letiste", "Priklad - PvP letiste");
+		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!");
+		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opustil jsi PvP zonu - jsi v bezpeci pred hraci.");
 		m.Set("Priklad - Autocentrum", "Priklad - Autocentrum");
 		m.Set("Priklad - Heliport", "Priklad - Heliport");
 		m.Set("Priklad - Pristav", "Priklad - Pristav");
@@ -186,13 +189,13 @@ class OS_LangData
 		m.Set("Pozvanka do skupiny", "Pozvanka do skupiny");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).");
 		m.Set("Nejdriv opust svou skupinu.", "Nejdriv opust svou skupinu.");
-		m.Set("Pozvanka uz neplati.", "Pozvanka uz neplati.");
-		m.Set("Skupina je mezitim plna.", "Skupina je mezitim plna.");
-		m.Set("%1 se pripojil ke skupine.", "%1 se pripojil ke skupine.");
 	}
 
 	protected static void Fill_cs_1(map<string, string> m)
 	{
+		m.Set("Pozvanka uz neplati.", "Pozvanka uz neplati.");
+		m.Set("Skupina je mezitim plna.", "Skupina je mezitim plna.");
+		m.Set("%1 se pripojil ke skupine.", "%1 se pripojil ke skupine.");
 		m.Set("Vyhazovat muze jen vlastnik nebo admin.", "Vyhazovat muze jen vlastnik nebo admin.");
 		m.Set("Vlastnika skupiny nejde vyhodit.", "Vlastnika skupiny nejde vyhodit.");
 		m.Set("Byl jsi vyhozen ze skupiny %1.", "Byl jsi vyhozen ze skupiny %1.");
@@ -215,6 +218,12 @@ class OS_LangData
 		m.Set("%1 byl zabit hracem %2", "%1 byl zabit hracem %2");
 		m.Set("%1 byl zabit zombiky", "%1 byl zabit zombiky");
 		m.Set("%1 zemrel", "%1 zemrel");
+		m.Set("PvP zona", "PvP zona");
+		m.Set("Polomer musi byt 20 az 10000 m. Do pole napis: polomer [nazev], napr. 400 Letiste", "Polomer musi byt 20 az 10000 m. Do pole napis: polomer [nazev], napr. 400 Letiste");
+		m.Set("PvP zona %1", "PvP zona %1");
+		m.Set("Pridana PvP zona %1 (polomer %2 m).", "Pridana PvP zona %1 (polomer %2 m).");
+		m.Set("Zadna PvP zona neexistuje.", "Zadna PvP zona neexistuje.");
+		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Smazana PvP zona %1 (%2 m od tebe).");
 		m.Set("Bezpecna zona", "Bezpecna zona");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Objevil ses v oblasti: %1");
@@ -334,6 +343,10 @@ class OS_LangData
 		m.Set("Vyber misto spawnu", "Vyber misto spawnu");
 		m.Set("Spawnout zde", "Spawnout zde");
 		m.Set("Zustat tady", "Zustat tady");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Hraci online");
 		m.Set("Obnovit seznam", "Obnovit seznam");
@@ -343,16 +356,14 @@ class OS_LangData
 		m.Set("Teleport k nemu", "Teleport k nemu");
 		m.Set("Teleport ke mne", "Teleport ke mne");
 		m.Set("Godmode", "Godmode");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Predmet: classname [pocet]  napr. Apple 5");
 		m.Set("Dat predmet cili", "Dat predmet cili");
-		m.Set("Castka penez / souradnice X Z", "Castka penez / souradnice X Z");
+		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Castka penez / souradnice X Z / polomer [nazev]");
 		m.Set("Dat penize cili", "Dat penize cili");
 		m.Set("Teleport na X Z", "Teleport na X Z");
 		m.Set("Odemknout nejblizsi auto", "Odemknout nejblizsi auto");
+		m.Set("PvP zona zde", "PvP zona zde");
+		m.Set("Smazat PvP zonu", "Smazat PvP zonu");
 		m.Set("Zavrit", "Zavrit");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Hledat");
@@ -526,6 +537,9 @@ class OS_LangData
 		m.Set("vlastnik", "owner");
 		m.Set("admin", "admin");
 		m.Set("clen", "member");
+		m.Set("Priklad - PvP letiste", "Example - PvP airfield");
+		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "You entered a PvP zone - other players can hurt you here!");
+		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "You left the PvP zone - you are safe from players.");
 		m.Set("Priklad - Autocentrum", "Example - Car dealer");
 		m.Set("Priklad - Heliport", "Example - Heliport");
 		m.Set("Priklad - Pristav", "Example - Harbor");
@@ -611,13 +625,13 @@ class OS_LangData
 		m.Set("Pozvanka do skupiny", "Group invite");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 invites you to group %2. Open the group menu (key J).");
 		m.Set("Nejdriv opust svou skupinu.", "Leave your group first.");
-		m.Set("Pozvanka uz neplati.", "The invite is no longer valid.");
-		m.Set("Skupina je mezitim plna.", "The group has filled up in the meantime.");
-		m.Set("%1 se pripojil ke skupine.", "%1 joined the group.");
 	}
 
 	protected static void Fill_en_1(map<string, string> m)
 	{
+		m.Set("Pozvanka uz neplati.", "The invite is no longer valid.");
+		m.Set("Skupina je mezitim plna.", "The group has filled up in the meantime.");
+		m.Set("%1 se pripojil ke skupine.", "%1 joined the group.");
 		m.Set("Vyhazovat muze jen vlastnik nebo admin.", "Only the owner or an admin can kick.");
 		m.Set("Vlastnika skupiny nejde vyhodit.", "The group owner can't be kicked.");
 		m.Set("Byl jsi vyhozen ze skupiny %1.", "You were kicked from group %1.");
@@ -640,6 +654,12 @@ class OS_LangData
 		m.Set("%1 byl zabit hracem %2", "%1 was killed by %2");
 		m.Set("%1 byl zabit zombiky", "%1 was killed by zombies");
 		m.Set("%1 zemrel", "%1 died");
+		m.Set("PvP zona", "PvP zone");
+		m.Set("Polomer musi byt 20 az 10000 m. Do pole napis: polomer [nazev], napr. 400 Letiste", "The radius must be 20 to 10000 m. Type into the field: radius [name], e.g. 400 Airfield");
+		m.Set("PvP zona %1", "PvP zone %1");
+		m.Set("Pridana PvP zona %1 (polomer %2 m).", "Added PvP zone %1 (radius %2 m).");
+		m.Set("Zadna PvP zona neexistuje.", "There is no PvP zone.");
+		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Removed PvP zone %1 (%2 m from you).");
 		m.Set("Bezpecna zona", "Safe zone");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "You spawned in the area: %1");
@@ -759,6 +779,10 @@ class OS_LangData
 		m.Set("Vyber misto spawnu", "Choose a spawn location");
 		m.Set("Spawnout zde", "Spawn here");
 		m.Set("Zustat tady", "Stay here");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Players online");
 		m.Set("Obnovit seznam", "Refresh list");
@@ -768,16 +792,14 @@ class OS_LangData
 		m.Set("Teleport k nemu", "Teleport to them");
 		m.Set("Teleport ke mne", "Teleport to me");
 		m.Set("Godmode", "Godmode");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Item: classname [count]  e.g. Apple 5");
 		m.Set("Dat predmet cili", "Give item to target");
-		m.Set("Castka penez / souradnice X Z", "Money amount / coordinates X Z");
+		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Money amount / coordinates X Z / radius [name]");
 		m.Set("Dat penize cili", "Give money to target");
 		m.Set("Teleport na X Z", "Teleport to X Z");
 		m.Set("Odemknout nejblizsi auto", "Unlock nearest car");
+		m.Set("PvP zona zde", "PvP zone here");
+		m.Set("Smazat PvP zonu", "Remove PvP zone");
 		m.Set("Zavrit", "Close");
 		m.Set("Kategorie", "Categories");
 		m.Set("Hledat", "Search");
@@ -951,6 +973,9 @@ class OS_LangData
 		m.Set("vlastnik", "Besitzer");
 		m.Set("admin", "Admin");
 		m.Set("clen", "Mitglied");
+		m.Set("Priklad - PvP letiste", "Beispiel - PvP-Flugplatz");
+		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Du hast eine PvP-Zone betreten - andere Spieler können dich hier verletzen!");
+		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Du hast die PvP-Zone verlassen - du bist vor Spielern sicher.");
 		m.Set("Priklad - Autocentrum", "Beispiel - Autohaus");
 		m.Set("Priklad - Heliport", "Beispiel - Hubschrauberlandeplatz");
 		m.Set("Priklad - Pristav", "Beispiel - Hafen");
@@ -1036,13 +1061,13 @@ class OS_LangData
 		m.Set("Pozvanka do skupiny", "Gruppeneinladung");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 lädt dich in die Gruppe %2 ein. Öffne das Gruppenmenü (Taste J).");
 		m.Set("Nejdriv opust svou skupinu.", "Verlass zuerst deine Gruppe.");
-		m.Set("Pozvanka uz neplati.", "Die Einladung ist nicht mehr gültig.");
-		m.Set("Skupina je mezitim plna.", "Die Gruppe ist inzwischen voll.");
-		m.Set("%1 se pripojil ke skupine.", "%1 ist der Gruppe beigetreten.");
 	}
 
 	protected static void Fill_de_1(map<string, string> m)
 	{
+		m.Set("Pozvanka uz neplati.", "Die Einladung ist nicht mehr gültig.");
+		m.Set("Skupina je mezitim plna.", "Die Gruppe ist inzwischen voll.");
+		m.Set("%1 se pripojil ke skupine.", "%1 ist der Gruppe beigetreten.");
 		m.Set("Vyhazovat muze jen vlastnik nebo admin.", "Nur der Besitzer oder ein Admin kann rauswerfen.");
 		m.Set("Vlastnika skupiny nejde vyhodit.", "Der Gruppenbesitzer kann nicht rausgeworfen werden.");
 		m.Set("Byl jsi vyhozen ze skupiny %1.", "Du wurdest aus der Gruppe %1 geworfen.");
@@ -1065,6 +1090,12 @@ class OS_LangData
 		m.Set("%1 byl zabit hracem %2", "%1 wurde von %2 getötet");
 		m.Set("%1 byl zabit zombiky", "%1 wurde von Zombies getötet");
 		m.Set("%1 zemrel", "%1 ist gestorben");
+		m.Set("PvP zona", "PvP-Zone");
+		m.Set("Polomer musi byt 20 az 10000 m. Do pole napis: polomer [nazev], napr. 400 Letiste", "Der Radius muss 20 bis 10000 m betragen. Schreib ins Feld: Radius [Name], z. B. 400 Flugplatz");
+		m.Set("PvP zona %1", "PvP-Zone %1");
+		m.Set("Pridana PvP zona %1 (polomer %2 m).", "PvP-Zone %1 hinzugefügt (Radius %2 m).");
+		m.Set("Zadna PvP zona neexistuje.", "Es gibt keine PvP-Zone.");
+		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "PvP-Zone %1 gelöscht (%2 m von dir).");
 		m.Set("Bezpecna zona", "Sicherheitszone");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Du bist im Gebiet erschienen: %1");
@@ -1184,6 +1215,10 @@ class OS_LangData
 		m.Set("Vyber misto spawnu", "Wähle einen Spawnpunkt");
 		m.Set("Spawnout zde", "Hier spawnen");
 		m.Set("Zustat tady", "Hier bleiben");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
 		m.Set("Admin menu", "Adminmenü");
 		m.Set("Hraci online", "Spieler online");
 		m.Set("Obnovit seznam", "Liste aktualisieren");
@@ -1193,16 +1228,14 @@ class OS_LangData
 		m.Set("Teleport k nemu", "Zu ihm teleportieren");
 		m.Set("Teleport ke mne", "Zu mir teleportieren");
 		m.Set("Godmode", "Godmode");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Gegenstand: Klassenname [Anzahl]  z. B. Apple 5");
 		m.Set("Dat predmet cili", "Gegenstand an Ziel geben");
-		m.Set("Castka penez / souradnice X Z", "Geldbetrag / Koordinaten X Z");
+		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Geldbetrag / Koordinaten X Z / Radius [Name]");
 		m.Set("Dat penize cili", "Geld an Ziel geben");
 		m.Set("Teleport na X Z", "Teleport zu X Z");
 		m.Set("Odemknout nejblizsi auto", "Nächstes Auto aufschließen");
+		m.Set("PvP zona zde", "PvP-Zone hier");
+		m.Set("Smazat PvP zonu", "PvP-Zone löschen");
 		m.Set("Zavrit", "Schließen");
 		m.Set("Kategorie", "Kategorien");
 		m.Set("Hledat", "Suchen");
@@ -1376,6 +1409,9 @@ class OS_LangData
 		m.Set("vlastnik", "właściciel");
 		m.Set("admin", "admin");
 		m.Set("clen", "członek");
+		m.Set("Priklad - PvP letiste", "Przykład - lotnisko PvP");
+		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Wszedłeś do strefy PvP - inni gracze mogą cię tu zranić!");
+		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opuściłeś strefę PvP - jesteś bezpieczny przed graczami.");
 		m.Set("Priklad - Autocentrum", "Przykład - Salon samochodowy");
 		m.Set("Priklad - Heliport", "Przykład - Lądowisko");
 		m.Set("Priklad - Pristav", "Przykład - Port");
@@ -1461,13 +1497,13 @@ class OS_LangData
 		m.Set("Pozvanka do skupiny", "Zaproszenie do grupy");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 zaprasza cię do grupy %2. Otwórz menu grupy (klawisz J).");
 		m.Set("Nejdriv opust svou skupinu.", "Najpierw opuść swoją grupę.");
-		m.Set("Pozvanka uz neplati.", "Zaproszenie już wygasło.");
-		m.Set("Skupina je mezitim plna.", "Grupa w międzyczasie się zapełniła.");
-		m.Set("%1 se pripojil ke skupine.", "%1 dołączył do grupy.");
 	}
 
 	protected static void Fill_pl_1(map<string, string> m)
 	{
+		m.Set("Pozvanka uz neplati.", "Zaproszenie już wygasło.");
+		m.Set("Skupina je mezitim plna.", "Grupa w międzyczasie się zapełniła.");
+		m.Set("%1 se pripojil ke skupine.", "%1 dołączył do grupy.");
 		m.Set("Vyhazovat muze jen vlastnik nebo admin.", "Wyrzucać może tylko właściciel lub admin.");
 		m.Set("Vlastnika skupiny nejde vyhodit.", "Właściciela grupy nie można wyrzucić.");
 		m.Set("Byl jsi vyhozen ze skupiny %1.", "Zostałeś wyrzucony z grupy %1.");
@@ -1490,6 +1526,12 @@ class OS_LangData
 		m.Set("%1 byl zabit hracem %2", "%1 został zabity przez %2");
 		m.Set("%1 byl zabit zombiky", "%1 został zabity przez zombie");
 		m.Set("%1 zemrel", "%1 zginął");
+		m.Set("PvP zona", "Strefa PvP");
+		m.Set("Polomer musi byt 20 az 10000 m. Do pole napis: polomer [nazev], napr. 400 Letiste", "Promień musi wynosić od 20 do 10000 m. Wpisz w pole: promień [nazwa], np. 400 Lotnisko");
+		m.Set("PvP zona %1", "Strefa PvP %1");
+		m.Set("Pridana PvP zona %1 (polomer %2 m).", "Dodano strefę PvP %1 (promień %2 m).");
+		m.Set("Zadna PvP zona neexistuje.", "Nie ma żadnej strefy PvP.");
+		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Usunięto strefę PvP %1 (%2 m od ciebie).");
 		m.Set("Bezpecna zona", "Strefa bezpieczna");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Pojawiłeś się w obszarze: %1");
@@ -1609,6 +1651,10 @@ class OS_LangData
 		m.Set("Vyber misto spawnu", "Wybierz miejsce spawnu");
 		m.Set("Spawnout zde", "Spawnuj tutaj");
 		m.Set("Zustat tady", "Zostań tutaj");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
 		m.Set("Admin menu", "Menu admina");
 		m.Set("Hraci online", "Gracze online");
 		m.Set("Obnovit seznam", "Odśwież listę");
@@ -1618,16 +1664,14 @@ class OS_LangData
 		m.Set("Teleport k nemu", "Teleportuj do niego");
 		m.Set("Teleport ke mne", "Teleportuj do mnie");
 		m.Set("Godmode", "Godmode");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Przedmiot: classname [ilość]  np. Apple 5");
 		m.Set("Dat predmet cili", "Daj przedmiot celowi");
-		m.Set("Castka penez / souradnice X Z", "Kwota / współrzędne X Z");
+		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Kwota / współrzędne X Z / promień [nazwa]");
 		m.Set("Dat penize cili", "Daj pieniądze celowi");
 		m.Set("Teleport na X Z", "Teleportuj na X Z");
 		m.Set("Odemknout nejblizsi auto", "Otwórz najbliższy pojazd");
+		m.Set("PvP zona zde", "Strefa PvP tutaj");
+		m.Set("Smazat PvP zonu", "Usuń strefę PvP");
 		m.Set("Zavrit", "Zamknij");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Szukaj");

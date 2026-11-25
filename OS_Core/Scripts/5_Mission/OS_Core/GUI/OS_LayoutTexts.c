@@ -26,10 +26,12 @@ class OS_LayoutTexts
 			Set(root, "BtnGod", "Godmode");
 			Set(root, "ItemLabel", "Predmet: classname [pocet]  napr. Apple 5");
 			Set(root, "BtnSpawn", "Dat predmet cili");
-			Set(root, "ArgLabel", "Castka penez / souradnice X Z");
+			Set(root, "ArgLabel", "Castka penez / souradnice X Z / polomer [nazev]");
 			Set(root, "BtnMoney", "Dat penize cili");
 			Set(root, "BtnTpCoords", "Teleport na X Z");
 			Set(root, "BtnUnlockCar", "Odemknout nejblizsi auto");
+			Set(root, "BtnPvpAdd", "PvP zona zde");
+			Set(root, "BtnPvpRemove", "Smazat PvP zonu");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "trader_menu.layout")

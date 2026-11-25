@@ -9,6 +9,7 @@
 			<input name="UAOSFarmMenu" loc="Farma (OS)" />
 			<input name="UAOSPlaceConfirm" loc="Ulozit misto vozidla (OS)" />
 			<input name="UAOSPlaceCancel" loc="Zrusit nastaveni mista (OS)" />
+			<input name="UAOSMap" loc="Mapa (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
@@ -18,6 +19,7 @@
 			<input name="UAOSFarmMenu" />
 			<input name="UAOSPlaceConfirm" />
 			<input name="UAOSPlaceCancel" />
+			<input name="UAOSMap" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -41,6 +43,9 @@
 		</input>
 		<input name="UAOSPlaceCancel">
 			<btn name="kN" />
+		</input>
+		<input name="UAOSMap">
+			<btn name="kM" />
 		</input>
 	</preset>
 </modded_inputs>

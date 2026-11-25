@@ -49,6 +49,7 @@ const int OS_RPC_FARM_ACTION    = 784512072; // klient -> server: akce na farmě
 
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LANG          = 784512080; // server -> klient: jazyk a upravené texty
+const int OS_RPC_ZONES         = 784512081; // server -> klient: PvP a bezpečné zóny pro mapu
 
 const int OS_RPC_LAST  = 784512099;
 
@@ -62,7 +63,9 @@ enum OS_AdminAction
 	SPAWN_ITEM,
 	GIVE_MONEY,
 	TELEPORT_COORDS,
-	UNLOCK_CAR
+	UNLOCK_CAR,
+	PVP_ADD,        // PvP zóna kolem admina (arg: poloměr [název])
+	PVP_REMOVE      // smazat nejbližší PvP zónu
 }
 
 enum OS_VehicleAction

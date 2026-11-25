@@ -5,6 +5,7 @@ modded class PlayerBase
 	bool m_OS_SafeZoneGod;
 	bool m_OS_AdminGod;
 	bool m_OS_SpawnProtect;
+	bool m_OS_InPvPZone;
 
 	//! Hráč je nesmrtelný, pokud platí aspoň jeden důvod
 	void OS_RefreshDamage()
@@ -16,10 +17,14 @@ modded class PlayerBase
 		SetAllowDamage(!protectedNow);
 	}
 
-	//! spoluhráči ze skupiny si neublíží (Groups.json: FriendlyFire)
+	//! spoluhráči ze skupiny si neublíží (Groups.json: FriendlyFire), mimo PvP zónu nikdo
 	override bool EEOnDamageCalculated(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef)
 	{
 		if (g_Game.IsServer() && OS_Server.Get() && OS_Server.Get().m_Groups && OS_Server.Get().m_Groups.BlocksDamage(this, source))
+			return false;
+
+		// mimo PvP zónu hráč hráči neublíží (PvP.json: PvPOnlyInZones)
+		if (g_Game.IsServer() && OS_Server.Get() && OS_Server.Get().m_PvP && OS_Server.Get().m_PvP.BlocksDamage(this, source))
 			return false;
 
 		return super.EEOnDamageCalculated(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
