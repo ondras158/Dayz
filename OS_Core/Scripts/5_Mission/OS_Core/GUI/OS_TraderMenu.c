@@ -392,6 +392,7 @@ class OS_TraderMenu : OS_MenuBase
 		rpc.Write(m_ItemIndex[row]);
 		rpc.Send(null, OS_RPC_TRADER_BUY, true, null);
 		SetStatus(OS_F("Koupeno: %1", OS_Client.DisplayName(m_ItemClass[row])));
+		OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_NOD);
 	}
 
 	protected void Sell()

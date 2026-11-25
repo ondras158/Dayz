@@ -287,6 +287,7 @@ class OS_GroupMenu : OS_MenuBase
 		if (w == m_BtnAccept)
 		{
 			SendAction(OS_GroupAction.ACCEPT, "");
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_GREETING);
 			return true;
 		}
 		if (w == m_BtnDecline)

@@ -61,6 +61,8 @@ const int OS_RPC_SKILLS_OPEN   = 784512096; // klient -> server: menu dovednost�
 const int OS_RPC_SKILLS_DATA   = 784512097; // server -> klient: úroveň, zkušenosti, dovednosti
 const int OS_RPC_SKILLS_ACTION = 784512098; // klient -> server: vylepšit dovednost / přerozdělit
 const int OS_RPC_HUD           = 784512099; // server -> klient: stav hráče a zóna pro HUD
+const int OS_RPC_SLEEP         = 784512100; // obousměrně: usnout / probudit (bool)
+const int OS_RPC_EMOTE_ANNOUNCE = 784512101; // klient -> server: oznámit emoci v okolí
 
 const int OS_RPC_LAST  = 784512199;
 

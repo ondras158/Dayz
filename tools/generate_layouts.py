@@ -449,7 +449,7 @@ def hud_box(name, y, h, children):
 
 HUD_W = 300
 _status = [hud_text("Zone", 10, 4, 280, 24, ""), hud_text("BaseText", 10, 26, 280, 20, "")]
-for i, key in enumerate(["Health", "Blood", "Food", "Water", "Stamina", "Heat"]):
+for i, key in enumerate(["Health", "Blood", "Food", "Water", "Stamina", "Heat", "Fatigue"]):
     y = 50 + i * 24
     _status += [
         hud_text("L_" + key, 10, y, 92, 22, ""),
@@ -470,7 +470,7 @@ HUD = f"""FrameWidgetClass OS_Hud {{
  vexactsize 1
  {{
 {indent(hud_panel("Bg", 0, 0, HUD_W, 400, "0 0 0 0.45"), 2)}
-{indent(hud_box("StatusBox", 0, 196, _status), 2)}
+{indent(hud_box("StatusBox", 0, 220, _status), 2)}
 {indent(hud_box("MedBox", 196, 140, _med), 2)}
 {indent(hud_box("GroupBox", 196, 140, _group), 2)}
 {indent(hud_box("InfoBox", 336, 46, _info), 2)}
@@ -478,6 +478,55 @@ HUD = f"""FrameWidgetClass OS_Hud {{
 }}
 """
 LAYOUTS["hud.layout"] = HUD
+
+LAYOUTS["emote_menu.layout"] = layout("OS_EmoteMenu", 460, 600, [
+    text("Title", 20, 12, 420, 36, "Emoce a spanek", "gui/fonts/metron28", "center"),
+    listbox("EmoteList", 20, 56, 420, 410),
+    button("BtnPlay", 20, 476, 205, 40, "Prehrat"),
+    button("BtnClose", 235, 476, 205, 40, "Zavrit"),
+    text("Hint", 20, 522, 420, 24, "Dvojklik = prehrat. Pohyb emoci ukonci.", align="center"),
+    text("Status", 20, 552, 420, 26, "", align="center"),
+])
+
+# ztmavená obrazovka ve spánku
+LAYOUTS["sleep.layout"] = """FrameWidgetClass OS_Sleep {
+ ignorepointer 1
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Dark {
+   ignorepointer 1
+   color 0 0 0 0.88
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_colorable
+  }
+  TextWidgetClass SleepText {
+   ignorepointer 1
+   color 0.85 0.85 0.85 1
+   position 0 0
+   size 1 60
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   text ""
+   font "gui/fonts/metron28"
+   "text halign" center
+   "text valign" center
+  }
+ }
+}
+"""
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),

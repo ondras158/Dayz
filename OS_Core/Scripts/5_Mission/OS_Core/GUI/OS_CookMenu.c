@@ -102,6 +102,9 @@ class OS_CookMenu : OS_MenuBase
 			ScriptRPC rpc = new ScriptRPC();
 			rpc.Write(row);
 			rpc.Send(null, OS_RPC_COOK_ACTION, true, null);
+			// menu se zavře a postava si sedne k ohni, dokud se vaří
+			Close();
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_CAMPFIRE);
 			return true;
 		}
 		if (name == "BtnClose")

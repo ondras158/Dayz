@@ -179,6 +179,13 @@ class OS_LayoutTexts
 			Set(root, "Hint", "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.");
 			Set(root, "BtnClose", "Zavrit");
 		}
+		if (layoutName == "emote_menu.layout")
+		{
+			Set(root, "Title", "Emoce a spanek");
+			Set(root, "BtnPlay", "Prehrat");
+			Set(root, "BtnClose", "Zavrit");
+			Set(root, "Hint", "Dvojklik = prehrat. Pohyb emoci ukonci.");
+		}
 		if (layoutName == "farm_menu.layout")
 		{
 			Set(root, "Title", "Farma");

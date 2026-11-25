@@ -133,6 +133,7 @@ class OS_ServerCooking
 			int index;
 			if (ctx.Read(index))
 				Cook(player, fire, index);
+			return true;   // menu se na klientovi zavřelo, postava sedí u ohně
 		}
 
 		SendData(player, fire);

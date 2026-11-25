@@ -126,6 +126,11 @@ class OS_ServerHud
 		rpc.Write(m_Cfg.ShowDiseases);
 		rpc.Write(diseases);
 		rpc.Write(drugs);
+
+		float fatigue = -1;   // -1 = únava vypnutá
+		if (server && server.m_Sleep && server.m_Sleep.m_Cfg.Enabled)
+			fatigue = server.m_Sleep.Fatigue(OS_Util.SteamId(player)) / 100;
+		rpc.Write(fatigue);
 		rpc.Send(null, OS_RPC_HUD, false, player.GetIdentity());
 	}
 

@@ -221,6 +221,7 @@ class OS_AtmMenu : OS_MenuBase
 				SendAction(OS_BankAction.DEPOSIT, amount);
 			else
 				SendAction(OS_BankAction.WITHDRAW, amount);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_NOD);
 			return true;
 		}
 		if (w == m_BtnGroupDeposit || w == m_BtnGroupWithdraw)
@@ -237,11 +238,13 @@ class OS_AtmMenu : OS_MenuBase
 		if (w == m_BtnDepositAll)
 		{
 			SendAction(OS_BankAction.DEPOSIT, -1);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_NOD);
 			return true;
 		}
 		if (w == m_BtnWithdrawAll)
 		{
 			SendAction(OS_BankAction.WITHDRAW, -1);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_NOD);
 			return true;
 		}
 		if (w == m_BtnTransfer)

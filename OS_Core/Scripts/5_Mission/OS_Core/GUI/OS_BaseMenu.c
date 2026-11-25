@@ -126,9 +126,15 @@ class OS_BaseMenu : OS_MenuBase
 	{
 		string name = w.GetName();
 		if (name == "BtnFound")
+		{
 			Send(OS_BaseAction.FOUND);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_SALUTE);
+		}
 		else if (name == "BtnUpgrade")
+		{
 			Send(OS_BaseAction.UPGRADE);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_SALUTE);
+		}
 		else if (name == "BtnRemove")
 			Send(OS_BaseAction.REMOVE);
 		else if (name == "BtnClose")

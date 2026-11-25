@@ -36,6 +36,8 @@ class OS_Client
 	//! každý snímek z MissionGameplay
 	protected ref OS_AdminESP m_AdminEsp = new OS_AdminESP();
 	protected ref OS_Hud m_Hud = new OS_Hud();
+	protected ref OS_ClientSleepView m_SleepView = new OS_ClientSleepView();
+	protected ref OS_EmoteMenu m_EmoteMenu;
 	protected ref OS_AdminFreecam m_Freecam = new OS_AdminFreecam();
 	protected ref OS_AdminToolsMenu m_AdminToolsMenu;
 	protected ref OS_AdminSpawnMenu m_AdminSpawnMenu;
@@ -49,7 +51,15 @@ class OS_Client
 		m_Placer.Update();
 		m_AdminEsp.Update();
 		m_Hud.Update(g_Game.GetDeltaT());
+		m_SleepView.Update();
+		OS_ClientAnim.Update();
 		m_Freecam.Update(g_Game.GetDeltaT());
+	}
+
+	void OpenEmotes()
+	{
+		m_EmoteMenu = new OS_EmoteMenu();
+		Show(m_EmoteMenu);
 	}
 
 	OS_Hud GetHud()
@@ -189,6 +199,9 @@ class OS_Client
 				break;
 			case OS_RPC_HUD:
 				OS_ClientHud.Read(ctx);
+				break;
+			case OS_RPC_SLEEP:
+				m_SleepView.OnServerState(ctx);
 				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);

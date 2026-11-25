@@ -410,6 +410,15 @@ class OS_LangData
 		m.Set("+%1 zdravi / min", "+%1 zdravi / min");
 		m.Set("+%1 krve / min", "+%1 krve / min");
 		m.Set("+%1 % tepla / min", "+%1 % tepla / min");
+		m.Set("Spanek", "Spanek");
+		m.Set("Nejsi unaveny, nemuzes usnout.", "Nejsi unaveny, nemuzes usnout.");
+		m.Set("V PvP zone se neda usnout.", "V PvP zone se neda usnout.");
+		m.Set("Usinas v ukrytu - vyspis se rychleji. Pohni se pro probuzeni.", "Usinas v ukrytu - vyspis se rychleji. Pohni se pro probuzeni.");
+		m.Set("Usinas. Pohni se pro probuzeni.", "Usinas. Pohni se pro probuzeni.");
+		m.Set("Jsi vyspany.", "Jsi vyspany.");
+		m.Set("Unava", "Unava");
+		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).");
+		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Objevil ses v oblasti: %1");
 		m.Set("Odmena", "Odmena");
@@ -496,6 +505,10 @@ class OS_LangData
 		m.Set("Pusobi: %1", "Pusobi: %1");
 		m.Set("Hracu online: %1", "Hracu online: %1");
 		m.Set("Moje farma", "Moje farma");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: ZAPNUTO");
 		m.Set("Godmode: VYPNUTO", "Godmode: VYPNUTO");
@@ -505,10 +518,6 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: VYPNUTO");
 		m.Set("Freecam: ZAPNUTO", "Freecam: ZAPNUTO");
 		m.Set("Freecam: VYPNUTO", "Freecam: VYPNUTO");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Nejdriv vyber hrace v admin menu (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Zadej aspon 2 znaky.");
 		m.Set("vozidlo", "vozidlo");
@@ -539,6 +548,44 @@ class OS_LangData
 		m.Set("Zvetsit na %1 m (%2%3)", "Zvetsit na %1 m (%2%3)");
 		m.Set("%1   [lze uvarit]", "%1   [lze uvarit]");
 		m.Set("Vyber recept vlevo.", "Vyber recept vlevo.");
+		m.Set("Spis... (pohni se pro probuzeni)", "Spis... (pohni se pro probuzeni)");
+		m.Set("Spis... unava %1 %   (pohni se pro probuzeni)", "Spis... unava %1 %   (pohni se pro probuzeni)");
+		m.Set("Spat", "Spat");
+		m.Set("jde spat", "jde spat");
+		m.Set("Sednout", "Sednout");
+		m.Set("Sednout (do turecka)", "Sednout (do turecka)");
+		m.Set("Lehnout", "Lehnout");
+		m.Set("Sednout k ohni", "Sednout k ohni");
+		m.Set("Mavat", "Mavat");
+		m.Set("mava", "mava");
+		m.Set("Salutovat", "Salutovat");
+		m.Set("salutuje", "salutuje");
+		m.Set("Tleskat", "Tleskat");
+		m.Set("tleska", "tleska");
+		m.Set("Palec nahoru", "Palec nahoru");
+		m.Set("ukazuje palec nahoru", "ukazuje palec nahoru");
+		m.Set("Palec dolu", "Palec dolu");
+		m.Set("ukazuje palec dolu", "ukazuje palec dolu");
+		m.Set("Ukazat", "Ukazat");
+		m.Set("Pojd sem", "Pojd sem");
+		m.Set("vola: pojd sem", "vola: pojd sem");
+		m.Set("Jdeme", "Jdeme");
+		m.Set("vola: jdeme", "vola: jdeme");
+		m.Set("Kyvnout (ano)", "Kyvnout (ano)");
+		m.Set("prikyvuje", "prikyvuje");
+		m.Set("Zavrtet hlavou (ne)", "Zavrtet hlavou (ne)");
+		m.Set("vrti hlavou", "vrti hlavou");
+		m.Set("Pokrcit rameny", "Pokrcit rameny");
+		m.Set("krci rameny", "krci rameny");
+		m.Set("Vzdat se", "Vzdat se");
+		m.Set("se vzdava", "se vzdava");
+		m.Set("Ticho", "Ticho");
+		m.Set("Srdce", "Srdce");
+		m.Set("Facepalm", "Facepalm");
+		m.Set("Posmesek", "Posmesek");
+		m.Set("Tancit", "Tancit");
+		m.Set("tanci", "tanci");
+		m.Set("Unava: %1 %", "Unava: %1 %");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
@@ -612,6 +659,10 @@ class OS_LangData
 		m.Set("Koupit auto", "Koupit auto");
 		m.Set("Opravit", "Opravit");
 		m.Set("Natankovat", "Natankovat");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Doplnit dily", "Doplnit dily");
 		m.Set("Prepsat auto na sebe", "Prepsat auto na sebe");
 		m.Set("Ulozit do garaze", "Ulozit do garaze");
@@ -659,10 +710,6 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Dat zkusenosti cili (pocet z pole)");
 		m.Set("Cas", "Cas");
 		m.Set("Nastavit cas", "Nastavit cas");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Pocasi", "Pocasi");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): dvojklik = teleport cile");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klavesa End, Shift+End = teleport");
@@ -685,6 +732,9 @@ class OS_LangData
 		m.Set("Vylepsit (1 bod)", "Vylepsit (1 bod)");
 		m.Set("Prerozdelit body", "Prerozdelit body");
 		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.");
+		m.Set("Emoce a spanek", "Emoce a spanek");
+		m.Set("Prehrat", "Prehrat");
+		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Dvojklik = prehrat. Pohyb emoci ukonci.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -1119,6 +1169,15 @@ class OS_LangData
 		m.Set("+%1 zdravi / min", "+%1 health / min");
 		m.Set("+%1 krve / min", "+%1 blood / min");
 		m.Set("+%1 % tepla / min", "+%1 % warmth / min");
+		m.Set("Spanek", "Sleep");
+		m.Set("Nejsi unaveny, nemuzes usnout.", "You are not tired, you can't fall asleep.");
+		m.Set("V PvP zone se neda usnout.", "You can't sleep in a PvP zone.");
+		m.Set("Usinas v ukrytu - vyspis se rychleji. Pohni se pro probuzeni.", "Falling asleep in shelter - you'll rest faster. Move to wake up.");
+		m.Set("Usinas. Pohni se pro probuzeni.", "Falling asleep. Move to wake up.");
+		m.Set("Jsi vyspany.", "You are well rested.");
+		m.Set("Unava", "Fatigue");
+		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "You are exhausted! You are losing health - get some sleep (key L -> Sleep).");
+		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "You are tired - less stamina. Get some sleep (key L -> Sleep).");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "You spawned in the area: %1");
 		m.Set("Odmena", "Reward");
@@ -1205,6 +1264,10 @@ class OS_LangData
 		m.Set("Pusobi: %1", "Active: %1");
 		m.Set("Hracu online: %1", "Players online: %1");
 		m.Set("Moje farma", "My farm");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "VEHICLE SPOT (green) - stand and face the driving direction.   Y = save   N = cancel   (yellow = current spot)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: ON");
 		m.Set("Godmode: VYPNUTO", "Godmode: OFF");
@@ -1214,10 +1277,6 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: OFF");
 		m.Set("Freecam: ZAPNUTO", "Freecam: ON");
 		m.Set("Freecam: VYPNUTO", "Freecam: OFF");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Select a player in the admin menu (Home) first.");
 		m.Set("Zadej aspon 2 znaky.", "Enter at least 2 characters.");
 		m.Set("vozidlo", "vehicle");
@@ -1248,6 +1307,44 @@ class OS_LangData
 		m.Set("Zvetsit na %1 m (%2%3)", "Enlarge to %1 m (%2%3)");
 		m.Set("%1   [lze uvarit]", "%1   [can cook]");
 		m.Set("Vyber recept vlevo.", "Select a recipe on the left.");
+		m.Set("Spis... (pohni se pro probuzeni)", "Sleeping... (move to wake up)");
+		m.Set("Spis... unava %1 %   (pohni se pro probuzeni)", "Sleeping... fatigue %1 %   (move to wake up)");
+		m.Set("Spat", "Sleep");
+		m.Set("jde spat", "goes to sleep");
+		m.Set("Sednout", "Sit down");
+		m.Set("Sednout (do turecka)", "Sit cross-legged");
+		m.Set("Lehnout", "Lie down");
+		m.Set("Sednout k ohni", "Sit by the fire");
+		m.Set("Mavat", "Wave");
+		m.Set("mava", "waves");
+		m.Set("Salutovat", "Salute");
+		m.Set("salutuje", "salutes");
+		m.Set("Tleskat", "Clap");
+		m.Set("tleska", "claps");
+		m.Set("Palec nahoru", "Thumbs up");
+		m.Set("ukazuje palec nahoru", "gives a thumbs up");
+		m.Set("Palec dolu", "Thumbs down");
+		m.Set("ukazuje palec dolu", "gives a thumbs down");
+		m.Set("Ukazat", "Point");
+		m.Set("Pojd sem", "Come here");
+		m.Set("vola: pojd sem", "calls: come here");
+		m.Set("Jdeme", "Let's go");
+		m.Set("vola: jdeme", "calls: let's go");
+		m.Set("Kyvnout (ano)", "Nod (yes)");
+		m.Set("prikyvuje", "nods");
+		m.Set("Zavrtet hlavou (ne)", "Shake head (no)");
+		m.Set("vrti hlavou", "shakes their head");
+		m.Set("Pokrcit rameny", "Shrug");
+		m.Set("krci rameny", "shrugs");
+		m.Set("Vzdat se", "Surrender");
+		m.Set("se vzdava", "surrenders");
+		m.Set("Ticho", "Silence");
+		m.Set("Srdce", "Heart");
+		m.Set("Facepalm", "Facepalm");
+		m.Set("Posmesek", "Taunt");
+		m.Set("Tancit", "Dance");
+		m.Set("tanci", "dances");
+		m.Set("Unava: %1 %", "Fatigue: %1 %");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - animals, trees, seedlings, feed and fertilizer for your farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Bought animals and feed are delivered to your farm.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Build a farm first (key U), then come back here.");
@@ -1321,6 +1418,10 @@ class OS_LangData
 		m.Set("Koupit auto", "Buy car");
 		m.Set("Opravit", "Repair");
 		m.Set("Natankovat", "Refuel");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Doplnit dily", "Add parts");
 		m.Set("Prepsat auto na sebe", "Claim the car");
 		m.Set("Ulozit do garaze", "Store in garage");
@@ -1368,10 +1469,6 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Give experience to target (amount from field)");
 		m.Set("Cas", "Time");
 		m.Set("Nastavit cas", "Set time");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Pocasi", "Weather");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Map (M): double-click = teleport target");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: End key, Shift+End = teleport");
@@ -1394,6 +1491,9 @@ class OS_LangData
 		m.Set("Vylepsit (1 bod)", "Upgrade (1 point)");
 		m.Set("Prerozdelit body", "Reset points");
 		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Experience: zombies, animals, cooking, farm and time on the server. Upgrades stay after death.");
+		m.Set("Emoce a spanek", "Emotes and sleep");
+		m.Set("Prehrat", "Play");
+		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Double-click = play. Moving ends the emote.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -1828,6 +1928,15 @@ class OS_LangData
 		m.Set("+%1 zdravi / min", "+%1 Gesundheit / Min.");
 		m.Set("+%1 krve / min", "+%1 Blut / Min.");
 		m.Set("+%1 % tepla / min", "+%1 % Wärme / Min.");
+		m.Set("Spanek", "Schlaf");
+		m.Set("Nejsi unaveny, nemuzes usnout.", "Du bist nicht müde, du kannst nicht einschlafen.");
+		m.Set("V PvP zone se neda usnout.", "In einer PvP-Zone kann man nicht schlafen.");
+		m.Set("Usinas v ukrytu - vyspis se rychleji. Pohni se pro probuzeni.", "Du schläfst im Unterschlupf ein - du erholst dich schneller. Beweg dich zum Aufwachen.");
+		m.Set("Usinas. Pohni se pro probuzeni.", "Du schläfst ein. Beweg dich zum Aufwachen.");
+		m.Set("Jsi vyspany.", "Du bist ausgeschlafen.");
+		m.Set("Unava", "Müdigkeit");
+		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Du bist erschöpft! Du verlierst Gesundheit - schlaf (Taste L -> Schlafen).");
+		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Du bist müde - weniger Ausdauer. Schlaf (Taste L -> Schlafen).");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Du bist im Gebiet erschienen: %1");
 		m.Set("Odmena", "Belohnung");
@@ -1914,6 +2023,10 @@ class OS_LangData
 		m.Set("Pusobi: %1", "Wirkt: %1");
 		m.Set("Hracu online: %1", "Spieler online: %1");
 		m.Set("Moje farma", "Meine Farm");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "FAHRZEUGPLATZ (grün) - stell dich hin und schau in Fahrtrichtung.   Y = speichern   N = abbrechen   (gelb = bisheriger Platz)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: AN");
 		m.Set("Godmode: VYPNUTO", "Godmode: AUS");
@@ -1923,10 +2036,6 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: AUS");
 		m.Set("Freecam: ZAPNUTO", "Freecam: AN");
 		m.Set("Freecam: VYPNUTO", "Freecam: AUS");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Wähle zuerst einen Spieler im Adminmenü (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Gib mindestens 2 Zeichen ein.");
 		m.Set("vozidlo", "Fahrzeug");
@@ -1957,6 +2066,44 @@ class OS_LangData
 		m.Set("Zvetsit na %1 m (%2%3)", "Auf %1 m vergrößern (%2%3)");
 		m.Set("%1   [lze uvarit]", "%1   [kann gekocht werden]");
 		m.Set("Vyber recept vlevo.", "Wähle links ein Rezept.");
+		m.Set("Spis... (pohni se pro probuzeni)", "Du schläfst... (beweg dich zum Aufwachen)");
+		m.Set("Spis... unava %1 %   (pohni se pro probuzeni)", "Du schläfst... Müdigkeit %1 %   (beweg dich zum Aufwachen)");
+		m.Set("Spat", "Schlafen");
+		m.Set("jde spat", "geht schlafen");
+		m.Set("Sednout", "Hinsetzen");
+		m.Set("Sednout (do turecka)", "Im Schneidersitz sitzen");
+		m.Set("Lehnout", "Hinlegen");
+		m.Set("Sednout k ohni", "Ans Feuer setzen");
+		m.Set("Mavat", "Winken");
+		m.Set("mava", "winkt");
+		m.Set("Salutovat", "Salutieren");
+		m.Set("salutuje", "salutiert");
+		m.Set("Tleskat", "Klatschen");
+		m.Set("tleska", "klatscht");
+		m.Set("Palec nahoru", "Daumen hoch");
+		m.Set("ukazuje palec nahoru", "zeigt Daumen hoch");
+		m.Set("Palec dolu", "Daumen runter");
+		m.Set("ukazuje palec dolu", "zeigt Daumen runter");
+		m.Set("Ukazat", "Zeigen");
+		m.Set("Pojd sem", "Komm her");
+		m.Set("vola: pojd sem", "ruft: komm her");
+		m.Set("Jdeme", "Los geht's");
+		m.Set("vola: jdeme", "ruft: los geht's");
+		m.Set("Kyvnout (ano)", "Nicken (ja)");
+		m.Set("prikyvuje", "nickt");
+		m.Set("Zavrtet hlavou (ne)", "Kopfschütteln (nein)");
+		m.Set("vrti hlavou", "schüttelt den Kopf");
+		m.Set("Pokrcit rameny", "Schulterzucken");
+		m.Set("krci rameny", "zuckt mit den Schultern");
+		m.Set("Vzdat se", "Ergeben");
+		m.Set("se vzdava", "ergibt sich");
+		m.Set("Ticho", "Ruhe");
+		m.Set("Srdce", "Herz");
+		m.Set("Facepalm", "Facepalm");
+		m.Set("Posmesek", "Verhöhnen");
+		m.Set("Tancit", "Tanzen");
+		m.Set("tanci", "tanzt");
+		m.Set("Unava: %1 %", "Müdigkeit: %1 %");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - Tiere, Bäume, Setzlinge, Futter und Dünger für deine Farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Gekaufte Tiere und Futter werden zu deiner Farm geliefert.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Bau zuerst eine Farm (Taste U) und komm dann zurück.");
@@ -2030,6 +2177,10 @@ class OS_LangData
 		m.Set("Koupit auto", "Auto kaufen");
 		m.Set("Opravit", "Reparieren");
 		m.Set("Natankovat", "Tanken");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Doplnit dily", "Teile ergänzen");
 		m.Set("Prepsat auto na sebe", "Auto auf dich umschreiben");
 		m.Set("Ulozit do garaze", "In Garage einlagern");
@@ -2077,10 +2228,6 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Ziel Erfahrung geben (Menge aus dem Feld)");
 		m.Set("Cas", "Zeit");
 		m.Set("Nastavit cas", "Zeit setzen");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Pocasi", "Wetter");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Karte (M): Doppelklick = Ziel teleportieren");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: Taste Ende, Shift+Ende = Teleport");
@@ -2103,6 +2250,9 @@ class OS_LangData
 		m.Set("Vylepsit (1 bod)", "Verbessern (1 Punkt)");
 		m.Set("Prerozdelit body", "Punkte neu verteilen");
 		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Erfahrung: Zombies, Tiere, Kochen, Farm und Zeit auf dem Server. Verbesserungen bleiben nach dem Tod.");
+		m.Set("Emoce a spanek", "Emotes und Schlaf");
+		m.Set("Prehrat", "Abspielen");
+		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Doppelklick = abspielen. Bewegung beendet das Emote.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -2537,6 +2687,15 @@ class OS_LangData
 		m.Set("+%1 zdravi / min", "+%1 zdrowia / min");
 		m.Set("+%1 krve / min", "+%1 krwi / min");
 		m.Set("+%1 % tepla / min", "+%1 % ciepła / min");
+		m.Set("Spanek", "Sen");
+		m.Set("Nejsi unaveny, nemuzes usnout.", "Nie jesteś zmęczony, nie możesz zasnąć.");
+		m.Set("V PvP zone se neda usnout.", "W strefie PvP nie można zasnąć.");
+		m.Set("Usinas v ukrytu - vyspis se rychleji. Pohni se pro probuzeni.", "Zasypiasz w schronieniu - wyśpisz się szybciej. Rusz się, aby się obudzić.");
+		m.Set("Usinas. Pohni se pro probuzeni.", "Zasypiasz. Rusz się, aby się obudzić.");
+		m.Set("Jsi vyspany.", "Jesteś wyspany.");
+		m.Set("Unava", "Zmęczenie");
+		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Jesteś wyczerpany! Tracisz zdrowie - prześpij się (klawisz L -> Śpij).");
+		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Jesteś zmęczony - mniej kondycji. Prześpij się (klawisz L -> Śpij).");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Pojawiłeś się w obszarze: %1");
 		m.Set("Odmena", "Nagroda");
@@ -2623,6 +2782,10 @@ class OS_LangData
 		m.Set("Pusobi: %1", "Działa: %1");
 		m.Set("Hracu online: %1", "Graczy online: %1");
 		m.Set("Moje farma", "Moja farma");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MIEJSCE DLA POJAZDU (zielone) - stań i obróć się w kierunku jazdy.   Y = zapisz   N = anuluj   (żółte = obecne miejsce)");
 		m.Set("Godmode: ZAPNUTO", "Godmode: WŁĄCZONY");
 		m.Set("Godmode: VYPNUTO", "Godmode: WYŁĄCZONY");
@@ -2632,10 +2795,6 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: WYŁĄCZONY");
 		m.Set("Freecam: ZAPNUTO", "Freecam: WŁĄCZONY");
 		m.Set("Freecam: VYPNUTO", "Freecam: WYŁĄCZONY");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Najpierw wybierz gracza w menu admina (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Wpisz co najmniej 2 znaki.");
 		m.Set("vozidlo", "pojazd");
@@ -2666,6 +2825,44 @@ class OS_LangData
 		m.Set("Zvetsit na %1 m (%2%3)", "Powiększ do %1 m (%2%3)");
 		m.Set("%1   [lze uvarit]", "%1   [można ugotować]");
 		m.Set("Vyber recept vlevo.", "Wybierz przepis po lewej.");
+		m.Set("Spis... (pohni se pro probuzeni)", "Śpisz... (rusz się, aby się obudzić)");
+		m.Set("Spis... unava %1 %   (pohni se pro probuzeni)", "Śpisz... zmęczenie %1 %   (rusz się, aby się obudzić)");
+		m.Set("Spat", "Śpij");
+		m.Set("jde spat", "idzie spać");
+		m.Set("Sednout", "Usiądź");
+		m.Set("Sednout (do turecka)", "Usiądź po turecku");
+		m.Set("Lehnout", "Połóż się");
+		m.Set("Sednout k ohni", "Usiądź przy ognisku");
+		m.Set("Mavat", "Machaj");
+		m.Set("mava", "macha");
+		m.Set("Salutovat", "Salutuj");
+		m.Set("salutuje", "salutuje");
+		m.Set("Tleskat", "Klaszcz");
+		m.Set("tleska", "klaszcze");
+		m.Set("Palec nahoru", "Kciuk w górę");
+		m.Set("ukazuje palec nahoru", "pokazuje kciuk w górę");
+		m.Set("Palec dolu", "Kciuk w dół");
+		m.Set("ukazuje palec dolu", "pokazuje kciuk w dół");
+		m.Set("Ukazat", "Wskaż");
+		m.Set("Pojd sem", "Chodź tu");
+		m.Set("vola: pojd sem", "woła: chodź tu");
+		m.Set("Jdeme", "Idziemy");
+		m.Set("vola: jdeme", "woła: idziemy");
+		m.Set("Kyvnout (ano)", "Kiwnij (tak)");
+		m.Set("prikyvuje", "kiwa głową");
+		m.Set("Zavrtet hlavou (ne)", "Pokręć głową (nie)");
+		m.Set("vrti hlavou", "kręci głową");
+		m.Set("Pokrcit rameny", "Wzrusz ramionami");
+		m.Set("krci rameny", "wzrusza ramionami");
+		m.Set("Vzdat se", "Poddaj się");
+		m.Set("se vzdava", "poddaje się");
+		m.Set("Ticho", "Cisza");
+		m.Set("Srdce", "Serce");
+		m.Set("Facepalm", "Facepalm");
+		m.Set("Posmesek", "Drwina");
+		m.Set("Tancit", "Tańcz");
+		m.Set("tanci", "tańczy");
+		m.Set("Unava: %1 %", "Zmęczenie: %1 %");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zwierzęta, drzewka, sadzonki, pasza i nawóz dla twojej farmy");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Kupione zwierzęta i pasza zostaną dowiezione na twoją farmę.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Najpierw zbuduj farmę (klawisz U), potem tu wróć.");
@@ -2739,6 +2936,10 @@ class OS_LangData
 		m.Set("Koupit auto", "Kup samochód");
 		m.Set("Opravit", "Napraw");
 		m.Set("Natankovat", "Zatankuj");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Doplnit dily", "Uzupełnij części");
 		m.Set("Prepsat auto na sebe", "Przepisz pojazd na siebie");
 		m.Set("Ulozit do garaze", "Zaparkuj w garażu");
@@ -2786,10 +2987,6 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Daj celowi doświadczenie (ilość z pola)");
 		m.Set("Cas", "Czas");
 		m.Set("Nastavit cas", "Ustaw czas");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Pocasi", "Pogoda");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): podwójne kliknięcie = teleport celu");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klawisz End, Shift+End = teleport");
@@ -2812,6 +3009,9 @@ class OS_LangData
 		m.Set("Vylepsit (1 bod)", "Ulepsz (1 punkt)");
 		m.Set("Prerozdelit body", "Rozdaj punkty od nowa");
 		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Doświadczenie: zombie, zwierzęta, gotowanie, farma i czas na serwerze. Ulepszenia zostają po śmierci.");
+		m.Set("Emoce a spanek", "Emocje i sen");
+		m.Set("Prehrat", "Odtwórz");
+		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Podwójne kliknięcie = odtwórz. Ruch kończy emocję.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");

@@ -13,6 +13,7 @@ class OS_Server
 	ref OS_ServerCooking m_Cooking;
 	ref OS_ServerSkills m_Skills;
 	ref OS_ServerHud m_Hud;
+	ref OS_ServerSleep m_Sleep;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -63,6 +64,7 @@ class OS_Server
 		m_Cooking = new OS_ServerCooking();
 		m_Skills = new OS_ServerSkills(m_Payments, currency);
 		m_Hud = new OS_ServerHud();
+		m_Sleep = new OS_ServerSleep();
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -102,6 +104,7 @@ class OS_Server
 			OS_Lang.SendToClient(player.GetIdentity());
 		m_Loadouts.Equip(player);
 		m_Spawns.OnNewCharacter(player);
+		m_Sleep.OnNewCharacter(player);
 	}
 
 	void OnConnect(PlayerBase player)
@@ -132,6 +135,7 @@ class OS_Server
 		{
 			m_Wallets.Forget(steamId);
 			m_Skills.Forget(steamId);
+			m_Sleep.OnDisconnect(steamId);
 		}
 	}
 
@@ -153,6 +157,7 @@ class OS_Server
 		m_Bases.OnTick(delta);
 		m_Cooking.OnTick(players, delta);
 		m_Skills.OnTick(players, delta);
+		m_Sleep.OnTick(players, delta);
 		m_Hud.OnTick(players, delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
@@ -225,6 +230,8 @@ class OS_Server
 		if (m_Cooking.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Skills.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Sleep.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

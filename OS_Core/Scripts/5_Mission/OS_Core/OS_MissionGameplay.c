@@ -41,6 +41,10 @@ modded class MissionGameplay
 		if (adminInput && adminInput.LocalPress())
 			OS_Client.Get().RequestAdmin();
 
+		UAInput emoteInput = GetUApi().GetInputByName("UAOSEmoteMenu");
+		if (emoteInput && emoteInput.LocalPress() && OS_Client.Get())
+			OS_Client.Get().OpenEmotes();
+
 		UAInput skillsInput = GetUApi().GetInputByName("UAOSSkillsMenu");
 		if (skillsInput && skillsInput.LocalPress())
 			OS_Client.SendToServer(OS_RPC_SKILLS_OPEN);

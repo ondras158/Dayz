@@ -311,7 +311,10 @@ class OS_FarmMenu : OS_MenuBase
 			if (stored < 0 || stored >= m_Data.StoredClasses.Count())
 				SetStatus(OS_T("Vyber surovinu."));
 			else
+			{
 				SendAction(OS_FarmAction.COLLECT, m_Data.StoredClasses[stored], -1);
+				OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_THUMB);
+			}
 			return true;
 		}
 		if (w == m_BtnBuyFert && m_EditFeed)
@@ -337,6 +340,7 @@ class OS_FarmMenu : OS_MenuBase
 		if (w == m_BtnCollectAll)
 		{
 			SendAction(OS_FarmAction.COLLECT_ALL, "", 0);
+			OS_ClientAnim.Queue(EmoteConstants.ID_EMOTE_THUMB);
 			return true;
 		}
 		if (w == m_BtnClose)

@@ -1,0 +1,37 @@
+FrameWidgetClass OS_Sleep {
+ ignorepointer 1
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Dark {
+   ignorepointer 1
+   color 0 0 0 0.88
+   position 0 0
+   size 1 1
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_colorable
+  }
+  TextWidgetClass SleepText {
+   ignorepointer 1
+   color 0.85 0.85 0.85 1
+   position 0 0
+   size 1 60
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   text ""
+   font "gui/fonts/metron28"
+   "text halign" center
+   "text valign" center
+  }
+ }
+}

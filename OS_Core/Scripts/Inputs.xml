@@ -13,6 +13,7 @@
 			<input name="UAOSFreecam" loc="Admin freecam (OS)" />
 			<input name="UAOSSkillsMenu" loc="Dovednosti (OS)" />
 			<input name="UAOSHudToggle" loc="Skryt / zobrazit HUD (OS)" />
+			<input name="UAOSEmoteMenu" loc="Emoce a spanek (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
@@ -26,6 +27,7 @@
 			<input name="UAOSFreecam" />
 			<input name="UAOSSkillsMenu" />
 			<input name="UAOSHudToggle" />
+			<input name="UAOSEmoteMenu" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -61,6 +63,9 @@
 		</input>
 		<input name="UAOSHudToggle">
 			<btn name="kH" />
+		</input>
+		<input name="UAOSEmoteMenu">
+			<btn name="kL" />
 		</input>
 	</preset>
 </modded_inputs>

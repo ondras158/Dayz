@@ -37,6 +37,7 @@ class OS_Hud
 		SetLabel("L_Water", OS_T("Voda"));
 		SetLabel("L_Stamina", OS_T("Vydrz"));
 		SetLabel("L_Heat", OS_T("Teplo"));
+		SetLabel("L_Fatigue", OS_T("Unava"));
 		SetLabel("GroupTitle", OS_T("Skupina"));
 		SetLabel("MedTitle", OS_T("Zdravotni stav"));
 	}
@@ -152,7 +153,10 @@ class OS_Hud
 			if (OS_ClientHud.ShowStatus)
 			{
 				m_StatusBox.SetPos(0, y);
-				y += 196;
+				if (OS_ClientHud.Fatigue >= 0)
+					y += 220;
+				else
+					y += 196;
 			}
 		}
 		int medLines = Math.Min(OS_ClientHud.Diseases.Count(), 5);
@@ -275,6 +279,26 @@ class OS_Hud
 			heatColor = ARGB(240, 230, 160, 50);
 		}
 		SetBar("Heat", (heat + 1) * 0.5, heatText, heatColor);
+
+		// únava: víc = hůř (zelená -> červená)
+		bool fatigueOn = OS_ClientHud.Fatigue >= 0;
+		array<string> fatigueWidgets = {"L_Fatigue", "BB_Fatigue", "BF_Fatigue", "V_Fatigue"};
+		foreach (string fatigueWidget : fatigueWidgets)
+		{
+			Widget fw = m_Root.FindAnyWidget(fatigueWidget);
+			if (fw)
+				fw.Show(fatigueOn);
+		}
+		if (fatigueOn)
+		{
+			float fatigue = OS_ClientHud.Fatigue;
+			int fatigueColor = ARGB(240, 80, 200, 90);
+			if (fatigue >= 0.9)
+				fatigueColor = ARGB(240, 230, 60, 50);
+			else if (fatigue >= 0.7)
+				fatigueColor = ARGB(240, 230, 160, 50);
+			SetBar("Fatigue", fatigue, Percent(fatigue), fatigueColor);
+		}
 	}
 
 	//! nemoci červeně s radou, čím léčit; léky, které působí, zeleně

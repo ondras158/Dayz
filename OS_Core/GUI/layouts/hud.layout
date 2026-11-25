@@ -20,7 +20,7 @@ FrameWidgetClass OS_Hud {
   }
   FrameWidgetClass StatusBox {
    position 0 0
-   size 300 196
+   size 300 220
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -330,6 +330,54 @@ FrameWidgetClass OS_Hud {
     }
     TextWidgetClass V_Heat {
      position 248 170
+     size 46 22
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" right
+     "text valign" center
+    }
+    TextWidgetClass L_Fatigue {
+     position 10 194
+     size 92 22
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass BB_Fatigue {
+     position 104 200
+     size 140 10
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     color 0.15 0.15 0.15 0.8
+     style rover_sim_colorable
+    }
+    PanelWidgetClass BF_Fatigue {
+     position 104 200
+     size 140 10
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     color 0.3 0.8 0.3 0.95
+     style rover_sim_colorable
+    }
+    TextWidgetClass V_Fatigue {
+     position 248 194
      size 46 22
      hexactpos 1
      vexactpos 1

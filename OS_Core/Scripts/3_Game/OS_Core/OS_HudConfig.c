@@ -38,6 +38,7 @@ class OS_ClientHud
 	static int PvPSeconds;
 	static string BaseText;
 	static int PlayersOnline;
+	static float Fatigue = -1;    // 0..1, -1 = vypnuto
 
 	static void Read(ParamsReadContext ctx)
 	{
@@ -68,6 +69,10 @@ class OS_ClientHud
 		array<string> drugs = new array<string>;
 		if (!ctx.Read(showDiseases) || !ctx.Read(diseases) || !ctx.Read(drugs))
 			return;
+		float fatigue;
+		if (!ctx.Read(fatigue))
+			return;
+		Fatigue = fatigue;
 
 		Enabled = enabled;
 		ShowStatus = showStatus;
