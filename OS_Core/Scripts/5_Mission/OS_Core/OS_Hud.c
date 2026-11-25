@@ -8,6 +8,7 @@ class OS_Hud
 	protected Widget m_StatusBox;
 	protected Widget m_GroupBox;
 	protected Widget m_InfoBox;
+	protected Widget m_MedBox;
 	protected bool m_Hidden;          // skryto klávesou
 	protected float m_SlowTimer = 10;
 
@@ -28,6 +29,7 @@ class OS_Hud
 		m_StatusBox = m_Root.FindAnyWidget("StatusBox");
 		m_GroupBox = m_Root.FindAnyWidget("GroupBox");
 		m_InfoBox = m_Root.FindAnyWidget("InfoBox");
+		m_MedBox = m_Root.FindAnyWidget("MedBox");
 
 		SetLabel("L_Health", OS_T("Zdravi"));
 		SetLabel("L_Blood", OS_T("Krev"));
@@ -36,6 +38,7 @@ class OS_Hud
 		SetLabel("L_Stamina", OS_T("Vydrz"));
 		SetLabel("L_Heat", OS_T("Teplo"));
 		SetLabel("GroupTitle", OS_T("Skupina"));
+		SetLabel("MedTitle", OS_T("Zdravotni stav"));
 	}
 
 	void Destroy()
@@ -152,6 +155,20 @@ class OS_Hud
 				y += 196;
 			}
 		}
+		int medLines = Math.Min(OS_ClientHud.Diseases.Count(), 5);
+		if (OS_ClientHud.Drugs.Count() > 0)
+			medLines++;
+		bool showMed = OS_ClientHud.ShowDiseases && medLines > 0;
+		if (m_MedBox)
+		{
+			m_MedBox.Show(showMed);
+			if (showMed)
+			{
+				m_MedBox.SetPos(0, y);
+				y += 26 + medLines * 19;
+			}
+		}
+
 		int groupCount = OS_ClientGroup.Count();
 		bool showGroup = OS_ClientHud.ShowGroup && groupCount > 0;
 		if (m_GroupBox)
@@ -186,6 +203,8 @@ class OS_Hud
 
 		if (OS_ClientHud.ShowStatus)
 			UpdateStatus(player);
+		if (showMed)
+			UpdateMed();
 		if (showGroup)
 			UpdateGroup(player, groupCount);
 		if (OS_ClientHud.ShowInfo)
@@ -256,6 +275,39 @@ class OS_Hud
 			heatColor = ARGB(240, 230, 160, 50);
 		}
 		SetBar("Heat", (heat + 1) * 0.5, heatText, heatColor);
+	}
+
+	//! nemoci červeně s radou, čím léčit; léky, které působí, zeleně
+	protected void UpdateMed()
+	{
+		int line = 0;
+		for (int i = 0; i < OS_ClientHud.Diseases.Count() && line < 5; i++)
+		{
+			array<string> parts = new array<string>;
+			string entry = OS_ClientHud.Diseases[i];
+			entry.Split("|", parts);
+			string text = entry;
+			if (parts.Count() >= 2)
+				text = parts[0] + "  ->  " + parts[1];
+			SetLabel("M" + line.ToString(), text, ARGB(255, 245, 90, 80));
+			line++;
+		}
+		if (OS_ClientHud.Drugs.Count() > 0 && line < 6)
+		{
+			string drugs = "";
+			foreach (string drug : OS_ClientHud.Drugs)
+			{
+				if (drugs != "")
+					drugs = drugs + ", ";
+				drugs = drugs + drug;
+			}
+			SetLabel("M" + line.ToString(), OS_F("Pusobi: %1", drugs), ARGB(255, 110, 220, 120));
+			line++;
+		}
+		for (int j = line; j < 6; j++)
+		{
+			SetLabel("M" + j.ToString(), "");
+		}
 	}
 
 	protected void UpdateGroup(PlayerBase player, int count)

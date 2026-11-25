@@ -7,6 +7,8 @@ class OS_HudConfig
 	bool ShowStatus = true;        // zdraví, krev, jídlo, voda, výdrž, teplo + zóna a PvP
 	bool ShowGroup = true;         // spoluhráči online se vzdáleností
 	bool ShowInfo = true;          // souřadnice, směr, čas ve hře, počet hráčů
+	bool ShowDiseases = true;      // nemoci (s radou, čím léčit) a léky, které právě působí
+	bool ShowEarlyInfection = false; // ukázat i nákazu před příznaky (jinak až když se nemoc projeví)
 	bool ShowCoordinates = true;   // souřadnice X / Z (na některých serverech nechtěné)
 	string Position = "right";     // right / left
 	float UpdateSeconds = 1.5;     // jak často server posílá stav
@@ -19,6 +21,9 @@ class OS_ClientHud
 	static bool ShowStatus = true;
 	static bool ShowGroup = true;
 	static bool ShowInfo = true;
+	static bool ShowDiseases = true;
+	static ref array<string> Diseases = new array<string>;   // "nemoc|čím léčit"
+	static ref array<string> Drugs = new array<string>;
 	static bool ShowCoordinates = true;
 	static bool Left;
 	static bool Received;
@@ -58,6 +63,11 @@ class OS_ClientHud
 			return;
 		if (!ctx.Read(zoneType) || !ctx.Read(zoneName) || !ctx.Read(pvpSeconds) || !ctx.Read(baseText) || !ctx.Read(players))
 			return;
+		bool showDiseases;
+		array<string> diseases = new array<string>;
+		array<string> drugs = new array<string>;
+		if (!ctx.Read(showDiseases) || !ctx.Read(diseases) || !ctx.Read(drugs))
+			return;
 
 		Enabled = enabled;
 		ShowStatus = showStatus;
@@ -75,6 +85,9 @@ class OS_ClientHud
 		PvPSeconds = pvpSeconds;
 		BaseText = baseText;
 		PlayersOnline = players;
+		ShowDiseases = showDiseases;
+		Diseases = diseases;
+		Drugs = drugs;
 		Received = true;
 	}
 }

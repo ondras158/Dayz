@@ -509,10 +509,32 @@ přidej jejich classname a díly).
   (oranžová, časovač po odchodu ze zóny), *PvE* (šedá); base, ve které stojíš (moje / skupiny / cizí);
   pruhy zdraví, krve, jídla, vody, výdrže a tepla (zima / chladno / OK / teplo / horko).
 - **Skupina** (`ShowGroup`): spoluhráči online se vzdáleností (max 6).
+- **Zdravotní stav** (`ShowDiseases`): nemoci, které se projevily, červeně s radou, čím je léčit
+  (např. *Cholera → Tetracyklin, pít čistou vodu*), a zeleně léky, které právě působí.
+  `ShowEarlyInfection: true` = ukáže i nákazu ještě před příznaky (výchozí vypnuto).
 - **Info** (`ShowInfo`): souřadnice X / Z (`ShowCoordinates`), směr pohledu (S, SV, V…) a stupně,
   čas ve hře a počet hráčů online.
 - Stav posílá server každých `UpdateSeconds` (1,5 s). Při otevřeném menu, inventáři nebo mapě se HUD skryje.
   Vanilla ikonky zůstávají. Vypnutí pro všechny: `Enabled: false`.
+
+**Nemoci a léky ve hře** (vanilla DayZ – mód je nemění, jen je ukazuje v HUDu)
+
+| Nemoc | Kde ji chytíš | Příznaky | Léčba |
+|---|---|---|---|
+| Cholera | Neupravená voda (rybník, řeka) | zvracení, žízeň | **Tetracyklin**, hodně pít čistou vodu |
+| Salmonela | Syrové / shnilé maso, špinavé ruce | bolest břicha, zvracení | **Aktivní uhlí** |
+| Otrava jídlem | Shnilé jídlo | zvracení | Aktivní uhlí, voda, počkat |
+| Nachlazení → Chřipka → Zápal plic | Zima, mokré oblečení, nakažení hráči | kašel, kýchání | **Vitamíny**, teplo; chřipka a zápal plic **Tetracyklin** |
+| Infekce rány | Neošetřená rána, špinavý obvaz | horečka, slabost | **Dezinfekční sprej / alkohol** na ránu, Tetracyklin |
+| Kuru | Lidské maso | smích, třes | nevyléčitelné, časem přejde |
+| Otrava těžkými kovy | Kontaminovaná voda (Sakhal) | slabost | **Chelační tablety** |
+| Chemická otrava | Toxická zóna (plyn) | kašel, zranění | **PO-X antidotum**, plynová maska |
+
+- **Léky:** Tetracyklin (antibiotika, 5 min), Aktivní uhlí (salmonela, 5 min), Vitamíny (posílí imunitu),
+  Léky proti bolesti / Morfin (bolest, zlomeniny), Adrenalin (probuzení z bezvědomí), Dezinfekce (rány),
+  Chelační tablety (těžké kovy), PO-X (chemie), Fyziologický roztok (krev). Prodává je **Lékárna**.
+- Prevence: pít převařenou nebo dezinfikovanou vodu (čisticí tablety, jód), vařit maso, mýt si ruce,
+  být v suchu a teple, dezinfikovat obvazy.
 
 **Dovednosti** (`Skills.json`, data hráčů v `Skills/<SteamID>.json`) – menu klávesa **O**
 - **Zkušenosti** dostáváš za: zabitého zombíka (`XpZombieKill`, 10), zvíře (`XpAnimalKill`, 20), hráče
@@ -679,7 +701,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
-- **HUD:** stav hráče, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).
+- **HUD:** stav hráče, nemoci s radou, čím léčit, působící léky, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).
 - **Dovednosti:** zkušenosti a úrovně, body do odolnosti, výdrže, regenerace, krve, metabolismu a otužilosti (klávesa O).
 - **Vaření:** recepty u ohně, 10 hotových jídel s lepší výživou a bonusy, prodej v Potravinách.
 - **Base u vanilla vlajky:** založení, zvětšování poloměru po úrovních, rozestupy mezi basemi, zobrazení na mapě.

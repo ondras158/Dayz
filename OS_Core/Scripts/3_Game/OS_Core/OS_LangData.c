@@ -341,6 +341,54 @@ class OS_LangData
 		m.Set("Moje base", "Moje base");
 		m.Set("Base skupiny (%1)", "Base skupiny (%1)");
 		m.Set("Cizi base (%1)", "Cizi base (%1)");
+		m.Set("Cholera", "Cholera");
+		m.Set("Tetracyklin, pit cistou vodu", "Tetracyklin, pit cistou vodu");
+		m.Set("Chripka", "Chripka");
+		m.Set("Tetracyklin, vitaminy, teplo", "Tetracyklin, vitaminy, teplo");
+		m.Set("Zapal plic", "Zapal plic");
+		m.Set("Tetracyklin, teplo", "Tetracyklin, teplo");
+		m.Set("Nachlazeni", "Nachlazeni");
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitaminy, teplo a suche obleceni");
+		m.Set("Salmonela", "Salmonela");
+		m.Set("Aktivni uhli", "Aktivni uhli");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
+		m.Set("Otrava jidlem", "Otrava jidlem");
+		m.Set("Aktivni uhli, voda, nejist zkazene", "Aktivni uhli, voda, nejist zkazene");
+		m.Set("Infekce rany", "Infekce rany");
+		m.Set("Dezinfekce rany, Tetracyklin", "Dezinfekce rany, Tetracyklin");
+		m.Set("Tezka infekce rany", "Tezka infekce rany");
+		m.Set("Tetracyklin a dezinfekce hned", "Tetracyklin a dezinfekce hned");
+		m.Set("Kuru (lidske maso)", "Kuru (lidske maso)");
+		m.Set("Nelecitelne, prejde samo", "Nelecitelne, prejde samo");
+		m.Set("Otrava tezkymi kovy", "Otrava tezkymi kovy");
+		m.Set("Chelacni tablety", "Chelacni tablety");
+		m.Set("Chemicka otrava", "Chemicka otrava");
+		m.Set("PO-X antidotum, plynova maska", "PO-X antidotum, plynova maska");
+		m.Set("Prehrati", "Prehrati");
+		m.Set("Stin, mene obleceni, pit", "Stin, mene obleceni, pit");
+		m.Set("Podrazdene plice", "Podrazdene plice");
+		m.Set("Respirator nebo maska", "Respirator nebo maska");
+		m.Set("Podrazdene oci", "Podrazdene oci");
+		m.Set("Bryle, odejit z prachu", "Bryle, odejit z prachu");
+		m.Set("Nakaza: cholera", "Nakaza: cholera");
+		m.Set("Tetracyklin", "Tetracyklin");
+		m.Set("Nakaza: chripka", "Nakaza: chripka");
+		m.Set("Vitaminy, teplo", "Vitaminy, teplo");
+		m.Set("Nakaza: salmonela", "Nakaza: salmonela");
+		m.Set("Nakaza: infekce rany", "Nakaza: infekce rany");
+		m.Set("Dezinfekce rany", "Dezinfekce rany");
+		m.Set("antibiotika", "antibiotika");
+		m.Set("aktivni uhli", "aktivni uhli");
+		m.Set("vitaminy", "vitaminy");
+		m.Set("proti bolesti", "proti bolesti");
+		m.Set("morfin", "morfin");
+		m.Set("adrenalin", "adrenalin");
+		m.Set("dezinfekce", "dezinfekce");
+		m.Set("chelacni tablety", "chelacni tablety");
+		m.Set("fyziologicky roztok", "fyziologicky roztok");
 		m.Set("%1 byl zabit hracem %2", "%1 byl zabit hracem %2");
 		m.Set("%1 byl zabit zombiky", "%1 byl zabit zombiky");
 		m.Set("%1 zemrel", "%1 zemrel");
@@ -351,10 +399,6 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Zadna PvP zona neexistuje.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Smazana PvP zona %1 (%2 m od tebe).");
 		m.Set("Bezpecna zona", "Bezpecna zona");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Dovednosti", "Dovednosti");
 		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).");
 		m.Set("+%1 zkusenosti", "+%1 zkusenosti");
@@ -431,6 +475,7 @@ class OS_LangData
 		m.Set("Jidlo", "Jidlo");
 		m.Set("Voda", "Voda");
 		m.Set("Teplo", "Teplo");
+		m.Set("Zdravotni stav", "Zdravotni stav");
 		m.Set("S", "S");
 		m.Set("SV", "SV");
 		m.Set("V", "V");
@@ -448,6 +493,7 @@ class OS_LangData
 		m.Set("Zima", "Zima");
 		m.Set("Chladno", "Chladno");
 		m.Set("Horko", "Horko");
+		m.Set("Pusobi: %1", "Pusobi: %1");
 		m.Set("Hracu online: %1", "Hracu online: %1");
 		m.Set("Moje farma", "Moje farma");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)");
@@ -459,6 +505,10 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: VYPNUTO");
 		m.Set("Freecam: ZAPNUTO", "Freecam: ZAPNUTO");
 		m.Set("Freecam: VYPNUTO", "Freecam: VYPNUTO");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Nejdriv vyber hrace v admin menu (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Zadej aspon 2 znaky.");
 		m.Set("vozidlo", "vozidlo");
@@ -505,10 +555,6 @@ class OS_LangData
 		m.Set("%1   - potreba: %2", "%1   - potreba: %2");
 		m.Set("Krmivo: %1 / %2   spotreba %3 / hod", "Krmivo: %1 / %2   spotreba %3 / hod");
 		m.Set("%1   (vydrzi ~%2 h)", "%1   (vydrzi ~%2 h)");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("%1   cena %2%3/ks", "%1   cena %2%3/ks");
 		m.Set("Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod", "Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod");
 		m.Set("%1   - postaveno", "%1   - postaveno");
@@ -613,6 +659,10 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Dat zkusenosti cili (pocet z pole)");
 		m.Set("Cas", "Cas");
 		m.Set("Nastavit cas", "Nastavit cas");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Pocasi", "Pocasi");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): dvojklik = teleport cile");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klavesa End, Shift+End = teleport");
@@ -659,10 +709,6 @@ class OS_LangData
 		m.Set("Uroven %1 / %2 (maximum)", "Uroven %1 / %2 (maximum)");
 		m.Set("Body k rozdeleni: %1", "Body k rozdeleni: %1");
 		m.Set("Prerozdelit body (%1 %2)", "Prerozdelit body (%1 %2)");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Ted: %1   (maximum)", "Ted: %1   (maximum)");
 		m.Set("Ted: %1   ->   dalsi uroven: %2", "Ted: %1   ->   dalsi uroven: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Zbyva %1 s - pak zustanes na aktualnim miste");
@@ -1004,6 +1050,54 @@ class OS_LangData
 		m.Set("Moje base", "My base");
 		m.Set("Base skupiny (%1)", "Group base (%1)");
 		m.Set("Cizi base (%1)", "Foreign base (%1)");
+		m.Set("Cholera", "Cholera");
+		m.Set("Tetracyklin, pit cistou vodu", "Tetracycline, drink clean water");
+		m.Set("Chripka", "Influenza");
+		m.Set("Tetracyklin, vitaminy, teplo", "Tetracycline, vitamins, warmth");
+		m.Set("Zapal plic", "Pneumonia");
+		m.Set("Tetracyklin, teplo", "Tetracycline, warmth");
+		m.Set("Nachlazeni", "Common cold");
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitamins, warmth and dry clothes");
+		m.Set("Salmonela", "Salmonella");
+		m.Set("Aktivni uhli", "Charcoal tablets");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
+		m.Set("Otrava jidlem", "Food poisoning");
+		m.Set("Aktivni uhli, voda, nejist zkazene", "Charcoal, water, don't eat spoiled food");
+		m.Set("Infekce rany", "Wound infection");
+		m.Set("Dezinfekce rany, Tetracyklin", "Disinfect the wound, Tetracycline");
+		m.Set("Tezka infekce rany", "Severe wound infection");
+		m.Set("Tetracyklin a dezinfekce hned", "Tetracycline and disinfection now");
+		m.Set("Kuru (lidske maso)", "Kuru (human flesh)");
+		m.Set("Nelecitelne, prejde samo", "Incurable, wears off on its own");
+		m.Set("Otrava tezkymi kovy", "Heavy metal poisoning");
+		m.Set("Chelacni tablety", "Chelation tablets");
+		m.Set("Chemicka otrava", "Chemical poisoning");
+		m.Set("PO-X antidotum, plynova maska", "PO-X antidote, gas mask");
+		m.Set("Prehrati", "Overheating");
+		m.Set("Stin, mene obleceni, pit", "Shade, fewer clothes, drink");
+		m.Set("Podrazdene plice", "Irritated lungs");
+		m.Set("Respirator nebo maska", "Respirator or mask");
+		m.Set("Podrazdene oci", "Irritated eyes");
+		m.Set("Bryle, odejit z prachu", "Goggles, get out of the dust");
+		m.Set("Nakaza: cholera", "Infected: cholera");
+		m.Set("Tetracyklin", "Tetracycline");
+		m.Set("Nakaza: chripka", "Infected: influenza");
+		m.Set("Vitaminy, teplo", "Vitamins, warmth");
+		m.Set("Nakaza: salmonela", "Infected: salmonella");
+		m.Set("Nakaza: infekce rany", "Infected: wound");
+		m.Set("Dezinfekce rany", "Disinfect the wound");
+		m.Set("antibiotika", "antibiotics");
+		m.Set("aktivni uhli", "charcoal");
+		m.Set("vitaminy", "vitamins");
+		m.Set("proti bolesti", "painkillers");
+		m.Set("morfin", "morphine");
+		m.Set("adrenalin", "epinephrine");
+		m.Set("dezinfekce", "disinfection");
+		m.Set("chelacni tablety", "chelation tablets");
+		m.Set("fyziologicky roztok", "saline");
 		m.Set("%1 byl zabit hracem %2", "%1 was killed by %2");
 		m.Set("%1 byl zabit zombiky", "%1 was killed by zombies");
 		m.Set("%1 zemrel", "%1 died");
@@ -1014,10 +1108,6 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "There is no PvP zone.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Removed PvP zone %1 (%2 m from you).");
 		m.Set("Bezpecna zona", "Safe zone");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Dovednosti", "Skills");
 		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Level %1! You have %2 point(s) to spend (key O).");
 		m.Set("+%1 zkusenosti", "+%1 experience");
@@ -1094,6 +1184,7 @@ class OS_LangData
 		m.Set("Jidlo", "Food");
 		m.Set("Voda", "Water");
 		m.Set("Teplo", "Warmth");
+		m.Set("Zdravotni stav", "Health condition");
 		m.Set("S", "N");
 		m.Set("SV", "NE");
 		m.Set("V", "E");
@@ -1111,6 +1202,7 @@ class OS_LangData
 		m.Set("Zima", "Cold");
 		m.Set("Chladno", "Chilly");
 		m.Set("Horko", "Hot");
+		m.Set("Pusobi: %1", "Active: %1");
 		m.Set("Hracu online: %1", "Players online: %1");
 		m.Set("Moje farma", "My farm");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "VEHICLE SPOT (green) - stand and face the driving direction.   Y = save   N = cancel   (yellow = current spot)");
@@ -1122,6 +1214,10 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: OFF");
 		m.Set("Freecam: ZAPNUTO", "Freecam: ON");
 		m.Set("Freecam: VYPNUTO", "Freecam: OFF");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Select a player in the admin menu (Home) first.");
 		m.Set("Zadej aspon 2 znaky.", "Enter at least 2 characters.");
 		m.Set("vozidlo", "vehicle");
@@ -1168,10 +1264,6 @@ class OS_LangData
 		m.Set("%1   - potreba: %2", "%1   - requires: %2");
 		m.Set("Krmivo: %1 / %2   spotreba %3 / hod", "Feed: %1 / %2   use %3 / h");
 		m.Set("%1   (vydrzi ~%2 h)", "%1   (lasts ~%2 h)");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("%1   cena %2%3/ks", "%1   price %2%3/pc");
 		m.Set("Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod", "Fertilizer (orchard, greenhouse): %1 / %2   use %3 / h");
 		m.Set("%1   - postaveno", "%1   - built");
@@ -1276,6 +1368,10 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Give experience to target (amount from field)");
 		m.Set("Cas", "Time");
 		m.Set("Nastavit cas", "Set time");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Pocasi", "Weather");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Map (M): double-click = teleport target");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: End key, Shift+End = teleport");
@@ -1322,10 +1418,6 @@ class OS_LangData
 		m.Set("Uroven %1 / %2 (maximum)", "Level %1 / %2 (maximum)");
 		m.Set("Body k rozdeleni: %1", "Points to spend: %1");
 		m.Set("Prerozdelit body (%1 %2)", "Reset points (%1 %2)");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Ted: %1   (maximum)", "Now: %1   (maximum)");
 		m.Set("Ted: %1   ->   dalsi uroven: %2", "Now: %1   ->   next level: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "%1 s left - then you stay at your current location");
@@ -1667,6 +1759,54 @@ class OS_LangData
 		m.Set("Moje base", "Meine Basis");
 		m.Set("Base skupiny (%1)", "Gruppenbasis (%1)");
 		m.Set("Cizi base (%1)", "Fremde Basis (%1)");
+		m.Set("Cholera", "Cholera");
+		m.Set("Tetracyklin, pit cistou vodu", "Tetracyclin, sauberes Wasser trinken");
+		m.Set("Chripka", "Grippe");
+		m.Set("Tetracyklin, vitaminy, teplo", "Tetracyclin, Vitamine, Wärme");
+		m.Set("Zapal plic", "Lungenentzündung");
+		m.Set("Tetracyklin, teplo", "Tetracyclin, Wärme");
+		m.Set("Nachlazeni", "Erkältung");
+		m.Set("Vitaminy, teplo a suche obleceni", "Vitamine, Wärme und trockene Kleidung");
+		m.Set("Salmonela", "Salmonellen");
+		m.Set("Aktivni uhli", "Aktivkohle");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
+		m.Set("Otrava jidlem", "Lebensmittelvergiftung");
+		m.Set("Aktivni uhli, voda, nejist zkazene", "Aktivkohle, Wasser, nichts Verdorbenes essen");
+		m.Set("Infekce rany", "Wundinfektion");
+		m.Set("Dezinfekce rany, Tetracyklin", "Wunde desinfizieren, Tetracyclin");
+		m.Set("Tezka infekce rany", "Schwere Wundinfektion");
+		m.Set("Tetracyklin a dezinfekce hned", "Sofort Tetracyclin und Desinfektion");
+		m.Set("Kuru (lidske maso)", "Kuru (Menschenfleisch)");
+		m.Set("Nelecitelne, prejde samo", "Unheilbar, vergeht von selbst");
+		m.Set("Otrava tezkymi kovy", "Schwermetallvergiftung");
+		m.Set("Chelacni tablety", "Chelat-Tabletten");
+		m.Set("Chemicka otrava", "Chemische Vergiftung");
+		m.Set("PO-X antidotum, plynova maska", "PO-X-Gegenmittel, Gasmaske");
+		m.Set("Prehrati", "Überhitzung");
+		m.Set("Stin, mene obleceni, pit", "Schatten, weniger Kleidung, trinken");
+		m.Set("Podrazdene plice", "Gereizte Lunge");
+		m.Set("Respirator nebo maska", "Atemschutz oder Maske");
+		m.Set("Podrazdene oci", "Gereizte Augen");
+		m.Set("Bryle, odejit z prachu", "Brille, raus aus dem Staub");
+		m.Set("Nakaza: cholera", "Infiziert: Cholera");
+		m.Set("Tetracyklin", "Tetracyclin");
+		m.Set("Nakaza: chripka", "Infiziert: Grippe");
+		m.Set("Vitaminy, teplo", "Vitamine, Wärme");
+		m.Set("Nakaza: salmonela", "Infiziert: Salmonellen");
+		m.Set("Nakaza: infekce rany", "Infiziert: Wunde");
+		m.Set("Dezinfekce rany", "Wunde desinfizieren");
+		m.Set("antibiotika", "Antibiotika");
+		m.Set("aktivni uhli", "Aktivkohle");
+		m.Set("vitaminy", "Vitamine");
+		m.Set("proti bolesti", "Schmerzmittel");
+		m.Set("morfin", "Morphin");
+		m.Set("adrenalin", "Adrenalin");
+		m.Set("dezinfekce", "Desinfektion");
+		m.Set("chelacni tablety", "Chelat-Tabletten");
+		m.Set("fyziologicky roztok", "Kochsalzlösung");
 		m.Set("%1 byl zabit hracem %2", "%1 wurde von %2 getötet");
 		m.Set("%1 byl zabit zombiky", "%1 wurde von Zombies getötet");
 		m.Set("%1 zemrel", "%1 ist gestorben");
@@ -1677,10 +1817,6 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Es gibt keine PvP-Zone.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "PvP-Zone %1 gelöscht (%2 m von dir).");
 		m.Set("Bezpecna zona", "Sicherheitszone");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Dovednosti", "Fähigkeiten");
 		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Stufe %1! Du hast %2 Punkt(e) zu verteilen (Taste O).");
 		m.Set("+%1 zkusenosti", "+%1 Erfahrung");
@@ -1757,6 +1893,7 @@ class OS_LangData
 		m.Set("Jidlo", "Essen");
 		m.Set("Voda", "Wasser");
 		m.Set("Teplo", "Wärme");
+		m.Set("Zdravotni stav", "Gesundheitszustand");
 		m.Set("S", "N");
 		m.Set("SV", "NO");
 		m.Set("V", "O");
@@ -1774,6 +1911,7 @@ class OS_LangData
 		m.Set("Zima", "Kalt");
 		m.Set("Chladno", "Kühl");
 		m.Set("Horko", "Heiß");
+		m.Set("Pusobi: %1", "Wirkt: %1");
 		m.Set("Hracu online: %1", "Spieler online: %1");
 		m.Set("Moje farma", "Meine Farm");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "FAHRZEUGPLATZ (grün) - stell dich hin und schau in Fahrtrichtung.   Y = speichern   N = abbrechen   (gelb = bisheriger Platz)");
@@ -1785,6 +1923,10 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: AUS");
 		m.Set("Freecam: ZAPNUTO", "Freecam: AN");
 		m.Set("Freecam: VYPNUTO", "Freecam: AUS");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Wähle zuerst einen Spieler im Adminmenü (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Gib mindestens 2 Zeichen ein.");
 		m.Set("vozidlo", "Fahrzeug");
@@ -1831,10 +1973,6 @@ class OS_LangData
 		m.Set("%1   - potreba: %2", "%1   - benötigt: %2");
 		m.Set("Krmivo: %1 / %2   spotreba %3 / hod", "Futter: %1 / %2   Verbrauch %3 / Std.");
 		m.Set("%1   (vydrzi ~%2 h)", "%1   (reicht ~%2 Std.)");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("%1   cena %2%3/ks", "%1   Preis %2%3/Stk.");
 		m.Set("Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod", "Dünger (Obstgarten, Gewächshaus): %1 / %2   Verbrauch %3 / Std.");
 		m.Set("%1   - postaveno", "%1   - gebaut");
@@ -1939,6 +2077,10 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Ziel Erfahrung geben (Menge aus dem Feld)");
 		m.Set("Cas", "Zeit");
 		m.Set("Nastavit cas", "Zeit setzen");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Pocasi", "Wetter");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Karte (M): Doppelklick = Ziel teleportieren");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: Taste Ende, Shift+Ende = Teleport");
@@ -1985,10 +2127,6 @@ class OS_LangData
 		m.Set("Uroven %1 / %2 (maximum)", "Stufe %1 / %2 (Maximum)");
 		m.Set("Body k rozdeleni: %1", "Punkte zu verteilen: %1");
 		m.Set("Prerozdelit body (%1 %2)", "Punkte neu verteilen (%1 %2)");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Ted: %1   (maximum)", "Jetzt: %1   (Maximum)");
 		m.Set("Ted: %1   ->   dalsi uroven: %2", "Jetzt: %1   ->   nächste Stufe: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Noch %1 s - danach bleibst du an deinem aktuellen Ort");
@@ -2330,6 +2468,54 @@ class OS_LangData
 		m.Set("Moje base", "Moja baza");
 		m.Set("Base skupiny (%1)", "Baza grupy (%1)");
 		m.Set("Cizi base (%1)", "Obca baza (%1)");
+		m.Set("Cholera", "Cholera");
+		m.Set("Tetracyklin, pit cistou vodu", "Tetracyklina, pij czystą wodę");
+		m.Set("Chripka", "Grypa");
+		m.Set("Tetracyklin, vitaminy, teplo", "Tetracyklina, witaminy, ciepło");
+		m.Set("Zapal plic", "Zapalenie płuc");
+		m.Set("Tetracyklin, teplo", "Tetracyklina, ciepło");
+		m.Set("Nachlazeni", "Przeziębienie");
+		m.Set("Vitaminy, teplo a suche obleceni", "Witaminy, ciepło i suche ubranie");
+		m.Set("Salmonela", "Salmonella");
+		m.Set("Aktivni uhli", "Węgiel aktywny");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
+		m.Set("Otrava jidlem", "Zatrucie pokarmowe");
+		m.Set("Aktivni uhli, voda, nejist zkazene", "Węgiel, woda, nie jedz zepsutego");
+		m.Set("Infekce rany", "Zakażenie rany");
+		m.Set("Dezinfekce rany, Tetracyklin", "Zdezynfekuj ranę, Tetracyklina");
+		m.Set("Tezka infekce rany", "Ciężkie zakażenie rany");
+		m.Set("Tetracyklin a dezinfekce hned", "Natychmiast Tetracyklina i dezynfekcja");
+		m.Set("Kuru (lidske maso)", "Kuru (ludzkie mięso)");
+		m.Set("Nelecitelne, prejde samo", "Nieuleczalne, mija samo");
+		m.Set("Otrava tezkymi kovy", "Zatrucie metalami ciężkimi");
+		m.Set("Chelacni tablety", "Tabletki chelatujące");
+		m.Set("Chemicka otrava", "Zatrucie chemiczne");
+		m.Set("PO-X antidotum, plynova maska", "Antidotum PO-X, maska gazowa");
+		m.Set("Prehrati", "Przegrzanie");
+		m.Set("Stin, mene obleceni, pit", "Cień, mniej ubrań, pij");
+		m.Set("Podrazdene plice", "Podrażnione płuca");
+		m.Set("Respirator nebo maska", "Respirator lub maska");
+		m.Set("Podrazdene oci", "Podrażnione oczy");
+		m.Set("Bryle, odejit z prachu", "Gogle, wyjdź z pyłu");
+		m.Set("Nakaza: cholera", "Zakażenie: cholera");
+		m.Set("Tetracyklin", "Tetracyklina");
+		m.Set("Nakaza: chripka", "Zakażenie: grypa");
+		m.Set("Vitaminy, teplo", "Witaminy, ciepło");
+		m.Set("Nakaza: salmonela", "Zakażenie: salmonella");
+		m.Set("Nakaza: infekce rany", "Zakażenie: rana");
+		m.Set("Dezinfekce rany", "Zdezynfekuj ranę");
+		m.Set("antibiotika", "antybiotyki");
+		m.Set("aktivni uhli", "węgiel aktywny");
+		m.Set("vitaminy", "witaminy");
+		m.Set("proti bolesti", "przeciwbólowe");
+		m.Set("morfin", "morfina");
+		m.Set("adrenalin", "adrenalina");
+		m.Set("dezinfekce", "dezynfekcja");
+		m.Set("chelacni tablety", "tabletki chelatujące");
+		m.Set("fyziologicky roztok", "sól fizjologiczna");
 		m.Set("%1 byl zabit hracem %2", "%1 został zabity przez %2");
 		m.Set("%1 byl zabit zombiky", "%1 został zabity przez zombie");
 		m.Set("%1 zemrel", "%1 zginął");
@@ -2340,10 +2526,6 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Nie ma żadnej strefy PvP.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Usunięto strefę PvP %1 (%2 m od ciebie).");
 		m.Set("Bezpecna zona", "Strefa bezpieczna");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Dovednosti", "Umiejętności");
 		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Poziom %1! Masz %2 pkt do rozdania (klawisz O).");
 		m.Set("+%1 zkusenosti", "+%1 doświadczenia");
@@ -2420,6 +2602,7 @@ class OS_LangData
 		m.Set("Jidlo", "Jedzenie");
 		m.Set("Voda", "Woda");
 		m.Set("Teplo", "Ciepło");
+		m.Set("Zdravotni stav", "Stan zdrowia");
 		m.Set("S", "Pn");
 		m.Set("SV", "Pn-Wsch");
 		m.Set("V", "Wsch");
@@ -2437,6 +2620,7 @@ class OS_LangData
 		m.Set("Zima", "Zimno");
 		m.Set("Chladno", "Chłodno");
 		m.Set("Horko", "Gorąco");
+		m.Set("Pusobi: %1", "Działa: %1");
 		m.Set("Hracu online: %1", "Graczy online: %1");
 		m.Set("Moje farma", "Moja farma");
 		m.Set("MISTO PRO VOZIDLO (zelene) - postav se a otoc ve smeru jizdy.   Y = ulozit   N = zrusit   (zlute = dosavadni misto)", "MIEJSCE DLA POJAZDU (zielone) - stań i obróć się w kierunku jazdy.   Y = zapisz   N = anuluj   (żółte = obecne miejsce)");
@@ -2448,6 +2632,10 @@ class OS_LangData
 		m.Set("ESP: VYPNUTO", "ESP: WYŁĄCZONY");
 		m.Set("Freecam: ZAPNUTO", "Freecam: WŁĄCZONY");
 		m.Set("Freecam: VYPNUTO", "Freecam: WYŁĄCZONY");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Najpierw wybierz gracza w menu admina (Home).");
 		m.Set("Zadej aspon 2 znaky.", "Wpisz co najmniej 2 znaki.");
 		m.Set("vozidlo", "pojazd");
@@ -2494,10 +2682,6 @@ class OS_LangData
 		m.Set("%1   - potreba: %2", "%1   - wymaga: %2");
 		m.Set("Krmivo: %1 / %2   spotreba %3 / hod", "Pasza: %1 / %2   zużycie %3 / godz.");
 		m.Set("%1   (vydrzi ~%2 h)", "%1   (starczy na ~%2 godz.)");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("%1   cena %2%3/ks", "%1   cena %2%3/szt.");
 		m.Set("Hnojivo (sad, sklenik): %1 / %2   spotreba %3 / hod", "Nawóz (sad, szklarnia): %1 / %2   zużycie %3 / godz.");
 		m.Set("%1   - postaveno", "%1   - zbudowano");
@@ -2602,6 +2786,10 @@ class OS_LangData
 		m.Set("Dat zkusenosti cili (pocet z pole)", "Daj celowi doświadczenie (ilość z pola)");
 		m.Set("Cas", "Czas");
 		m.Set("Nastavit cas", "Ustaw czas");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Pocasi", "Pogoda");
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): podwójne kliknięcie = teleport celu");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klawisz End, Shift+End = teleport");
@@ -2648,10 +2836,6 @@ class OS_LangData
 		m.Set("Uroven %1 / %2 (maximum)", "Poziom %1 / %2 (maksimum)");
 		m.Set("Body k rozdeleni: %1", "Punkty do rozdania: %1");
 		m.Set("Prerozdelit body (%1 %2)", "Rozdaj punkty od nowa (%1 %2)");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Ted: %1   (maximum)", "Teraz: %1   (maksimum)");
 		m.Set("Ted: %1   ->   dalsi uroven: %2", "Teraz: %1   ->   następny poziom: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Zostało %1 s - potem zostaniesz w obecnym miejscu");

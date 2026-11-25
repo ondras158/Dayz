@@ -459,6 +459,7 @@ for i, key in enumerate(["Health", "Blood", "Food", "Water", "Stamina", "Heat"])
     ]
 _group = [hud_text("GroupTitle", 10, 2, 280, 22, "")] + [hud_text(f"G{i}", 14, 24 + i * 19, 276, 19, "") for i in range(6)]
 _info = [hud_text("Info1", 10, 2, 280, 20, ""), hud_text("Info2", 10, 22, 280, 20, "")]
+_med = [hud_text("MedTitle", 10, 2, 280, 22, "")] + [hud_text(f"M{i}", 14, 24 + i * 19, 276, 19, "") for i in range(6)]
 HUD = f"""FrameWidgetClass OS_Hud {{
  ignorepointer 1
  position 0 0
@@ -470,6 +471,7 @@ HUD = f"""FrameWidgetClass OS_Hud {{
  {{
 {indent(hud_panel("Bg", 0, 0, HUD_W, 400, "0 0 0 0.45"), 2)}
 {indent(hud_box("StatusBox", 0, 196, _status), 2)}
+{indent(hud_box("MedBox", 196, 140, _med), 2)}
 {indent(hud_box("GroupBox", 196, 140, _group), 2)}
 {indent(hud_box("InfoBox", 336, 46, _info), 2)}
  }}

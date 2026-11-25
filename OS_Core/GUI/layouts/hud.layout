@@ -343,6 +343,108 @@ FrameWidgetClass OS_Hud {
     }
    }
   }
+  FrameWidgetClass MedBox {
+   position 0 196
+   size 300 140
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   ignorepointer 1
+   {
+    TextWidgetClass MedTitle {
+     position 10 2
+     size 280 22
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M0 {
+     position 14 24
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M1 {
+     position 14 43
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M2 {
+     position 14 62
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M3 {
+     position 14 81
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M4 {
+     position 14 100
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass M5 {
+     position 14 119
+     size 276 19
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+   }
+  }
   FrameWidgetClass GroupBox {
    position 0 196
    size 300 140
