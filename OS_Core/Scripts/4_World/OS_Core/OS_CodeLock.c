@@ -369,8 +369,7 @@ class ActionOSSetBed : ActionInteractBase
 		Object obj = action_data.m_Target.GetObject();
 		if (!obj)
 			obj = action_data.m_Target.GetParent();
-		TentBase tent = TentBase.Cast(obj);
-		if (tent && OS_Server.Get() && OS_Server.Get().m_Death)
-			OS_Server.Get().m_Death.SetBed(action_data.m_Player, tent);
+		if (obj && OS_Server.Get() && OS_Server.Get().m_Death)
+			OS_Server.Get().m_Death.SetBed(action_data.m_Player, obj);
 	}
 }

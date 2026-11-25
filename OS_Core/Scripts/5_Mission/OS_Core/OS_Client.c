@@ -200,6 +200,9 @@ class OS_Client
 			case OS_RPC_HUD:
 				OS_ClientHud.Read(ctx);
 				break;
+			case OS_RPC_BED_CLASSES:
+				OS_ClientBeds.Read(ctx);
+				break;
 			case OS_RPC_SLEEP:
 				m_SleepView.OnServerState(ctx);
 				break;

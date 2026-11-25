@@ -128,6 +128,7 @@ class OS_Server
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
 			m_Groups.SendGroupId(player);
 			m_Death.RememberCharacter(player);
+			m_Death.SendBedClasses(player);
 			if (m_Groups.m_Cfg.AutoTuneOnJoin)
 				m_Groups.TuneRadios(player, false);
 			m_Vehicles.SendPersonalGarage(player);

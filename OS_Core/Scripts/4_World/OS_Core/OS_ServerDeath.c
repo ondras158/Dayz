@@ -29,21 +29,53 @@ class OS_ServerDeath
 			m_Beds = new OS_BedsData();
 		if (!m_Beds.Beds)
 			m_Beds.Beds = new map<string, vector>;
+		if (!m_Cfg.BedClasses)
+			m_Cfg.BedClasses = new array<string>;
 	}
 
 	// ------------------------------------------------------------ spací místo (stan / přístřešek)
 
+	//! postavený stan / přístřešek, nebo předmět z BedClasses (spacák z módu) položený na zemi
 	static bool IsBed(Object obj)
 	{
+		if (!obj)
+			return false;
 		TentBase tent = TentBase.Cast(obj);
-		return tent && tent.GetState() == TentBase.PITCHED;
+		if (tent)
+			return tent.GetState() == TentBase.PITCHED;
+
+		array<string> classes = OS_ClientBeds.Classes;
+		if (g_Game.IsServer() && OS_Server.Get() && OS_Server.Get().m_Death)
+			classes = OS_Server.Get().m_Death.m_Cfg.BedClasses;
+		if (!classes || classes.Count() == 0)
+			return false;
+
+		EntityAI entity = EntityAI.Cast(obj);
+		if (entity && entity.GetHierarchyParent())
+			return false;   // v inventáři / v ruce se nepočítá
+		string type = obj.GetType();
+		foreach (string cls : classes)
+		{
+			if (cls != "" && (type == cls || g_Game.IsKindOf(type, cls)))
+				return true;
+		}
+		return false;
 	}
 
-	void SetBed(PlayerBase player, TentBase tent)
+	void SendBedClasses(PlayerBase player)
 	{
-		if (!m_Cfg.Enabled || !m_Cfg.BedSpawn || !player || !IsBed(tent))
+		if (!player || !player.GetIdentity())
 			return;
-		m_Beds.Beds.Set(OS_Util.SteamId(player), tent.GetPosition());
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(m_Cfg.BedClasses);
+		rpc.Send(null, OS_RPC_BED_CLASSES, true, player.GetIdentity());
+	}
+
+	void SetBed(PlayerBase player, Object bed)
+	{
+		if (!m_Cfg.Enabled || !m_Cfg.BedSpawn || !player || !IsBed(bed))
+			return;
+		m_Beds.Beds.Set(OS_Util.SteamId(player), bed.GetPosition());
 		string err;
 		JsonFileLoader<OS_BedsData>.SaveFile(OS_DIR + "Beds.json", m_Beds, err);
 		OS_Util.Notify(player, OS_T("Spawn"), OS_T("Spaci misto nastaveno - po smrti se tu muzes objevit."), 6);

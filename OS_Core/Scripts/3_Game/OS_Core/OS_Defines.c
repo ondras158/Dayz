@@ -63,6 +63,7 @@ const int OS_RPC_SKILLS_ACTION = 784512098; // klient -> server: vylepšit doved
 const int OS_RPC_HUD           = 784512099; // server -> klient: stav hráče a zóna pro HUD
 const int OS_RPC_SLEEP         = 784512100; // obousměrně: usnout / probudit (bool)
 const int OS_RPC_EMOTE_ANNOUNCE = 784512101; // klient -> server: oznámit emoci v okolí
+const int OS_RPC_BED_CLASSES   = 784512102; // server -> klient: předměty navíc, které jsou spacím místem
 
 const int OS_RPC_LAST  = 784512199;
 

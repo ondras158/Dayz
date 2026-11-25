@@ -15,6 +15,21 @@ class OS_DeathConfig
 	// po smrti se objeví v menu spawnu jako první možnost
 	bool BedSpawn = true;
 	float BedCooldownMinutes = 10;      // jak často jde na spacím místě respawnout
+	// další předměty, které fungují jako spací místo (např. spacák z módu) - classname nebo předek v configu
+	ref array<string> BedClasses = new array<string>;
+}
+
+//! na klientovi: classname spacích míst navíc (posílá server)
+class OS_ClientBeds
+{
+	static ref array<string> Classes = new array<string>;
+
+	static void Read(ParamsReadContext ctx)
+	{
+		array<string> classes = new array<string>;
+		if (ctx.Read(classes))
+			Classes = classes;
+	}
 }
 
 class OS_BedsData

@@ -530,6 +530,9 @@ přidej jejich classname a díly).
   (z klacků, plachty nebo kůže). Podívej se na něj a dej akci **Nastavit spawn zde** (`BedSpawn`). Po smrti je
   v menu spawnu první možnost *Moje spací místo* – objevíš se u stanu. Jen jedno místo na hráče (nové přepíše staré),
   jednou za `BedCooldownMinutes` (10 min). Když stan zbourají nebo složí, možnost zmizí. Uloženo v `Beds.json`.
+- **Spacák z módu:** classname přidej do `BedClasses` v `Death.json`, např. `"BedClasses": ["Spacak_Zeleny", "SleepingBag_Base"]`
+  (stačí i předek v configu, platí pro všechny varianty). Položený na zemi pak funguje stejně jako stan – akce
+  *Nastavit spawn zde*. V inventáři nebo v ruce se nepočítá. Platí po restartu serveru, bez přebalení módu.
 - Doporučeno v misi (`db/globals.xml`) nastavit `CleanupLifetimeDeadPlayer` aspoň na `7200`, aby hra těla neuklidila dřív.
 
 **Airdropy** (`Airdrops.json`)
