@@ -7,6 +7,7 @@ class OS_PendingSpawn
 	float LastSent = -100;
 	bool Acked;
 	float AckTime;
+	bool HasBed;      // první položka menu = spací místo
 }
 
 class OS_ServerSpawns
@@ -31,7 +32,10 @@ class OS_ServerSpawns
 
 	void OnNewCharacter(PlayerBase player)
 	{
-		if (!player || !m_Cfg.Enabled || !m_Cfg.Zones || m_Cfg.Zones.Count() == 0)
+		if (!player || !m_Cfg.Enabled)
+			return;
+		bool bed = BedAvailable(player, true);
+		if (!bed && (!m_Cfg.Zones || m_Cfg.Zones.Count() == 0))
 			return;
 
 		OS_PendingSpawn pending = new OS_PendingSpawn();
@@ -82,6 +86,16 @@ class OS_ServerSpawns
 			return;
 
 		array<string> names = new array<string>;
+		OS_PendingSpawn pending;
+		int pendingIndex = FindIndex(identity);
+		if (pendingIndex >= 0)
+			pending = m_Pending[pendingIndex];
+		if (pending)
+		{
+			pending.HasBed = BedAvailable(player);
+			if (pending.HasBed)
+				names.Insert(OS_T("> Moje spaci misto (stan / pristresek)"));
+		}
 		foreach (OS_SpawnZone zone : m_Cfg.Zones)
 		{
 			names.Insert(OS_T(zone.Name));
@@ -142,6 +156,17 @@ class OS_ServerSpawns
 				return true;
 
 			PlayerBase player = m_Pending[index].Player;
+			if (m_Pending[index].HasBed)
+			{
+				if (zoneIndex == 0)
+				{
+					if (!OS_Server.Get() || !OS_Server.Get().m_Death.SpawnAtBed(player))
+						OS_Util.Notify(player, OS_T("Spawn"), OS_T("Spaci misto uz neexistuje - zustavas na miste."));
+					Finish(index);
+					return true;
+				}
+				zoneIndex--;
+			}
 			if (zoneIndex >= 0 && zoneIndex < m_Cfg.Zones.Count())
 				SpawnInZone(player, m_Cfg.Zones[zoneIndex]);
 
@@ -150,6 +175,26 @@ class OS_ServerSpawns
 		}
 
 		return false;
+	}
+
+	protected bool BedAvailable(PlayerBase player, bool notify = false)
+	{
+		if (!player || !OS_Server.Get() || !OS_Server.Get().m_Death)
+			return false;
+		string id = OS_Util.SteamId(player);
+		vector pos;
+		if (!OS_Server.Get().m_Death.GetBed(id, pos))
+			return false;
+		int cooldown = OS_Server.Get().m_Death.BedCooldown(id);
+		if (cooldown > 0)
+		{
+			if (!notify)
+				return false;
+			int minutes = Math.Ceil(cooldown / 60.0);
+			OS_Util.Notify(player, OS_T("Spawn"), OS_F("Spaci misto bude zase k dispozici za %1 min.", minutes.ToString()));
+			return false;
+		}
+		return true;
 	}
 
 	protected void SpawnInZone(PlayerBase player, OS_SpawnZone zone)

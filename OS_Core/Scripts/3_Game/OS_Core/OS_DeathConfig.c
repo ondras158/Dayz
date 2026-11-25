@@ -10,6 +10,16 @@ class OS_DeathConfig
 	bool KeepInventoryOnOtherDeath = true;   // zombík, zvíře, pád, hlad, nemoc...: věci máš i po respawnu
 	bool KeepCharacter = true;          // nová postava má stejný vzhled jako předchozí
 	bool KeepFatigue = true;            // únava se po smrti nenuluje
+
+	// spací místo: postavený stan nebo improvizovaný přístřešek -> akce "Nastavit spawn zde",
+	// po smrti se objeví v menu spawnu jako první možnost
+	bool BedSpawn = true;
+	float BedCooldownMinutes = 10;      // jak často jde na spacím místě respawnout
+}
+
+class OS_BedsData
+{
+	ref map<string, vector> Beds = new map<string, vector>;   // Steam ID -> poloha stanu / přístřešku
 }
 
 class OS_SavedItem

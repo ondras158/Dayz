@@ -157,6 +157,7 @@ class OS_LangData
 		m.Set("Zamknout (skupina)", "Zamknout (skupina)");
 		m.Set("Base", "Base");
 		m.Set("Varit podle receptu", "Varit podle receptu");
+		m.Set("Nastavit spawn zde", "Nastavit spawn zde");
 		m.Set("Bankovka %1 %2", "Bankovka %1 %2");
 		m.Set("Banka", "Banka");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Drobne %1 %2 pripsany na ucet.");
@@ -200,11 +201,11 @@ class OS_LangData
 		m.Set("Na zemi: %1x %2", "Na zemi: %1x %2");
 		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Vozidlo %1 se nepodarilo vytvorit.");
 		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Vozidlo %1 je pripravene (bez majitele).");
-		m.Set("Opraveno: %1", "Opraveno: %1");
 	}
 
 	protected static void Fill_cs_1(map<string, string> m)
 	{
+		m.Set("Opraveno: %1", "Opraveno: %1");
 		m.Set("Zniceno: %1", "Zniceno: %1");
 		m.Set("Smazano: %1", "Smazano: %1");
 		m.Set("Nejdriv vyber hrace v seznamu.", "Nejdriv vyber hrace v seznamu.");
@@ -289,6 +290,9 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Bonus z jidla");
 		m.Set("%1 na %2 min", "%1 na %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus skoncil: %1");
+		m.Set("Spawn", "Spawn");
+		m.Set("Spaci misto nastaveno - po smrti se tu muzes objevit.", "Spaci misto nastaveno - po smrti se tu muzes objevit.");
+		m.Set("Probudil ses na svem spacim miste.", "Probudil ses na svem spacim miste.");
 		m.Set("Smrt", "Smrt");
 		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Zabilo te prostredi, ne hrac - tvoje veci se vratily.");
 		m.Set("Farma", "Farma");
@@ -351,14 +355,14 @@ class OS_LangData
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Mista kupuje vlastnik nebo admin skupiny.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Skupina uz ma maximum mist (%1).");
 		m.Set("ze skupinoveho uctu", "ze skupinoveho uctu");
-		m.Set("z tvych penez", "z tvych penez");
-		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.");
-		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Skupina ma nove misto (%1 hracu), zaplaceno %2.");
-		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozpustit skupinu muze jen vlastnik.");
 	}
 
 	protected static void Fill_cs_2(map<string, string> m)
 	{
+		m.Set("z tvych penez", "z tvych penez");
+		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.");
+		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Skupina ma nove misto (%1 hracu), zaplaceno %2.");
+		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozpustit skupinu muze jen vlastnik.");
 		m.Set("Skupina byla rozpustena.", "Skupina byla rozpustena.");
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Zustatek %1 %2 prevedeny na tvuj ucet.");
 		m.Set("Moje base", "Moje base");
@@ -438,7 +442,9 @@ class OS_LangData
 		m.Set("Unava", "Unava");
 		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).");
 		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).");
-		m.Set("Spawn", "Spawn");
+		m.Set("> Moje spaci misto (stan / pristresek)", "> Moje spaci misto (stan / pristresek)");
+		m.Set("Spaci misto uz neexistuje - zustavas na miste.", "Spaci misto uz neexistuje - zustavas na miste.");
+		m.Set("Spaci misto bude zase k dispozici za %1 min.", "Spaci misto bude zase k dispozici za %1 min.");
 		m.Set("Objevil ses v oblasti: %1", "Objevil ses v oblasti: %1");
 		m.Set("Odmena", "Odmena");
 		m.Set("Obchod", "Obchod");
@@ -503,16 +509,16 @@ class OS_LangData
 		m.Set("Jidlo", "Jidlo");
 		m.Set("Voda", "Voda");
 		m.Set("Teplo", "Teplo");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Zdravotni stav", "Zdravotni stav");
 		m.Set("Mluvi", "Mluvi");
 		m.Set("S", "S");
 		m.Set("SV", "SV");
 		m.Set("V", "V");
 		m.Set("JV", "JV");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("J", "J");
 		m.Set("JZ", "JZ");
 		m.Set("Z", "Z");
@@ -657,16 +663,16 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Predmet: classname [pocet]  napr. Apple 5");
 		m.Set("Dat predmet cili", "Dat predmet cili");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Castka penez / souradnice X Z / polomer [nazev]");
 		m.Set("Dat penize cili", "Dat penize cili");
 		m.Set("Teleport na X Z", "Teleport na X Z");
 		m.Set("Odemknout nejblizsi auto", "Odemknout nejblizsi auto");
 		m.Set("PvP zona zde", "PvP zona zde");
 		m.Set("Smazat PvP zonu", "Smazat PvP zonu");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Nastroje (COT)", "Nastroje (COT)");
 		m.Set("Zavrit", "Zavrit");
 		m.Set("Kategorie", "Kategorie");
@@ -811,16 +817,16 @@ class OS_LangData
 		m.Set("Auto: %1", "Auto: %1");
 		m.Set("Stav: %1 %", "Stav: %1 %");
 		m.Set("Palivo: %1 %", "Palivo: %1 %");
+	}
+
+	protected static void Fill_cs_5(map<string, string> m)
+	{
 		m.Set("Majitel: nikdo", "Majitel: nikdo");
 		m.Set("Majitel: ty", "Majitel: ty");
 		m.Set("Majitel: tvoje skupina", "Majitel: tvoje skupina");
 		m.Set("Majitel: jiny hrac", "Majitel: jiny hrac");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Zadne auto pobliz - prijed s nim blize");
 		m.Set("Opravit (%1%2)", "Opravit (%1%2)");
-	}
-
-	protected static void Fill_cs_5(map<string, string> m)
-	{
 		m.Set("Natankovat (%1%2)", "Natankovat (%1%2)");
 		m.Set("Doplnit chybejici dily (%1%2/ks)", "Doplnit chybejici dily (%1%2/ks)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Prepsat auto na sebe (%1%2)");
@@ -954,6 +960,7 @@ class OS_LangData
 		m.Set("Zamknout (skupina)", "Lock (group)");
 		m.Set("Base", "Base");
 		m.Set("Varit podle receptu", "Cook a recipe");
+		m.Set("Nastavit spawn zde", "Set spawn here");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Change of %1 %2 credited to your account.");
@@ -997,11 +1004,11 @@ class OS_LangData
 		m.Set("Na zemi: %1x %2", "On the ground: %1x %2");
 		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Vehicle %1 could not be created.");
 		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Vehicle %1 is ready (no owner).");
-		m.Set("Opraveno: %1", "Repaired: %1");
 	}
 
 	protected static void Fill_en_1(map<string, string> m)
 	{
+		m.Set("Opraveno: %1", "Repaired: %1");
 		m.Set("Zniceno: %1", "Destroyed: %1");
 		m.Set("Smazano: %1", "Deleted: %1");
 		m.Set("Nejdriv vyber hrace v seznamu.", "Select a player in the list first.");
@@ -1086,6 +1093,9 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Food bonus");
 		m.Set("%1 na %2 min", "%1 for %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus ended: %1");
+		m.Set("Spawn", "Spawn");
+		m.Set("Spaci misto nastaveno - po smrti se tu muzes objevit.", "Sleeping place set - you can respawn here after death.");
+		m.Set("Probudil ses na svem spacim miste.", "You woke up at your sleeping place.");
 		m.Set("Smrt", "Death");
 		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "You were killed by the environment, not a player - your items are back.");
 		m.Set("Farma", "Farm");
@@ -1148,14 +1158,14 @@ class OS_LangData
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Slots are bought by the group owner or an admin.");
 		m.Set("Skupina uz ma maximum mist (%1).", "The group already has the maximum number of slots (%1).");
 		m.Set("ze skupinoveho uctu", "from the group account");
-		m.Set("z tvych penez", "from your money");
-		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "A slot costs %1 %2. Top up the group account at an ATM or carry the cash.");
-		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "The group has a new slot (%1 players), paid %2.");
-		m.Set("Rozpustit skupinu muze jen vlastnik.", "Only the owner can disband the group.");
 	}
 
 	protected static void Fill_en_2(map<string, string> m)
 	{
+		m.Set("z tvych penez", "from your money");
+		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "A slot costs %1 %2. Top up the group account at an ATM or carry the cash.");
+		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "The group has a new slot (%1 players), paid %2.");
+		m.Set("Rozpustit skupinu muze jen vlastnik.", "Only the owner can disband the group.");
 		m.Set("Skupina byla rozpustena.", "The group has been disbanded.");
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Balance of %1 %2 transferred to your account.");
 		m.Set("Moje base", "My base");
@@ -1235,7 +1245,9 @@ class OS_LangData
 		m.Set("Unava", "Fatigue");
 		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "You are exhausted! You are losing health - get some sleep (key L -> Sleep).");
 		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "You are tired - less stamina. Get some sleep (key L -> Sleep).");
-		m.Set("Spawn", "Spawn");
+		m.Set("> Moje spaci misto (stan / pristresek)", "> My sleeping place (tent / shelter)");
+		m.Set("Spaci misto uz neexistuje - zustavas na miste.", "Your sleeping place no longer exists - you stay where you are.");
+		m.Set("Spaci misto bude zase k dispozici za %1 min.", "Your sleeping place will be available again in %1 min.");
 		m.Set("Objevil ses v oblasti: %1", "You spawned in the area: %1");
 		m.Set("Odmena", "Reward");
 		m.Set("Obchod", "Shop");
@@ -1300,16 +1312,16 @@ class OS_LangData
 		m.Set("Jidlo", "Food");
 		m.Set("Voda", "Water");
 		m.Set("Teplo", "Warmth");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Zdravotni stav", "Health condition");
 		m.Set("Mluvi", "Speaking");
 		m.Set("S", "N");
 		m.Set("SV", "NE");
 		m.Set("V", "E");
 		m.Set("JV", "SE");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("J", "S");
 		m.Set("JZ", "SW");
 		m.Set("Z", "W");
@@ -1454,16 +1466,16 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Item: classname [count]  e.g. Apple 5");
 		m.Set("Dat predmet cili", "Give item to target");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Money amount / coordinates X Z / radius [name]");
 		m.Set("Dat penize cili", "Give money to target");
 		m.Set("Teleport na X Z", "Teleport to X Z");
 		m.Set("Odemknout nejblizsi auto", "Unlock nearest car");
 		m.Set("PvP zona zde", "PvP zone here");
 		m.Set("Smazat PvP zonu", "Remove PvP zone");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Nastroje (COT)", "Tools (COT)");
 		m.Set("Zavrit", "Close");
 		m.Set("Kategorie", "Categories");
@@ -1608,16 +1620,16 @@ class OS_LangData
 		m.Set("Auto: %1", "Car: %1");
 		m.Set("Stav: %1 %", "Condition: %1 %");
 		m.Set("Palivo: %1 %", "Fuel: %1 %");
+	}
+
+	protected static void Fill_en_5(map<string, string> m)
+	{
 		m.Set("Majitel: nikdo", "Owner: nobody");
 		m.Set("Majitel: ty", "Owner: you");
 		m.Set("Majitel: tvoje skupina", "Owner: your group");
 		m.Set("Majitel: jiny hrac", "Owner: another player");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "No car nearby - drive it closer");
 		m.Set("Opravit (%1%2)", "Repair (%1%2)");
-	}
-
-	protected static void Fill_en_5(map<string, string> m)
-	{
 		m.Set("Natankovat (%1%2)", "Refuel (%1%2)");
 		m.Set("Doplnit chybejici dily (%1%2/ks)", "Add missing parts (%1%2/pc)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Claim the car (%1%2)");
@@ -1751,6 +1763,7 @@ class OS_LangData
 		m.Set("Zamknout (skupina)", "Abschließen (Gruppe)");
 		m.Set("Base", "Basis");
 		m.Set("Varit podle receptu", "Nach Rezept kochen");
+		m.Set("Nastavit spawn zde", "Spawn hier setzen");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Wechselgeld %1 %2 wurde deinem Konto gutgeschrieben.");
@@ -1794,11 +1807,11 @@ class OS_LangData
 		m.Set("Na zemi: %1x %2", "Auf dem Boden: %1x %2");
 		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Fahrzeug %1 konnte nicht erstellt werden.");
 		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Fahrzeug %1 ist bereit (ohne Besitzer).");
-		m.Set("Opraveno: %1", "Repariert: %1");
 	}
 
 	protected static void Fill_de_1(map<string, string> m)
 	{
+		m.Set("Opraveno: %1", "Repariert: %1");
 		m.Set("Zniceno: %1", "Zerstört: %1");
 		m.Set("Smazano: %1", "Gelöscht: %1");
 		m.Set("Nejdriv vyber hrace v seznamu.", "Wähle zuerst einen Spieler in der Liste.");
@@ -1883,6 +1896,9 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Essensbonus");
 		m.Set("%1 na %2 min", "%1 für %2 Min.");
 		m.Set("Bonus skoncil: %1", "Bonus beendet: %1");
+		m.Set("Spawn", "Spawn");
+		m.Set("Spaci misto nastaveno - po smrti se tu muzes objevit.", "Schlafplatz gesetzt - nach dem Tod kannst du hier erscheinen.");
+		m.Set("Probudil ses na svem spacim miste.", "Du bist an deinem Schlafplatz aufgewacht.");
 		m.Set("Smrt", "Tod");
 		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Dich hat die Umgebung getötet, kein Spieler - deine Sachen sind zurück.");
 		m.Set("Farma", "Farm");
@@ -1945,14 +1961,14 @@ class OS_LangData
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Plätze kauft der Besitzer oder ein Admin der Gruppe.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Die Gruppe hat schon die maximale Anzahl an Plätzen (%1).");
 		m.Set("ze skupinoveho uctu", "vom Gruppenkonto");
-		m.Set("z tvych penez", "von deinem Geld");
-		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Ein Platz kostet %1 %2. Lade das Gruppenkonto am Geldautomaten auf oder hab das Geld dabei.");
-		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Die Gruppe hat einen neuen Platz (%1 Spieler), bezahlt %2.");
-		m.Set("Rozpustit skupinu muze jen vlastnik.", "Nur der Besitzer kann die Gruppe auflösen.");
 	}
 
 	protected static void Fill_de_2(map<string, string> m)
 	{
+		m.Set("z tvych penez", "von deinem Geld");
+		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Ein Platz kostet %1 %2. Lade das Gruppenkonto am Geldautomaten auf oder hab das Geld dabei.");
+		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Die Gruppe hat einen neuen Platz (%1 Spieler), bezahlt %2.");
+		m.Set("Rozpustit skupinu muze jen vlastnik.", "Nur der Besitzer kann die Gruppe auflösen.");
 		m.Set("Skupina byla rozpustena.", "Die Gruppe wurde aufgelöst.");
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Restbetrag %1 %2 wurde auf dein Konto überwiesen.");
 		m.Set("Moje base", "Meine Basis");
@@ -2032,7 +2048,9 @@ class OS_LangData
 		m.Set("Unava", "Müdigkeit");
 		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Du bist erschöpft! Du verlierst Gesundheit - schlaf (Taste L -> Schlafen).");
 		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Du bist müde - weniger Ausdauer. Schlaf (Taste L -> Schlafen).");
-		m.Set("Spawn", "Spawn");
+		m.Set("> Moje spaci misto (stan / pristresek)", "> Mein Schlafplatz (Zelt / Unterstand)");
+		m.Set("Spaci misto uz neexistuje - zustavas na miste.", "Dein Schlafplatz existiert nicht mehr - du bleibst, wo du bist.");
+		m.Set("Spaci misto bude zase k dispozici za %1 min.", "Dein Schlafplatz ist in %1 Min. wieder verfügbar.");
 		m.Set("Objevil ses v oblasti: %1", "Du bist im Gebiet erschienen: %1");
 		m.Set("Odmena", "Belohnung");
 		m.Set("Obchod", "Laden");
@@ -2097,16 +2115,16 @@ class OS_LangData
 		m.Set("Jidlo", "Essen");
 		m.Set("Voda", "Wasser");
 		m.Set("Teplo", "Wärme");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Zdravotni stav", "Gesundheitszustand");
 		m.Set("Mluvi", "Spricht");
 		m.Set("S", "N");
 		m.Set("SV", "NO");
 		m.Set("V", "O");
 		m.Set("JV", "SO");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("J", "S");
 		m.Set("JZ", "SW");
 		m.Set("Z", "W");
@@ -2251,16 +2269,16 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Gegenstand: Klassenname [Anzahl]  z. B. Apple 5");
 		m.Set("Dat predmet cili", "Gegenstand an Ziel geben");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Geldbetrag / Koordinaten X Z / Radius [Name]");
 		m.Set("Dat penize cili", "Geld an Ziel geben");
 		m.Set("Teleport na X Z", "Teleport zu X Z");
 		m.Set("Odemknout nejblizsi auto", "Nächstes Auto aufschließen");
 		m.Set("PvP zona zde", "PvP-Zone hier");
 		m.Set("Smazat PvP zonu", "PvP-Zone löschen");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Nastroje (COT)", "Werkzeuge (COT)");
 		m.Set("Zavrit", "Schließen");
 		m.Set("Kategorie", "Kategorien");
@@ -2405,16 +2423,16 @@ class OS_LangData
 		m.Set("Auto: %1", "Auto: %1");
 		m.Set("Stav: %1 %", "Zustand: %1 %");
 		m.Set("Palivo: %1 %", "Kraftstoff: %1 %");
+	}
+
+	protected static void Fill_de_5(map<string, string> m)
+	{
 		m.Set("Majitel: nikdo", "Besitzer: niemand");
 		m.Set("Majitel: ty", "Besitzer: du");
 		m.Set("Majitel: tvoje skupina", "Besitzer: deine Gruppe");
 		m.Set("Majitel: jiny hrac", "Besitzer: anderer Spieler");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Kein Auto in der Nähe - fahr näher heran");
 		m.Set("Opravit (%1%2)", "Reparieren (%1%2)");
-	}
-
-	protected static void Fill_de_5(map<string, string> m)
-	{
 		m.Set("Natankovat (%1%2)", "Tanken (%1%2)");
 		m.Set("Doplnit chybejici dily (%1%2/ks)", "Fehlende Teile ergänzen (%1%2/Stk.)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Auto auf dich umschreiben (%1%2)");
@@ -2548,6 +2566,7 @@ class OS_LangData
 		m.Set("Zamknout (skupina)", "Zamknij (grupa)");
 		m.Set("Base", "Baza");
 		m.Set("Varit podle receptu", "Gotuj według przepisu");
+		m.Set("Nastavit spawn zde", "Ustaw spawn tutaj");
 		m.Set("Bankovka %1 %2", "Banknot %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Reszta %1 %2 została przelana na twoje konto.");
@@ -2591,11 +2610,11 @@ class OS_LangData
 		m.Set("Na zemi: %1x %2", "Na ziemi: %1x %2");
 		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Nie udało się utworzyć pojazdu %1.");
 		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Pojazd %1 jest gotowy (bez właściciela).");
-		m.Set("Opraveno: %1", "Naprawiono: %1");
 	}
 
 	protected static void Fill_pl_1(map<string, string> m)
 	{
+		m.Set("Opraveno: %1", "Naprawiono: %1");
 		m.Set("Zniceno: %1", "Zniszczono: %1");
 		m.Set("Smazano: %1", "Usunięto: %1");
 		m.Set("Nejdriv vyber hrace v seznamu.", "Najpierw wybierz gracza z listy.");
@@ -2680,6 +2699,9 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Bonus z jedzenia");
 		m.Set("%1 na %2 min", "%1 na %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus się skończył: %1");
+		m.Set("Spawn", "Spawn");
+		m.Set("Spaci misto nastaveno - po smrti se tu muzes objevit.", "Miejsce do spania ustawione - po śmierci możesz się tu odrodzić.");
+		m.Set("Probudil ses na svem spacim miste.", "Obudziłeś się w swoim miejscu do spania.");
 		m.Set("Smrt", "Śmierć");
 		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Zabiło cię otoczenie, nie gracz - twoje rzeczy wróciły.");
 		m.Set("Farma", "Farma");
@@ -2742,14 +2764,14 @@ class OS_LangData
 		m.Set("Mista kupuje vlastnik nebo admin skupiny.", "Miejsca kupuje właściciel lub admin grupy.");
 		m.Set("Skupina uz ma maximum mist (%1).", "Grupa ma już maksymalną liczbę miejsc (%1).");
 		m.Set("ze skupinoveho uctu", "z konta grupy");
-		m.Set("z tvych penez", "z twoich pieniędzy");
-		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Miejsce kosztuje %1 %2. Doładuj konto grupy w bankomacie albo miej pieniądze przy sobie.");
-		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Grupa ma nowe miejsce (%1 graczy), zapłacono %2.");
-		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozwiązać grupę może tylko właściciel.");
 	}
 
 	protected static void Fill_pl_2(map<string, string> m)
 	{
+		m.Set("z tvych penez", "z twoich pieniędzy");
+		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Miejsce kosztuje %1 %2. Doładuj konto grupy w bankomacie albo miej pieniądze przy sobie.");
+		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Grupa ma nowe miejsce (%1 graczy), zapłacono %2.");
+		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozwiązać grupę może tylko właściciel.");
 		m.Set("Skupina byla rozpustena.", "Grupa została rozwiązana.");
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Saldo %1 %2 przelano na twoje konto.");
 		m.Set("Moje base", "Moja baza");
@@ -2829,7 +2851,9 @@ class OS_LangData
 		m.Set("Unava", "Zmęczenie");
 		m.Set("Jsi vycerpany! Ztracis zdravi - vyspi se (klavesa L -> Spat).", "Jesteś wyczerpany! Tracisz zdrowie - prześpij się (klawisz L -> Śpij).");
 		m.Set("Jsi unaveny - mene vydrze. Vyspi se (klavesa L -> Spat).", "Jesteś zmęczony - mniej kondycji. Prześpij się (klawisz L -> Śpij).");
-		m.Set("Spawn", "Spawn");
+		m.Set("> Moje spaci misto (stan / pristresek)", "> Moje miejsce do spania (namiot / schronienie)");
+		m.Set("Spaci misto uz neexistuje - zustavas na miste.", "Twoje miejsce do spania już nie istnieje - zostajesz na miejscu.");
+		m.Set("Spaci misto bude zase k dispozici za %1 min.", "Miejsce do spania będzie znów dostępne za %1 min.");
 		m.Set("Objevil ses v oblasti: %1", "Pojawiłeś się w obszarze: %1");
 		m.Set("Odmena", "Nagroda");
 		m.Set("Obchod", "Sklep");
@@ -2894,16 +2918,16 @@ class OS_LangData
 		m.Set("Jidlo", "Jedzenie");
 		m.Set("Voda", "Woda");
 		m.Set("Teplo", "Ciepło");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Zdravotni stav", "Stan zdrowia");
 		m.Set("Mluvi", "Mówi");
 		m.Set("S", "Pn");
 		m.Set("SV", "Pn-Wsch");
 		m.Set("V", "Wsch");
 		m.Set("JV", "Pd-Wsch");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("J", "Pd");
 		m.Set("JZ", "Pd-Zach");
 		m.Set("Z", "Zach");
@@ -3048,16 +3072,16 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Przedmiot: classname [ilość]  np. Apple 5");
 		m.Set("Dat predmet cili", "Daj przedmiot celowi");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Kwota / współrzędne X Z / promień [nazwa]");
 		m.Set("Dat penize cili", "Daj pieniądze celowi");
 		m.Set("Teleport na X Z", "Teleportuj na X Z");
 		m.Set("Odemknout nejblizsi auto", "Otwórz najbliższy pojazd");
 		m.Set("PvP zona zde", "Strefa PvP tutaj");
 		m.Set("Smazat PvP zonu", "Usuń strefę PvP");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Nastroje (COT)", "Narzędzia (COT)");
 		m.Set("Zavrit", "Zamknij");
 		m.Set("Kategorie", "Kategorie");
@@ -3202,16 +3226,16 @@ class OS_LangData
 		m.Set("Auto: %1", "Pojazd: %1");
 		m.Set("Stav: %1 %", "Stan: %1 %");
 		m.Set("Palivo: %1 %", "Paliwo: %1 %");
+	}
+
+	protected static void Fill_pl_5(map<string, string> m)
+	{
 		m.Set("Majitel: nikdo", "Właściciel: nikt");
 		m.Set("Majitel: ty", "Właściciel: ty");
 		m.Set("Majitel: tvoje skupina", "Właściciel: twoja grupa");
 		m.Set("Majitel: jiny hrac", "Właściciel: inny gracz");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Brak pojazdu w pobliżu - podjedź bliżej");
 		m.Set("Opravit (%1%2)", "Napraw (%1%2)");
-	}
-
-	protected static void Fill_pl_5(map<string, string> m)
-	{
 		m.Set("Natankovat (%1%2)", "Zatankuj (%1%2)");
 		m.Set("Doplnit chybejici dily (%1%2/ks)", "Uzupełnij brakujące części (%1%2/szt.)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Przepisz pojazd na siebie (%1%2)");

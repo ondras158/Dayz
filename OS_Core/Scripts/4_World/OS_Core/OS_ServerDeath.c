@@ -8,6 +8,8 @@ class OS_ServerDeath
 
 	ref OS_DeathConfig m_Cfg;
 	protected ref OS_CharacterTypes m_Types;
+	protected ref OS_BedsData m_Beds;
+	protected ref map<string, float> m_BedUsed = new map<string, float>;
 
 	void OS_ServerDeath()
 	{
@@ -20,6 +22,78 @@ class OS_ServerDeath
 			m_Types = new OS_CharacterTypes();
 		if (!m_Types.Types)
 			m_Types.Types = new map<string, string>;
+
+		m_Beds = new OS_BedsData();
+		string bedPath = OS_DIR + "Beds.json";
+		if (FileExist(bedPath) && !JsonFileLoader<OS_BedsData>.LoadFile(bedPath, m_Beds, err))
+			m_Beds = new OS_BedsData();
+		if (!m_Beds.Beds)
+			m_Beds.Beds = new map<string, vector>;
+	}
+
+	// ------------------------------------------------------------ spací místo (stan / přístřešek)
+
+	static bool IsBed(Object obj)
+	{
+		TentBase tent = TentBase.Cast(obj);
+		return tent && tent.GetState() == TentBase.PITCHED;
+	}
+
+	void SetBed(PlayerBase player, TentBase tent)
+	{
+		if (!m_Cfg.Enabled || !m_Cfg.BedSpawn || !player || !IsBed(tent))
+			return;
+		m_Beds.Beds.Set(OS_Util.SteamId(player), tent.GetPosition());
+		string err;
+		JsonFileLoader<OS_BedsData>.SaveFile(OS_DIR + "Beds.json", m_Beds, err);
+		OS_Util.Notify(player, OS_T("Spawn"), OS_T("Spaci misto nastaveno - po smrti se tu muzes objevit."), 6);
+	}
+
+	//! platné spací místo (stan pořád stojí), jinak false
+	bool GetBed(string steamId, out vector pos)
+	{
+		if (!m_Cfg.Enabled || !m_Cfg.BedSpawn)
+			return false;
+		vector saved;
+		if (!m_Beds.Beds.Find(steamId, saved))
+			return false;
+		array<Object> objects = new array<Object>;
+		g_Game.GetObjectsAtPosition(saved, 2.5, objects, null);
+		foreach (Object obj : objects)
+		{
+			if (IsBed(obj))
+			{
+				pos = obj.GetPosition();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//! zbývající sekundy do dalšího spawnu na spacím místě (0 = jde)
+	int BedCooldown(string steamId)
+	{
+		float used;
+		if (!m_BedUsed.Find(steamId, used))
+			return 0;
+		float left = m_Cfg.BedCooldownMinutes * 60 - (g_Game.GetTickTime() - used);
+		if (left <= 0)
+			return 0;
+		int seconds = Math.Ceil(left);
+		return seconds;
+	}
+
+	bool SpawnAtBed(PlayerBase player)
+	{
+		string id = OS_Util.SteamId(player);
+		vector pos;
+		if (!GetBed(id, pos) || BedCooldown(id) > 0)
+			return false;
+		m_BedUsed.Set(id, g_Game.GetTickTime());
+		vector spot = OS_Util.GroundPos(pos[0] + Math.RandomFloatInclusive(-1.5, 1.5), pos[2] + Math.RandomFloatInclusive(-1.5, 1.5));
+		OS_Util.Teleport(player, spot);
+		OS_Util.Notify(player, OS_T("Spawn"), OS_T("Probudil ses na svem spacim miste."), 6);
+		return true;
 	}
 
 	// ------------------------------------------------------------ postava

@@ -49,7 +49,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | **H** | Skrýt / zobrazit HUD |
 | **O** | Dovednosti (úroveň, zkušenosti, vylepšování statů) |
 | **M** | Mapa (i bez mapy v inventáři) – PvP zóny, safe zóny, base, spoluhráči, garáž, farma |
-| **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base*; u ohně *Vařit podle receptu* |
+| **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base*; u ohně *Vařit podle receptu*; u stanu *Nastavit spawn zde* |
 | **Y / N** | Uložit / zrušit místo spawnu vozidla |
 | **Home** | Admin menu (jen admini) |
 | **End** | Admin freecam (jen admini) |
@@ -73,7 +73,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
-| Smrt a respawn | Zabití hráčem / AI: tělo s věcmi leží 2 hodiny pro kohokoli. Smrt od zombíka, zvířete, pádu, hladu…: věci máš po respawnu. Stejná postava (vzhled), dovednosti a únava zůstávají | `Death.json` |
+| Smrt a respawn | Zabití hráčem / AI: tělo s věcmi leží 2 hodiny pro kohokoli. Smrt od zombíka, zvířete, pádu, hladu…: věci máš po respawnu. Stejná postava (vzhled), dovednosti a únava zůstávají. Spawn na spacím místě (stan / přístřešek) | `Death.json` |
 | Airdropy | Každých ~45 min spadne na padáku bedna s lootem (vojenský / zdravotnický / zásoby) na náhodné místo, kouř, stráže, oznámení v chatu a značka na mapě; admin může shodit ručně | `Airdrops.json` |
 | Hlasový chat | Vanilla hlas + **skupinová vysílačka** (každá skupina má svůj kanál, vysílačky se naladí samy) a v HUDu kdo právě mluví | `Groups.json`, `Hud.json` |
 | Únava, spánek a emoce | Únava roste časem a během (menší výdrž, při vyčerpání ubývá zdraví); spánek přes menu **L** – postava si lehne, obrazovka ztmavne, ve stanu nebo v base rychleji; menu 21 emocí s oznámením v okolí; animace u vaření, farmy, bankomatu, obchodu, base a skupiny | `Sleep.json` |
@@ -526,6 +526,10 @@ přidej jejich classname a díly).
 - **Postava zůstává** (`KeepCharacter`): nová postava má stejný vzhled jako předchozí (uloženo v `Characters.json`).
   Dovednosti, úroveň a zkušenosti zůstávají vždy, únava podle `KeepFatigue`. Peníze na účtu v bance zůstávají,
   hotovost se chová jako ostatní věci.
+- **Spací místo:** vanilla DayZ nemá spacák, spacím místem je proto **postavený stan nebo improvizovaný přístřešek**
+  (z klacků, plachty nebo kůže). Podívej se na něj a dej akci **Nastavit spawn zde** (`BedSpawn`). Po smrti je
+  v menu spawnu první možnost *Moje spací místo* – objevíš se u stanu. Jen jedno místo na hráče (nové přepíše staré),
+  jednou za `BedCooldownMinutes` (10 min). Když stan zbourají nebo složí, možnost zmizí. Uloženo v `Beds.json`.
 - Doporučeno v misi (`db/globals.xml`) nastavit `CleanupLifetimeDeadPlayer` aspoň na `7200`, aby hra těla neuklidila dřív.
 
 **Airdropy** (`Airdrops.json`)
@@ -802,7 +806,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
-- **Smrt a respawn:** tělo s věcmi 2 h po zabití hráčem / AI, věci zpět po smrti od prostředí, stejná postava a staty.
+- **Smrt a respawn:** tělo s věcmi 2 h po zabití hráčem / AI, věci zpět po smrti od prostředí, stejná postava a staty, spawn na spacím místě (stan / přístřešek).
 - **Airdropy:** bedna na padáku s lootem, kouř, stráže, oznámení a mapa, ruční shození adminem.
 - **AI vojáci (Expansion AI):** nestřílí přes zdi, vidí jen rozumně daleko, hlídky, útoky na base, stráže airdropů, konvoje s nákladem k přepadení.
 - **Hlasový chat:** skupinová vysílačka (vlastní kanál skupiny, automatické naladění) a v HUDu kdo právě mluví.

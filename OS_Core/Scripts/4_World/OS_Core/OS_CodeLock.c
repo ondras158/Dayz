@@ -331,3 +331,46 @@ class ActionOSCook : ActionInteractBase
 		rpc.Send(null, OS_RPC_COOK_OPEN, true, null);
 	}
 }
+
+// ---------------------------------------------------------------- akce u stanu / přístřešku: spací místo
+
+class ActionOSSetBed : ActionInteractBase
+{
+	void ActionOSSetBed()
+	{
+		m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_INTERACTONCE;
+		m_StanceMask = DayZPlayerConstants.STANCEMASK_ERECT | DayZPlayerConstants.STANCEMASK_CROUCH;
+		m_Text = "Nastavit spawn zde";
+	}
+
+	override string GetText()
+	{
+		return OS_T("Nastavit spawn zde");
+	}
+
+	override void CreateConditionComponents()
+	{
+		m_ConditionItem = new CCINone;
+		m_ConditionTarget = new CCTCursor;
+	}
+
+	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
+	{
+		Object obj = target.GetObject();
+		if (!obj)
+			obj = target.GetParent();
+		if (!OS_ServerDeath.IsBed(obj))
+			return false;
+		return IsInReach(player, target, UAMaxDistances.DEFAULT);
+	}
+
+	override void OnExecuteServer(ActionData action_data)
+	{
+		Object obj = action_data.m_Target.GetObject();
+		if (!obj)
+			obj = action_data.m_Target.GetParent();
+		TentBase tent = TentBase.Cast(obj);
+		if (tent && OS_Server.Get() && OS_Server.Get().m_Death)
+			OS_Server.Get().m_Death.SetBed(action_data.m_Player, tent);
+	}
+}
