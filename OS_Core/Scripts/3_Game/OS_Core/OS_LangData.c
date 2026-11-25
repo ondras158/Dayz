@@ -118,6 +118,10 @@ class OS_LangData
 		m.Set("Zamceno", "Zamceno");
 		m.Set("Odemceno", "Odemceno");
 		m.Set("Odemknout", "Odemknout");
+		m.Set("Odemknout (skupina)", "Odemknout (skupina)");
+		m.Set("Zamek", "Zamek");
+		m.Set("Zamknout (skupina)", "Zamknout (skupina)");
+		m.Set("Base", "Base");
 		m.Set("Bankovka %1 %2", "Bankovka %1 %2");
 		m.Set("Banka", "Banka");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Drobne %1 %2 pripsany na ucet.");
@@ -139,6 +143,9 @@ class OS_LangData
 		m.Set("Neviditelnost ZAPNUTA", "Neviditelnost ZAPNUTA");
 		m.Set("Neviditelnost VYPNUTA", "Neviditelnost VYPNUTA");
 		m.Set("Odebrany vsechny veci: %1", "Odebrany vsechny veci: %1");
+		m.Set("Zadny kodovy zamek do 5 m od cile.", "Zadny kodovy zamek do 5 m od cile.");
+		m.Set("Kodovy zamek odemcen.", "Kodovy zamek odemcen.");
+		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamku smazan - dalsi, kdo zada kod, bude majitel.");
 		m.Set("Odbanovan: %1", "Odbanovan: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Toto Steam ID neni zabanovane. Napis ho do pole.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Zadej cas jako hh:mm, napr. 12:00");
@@ -186,17 +193,35 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Vybrano %1 %2 z uctu skupiny %3");
 		m.Set("Prevody jsou vypnute.", "Prevody jsou vypnute.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Neplatne Steam ID (17 cislic).");
+	}
+
+	protected static void Fill_cs_1(map<string, string> m)
+	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Nemuzes posilat penize sam sobe.");
 		m.Set("Minimalni castka je %1 %2.", "Minimalni castka je %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Hrac s timto Steam ID na serveru nikdy nehral.");
 		m.Set("Na uctu nemas dost penez (%1 %2).", "Na uctu nemas dost penez (%1 %2).");
 		m.Set("Odeslano %1 %2 hraci %3", "Odeslano %1 %2 hraci %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 ti poslal %2 %3 na ucet.");
+		m.Set("Moc blizko jine base (vlajky musi byt aspon %1 m od sebe).", "Moc blizko jine base (vlajky musi byt aspon %1 m od sebe).");
+		m.Set("Base by zasahovala do jine base - neni tu misto.", "Base by zasahovala do jine base - neni tu misto.");
+		m.Set("Musis stat u vlajky.", "Musis stat u vlajky.");
+		m.Set("U teto vlajky uz base je.", "U teto vlajky uz base je.");
+		m.Set("Nejdriv postav stozar vlajky.", "Nejdriv postav stozar vlajky.");
+		m.Set("Muzes mit nejvyse %1 base.", "Muzes mit nejvyse %1 base.");
+		m.Set("Zalozeni base stoji %1 %2.", "Zalozeni base stoji %1 %2.");
+		m.Set("Base zalozena (polomer %1 m).", "Base zalozena (polomer %1 m).");
+		m.Set("U teto vlajky neni base.", "U teto vlajky neni base.");
+		m.Set("Tahle base ti nepatri.", "Tahle base ti nepatri.");
+		m.Set("Base uz ma nejvetsi polomer.", "Base uz ma nejvetsi polomer.");
+		m.Set("Vylepseni stoji %1 %2.", "Vylepseni stoji %1 %2.");
+		m.Set("Base vylepsena na uroven %1 (polomer %2 m).", "Base vylepsena na uroven %1 (polomer %2 m).");
+		m.Set("Zrusit base muze jen majitel.", "Zrusit base muze jen majitel.");
+		m.Set("Base zrusena. Vlajka zustava.", "Base zrusena. Vlajka zustava.");
+		m.Set("Base: %1", "Base: %1");
+		m.Set("Zadna base do 300 m.", "Zadna base do 300 m.");
+		m.Set("Smazana base hrace %1.", "Smazana base hrace %1.");
 		m.Set("Farma", "Farma");
-	}
-
-	protected static void Fill_cs_1(map<string, string> m)
-	{
 		m.Set("Farma zrusena.", "Farma zrusena.");
 		m.Set("Farmar", "Farmar");
 		m.Set("Nejdriv si postav farmu (klavesa U).", "Nejdriv si postav farmu (klavesa U).");
@@ -204,6 +229,7 @@ class OS_LangData
 		m.Set("Zvirata se kupuji u Farmare.", "Zvirata se kupuji u Farmare.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Krmivo a hnojivo se kupuje u Farmare.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Uz mas farmu. Nejdriv ji zrus.");
+		m.Set("Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base.", "Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base.");
 		m.Set("Moc blizko jine farmy.", "Moc blizko jine farmy.");
 		m.Set("Stavba farmy stoji %1 %2.", "Stavba farmy stoji %1 %2.");
 		m.Set("Farma postavena. Kup zvirata a krmivo.", "Farma postavena. Kup zvirata a krmivo.");
@@ -321,6 +347,10 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Tohle auto ti nepatri.");
 		m.Set("Garaz je plna (max %1).", "Garaz je plna (max %1).");
 		m.Set("Nemas dost penez na poplatek.", "Nemas dost penez na poplatek.");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Chyba pri ukladani - auto zustava venku.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Auto ulozeno do garaze skupiny.");
 		m.Set("Auto ulozeno do garaze.", "Auto ulozeno do garaze.");
@@ -347,10 +377,6 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Vyber predmet v seznamu.");
 		m.Set("Hotovost u sebe: %1%2", "Hotovost u sebe: %1%2");
 		m.Set("Na uctu: %1%2", "Na uctu: %1%2");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Poplatek za vklad: %1 %", "Poplatek za vklad: %1 %");
 		m.Set("Vklad bez poplatku", "Vklad bez poplatku");
 		m.Set("Ucet skupiny %1: %2%3", "Ucet skupiny %1: %2%3");
@@ -360,6 +386,17 @@ class OS_LangData
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.");
 		m.Set("Zadej castku k prevodu.", "Zadej castku k prevodu.");
 		m.Set("Zadej castku.", "Zadej castku.");
+		m.Set("U teto vlajky jeste neni base.", "U teto vlajky jeste neni base.");
+		m.Set("Zalozenim ziskas oblast s polomerem %1 m kolem vlajky.", "Zalozenim ziskas oblast s polomerem %1 m kolem vlajky.");
+		m.Set("Farmu muzes postavit jen ve sve base.", "Farmu muzes postavit jen ve sve base.");
+		m.Set("Zalozit base (%1%2)", "Zalozit base (%1%2)");
+		m.Set("Zalozit base", "Zalozit base");
+		m.Set("Majitel: %1", "Majitel: %1");
+		m.Set("Uroven %1 / %2   polomer %3 m", "Uroven %1 / %2   polomer %3 m");
+		m.Set("Tahle base patri jinemu hraci.", "Tahle base patri jinemu hraci.");
+		m.Set("Spravovat ji muze majitel a jeho skupina.", "Spravovat ji muze majitel a jeho skupina.");
+		m.Set("Nejvetsi polomer", "Nejvetsi polomer");
+		m.Set("Zvetsit na %1 m (%2%3)", "Zvetsit na %1 m (%2%3)");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
@@ -464,6 +501,10 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin nastroje");
 		m.Set("Hrac (cil) a admin", "Hrac (cil) a admin");
 		m.Set("Vysvleknout", "Vysvleknout");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Neviditelnost", "Neviditelnost");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -483,11 +524,17 @@ class OS_LangData
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): dvojklik = teleport cile");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klavesa End, Shift+End = teleport");
 		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mys, Q/E dolu/nahoru, Shift rychle");
+		m.Set("Odemknout zamek", "Odemknout zamek");
+		m.Set("Smazat kod", "Smazat kod");
+		m.Set("Smazat base", "Smazat base");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Pocet");
 		m.Set("Do inventare cile", "Do inventare cile");
 		m.Set("Na zem k cili", "Na zem k cili");
 		m.Set("Spawnout vozidlo", "Spawnout vozidlo");
+		m.Set("Zvetsit polomer", "Zvetsit polomer");
+		m.Set("Zrusit base", "Zrusit base");
+		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Kodovy zamek na branu: majitel a skupina odemknou bez kodu");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -501,10 +548,6 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Postavit garaz zde");
 		m.Set("Nastavit misto pro vozidlo", "Nastavit misto pro vozidlo");
 		m.Set("Zrusit garaz", "Zrusit garaz");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Osobni garaze jsou na serveru vypnute.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Tvoje garaz: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.");
@@ -632,6 +675,10 @@ class OS_LangData
 		m.Set("Zamceno", "Locked");
 		m.Set("Odemceno", "Unlocked");
 		m.Set("Odemknout", "Unlock");
+		m.Set("Odemknout (skupina)", "Unlock (group)");
+		m.Set("Zamek", "Lock");
+		m.Set("Zamknout (skupina)", "Lock (group)");
+		m.Set("Base", "Base");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Change of %1 %2 credited to your account.");
@@ -653,6 +700,9 @@ class OS_LangData
 		m.Set("Neviditelnost ZAPNUTA", "Invisibility ON");
 		m.Set("Neviditelnost VYPNUTA", "Invisibility OFF");
 		m.Set("Odebrany vsechny veci: %1", "All items removed: %1");
+		m.Set("Zadny kodovy zamek do 5 m od cile.", "No code lock within 5 m of the target.");
+		m.Set("Kodovy zamek odemcen.", "Code lock unlocked.");
+		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Lock code deleted - the next person to set a code becomes the owner.");
 		m.Set("Odbanovan: %1", "Unbanned: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "This Steam ID is not banned. Type it into the field.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Enter the time as hh:mm, e.g. 12:00");
@@ -700,17 +750,35 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Withdrawn %1 %2 from the account of group %3");
 		m.Set("Prevody jsou vypnute.", "Transfers are disabled.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Invalid Steam ID (17 digits).");
+	}
+
+	protected static void Fill_en_1(map<string, string> m)
+	{
 		m.Set("Nemuzes posilat penize sam sobe.", "You can't send money to yourself.");
 		m.Set("Minimalni castka je %1 %2.", "The minimum amount is %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "A player with this Steam ID has never played on the server.");
 		m.Set("Na uctu nemas dost penez (%1 %2).", "You don't have enough money in your account (%1 %2).");
 		m.Set("Odeslano %1 %2 hraci %3", "Sent %1 %2 to player %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 sent %2 %3 to your account.");
+		m.Set("Moc blizko jine base (vlajky musi byt aspon %1 m od sebe).", "Too close to another base (flags must be at least %1 m apart).");
+		m.Set("Base by zasahovala do jine base - neni tu misto.", "The base would overlap another base - there is no room here.");
+		m.Set("Musis stat u vlajky.", "You must stand at a flag.");
+		m.Set("U teto vlajky uz base je.", "There already is a base at this flag.");
+		m.Set("Nejdriv postav stozar vlajky.", "Build the flag pole first.");
+		m.Set("Muzes mit nejvyse %1 base.", "You can have at most %1 base(s).");
+		m.Set("Zalozeni base stoji %1 %2.", "Founding a base costs %1 %2.");
+		m.Set("Base zalozena (polomer %1 m).", "Base founded (radius %1 m).");
+		m.Set("U teto vlajky neni base.", "There is no base at this flag.");
+		m.Set("Tahle base ti nepatri.", "This base doesn't belong to you.");
+		m.Set("Base uz ma nejvetsi polomer.", "The base already has the largest radius.");
+		m.Set("Vylepseni stoji %1 %2.", "The upgrade costs %1 %2.");
+		m.Set("Base vylepsena na uroven %1 (polomer %2 m).", "Base upgraded to level %1 (radius %2 m).");
+		m.Set("Zrusit base muze jen majitel.", "Only the owner can remove the base.");
+		m.Set("Base zrusena. Vlajka zustava.", "Base removed. The flag stays.");
+		m.Set("Base: %1", "Base: %1");
+		m.Set("Zadna base do 300 m.", "No base within 300 m.");
+		m.Set("Smazana base hrace %1.", "Removed the base of player %1.");
 		m.Set("Farma", "Farm");
-	}
-
-	protected static void Fill_en_1(map<string, string> m)
-	{
 		m.Set("Farma zrusena.", "Farm removed.");
 		m.Set("Farmar", "Farmer");
 		m.Set("Nejdriv si postav farmu (klavesa U).", "Build a farm first (key U).");
@@ -718,6 +786,7 @@ class OS_LangData
 		m.Set("Zvirata se kupuji u Farmare.", "Animals are bought at the Farmer.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Feed and fertilizer are bought at the Farmer.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "You already have a farm. Remove it first.");
+		m.Set("Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base.", "You can only build a farm in your base (within the flag radius). Found a base at a flag with the Base action.");
 		m.Set("Moc blizko jine farmy.", "Too close to another farm.");
 		m.Set("Stavba farmy stoji %1 %2.", "Building a farm costs %1 %2.");
 		m.Set("Farma postavena. Kup zvirata a krmivo.", "Farm built. Buy animals and feed.");
@@ -835,6 +904,10 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "This car doesn't belong to you.");
 		m.Set("Garaz je plna (max %1).", "The garage is full (max %1).");
 		m.Set("Nemas dost penez na poplatek.", "You don't have enough money for the fee.");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Error while storing - the car stays outside.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Car stored in the group garage.");
 		m.Set("Auto ulozeno do garaze.", "Car stored in the garage.");
@@ -861,10 +934,6 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Select an item in the list.");
 		m.Set("Hotovost u sebe: %1%2", "Cash on you: %1%2");
 		m.Set("Na uctu: %1%2", "In account: %1%2");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Poplatek za vklad: %1 %", "Deposit fee: %1 %");
 		m.Set("Vklad bez poplatku", "Deposit without fee");
 		m.Set("Ucet skupiny %1: %2%3", "Account of group %1: %2%3");
@@ -874,6 +943,17 @@ class OS_LangData
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Select a player from the list or enter their Steam64 ID.");
 		m.Set("Zadej castku k prevodu.", "Enter the amount to transfer.");
 		m.Set("Zadej castku.", "Enter an amount.");
+		m.Set("U teto vlajky jeste neni base.", "There is no base at this flag yet.");
+		m.Set("Zalozenim ziskas oblast s polomerem %1 m kolem vlajky.", "Founding it gives you an area with a %1 m radius around the flag.");
+		m.Set("Farmu muzes postavit jen ve sve base.", "You can only build a farm in your base.");
+		m.Set("Zalozit base (%1%2)", "Found base (%1%2)");
+		m.Set("Zalozit base", "Found base");
+		m.Set("Majitel: %1", "Owner: %1");
+		m.Set("Uroven %1 / %2   polomer %3 m", "Level %1 / %2   radius %3 m");
+		m.Set("Tahle base patri jinemu hraci.", "This base belongs to another player.");
+		m.Set("Spravovat ji muze majitel a jeho skupina.", "The owner and their group can manage it.");
+		m.Set("Nejvetsi polomer", "Largest radius");
+		m.Set("Zvetsit na %1 m (%2%3)", "Enlarge to %1 m (%2%3)");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - animals, trees, seedlings, feed and fertilizer for your farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Bought animals and feed are delivered to your farm.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Build a farm first (key U), then come back here.");
@@ -978,6 +1058,10 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin tools");
 		m.Set("Hrac (cil) a admin", "Player (target) and admin");
 		m.Set("Vysvleknout", "Strip");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Neviditelnost", "Invisibility");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -997,11 +1081,17 @@ class OS_LangData
 		m.Set("Mapa (M): dvojklik = teleport cile", "Map (M): double-click = teleport target");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: End key, Shift+End = teleport");
 		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mouse, Q/E down/up, Shift fast");
+		m.Set("Odemknout zamek", "Unlock lock");
+		m.Set("Smazat kod", "Delete code");
+		m.Set("Smazat base", "Delete base");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Count");
 		m.Set("Do inventare cile", "To target's inventory");
 		m.Set("Na zem k cili", "On the ground at target");
 		m.Set("Spawnout vozidlo", "Spawn vehicle");
+		m.Set("Zvetsit polomer", "Enlarge radius");
+		m.Set("Zrusit base", "Remove base");
+		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Code lock on a gate: the owner and group unlock without a code");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -1015,10 +1105,6 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Build garage here");
 		m.Set("Nastavit misto pro vozidlo", "Set vehicle spot");
 		m.Set("Zrusit garaz", "Remove garage");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Personal garages are disabled on the server.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Your garage: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "You are at the garage - key B = store / retrieve vehicle.");
@@ -1146,6 +1232,10 @@ class OS_LangData
 		m.Set("Zamceno", "Abgeschlossen");
 		m.Set("Odemceno", "Aufgeschlossen");
 		m.Set("Odemknout", "Aufschließen");
+		m.Set("Odemknout (skupina)", "Aufschließen (Gruppe)");
+		m.Set("Zamek", "Schloss");
+		m.Set("Zamknout (skupina)", "Abschließen (Gruppe)");
+		m.Set("Base", "Basis");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Wechselgeld %1 %2 wurde deinem Konto gutgeschrieben.");
@@ -1167,6 +1257,9 @@ class OS_LangData
 		m.Set("Neviditelnost ZAPNUTA", "Unsichtbarkeit AN");
 		m.Set("Neviditelnost VYPNUTA", "Unsichtbarkeit AUS");
 		m.Set("Odebrany vsechny veci: %1", "Alle Sachen entfernt: %1");
+		m.Set("Zadny kodovy zamek do 5 m od cile.", "Kein Codeschloss im Umkreis von 5 m vom Ziel.");
+		m.Set("Kodovy zamek odemcen.", "Codeschloss aufgeschlossen.");
+		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Code gelöscht - wer als Nächster einen Code eingibt, wird Besitzer.");
 		m.Set("Odbanovan: %1", "Entbannt: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Diese Steam-ID ist nicht gebannt. Schreib sie ins Feld.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Gib die Zeit als hh:mm ein, z. B. 12:00");
@@ -1214,17 +1307,35 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "%1 %2 vom Konto der Gruppe %3 abgehoben");
 		m.Set("Prevody jsou vypnute.", "Überweisungen sind deaktiviert.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Ungültige Steam-ID (17 Ziffern).");
+	}
+
+	protected static void Fill_de_1(map<string, string> m)
+	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Du kannst dir selbst kein Geld schicken.");
 		m.Set("Minimalni castka je %1 %2.", "Der Mindestbetrag ist %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Ein Spieler mit dieser Steam-ID hat nie auf dem Server gespielt.");
 		m.Set("Na uctu nemas dost penez (%1 %2).", "Du hast nicht genug Geld auf dem Konto (%1 %2).");
 		m.Set("Odeslano %1 %2 hraci %3", "%1 %2 an Spieler %3 gesendet");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 hat dir %2 %3 aufs Konto geschickt.");
+		m.Set("Moc blizko jine base (vlajky musi byt aspon %1 m od sebe).", "Zu nah an einer anderen Basis (Flaggen müssen mindestens %1 m auseinander sein).");
+		m.Set("Base by zasahovala do jine base - neni tu misto.", "Die Basis würde in eine andere Basis reichen - hier ist kein Platz.");
+		m.Set("Musis stat u vlajky.", "Du musst an einer Flagge stehen.");
+		m.Set("U teto vlajky uz base je.", "An dieser Flagge gibt es schon eine Basis.");
+		m.Set("Nejdriv postav stozar vlajky.", "Bau zuerst den Fahnenmast.");
+		m.Set("Muzes mit nejvyse %1 base.", "Du kannst höchstens %1 Basis/Basen haben.");
+		m.Set("Zalozeni base stoji %1 %2.", "Die Gründung einer Basis kostet %1 %2.");
+		m.Set("Base zalozena (polomer %1 m).", "Basis gegründet (Radius %1 m).");
+		m.Set("U teto vlajky neni base.", "An dieser Flagge gibt es keine Basis.");
+		m.Set("Tahle base ti nepatri.", "Diese Basis gehört dir nicht.");
+		m.Set("Base uz ma nejvetsi polomer.", "Die Basis hat schon den größten Radius.");
+		m.Set("Vylepseni stoji %1 %2.", "Die Verbesserung kostet %1 %2.");
+		m.Set("Base vylepsena na uroven %1 (polomer %2 m).", "Basis auf Stufe %1 verbessert (Radius %2 m).");
+		m.Set("Zrusit base muze jen majitel.", "Nur der Besitzer kann die Basis auflösen.");
+		m.Set("Base zrusena. Vlajka zustava.", "Basis aufgelöst. Die Flagge bleibt.");
+		m.Set("Base: %1", "Basis: %1");
+		m.Set("Zadna base do 300 m.", "Keine Basis im Umkreis von 300 m.");
+		m.Set("Smazana base hrace %1.", "Basis von Spieler %1 gelöscht.");
 		m.Set("Farma", "Farm");
-	}
-
-	protected static void Fill_de_1(map<string, string> m)
-	{
 		m.Set("Farma zrusena.", "Farm abgerissen.");
 		m.Set("Farmar", "Bauer");
 		m.Set("Nejdriv si postav farmu (klavesa U).", "Bau zuerst eine Farm (Taste U).");
@@ -1232,6 +1343,7 @@ class OS_LangData
 		m.Set("Zvirata se kupuji u Farmare.", "Tiere kauft man beim Bauern.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Futter und Dünger kauft man beim Bauern.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Du hast schon eine Farm. Reiß sie zuerst ab.");
+		m.Set("Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base.", "Eine Farm kannst du nur in deiner Basis bauen (im Radius der Flagge). Eine Basis gründest du an einer Flagge mit der Aktion Basis.");
 		m.Set("Moc blizko jine farmy.", "Zu nah an einer anderen Farm.");
 		m.Set("Stavba farmy stoji %1 %2.", "Der Bau einer Farm kostet %1 %2.");
 		m.Set("Farma postavena. Kup zvirata a krmivo.", "Farm gebaut. Kauf Tiere und Futter.");
@@ -1349,6 +1461,10 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Dieses Auto gehört dir nicht.");
 		m.Set("Garaz je plna (max %1).", "Die Garage ist voll (max. %1).");
 		m.Set("Nemas dost penez na poplatek.", "Du hast nicht genug Geld für die Gebühr.");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Fehler beim Einlagern - das Auto bleibt draußen.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Auto in der Gruppengarage eingelagert.");
 		m.Set("Auto ulozeno do garaze.", "Auto in der Garage eingelagert.");
@@ -1375,10 +1491,6 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Wähle einen Gegenstand in der Liste.");
 		m.Set("Hotovost u sebe: %1%2", "Bargeld dabei: %1%2");
 		m.Set("Na uctu: %1%2", "Auf dem Konto: %1%2");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Poplatek za vklad: %1 %", "Einzahlungsgebühr: %1 %");
 		m.Set("Vklad bez poplatku", "Einzahlung ohne Gebühr");
 		m.Set("Ucet skupiny %1: %2%3", "Konto der Gruppe %1: %2%3");
@@ -1388,6 +1500,17 @@ class OS_LangData
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Wähle einen Spieler aus der Liste oder gib seine Steam64-ID ein.");
 		m.Set("Zadej castku k prevodu.", "Gib den Überweisungsbetrag ein.");
 		m.Set("Zadej castku.", "Gib einen Betrag ein.");
+		m.Set("U teto vlajky jeste neni base.", "An dieser Flagge gibt es noch keine Basis.");
+		m.Set("Zalozenim ziskas oblast s polomerem %1 m kolem vlajky.", "Mit der Gründung erhältst du ein Gebiet mit %1 m Radius um die Flagge.");
+		m.Set("Farmu muzes postavit jen ve sve base.", "Eine Farm kannst du nur in deiner Basis bauen.");
+		m.Set("Zalozit base (%1%2)", "Basis gründen (%1%2)");
+		m.Set("Zalozit base", "Basis gründen");
+		m.Set("Majitel: %1", "Besitzer: %1");
+		m.Set("Uroven %1 / %2   polomer %3 m", "Stufe %1 / %2   Radius %3 m");
+		m.Set("Tahle base patri jinemu hraci.", "Diese Basis gehört einem anderen Spieler.");
+		m.Set("Spravovat ji muze majitel a jeho skupina.", "Verwalten können sie der Besitzer und seine Gruppe.");
+		m.Set("Nejvetsi polomer", "Größter Radius");
+		m.Set("Zvetsit na %1 m (%2%3)", "Auf %1 m vergrößern (%2%3)");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - Tiere, Bäume, Setzlinge, Futter und Dünger für deine Farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Gekaufte Tiere und Futter werden zu deiner Farm geliefert.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Bau zuerst eine Farm (Taste U) und komm dann zurück.");
@@ -1492,6 +1615,10 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin-Werkzeuge");
 		m.Set("Hrac (cil) a admin", "Spieler (Ziel) und Admin");
 		m.Set("Vysvleknout", "Ausziehen");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Neviditelnost", "Unsichtbarkeit");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -1511,11 +1638,17 @@ class OS_LangData
 		m.Set("Mapa (M): dvojklik = teleport cile", "Karte (M): Doppelklick = Ziel teleportieren");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: Taste Ende, Shift+Ende = Teleport");
 		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, Maus, Q/E runter/hoch, Shift schnell");
+		m.Set("Odemknout zamek", "Schloss öffnen");
+		m.Set("Smazat kod", "Code löschen");
+		m.Set("Smazat base", "Basis löschen");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Anzahl");
 		m.Set("Do inventare cile", "Ins Inventar des Ziels");
 		m.Set("Na zem k cili", "Auf den Boden beim Ziel");
 		m.Set("Spawnout vozidlo", "Fahrzeug spawnen");
+		m.Set("Zvetsit polomer", "Radius vergrößern");
+		m.Set("Zrusit base", "Basis auflösen");
+		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Codeschloss am Tor: Besitzer und Gruppe öffnen ohne Code");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -1529,10 +1662,6 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Garage hier bauen");
 		m.Set("Nastavit misto pro vozidlo", "Fahrzeugplatz festlegen");
 		m.Set("Zrusit garaz", "Garage abreißen");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Eigene Garagen sind auf dem Server deaktiviert.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Deine Garage: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Du bist an der Garage - Taste B = Fahrzeug einlagern / abholen.");
@@ -1660,6 +1789,10 @@ class OS_LangData
 		m.Set("Zamceno", "Zamknięto");
 		m.Set("Odemceno", "Otwarto");
 		m.Set("Odemknout", "Otwórz");
+		m.Set("Odemknout (skupina)", "Otwórz (grupa)");
+		m.Set("Zamek", "Zamek");
+		m.Set("Zamknout (skupina)", "Zamknij (grupa)");
+		m.Set("Base", "Baza");
 		m.Set("Bankovka %1 %2", "Banknot %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Reszta %1 %2 została przelana na twoje konto.");
@@ -1681,6 +1814,9 @@ class OS_LangData
 		m.Set("Neviditelnost ZAPNUTA", "Niewidzialność WŁĄCZONA");
 		m.Set("Neviditelnost VYPNUTA", "Niewidzialność WYŁĄCZONA");
 		m.Set("Odebrany vsechny veci: %1", "Usunięto wszystkie rzeczy: %1");
+		m.Set("Zadny kodovy zamek do 5 m od cile.", "Brak zamka szyfrowego w promieniu 5 m od celu.");
+		m.Set("Kodovy zamek odemcen.", "Zamek szyfrowy otwarty.");
+		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamka usunięty - następna osoba, która ustawi kod, zostanie właścicielem.");
 		m.Set("Odbanovan: %1", "Odbanowano: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "To Steam ID nie jest zbanowane. Wpisz je w pole.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Wpisz czas jako hh:mm, np. 12:00");
@@ -1728,17 +1864,35 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Wypłacono %1 %2 z konta grupy %3");
 		m.Set("Prevody jsou vypnute.", "Przelewy są wyłączone.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Nieprawidłowe Steam ID (17 cyfr).");
+	}
+
+	protected static void Fill_pl_1(map<string, string> m)
+	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Nie możesz wysłać pieniędzy samemu sobie.");
 		m.Set("Minimalni castka je %1 %2.", "Minimalna kwota to %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Gracz z tym Steam ID nigdy nie grał na serwerze.");
 		m.Set("Na uctu nemas dost penez (%1 %2).", "Nie masz wystarczająco pieniędzy na koncie (%1 %2).");
 		m.Set("Odeslano %1 %2 hraci %3", "Wysłano %1 %2 do gracza %3");
 		m.Set("%1 ti poslal %2 %3 na ucet.", "%1 przesłał ci %2 %3 na konto.");
+		m.Set("Moc blizko jine base (vlajky musi byt aspon %1 m od sebe).", "Za blisko innej bazy (flagi muszą być co najmniej %1 m od siebie).");
+		m.Set("Base by zasahovala do jine base - neni tu misto.", "Baza nachodziłaby na inną bazę - nie ma tu miejsca.");
+		m.Set("Musis stat u vlajky.", "Musisz stać przy fladze.");
+		m.Set("U teto vlajky uz base je.", "Przy tej fladze już jest baza.");
+		m.Set("Nejdriv postav stozar vlajky.", "Najpierw zbuduj maszt flagi.");
+		m.Set("Muzes mit nejvyse %1 base.", "Możesz mieć najwyżej %1 baz(y).");
+		m.Set("Zalozeni base stoji %1 %2.", "Założenie bazy kosztuje %1 %2.");
+		m.Set("Base zalozena (polomer %1 m).", "Baza założona (promień %1 m).");
+		m.Set("U teto vlajky neni base.", "Przy tej fladze nie ma bazy.");
+		m.Set("Tahle base ti nepatri.", "Ta baza nie należy do ciebie.");
+		m.Set("Base uz ma nejvetsi polomer.", "Baza ma już największy promień.");
+		m.Set("Vylepseni stoji %1 %2.", "Ulepszenie kosztuje %1 %2.");
+		m.Set("Base vylepsena na uroven %1 (polomer %2 m).", "Baza ulepszona do poziomu %1 (promień %2 m).");
+		m.Set("Zrusit base muze jen majitel.", "Usunąć bazę może tylko właściciel.");
+		m.Set("Base zrusena. Vlajka zustava.", "Baza usunięta. Flaga zostaje.");
+		m.Set("Base: %1", "Baza: %1");
+		m.Set("Zadna base do 300 m.", "Brak bazy w promieniu 300 m.");
+		m.Set("Smazana base hrace %1.", "Usunięto bazę gracza %1.");
 		m.Set("Farma", "Farma");
-	}
-
-	protected static void Fill_pl_1(map<string, string> m)
-	{
 		m.Set("Farma zrusena.", "Farma usunięta.");
 		m.Set("Farmar", "Rolnik");
 		m.Set("Nejdriv si postav farmu (klavesa U).", "Najpierw zbuduj farmę (klawisz U).");
@@ -1746,6 +1900,7 @@ class OS_LangData
 		m.Set("Zvirata se kupuji u Farmare.", "Zwierzęta kupuje się u Rolnika.");
 		m.Set("Krmivo a hnojivo se kupuje u Farmare.", "Paszę i nawóz kupuje się u Rolnika.");
 		m.Set("Uz mas farmu. Nejdriv ji zrus.", "Masz już farmę. Najpierw ją usuń.");
+		m.Set("Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base.", "Farmę możesz zbudować tylko w swojej bazie (w promieniu flagi). Bazę założysz przy fladze akcją Baza.");
 		m.Set("Moc blizko jine farmy.", "Za blisko innej farmy.");
 		m.Set("Stavba farmy stoji %1 %2.", "Budowa farmy kosztuje %1 %2.");
 		m.Set("Farma postavena. Kup zvirata a krmivo.", "Farma zbudowana. Kup zwierzęta i paszę.");
@@ -1863,6 +2018,10 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Ten pojazd nie należy do ciebie.");
 		m.Set("Garaz je plna (max %1).", "Garaż jest pełny (maks. %1).");
 		m.Set("Nemas dost penez na poplatek.", "Nie masz wystarczająco pieniędzy na opłatę.");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Błąd przy zapisie - pojazd zostaje na zewnątrz.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Pojazd zaparkowany w garażu grupy.");
 		m.Set("Auto ulozeno do garaze.", "Pojazd zaparkowany w garażu.");
@@ -1889,10 +2048,6 @@ class OS_LangData
 		m.Set("Vyber predmet v seznamu.", "Wybierz przedmiot z listy.");
 		m.Set("Hotovost u sebe: %1%2", "Gotówka przy sobie: %1%2");
 		m.Set("Na uctu: %1%2", "Na koncie: %1%2");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Poplatek za vklad: %1 %", "Opłata za wpłatę: %1 %");
 		m.Set("Vklad bez poplatku", "Wpłata bez opłaty");
 		m.Set("Ucet skupiny %1: %2%3", "Konto grupy %1: %2%3");
@@ -1902,6 +2057,17 @@ class OS_LangData
 		m.Set("Vyber hrace ze seznamu nebo zadej jeho Steam64 ID.", "Wybierz gracza z listy lub wpisz jego Steam64 ID.");
 		m.Set("Zadej castku k prevodu.", "Wpisz kwotę przelewu.");
 		m.Set("Zadej castku.", "Wpisz kwotę.");
+		m.Set("U teto vlajky jeste neni base.", "Przy tej fladze nie ma jeszcze bazy.");
+		m.Set("Zalozenim ziskas oblast s polomerem %1 m kolem vlajky.", "Zakładając ją zyskasz obszar o promieniu %1 m wokół flagi.");
+		m.Set("Farmu muzes postavit jen ve sve base.", "Farmę możesz zbudować tylko w swojej bazie.");
+		m.Set("Zalozit base (%1%2)", "Załóż bazę (%1%2)");
+		m.Set("Zalozit base", "Załóż bazę");
+		m.Set("Majitel: %1", "Właściciel: %1");
+		m.Set("Uroven %1 / %2   polomer %3 m", "Poziom %1 / %2   promień %3 m");
+		m.Set("Tahle base patri jinemu hraci.", "Ta baza należy do innego gracza.");
+		m.Set("Spravovat ji muze majitel a jeho skupina.", "Zarządzać nią może właściciel i jego grupa.");
+		m.Set("Nejvetsi polomer", "Największy promień");
+		m.Set("Zvetsit na %1 m (%2%3)", "Powiększ do %1 m (%2%3)");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zwierzęta, drzewka, sadzonki, pasza i nawóz dla twojej farmy");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Kupione zwierzęta i pasza zostaną dowiezione na twoją farmę.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Najpierw zbuduj farmę (klawisz U), potem tu wróć.");
@@ -2006,6 +2172,10 @@ class OS_LangData
 		m.Set("Admin nastroje", "Narzędzia admina");
 		m.Set("Hrac (cil) a admin", "Gracz (cel) i admin");
 		m.Set("Vysvleknout", "Rozbierz");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Neviditelnost", "Niewidzialność");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -2025,11 +2195,17 @@ class OS_LangData
 		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): podwójne kliknięcie = teleport celu");
 		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klawisz End, Shift+End = teleport");
 		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mysz, Q/E w dół/w górę, Shift szybko");
+		m.Set("Odemknout zamek", "Otwórz zamek");
+		m.Set("Smazat kod", "Usuń kod");
+		m.Set("Smazat base", "Usuń bazę");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Ilość");
 		m.Set("Do inventare cile", "Do ekwipunku celu");
 		m.Set("Na zem k cili", "Na ziemię przy celu");
 		m.Set("Spawnout vozidlo", "Zespawnuj pojazd");
+		m.Set("Zvetsit polomer", "Powiększ promień");
+		m.Set("Zrusit base", "Usuń bazę");
+		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Zamek szyfrowy na bramie: właściciel i grupa otwierają bez kodu");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");
@@ -2043,10 +2219,6 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Zbuduj garaż tutaj");
 		m.Set("Nastavit misto pro vozidlo", "Ustaw miejsce dla pojazdu");
 		m.Set("Zrusit garaz", "Usuń garaż");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Własne garaże są na serwerze wyłączone.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Twój garaż: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jesteś przy garażu - klawisz B = zaparkuj / odbierz pojazd.");

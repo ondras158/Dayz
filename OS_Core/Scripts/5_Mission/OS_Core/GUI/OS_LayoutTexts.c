@@ -136,6 +136,9 @@ class OS_LayoutTexts
 			Set(root, "Hint1", "Mapa (M): dvojklik = teleport cile");
 			Set(root, "Hint2", "Freecam: klavesa End, Shift+End = teleport");
 			Set(root, "Hint3", "WASD, mys, Q/E dolu/nahoru, Shift rychle");
+			Set(root, "BtnLockUnlock", "Odemknout zamek");
+			Set(root, "BtnLockReset", "Smazat kod");
+			Set(root, "BtnBaseRemove", "Smazat base");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "admin_spawn.layout")
@@ -147,6 +150,15 @@ class OS_LayoutTexts
 			Set(root, "BtnToInv", "Do inventare cile");
 			Set(root, "BtnToGround", "Na zem k cili");
 			Set(root, "BtnVehicle", "Spawnout vozidlo");
+			Set(root, "BtnClose", "Zavrit");
+		}
+		if (layoutName == "base_menu.layout")
+		{
+			Set(root, "Title", "Base");
+			Set(root, "BtnFound", "Zalozit base");
+			Set(root, "BtnUpgrade", "Zvetsit polomer");
+			Set(root, "BtnRemove", "Zrusit base");
+			Set(root, "Hint", "Kodovy zamek na branu: majitel a skupina odemknou bez kodu");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "farm_menu.layout")

@@ -223,6 +223,12 @@ modded class MapMenu
 			safePos[1] = g_Game.SurfaceY(safePos[0], safePos[2]);
 			m_MapWidgetInstance.AddUserMark(safePos, OS_ClientZones.SafeNames[s], OS_ClientZones.SafeColor, "\\DZ\\gear\\navigation\\data\\map_tourism_ca.paa");
 		}
+		for (int bm = 0; bm < OS_ClientZones.BaseNames.Count(); bm++)
+		{
+			vector basePos = Vector(OS_ClientZones.BaseX[bm], 0, OS_ClientZones.BaseZ[bm]);
+			basePos[1] = g_Game.SurfaceY(basePos[0], basePos[2]);
+			m_MapWidgetInstance.AddUserMark(basePos, OS_ClientZones.BaseNames[bm], OS_ClientZones.BaseColor, "\\DZ\\gear\\navigation\\data\\map_camp_ca.paa");
+		}
 		m_OS_HasMarkers = count > 0 || garage || farm || zones > 0;
 	}
 
@@ -259,6 +265,10 @@ modded class MapMenu
 		for (int j = 0; j < OS_ClientZones.SafeNames.Count(); j++)
 		{
 			OS_DrawCircle(OS_ClientZones.SafeX[j], OS_ClientZones.SafeZ[j], OS_ClientZones.SafeR[j], OS_ClientZones.SafeColor, offX, offY, mapW, mapH);
+		}
+		for (int b = 0; b < OS_ClientZones.BaseNames.Count(); b++)
+		{
+			OS_DrawCircle(OS_ClientZones.BaseX[b], OS_ClientZones.BaseZ[b], OS_ClientZones.BaseR[b], OS_ClientZones.BaseColor, offX, offY, mapW, mapH);
 		}
 	}
 

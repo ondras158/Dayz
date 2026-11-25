@@ -126,6 +126,9 @@ modded class ActionConstructor
 		super.RegisterActions(actions);
 		actions.Insert(ActionOSLockCar);
 		actions.Insert(ActionOSUnlockCar);
+		actions.Insert(ActionOSCodeLockUnlock);
+		actions.Insert(ActionOSCodeLockLock);
+		actions.Insert(ActionOSBaseMenu);
 	}
 }
 
@@ -137,6 +140,9 @@ modded class PlayerBase
 		super.SetActions(InputActionMap);
 		AddAction(ActionOSLockCar, InputActionMap);
 		AddAction(ActionOSUnlockCar, InputActionMap);
+		AddAction(ActionOSCodeLockUnlock, InputActionMap);
+		AddAction(ActionOSCodeLockLock, InputActionMap);
+		AddAction(ActionOSBaseMenu, InputActionMap);
 	}
 }
 

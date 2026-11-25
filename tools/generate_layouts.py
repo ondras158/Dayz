@@ -357,6 +357,9 @@ LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
     text("Hint1", 440, 380, 400, 24, "Mapa (M): dvojklik = teleport cile"),
     text("Hint2", 440, 406, 400, 24, "Freecam: klavesa End, Shift+End = teleport"),
     text("Hint3", 440, 432, 400, 24, "WASD, mys, Q/E dolu/nahoru, Shift rychle"),
+    button("BtnLockUnlock", 440, 466, 130, 38, "Odemknout zamek"),
+    button("BtnLockReset", 575, 466, 130, 38, "Smazat kod"),
+    button("BtnBaseRemove", 710, 466, 130, 38, "Smazat base"),
     button("BtnClose", 20, 520, 820, 38, "Zavrit"),
     text("Status", 20, 566, 820, 26, "", align="center"),
 ])
@@ -374,6 +377,19 @@ LAYOUTS["admin_spawn.layout"] = layout("OS_AdminSpawnMenu", 760, 640, [
     button("BtnVehicle", 500, 508, 240, 38, "Spawnout vozidlo"),
     button("BtnClose", 20, 554, 720, 38, "Zavrit"),
     text("Status", 20, 600, 720, 26, "", align="center"),
+])
+
+LAYOUTS["base_menu.layout"] = layout("OS_BaseMenu", 560, 400, [
+    text("Title", 20, 12, 520, 36, "Base", "gui/fonts/metron28", "center"),
+    text("Info1", 20, 56, 520, 26, "", align="center"),
+    text("Info2", 20, 84, 520, 26, "", align="center"),
+    text("Info3", 20, 112, 520, 26, "", align="center"),
+    button("BtnFound", 20, 156, 520, 40, "Zalozit base"),
+    button("BtnUpgrade", 20, 156, 520, 40, "Zvetsit polomer"),
+    button("BtnRemove", 20, 206, 520, 40, "Zrusit base"),
+    text("Hint", 20, 256, 520, 26, "Kodovy zamek na branu: majitel a skupina odemknou bez kodu", align="center"),
+    button("BtnClose", 20, 300, 520, 40, "Zavrit"),
+    text("Status", 20, 350, 520, 26, "", align="center"),
 ])
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [

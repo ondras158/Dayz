@@ -286,6 +286,16 @@ class OS_ServerFarms
 			return;
 		}
 
+		// farma jen ve vlastní base (Bases.json: FarmRequiresBase)
+		if (OS_Server.Get() && OS_Server.Get().m_Bases && OS_Server.Get().m_Bases.m_Cfg.Enabled && OS_Server.Get().m_Bases.m_Cfg.FarmRequiresBase)
+		{
+			if (!OS_Server.Get().m_Bases.IsInOwnBase(player))
+			{
+				OS_Util.Notify(player, OS_T("Farma"), OS_T("Farmu muzes postavit jen ve sve base (v okruhu vlajky). Base zalozis u vlajky akci Base."));
+				return;
+			}
+		}
+
 		foreach (OS_Farm other : m_Data.Farms)
 		{
 			if (other && OS_Util.Distance2D(player.GetPosition(), other.X, other.Z) < m_Cfg.MinDistance)

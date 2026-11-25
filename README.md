@@ -34,6 +34,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Startovní výbava | Nová postava dostane náhodnou sadu oblečení a věcí (podle váhy) | `Loadouts.json` |
 | Výběr spawnu | Po vytvoření postavy se otevře menu se seznamem oblastí; během výběru je hráč nesmrtelný | `SpawnZones.json` |
 | Safe zóny | V zóně nejde zranit hráče, zombíci se mažou, hláška při vstupu/odchodu | `SafeZones.json` |
+| Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, farma jen v base; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
 | PvP zóny a mapa | Klávesa **M** otevře mapu i bez mapy v inventáři; PvP zóny (červeně) a safe zóny (zeleně) na mapě; PvP jen v PvP zónách | `PvP.json` |
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kick/ban | `Admins.json` |
@@ -123,6 +124,27 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
 ```json
 { "AdminSteamIds": ["76561198000000000"], "LogActions": true }
 ```
+
+**Base u vlajky** (`Bases.json`, data v `BasesData.json`)
+- Postav vanilla vlajku (Territory Flag Kit) aspoň se stožárem (`RequirePole`), podívej se na ni a dej akci **Base**.
+  V menu *Založit base* (`FoundPrice`), *Zvětšit poloměr* a *Zrušit base* (jen majitel, vlajka zůstane).
+- Base patří zakladateli, spravovat a vylepšovat ji může i jeho skupina. `MaxBasesPerPlayer` (výchozí 1).
+- **Poloměr podle úrovně** – `Levels`: `[{ "Radius": 30, "Price": 0 }, { "Radius": 50, "Price": 5000 }, ...]`
+  (první úroveň dostaneš založením, každá další se kupuje).
+- **Rozestupy:** vlajky dvou basí musí být aspoň `MinDistanceBetweenBases` (150 m) od sebe a jejich kruhy se
+  nesmí překrývat (mezera `GapBetweenBases`, 20 m) – kontroluje se při založení i při zvětšování.
+- `FarmRequiresBase: true` = farmu jde postavit jen stojíš-li ve své base (nebo base skupiny).
+- Vlastní base a base skupiny jsou na mapě modrým kruhem (`ShowOnMap`, barva `MapColor`).
+- Když vlajka zmizí (zbouraná, rozebraná), base do minuty zanikne.
+- Admin nástroje: *Smazat base* (nejbližší do 300 m od cíle).
+
+**Kódový zámek** – používá vanilla **DigitalCodeLock** (DayZ 1.30): dá se nasadit na bránu plotu i na dveře,
+potřebuje 9V baterii a kód se zadává v jeho menu. Prodává se v kategorii *Stavba základny* (Železářství), baterie v *Elektronice*.
+- Kdo kód nastaví jako první, je **majitel**. Majitel a jeho skupina mají u zámku akce **Odemknout (skupina)**
+  a **Zamknout (skupina)** – bez zadávání kódu (zamknout jde jen zavřená brána). Ostatní musí znát kód.
+- Admin nástroje: *Odemknout zámek* a *Smazat kód* (nejbližší zámek do 5 m od cíle; po smazání bude majitelem ten,
+  kdo nastaví nový kód).
+- Majitel se ukládá do zámku. Zámky nasazené před instalací módu majitele nemají (vyřešíš smazáním kódu adminem).
 
 **PvP zóny a mapa** (`PvP.json`)
 - **Mapa:** klávesa **M** (dá se změnit v Nastavení → Ovládání → OS Core) otevře mapu i bez mapy v inventáři,

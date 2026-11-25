@@ -70,6 +70,11 @@ class OS_ClientZones
 	static ref array<float> SafeX = new array<float>;
 	static ref array<float> SafeZ = new array<float>;
 	static ref array<float> SafeR = new array<float>;
+	static int BaseColor = 0xDC468CFF;
+	static ref array<string> BaseNames = new array<string>;
+	static ref array<float> BaseX = new array<float>;
+	static ref array<float> BaseZ = new array<float>;
+	static ref array<float> BaseR = new array<float>;
 
 	static void Read(ParamsReadContext ctx)
 	{
@@ -92,6 +97,20 @@ class OS_ClientZones
 		if (!ctx.Read(safeNames) || !ctx.Read(safeX) || !ctx.Read(safeZ) || !ctx.Read(safeR))
 			return;
 
+		int baseColor;
+		array<string> baseNames = new array<string>;
+		array<float> baseX = new array<float>;
+		array<float> baseZ = new array<float>;
+		array<float> baseR = new array<float>;
+		if (ctx.Read(baseColor) && ctx.Read(baseNames) && ctx.Read(baseX) && ctx.Read(baseZ) && ctx.Read(baseR))
+		{
+			BaseColor = baseColor;
+			BaseNames = baseNames;
+			BaseX = baseX;
+			BaseZ = baseZ;
+			BaseR = baseR;
+		}
+
 		MapWithoutItem = mapWithoutItem;
 		PvPOnlyInZones = pvpOnly;
 		PvPColor = pvpColor;
@@ -108,6 +127,6 @@ class OS_ClientZones
 
 	static int Count()
 	{
-		return PvPNames.Count() + SafeNames.Count();
+		return PvPNames.Count() + SafeNames.Count() + BaseNames.Count();
 	}
 }

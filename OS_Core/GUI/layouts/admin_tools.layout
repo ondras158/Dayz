@@ -464,6 +464,42 @@ FrameWidgetClass OS_AdminToolsMenu {
      "text halign" left
      "text valign" center
     }
+    ButtonWidgetClass BtnLockUnlock {
+     color 0.25 0.22 0.18 1
+     position 440 466
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Odemknout zamek"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnLockReset {
+     color 0.25 0.22 0.18 1
+     position 575 466
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Smazat kod"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBaseRemove {
+     color 0.25 0.22 0.18 1
+     position 710 466
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Smazat base"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
      position 20 520

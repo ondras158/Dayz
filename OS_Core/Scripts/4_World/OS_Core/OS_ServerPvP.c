@@ -247,6 +247,18 @@ class OS_ServerPvP
 			}
 		}
 
+		array<string> baseNames = new array<string>;
+		array<float> baseX = new array<float>;
+		array<float> baseZ = new array<float>;
+		array<float> baseR = new array<float>;
+		int baseColor = 0xDC468CFF;
+		PlayerBase owner = PlayerBase.Cast(identity.GetPlayer());
+		if (OS_Server.Get() && OS_Server.Get().m_Bases)
+		{
+			OS_Server.Get().m_Bases.FillMapBases(owner, baseNames, baseX, baseZ, baseR);
+			baseColor = OS_PvPConfig.ToARGB(OS_Server.Get().m_Bases.m_Cfg.MapColor, 220);
+		}
+
 		ScriptRPC rpc = new ScriptRPC();
 		rpc.Write(m_Cfg.MapWithoutItem);
 		rpc.Write(m_Cfg.Enabled && m_Cfg.PvPOnlyInZones);
@@ -260,6 +272,11 @@ class OS_ServerPvP
 		rpc.Write(safeX);
 		rpc.Write(safeZ);
 		rpc.Write(safeR);
+		rpc.Write(baseColor);
+		rpc.Write(baseNames);
+		rpc.Write(baseX);
+		rpc.Write(baseZ);
+		rpc.Write(baseR);
 		rpc.Send(null, OS_RPC_ZONES, true, identity);
 	}
 

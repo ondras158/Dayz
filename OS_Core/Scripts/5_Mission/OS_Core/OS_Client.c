@@ -38,6 +38,7 @@ class OS_Client
 	protected ref OS_AdminFreecam m_Freecam = new OS_AdminFreecam();
 	protected ref OS_AdminToolsMenu m_AdminToolsMenu;
 	protected ref OS_AdminSpawnMenu m_AdminSpawnMenu;
+	protected ref OS_BaseMenu m_BaseMenu;
 
 	void OnFrame()
 	{
@@ -168,6 +169,9 @@ class OS_Client
 			case OS_RPC_ADMIN_FLAG:
 				OS_ClientAdmin.OnFlag(ctx);
 				break;
+			case OS_RPC_BASE_DATA:
+				OnBaseData(ctx);
+				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);
 				break;
@@ -205,6 +209,21 @@ class OS_Client
 		}
 
 		SendToServer(OS_RPC_SPAWN_ACK);
+	}
+
+	protected void OnBaseData(ParamsReadContext ctx)
+	{
+		OS_BaseData data = new OS_BaseData();
+		if (!data.Read(ctx))
+			return;
+		if (IsOpen(m_BaseMenu))
+		{
+			m_BaseMenu.SetData(data);
+			return;
+		}
+		m_BaseMenu = new OS_BaseMenu();
+		m_BaseMenu.SetData(data);
+		Show(m_BaseMenu);
 	}
 
 	protected void OnAdminData(ParamsReadContext ctx)

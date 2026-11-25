@@ -366,6 +366,18 @@ class OS_AdminToolsMenu : OS_MenuBase
 			if (NeedTarget())
 				Send(OS_AdminAction.BAN, EditText(m_EditReason));
 		}
+		else if (name == "BtnLockUnlock")
+		{
+			Send(OS_AdminAction.CODELOCK_UNLOCK);
+		}
+		else if (name == "BtnLockReset")
+		{
+			Send(OS_AdminAction.CODELOCK_RESET);
+		}
+		else if (name == "BtnBaseRemove")
+		{
+			Send(OS_AdminAction.BASE_REMOVE);
+		}
 		else if (name == "BtnAddAdmin")
 		{
 			Send(OS_AdminAction.ADD_ADMIN, EditText(m_EditReason));

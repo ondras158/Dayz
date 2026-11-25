@@ -428,6 +428,33 @@ class OS_ServerAdmin
 		{
 			KickOrBan(admin, target, action == OS_AdminAction.BAN, arg);
 		}
+		else if (action == OS_AdminAction.CODELOCK_UNLOCK || action == OS_AdminAction.CODELOCK_RESET)
+		{
+			DigitalCodeLock codeLock = DigitalCodeLock.OS_FindNearest(target.GetPosition(), 5);
+			if (!codeLock)
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Zadny kodovy zamek do 5 m od cile."));
+				return;
+			}
+			if (action == OS_AdminAction.CODELOCK_UNLOCK)
+			{
+				codeLock.SetLockState(false);
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Kodovy zamek odemcen."));
+				Log(admin, "odemkl kodovy zamek majitele " + codeLock.OS_GetOwnerId());
+			}
+			else
+			{
+				codeLock.SetLockState(false);
+				codeLock.ResetPIN();
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Kod zamku smazan - dalsi, kdo zada kod, bude majitel."));
+				Log(admin, "smazal kod zamku majitele " + codeLock.OS_GetOwnerId());
+			}
+		}
+		else if (action == OS_AdminAction.BASE_REMOVE)
+		{
+			if (OS_Server.Get() && OS_Server.Get().m_Bases)
+				OS_Server.Get().m_Bases.AdminRemoveNearest(admin, target.GetPosition());
+		}
 		else if (action == OS_AdminAction.ADD_ADMIN || action == OS_AdminAction.REMOVE_ADMIN)
 		{
 			SetAdminRights(admin, target, action == OS_AdminAction.ADD_ADMIN, arg);

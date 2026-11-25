@@ -51,6 +51,9 @@ const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LANG          = 784512080; // server -> klient: jazyk a upravené texty
 const int OS_RPC_ZONES         = 784512081; // server -> klient: PvP a bezpečné zóny pro mapu
 const int OS_RPC_ADMIN_FLAG    = 784512082; // server -> klient: hráč je admin (teleport z mapy, ESP, freecam)
+const int OS_RPC_BASE_OPEN     = 784512090; // klient -> server: menu base u vlajky
+const int OS_RPC_BASE_DATA     = 784512091; // server -> klient: stav base
+const int OS_RPC_BASE_ACTION   = 784512092; // klient -> server: akce base
 
 const int OS_RPC_LAST  = 784512099;
 
@@ -81,7 +84,17 @@ enum OS_AdminAction
 	BAN,            // arg = důvod
 	UNBAN,          // arg = Steam64 ID
 	ADD_ADMIN,      // vybraný hráč, nebo Steam64 ID v arg
-	REMOVE_ADMIN    // vybraný hráč, nebo Steam64 ID v arg
+	REMOVE_ADMIN,   // vybraný hráč, nebo Steam64 ID v arg
+	CODELOCK_UNLOCK,// nejbližší kódový zámek (5 m od cíle) odemknout
+	CODELOCK_RESET, // nejbližší kódový zámek: smazat kód a majitele
+	BASE_REMOVE     // smazat nejbližší base (vlajka zůstane)
+}
+
+enum OS_BaseAction
+{
+	FOUND,
+	UPGRADE,
+	REMOVE
 }
 
 enum OS_VehicleAction
