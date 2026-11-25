@@ -97,7 +97,8 @@ enum OS_AdminAction
 	CODELOCK_UNLOCK,// nejbližší kódový zámek (5 m od cíle) odemknout
 	CODELOCK_RESET, // nejbližší kódový zámek: smazat kód a majitele
 	BASE_REMOVE,    // smazat nejbližší base (vlajka zůstane)
-	GIVE_XP         // arg = počet zkušeností pro cíl
+	GIVE_XP,        // arg = počet zkušeností pro cíl
+	AIRDROP         // arg "here" = u cíle, jinak náhodné místo
 }
 
 enum OS_BaseAction

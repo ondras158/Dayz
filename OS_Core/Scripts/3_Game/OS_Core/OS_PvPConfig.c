@@ -75,6 +75,9 @@ class OS_ClientZones
 	static ref array<float> BaseX = new array<float>;
 	static ref array<float> BaseZ = new array<float>;
 	static ref array<float> BaseR = new array<float>;
+	static ref array<string> DropNames = new array<string>;
+	static ref array<float> DropX = new array<float>;
+	static ref array<float> DropZ = new array<float>;
 
 	static void Read(ParamsReadContext ctx)
 	{
@@ -110,6 +113,15 @@ class OS_ClientZones
 			BaseZ = baseZ;
 			BaseR = baseR;
 		}
+		array<string> dropNames = new array<string>;
+		array<float> dropX = new array<float>;
+		array<float> dropZ = new array<float>;
+		if (ctx.Read(dropNames) && ctx.Read(dropX) && ctx.Read(dropZ))
+		{
+			DropNames = dropNames;
+			DropX = dropX;
+			DropZ = dropZ;
+		}
 
 		MapWithoutItem = mapWithoutItem;
 		PvPOnlyInZones = pvpOnly;
@@ -127,6 +139,6 @@ class OS_ClientZones
 
 	static int Count()
 	{
-		return PvPNames.Count() + SafeNames.Count() + BaseNames.Count();
+		return PvPNames.Count() + SafeNames.Count() + BaseNames.Count() + DropNames.Count();
 	}
 }

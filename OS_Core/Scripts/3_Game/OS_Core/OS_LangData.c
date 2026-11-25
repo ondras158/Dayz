@@ -18,6 +18,7 @@ class OS_LangData
 			Fill_cs_2(m);
 			Fill_cs_3(m);
 			Fill_cs_4(m);
+			Fill_cs_5(m);
 		}
 		if (lang == "en")
 		{
@@ -26,6 +27,7 @@ class OS_LangData
 			Fill_en_2(m);
 			Fill_en_3(m);
 			Fill_en_4(m);
+			Fill_en_5(m);
 		}
 		if (lang == "de")
 		{
@@ -34,6 +36,7 @@ class OS_LangData
 			Fill_de_2(m);
 			Fill_de_3(m);
 			Fill_de_4(m);
+			Fill_de_5(m);
 		}
 		if (lang == "pl")
 		{
@@ -42,11 +45,15 @@ class OS_LangData
 			Fill_pl_2(m);
 			Fill_pl_3(m);
 			Fill_pl_4(m);
+			Fill_pl_5(m);
 		}
 	}
 
 	protected static void Fill_cs_0(map<string, string> m)
 	{
+		m.Set("Priklad - Letiste", "Priklad - Letiste");
+		m.Set("Priklad - Vojenska zakladna", "Priklad - Vojenska zakladna");
+		m.Set("Priklad - Pole na severu", "Priklad - Pole na severu");
 		m.Set("Hotova jidla", "Hotova jidla");
 		m.Set("Pistole", "Pistole");
 		m.Set("Zbrane", "Zbrane");
@@ -174,6 +181,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Zadny kodovy zamek do 5 m od cile.");
 		m.Set("Kodovy zamek odemcen.", "Kodovy zamek odemcen.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamku smazan - dalsi, kdo zada kod, bude majitel.");
+		m.Set("Airdrop shozen.", "Airdrop shozen.");
+		m.Set("Airdrop se nepodarilo shodit (viz log).", "Airdrop se nepodarilo shodit (viz log).");
 		m.Set("Napis do pole pocet zkusenosti.", "Napis do pole pocet zkusenosti.");
 		m.Set("%1: +%2 zkusenosti", "%1: +%2 zkusenosti");
 		m.Set("Odbanovan: %1", "Odbanovan: %1");
@@ -192,15 +201,15 @@ class OS_LangData
 		m.Set("Opraveno: %1", "Opraveno: %1");
 		m.Set("Zniceno: %1", "Zniceno: %1");
 		m.Set("Smazano: %1", "Smazano: %1");
+	}
+
+	protected static void Fill_cs_1(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v seznamu.", "Nejdriv vyber hrace v seznamu.");
 		m.Set("Zabanovan: %1 (%2)", "Zabanovan: %1 (%2)");
 		m.Set("Byl jsi vyhozen ze serveru.", "Byl jsi vyhozen ze serveru.");
 		m.Set("Vyhozen: %1", "Vyhozen: %1");
 		m.Set("%1 Duvod: %2", "%1 Duvod: %2");
-	}
-
-	protected static void Fill_cs_1(map<string, string> m)
-	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminy muze pridavat a odebirat jen hlavni admin.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 je hlavni admin - to jde zmenit jen v Admins.json.");
@@ -211,6 +220,9 @@ class OS_LangData
 		m.Set("%1 neni admin.", "%1 neni admin.");
 		m.Set("%1 uz neni admin.", "%1 uz neni admin.");
 		m.Set("Uz nejsi admin serveru.", "Uz nejsi admin serveru.");
+		m.Set("Airdrop: %1", "Airdrop: %1");
+		m.Set("AIRDROP pada: %1 (mapa, ctverec %2 / %3). Pozor na straze!", "AIRDROP pada: %1 (mapa, ctverec %2 / %3). Pozor na straze!");
+		m.Set("AIRDROP pristal: %1", "AIRDROP pristal: %1");
 		m.Set("Bankomat", "Bankomat");
 		m.Set("Musis stat u bankomatu.", "Musis stat u bankomatu.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nemas u sebe zadnou hotovost.");
@@ -343,6 +355,10 @@ class OS_LangData
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Zustatek %1 %2 prevedeny na tvuj ucet.");
 		m.Set("Moje base", "Moje base");
 		m.Set("Base skupiny (%1)", "Base skupiny (%1)");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
 		m.Set("Cizi base (%1)", "Cizi base (%1)");
 		m.Set("Cholera", "Cholera");
 		m.Set("Tetracyklin, pit cistou vodu", "Tetracyklin, pit cistou vodu");
@@ -351,10 +367,6 @@ class OS_LangData
 		m.Set("Zapal plic", "Zapal plic");
 		m.Set("Tetracyklin, teplo", "Tetracyklin, teplo");
 		m.Set("Nachlazeni", "Nachlazeni");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Vitaminy, teplo a suche obleceni", "Vitaminy, teplo a suche obleceni");
 		m.Set("Salmonela", "Salmonela");
 		m.Set("Aktivni uhli", "Aktivni uhli");
@@ -497,6 +509,10 @@ class OS_LangData
 		m.Set("JZ", "JZ");
 		m.Set("Z", "Z");
 		m.Set("SZ", "SZ");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("PvE - hraci ti neublizi", "PvE - hraci ti neublizi");
 		m.Set("BEZPECNA ZONA - %1", "BEZPECNA ZONA - %1");
 		m.Set("PvP ZONA - %1", "PvP ZONA - %1");
@@ -505,10 +521,6 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Zima");
 		m.Set("Chladno", "Chladno");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Horko", "Horko");
 		m.Set("%1 m, skupina", "%1 m, skupina");
 		m.Set("Pusobi: %1", "Pusobi: %1");
@@ -651,6 +663,10 @@ class OS_LangData
 		m.Set("Zavrit", "Zavrit");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Hledat");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Koupit vybrane", "Koupit vybrane");
 		m.Set("Tvoje veci k prodeji", "Tvoje veci k prodeji");
 		m.Set("Prodat vybrane", "Prodat vybrane");
@@ -659,10 +675,6 @@ class OS_LangData
 		m.Set("Vykup", "Vykup");
 		m.Set("Ulozit cenu", "Ulozit cenu");
 		m.Set("Nasobit kat.", "Nasobit kat.");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Nasobit", "Nasobit");
 		m.Set("Autocentrum", "Autocentrum");
 		m.Set("Koupit auto", "Koupit auto");
@@ -723,6 +735,8 @@ class OS_LangData
 		m.Set("Odemknout zamek", "Odemknout zamek");
 		m.Set("Smazat kod", "Smazat kod");
 		m.Set("Smazat base", "Smazat base");
+		m.Set("Airdrop u cile", "Airdrop u cile");
+		m.Set("Airdrop nahodne", "Airdrop nahodne");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Pocet");
 		m.Set("Do inventare cile", "Do inventare cile");
@@ -803,6 +817,10 @@ class OS_LangData
 		m.Set("Prepsat auto na sebe (%1%2)", "Prepsat auto na sebe (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Ulozit do garaze (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Vyzvednout (aut v garazi: %1)");
+	}
+
+	protected static void Fill_cs_5(map<string, string> m)
+	{
 		m.Set("Vyber auto.", "Vyber auto.");
 		m.Set("Vyber auto v garazi.", "Vyber auto v garazi.");
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Byl jsi pridan do uzemi %1 (skupina %2).");
@@ -812,6 +830,9 @@ class OS_LangData
 
 	protected static void Fill_en_0(map<string, string> m)
 	{
+		m.Set("Priklad - Letiste", "Example - Airfield");
+		m.Set("Priklad - Vojenska zakladna", "Example - Military base");
+		m.Set("Priklad - Pole na severu", "Example - Northern field");
 		m.Set("Hotova jidla", "Cooked meals");
 		m.Set("Pistole", "Pistols");
 		m.Set("Zbrane", "Weapons");
@@ -939,6 +960,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "No code lock within 5 m of the target.");
 		m.Set("Kodovy zamek odemcen.", "Code lock unlocked.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Lock code deleted - the next person to set a code becomes the owner.");
+		m.Set("Airdrop shozen.", "Airdrop dropped.");
+		m.Set("Airdrop se nepodarilo shodit (viz log).", "The airdrop could not be dropped (see log).");
 		m.Set("Napis do pole pocet zkusenosti.", "Type the amount of experience into the field.");
 		m.Set("%1: +%2 zkusenosti", "%1: +%2 experience");
 		m.Set("Odbanovan: %1", "Unbanned: %1");
@@ -957,15 +980,15 @@ class OS_LangData
 		m.Set("Opraveno: %1", "Repaired: %1");
 		m.Set("Zniceno: %1", "Destroyed: %1");
 		m.Set("Smazano: %1", "Deleted: %1");
+	}
+
+	protected static void Fill_en_1(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v seznamu.", "Select a player in the list first.");
 		m.Set("Zabanovan: %1 (%2)", "Banned: %1 (%2)");
 		m.Set("Byl jsi vyhozen ze serveru.", "You were kicked from the server.");
 		m.Set("Vyhozen: %1", "Kicked: %1");
 		m.Set("%1 Duvod: %2", "%1 Reason: %2");
-	}
-
-	protected static void Fill_en_1(map<string, string> m)
-	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Select a player in the list, or type their Steam64 ID (17 digits) into the field.");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Only a head admin can add and remove admins.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 is a head admin - this can only be changed in Admins.json.");
@@ -976,6 +999,9 @@ class OS_LangData
 		m.Set("%1 neni admin.", "%1 is not an admin.");
 		m.Set("%1 uz neni admin.", "%1 is no longer an admin.");
 		m.Set("Uz nejsi admin serveru.", "You are no longer a server admin.");
+		m.Set("Airdrop: %1", "Airdrop: %1");
+		m.Set("AIRDROP pada: %1 (mapa, ctverec %2 / %3). Pozor na straze!", "AIRDROP incoming: %1 (map grid %2 / %3). Watch out for guards!");
+		m.Set("AIRDROP pristal: %1", "AIRDROP landed: %1");
 		m.Set("Bankomat", "ATM");
 		m.Set("Musis stat u bankomatu.", "You must stand at an ATM.");
 		m.Set("Nemas u sebe zadnou hotovost.", "You have no cash on you.");
@@ -1108,6 +1134,10 @@ class OS_LangData
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Balance of %1 %2 transferred to your account.");
 		m.Set("Moje base", "My base");
 		m.Set("Base skupiny (%1)", "Group base (%1)");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
 		m.Set("Cizi base (%1)", "Foreign base (%1)");
 		m.Set("Cholera", "Cholera");
 		m.Set("Tetracyklin, pit cistou vodu", "Tetracycline, drink clean water");
@@ -1116,10 +1146,6 @@ class OS_LangData
 		m.Set("Zapal plic", "Pneumonia");
 		m.Set("Tetracyklin, teplo", "Tetracycline, warmth");
 		m.Set("Nachlazeni", "Common cold");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Vitaminy, teplo a suche obleceni", "Vitamins, warmth and dry clothes");
 		m.Set("Salmonela", "Salmonella");
 		m.Set("Aktivni uhli", "Charcoal tablets");
@@ -1262,6 +1288,10 @@ class OS_LangData
 		m.Set("JZ", "SW");
 		m.Set("Z", "W");
 		m.Set("SZ", "NW");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("PvE - hraci ti neublizi", "PvE - players can't hurt you");
 		m.Set("BEZPECNA ZONA - %1", "SAFE ZONE - %1");
 		m.Set("PvP ZONA - %1", "PvP ZONE - %1");
@@ -1270,10 +1300,6 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Cold");
 		m.Set("Chladno", "Chilly");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Horko", "Hot");
 		m.Set("%1 m, skupina", "%1 m, group");
 		m.Set("Pusobi: %1", "Active: %1");
@@ -1416,6 +1442,10 @@ class OS_LangData
 		m.Set("Zavrit", "Close");
 		m.Set("Kategorie", "Categories");
 		m.Set("Hledat", "Search");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Koupit vybrane", "Buy selected");
 		m.Set("Tvoje veci k prodeji", "Your items for sale");
 		m.Set("Prodat vybrane", "Sell selected");
@@ -1424,10 +1454,6 @@ class OS_LangData
 		m.Set("Vykup", "Sell");
 		m.Set("Ulozit cenu", "Save price");
 		m.Set("Nasobit kat.", "Multiply cat.");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Nasobit", "Multiply");
 		m.Set("Autocentrum", "Car dealer");
 		m.Set("Koupit auto", "Buy car");
@@ -1488,6 +1514,8 @@ class OS_LangData
 		m.Set("Odemknout zamek", "Unlock lock");
 		m.Set("Smazat kod", "Delete code");
 		m.Set("Smazat base", "Delete base");
+		m.Set("Airdrop u cile", "Airdrop at target");
+		m.Set("Airdrop nahodne", "Random airdrop");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Count");
 		m.Set("Do inventare cile", "To target's inventory");
@@ -1568,6 +1596,10 @@ class OS_LangData
 		m.Set("Prepsat auto na sebe (%1%2)", "Claim the car (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Store in garage (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Retrieve (cars in garage: %1)");
+	}
+
+	protected static void Fill_en_5(map<string, string> m)
+	{
 		m.Set("Vyber auto.", "Select a car.");
 		m.Set("Vyber auto v garazi.", "Select a car in the garage.");
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "You were added to territory %1 (group %2).");
@@ -1577,6 +1609,9 @@ class OS_LangData
 
 	protected static void Fill_de_0(map<string, string> m)
 	{
+		m.Set("Priklad - Letiste", "Beispiel - Flugplatz");
+		m.Set("Priklad - Vojenska zakladna", "Beispiel - Militärbasis");
+		m.Set("Priklad - Pole na severu", "Beispiel - Feld im Norden");
 		m.Set("Hotova jidla", "Fertiggerichte");
 		m.Set("Pistole", "Pistolen");
 		m.Set("Zbrane", "Waffen");
@@ -1704,6 +1739,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Kein Codeschloss im Umkreis von 5 m vom Ziel.");
 		m.Set("Kodovy zamek odemcen.", "Codeschloss aufgeschlossen.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Code gelöscht - wer als Nächster einen Code eingibt, wird Besitzer.");
+		m.Set("Airdrop shozen.", "Airdrop abgeworfen.");
+		m.Set("Airdrop se nepodarilo shodit (viz log).", "Der Airdrop konnte nicht abgeworfen werden (siehe Log).");
 		m.Set("Napis do pole pocet zkusenosti.", "Gib die Menge an Erfahrung ins Feld ein.");
 		m.Set("%1: +%2 zkusenosti", "%1: +%2 Erfahrung");
 		m.Set("Odbanovan: %1", "Entbannt: %1");
@@ -1722,15 +1759,15 @@ class OS_LangData
 		m.Set("Opraveno: %1", "Repariert: %1");
 		m.Set("Zniceno: %1", "Zerstört: %1");
 		m.Set("Smazano: %1", "Gelöscht: %1");
+	}
+
+	protected static void Fill_de_1(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v seznamu.", "Wähle zuerst einen Spieler in der Liste.");
 		m.Set("Zabanovan: %1 (%2)", "Gebannt: %1 (%2)");
 		m.Set("Byl jsi vyhozen ze serveru.", "Du wurdest vom Server geworfen.");
 		m.Set("Vyhozen: %1", "Rausgeworfen: %1");
 		m.Set("%1 Duvod: %2", "%1 Grund: %2");
-	}
-
-	protected static void Fill_de_1(map<string, string> m)
-	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wähle einen Spieler in der Liste oder gib seine Steam64-ID (17 Ziffern) ins Feld ein.");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Nur ein Hauptadmin kann Admins hinzufügen und entfernen.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 ist Hauptadmin - das lässt sich nur in Admins.json ändern.");
@@ -1741,6 +1778,9 @@ class OS_LangData
 		m.Set("%1 neni admin.", "%1 ist kein Admin.");
 		m.Set("%1 uz neni admin.", "%1 ist kein Admin mehr.");
 		m.Set("Uz nejsi admin serveru.", "Du bist kein Server-Admin mehr.");
+		m.Set("Airdrop: %1", "Airdrop: %1");
+		m.Set("AIRDROP pada: %1 (mapa, ctverec %2 / %3). Pozor na straze!", "AIRDROP kommt: %1 (Karte, Quadrat %2 / %3). Vorsicht vor Wachen!");
+		m.Set("AIRDROP pristal: %1", "AIRDROP gelandet: %1");
 		m.Set("Bankomat", "Geldautomat");
 		m.Set("Musis stat u bankomatu.", "Du musst an einem Geldautomaten stehen.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Du hast kein Bargeld dabei.");
@@ -1873,6 +1913,10 @@ class OS_LangData
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Restbetrag %1 %2 wurde auf dein Konto überwiesen.");
 		m.Set("Moje base", "Meine Basis");
 		m.Set("Base skupiny (%1)", "Gruppenbasis (%1)");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
 		m.Set("Cizi base (%1)", "Fremde Basis (%1)");
 		m.Set("Cholera", "Cholera");
 		m.Set("Tetracyklin, pit cistou vodu", "Tetracyclin, sauberes Wasser trinken");
@@ -1881,10 +1925,6 @@ class OS_LangData
 		m.Set("Zapal plic", "Lungenentzündung");
 		m.Set("Tetracyklin, teplo", "Tetracyclin, Wärme");
 		m.Set("Nachlazeni", "Erkältung");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Vitaminy, teplo a suche obleceni", "Vitamine, Wärme und trockene Kleidung");
 		m.Set("Salmonela", "Salmonellen");
 		m.Set("Aktivni uhli", "Aktivkohle");
@@ -2027,6 +2067,10 @@ class OS_LangData
 		m.Set("JZ", "SW");
 		m.Set("Z", "W");
 		m.Set("SZ", "NW");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("PvE - hraci ti neublizi", "PvE - Spieler können dir nichts tun");
 		m.Set("BEZPECNA ZONA - %1", "SICHERHEITSZONE - %1");
 		m.Set("PvP ZONA - %1", "PvP-ZONE - %1");
@@ -2035,10 +2079,6 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Kalt");
 		m.Set("Chladno", "Kühl");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Horko", "Heiß");
 		m.Set("%1 m, skupina", "%1 m, Gruppe");
 		m.Set("Pusobi: %1", "Wirkt: %1");
@@ -2181,6 +2221,10 @@ class OS_LangData
 		m.Set("Zavrit", "Schließen");
 		m.Set("Kategorie", "Kategorien");
 		m.Set("Hledat", "Suchen");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Koupit vybrane", "Auswahl kaufen");
 		m.Set("Tvoje veci k prodeji", "Deine Sachen zum Verkauf");
 		m.Set("Prodat vybrane", "Auswahl verkaufen");
@@ -2189,10 +2233,6 @@ class OS_LangData
 		m.Set("Vykup", "Ankauf");
 		m.Set("Ulozit cenu", "Preis speichern");
 		m.Set("Nasobit kat.", "Kat. multiplizieren");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Nasobit", "Multiplizieren");
 		m.Set("Autocentrum", "Autohaus");
 		m.Set("Koupit auto", "Auto kaufen");
@@ -2253,6 +2293,8 @@ class OS_LangData
 		m.Set("Odemknout zamek", "Schloss öffnen");
 		m.Set("Smazat kod", "Code löschen");
 		m.Set("Smazat base", "Basis löschen");
+		m.Set("Airdrop u cile", "Airdrop beim Ziel");
+		m.Set("Airdrop nahodne", "Zufälliger Airdrop");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Anzahl");
 		m.Set("Do inventare cile", "Ins Inventar des Ziels");
@@ -2333,6 +2375,10 @@ class OS_LangData
 		m.Set("Prepsat auto na sebe (%1%2)", "Auto auf dich umschreiben (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "In Garage einlagern (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Abholen (Autos in der Garage: %1)");
+	}
+
+	protected static void Fill_de_5(map<string, string> m)
+	{
 		m.Set("Vyber auto.", "Wähle ein Auto.");
 		m.Set("Vyber auto v garazi.", "Wähle ein Auto in der Garage.");
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Du wurdest zum Gebiet %1 hinzugefügt (Gruppe %2).");
@@ -2342,6 +2388,9 @@ class OS_LangData
 
 	protected static void Fill_pl_0(map<string, string> m)
 	{
+		m.Set("Priklad - Letiste", "Przykład - Lotnisko");
+		m.Set("Priklad - Vojenska zakladna", "Przykład - Baza wojskowa");
+		m.Set("Priklad - Pole na severu", "Przykład - Pole na północy");
 		m.Set("Hotova jidla", "Gotowe dania");
 		m.Set("Pistole", "Pistolety");
 		m.Set("Zbrane", "Broń");
@@ -2469,6 +2518,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Brak zamka szyfrowego w promieniu 5 m od celu.");
 		m.Set("Kodovy zamek odemcen.", "Zamek szyfrowy otwarty.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamka usunięty - następna osoba, która ustawi kod, zostanie właścicielem.");
+		m.Set("Airdrop shozen.", "Zrzut wysłany.");
+		m.Set("Airdrop se nepodarilo shodit (viz log).", "Nie udało się wykonać zrzutu (zobacz log).");
 		m.Set("Napis do pole pocet zkusenosti.", "Wpisz w pole ilość doświadczenia.");
 		m.Set("%1: +%2 zkusenosti", "%1: +%2 doświadczenia");
 		m.Set("Odbanovan: %1", "Odbanowano: %1");
@@ -2487,15 +2538,15 @@ class OS_LangData
 		m.Set("Opraveno: %1", "Naprawiono: %1");
 		m.Set("Zniceno: %1", "Zniszczono: %1");
 		m.Set("Smazano: %1", "Usunięto: %1");
+	}
+
+	protected static void Fill_pl_1(map<string, string> m)
+	{
 		m.Set("Nejdriv vyber hrace v seznamu.", "Najpierw wybierz gracza z listy.");
 		m.Set("Zabanovan: %1 (%2)", "Zbanowano: %1 (%2)");
 		m.Set("Byl jsi vyhozen ze serveru.", "Zostałeś wyrzucony z serwera.");
 		m.Set("Vyhozen: %1", "Wyrzucono: %1");
 		m.Set("%1 Duvod: %2", "%1 Powód: %2");
-	}
-
-	protected static void Fill_pl_1(map<string, string> m)
-	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wybierz gracza z listy lub wpisz w pole jego Steam64 ID (17 cyfr).");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminów może dodawać i usuwać tylko główny admin.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 jest głównym adminem - można to zmienić tylko w Admins.json.");
@@ -2506,6 +2557,9 @@ class OS_LangData
 		m.Set("%1 neni admin.", "%1 nie jest adminem.");
 		m.Set("%1 uz neni admin.", "%1 nie jest już adminem.");
 		m.Set("Uz nejsi admin serveru.", "Nie jesteś już adminem serwera.");
+		m.Set("Airdrop: %1", "Zrzut: %1");
+		m.Set("AIRDROP pada: %1 (mapa, ctverec %2 / %3). Pozor na straze!", "ZRZUT spada: %1 (mapa, kwadrat %2 / %3). Uważaj na strażników!");
+		m.Set("AIRDROP pristal: %1", "ZRZUT wylądował: %1");
 		m.Set("Bankomat", "Bankomat");
 		m.Set("Musis stat u bankomatu.", "Musisz stać przy bankomacie.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nie masz przy sobie gotówki.");
@@ -2638,6 +2692,10 @@ class OS_LangData
 		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Saldo %1 %2 przelano na twoje konto.");
 		m.Set("Moje base", "Moja baza");
 		m.Set("Base skupiny (%1)", "Baza grupy (%1)");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
 		m.Set("Cizi base (%1)", "Obca baza (%1)");
 		m.Set("Cholera", "Cholera");
 		m.Set("Tetracyklin, pit cistou vodu", "Tetracyklina, pij czystą wodę");
@@ -2646,10 +2704,6 @@ class OS_LangData
 		m.Set("Zapal plic", "Zapalenie płuc");
 		m.Set("Tetracyklin, teplo", "Tetracyklina, ciepło");
 		m.Set("Nachlazeni", "Przeziębienie");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Vitaminy, teplo a suche obleceni", "Witaminy, ciepło i suche ubranie");
 		m.Set("Salmonela", "Salmonella");
 		m.Set("Aktivni uhli", "Węgiel aktywny");
@@ -2792,6 +2846,10 @@ class OS_LangData
 		m.Set("JZ", "Pd-Zach");
 		m.Set("Z", "Zach");
 		m.Set("SZ", "Pn-Zach");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("PvE - hraci ti neublizi", "PvE - gracze cię nie zranią");
 		m.Set("BEZPECNA ZONA - %1", "STREFA BEZPIECZNA - %1");
 		m.Set("PvP ZONA - %1", "STREFA PvP - %1");
@@ -2800,10 +2858,6 @@ class OS_LangData
 		m.Set("OK", "OK");
 		m.Set("Zima", "Zimno");
 		m.Set("Chladno", "Chłodno");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Horko", "Gorąco");
 		m.Set("%1 m, skupina", "%1 m, grupa");
 		m.Set("Pusobi: %1", "Działa: %1");
@@ -2946,6 +3000,10 @@ class OS_LangData
 		m.Set("Zavrit", "Zamknij");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Szukaj");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Koupit vybrane", "Kup wybrane");
 		m.Set("Tvoje veci k prodeji", "Twoje rzeczy na sprzedaż");
 		m.Set("Prodat vybrane", "Sprzedaj wybrane");
@@ -2954,10 +3012,6 @@ class OS_LangData
 		m.Set("Vykup", "Skup");
 		m.Set("Ulozit cenu", "Zapisz cenę");
 		m.Set("Nasobit kat.", "Pomnóż kat.");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Nasobit", "Pomnóż");
 		m.Set("Autocentrum", "Salon samochodowy");
 		m.Set("Koupit auto", "Kup samochód");
@@ -3018,6 +3072,8 @@ class OS_LangData
 		m.Set("Odemknout zamek", "Otwórz zamek");
 		m.Set("Smazat kod", "Usuń kod");
 		m.Set("Smazat base", "Usuń bazę");
+		m.Set("Airdrop u cile", "Zrzut przy celu");
+		m.Set("Airdrop nahodne", "Losowy zrzut");
 		m.Set("Spawner", "Spawner");
 		m.Set("Pocet", "Ilość");
 		m.Set("Do inventare cile", "Do ekwipunku celu");
@@ -3098,6 +3154,10 @@ class OS_LangData
 		m.Set("Prepsat auto na sebe (%1%2)", "Przepisz pojazd na siebie (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Zaparkuj w garażu (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Odbierz (pojazdów w garażu: %1)");
+	}
+
+	protected static void Fill_pl_5(map<string, string> m)
+	{
 		m.Set("Vyber auto.", "Wybierz pojazd.");
 		m.Set("Vyber auto v garazi.", "Wybierz pojazd w garażu.");
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Zostałeś dodany do terytorium %1 (grupa %2).");

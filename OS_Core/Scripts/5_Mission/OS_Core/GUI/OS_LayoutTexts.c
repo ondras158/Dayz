@@ -141,6 +141,8 @@ class OS_LayoutTexts
 			Set(root, "BtnLockUnlock", "Odemknout zamek");
 			Set(root, "BtnLockReset", "Smazat kod");
 			Set(root, "BtnBaseRemove", "Smazat base");
+			Set(root, "BtnAirdropHere", "Airdrop u cile");
+			Set(root, "BtnAirdropRandom", "Airdrop nahodne");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "admin_spawn.layout")

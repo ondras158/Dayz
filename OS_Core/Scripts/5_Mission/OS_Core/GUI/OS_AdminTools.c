@@ -366,6 +366,14 @@ class OS_AdminToolsMenu : OS_MenuBase
 			if (NeedTarget())
 				Send(OS_AdminAction.BAN, EditText(m_EditReason));
 		}
+		else if (name == "BtnAirdropHere")
+		{
+			Send(OS_AdminAction.AIRDROP, "here");
+		}
+		else if (name == "BtnAirdropRandom")
+		{
+			Send(OS_AdminAction.AIRDROP, "random");
+		}
 		else if (name == "BtnGiveXp")
 		{
 			Send(OS_AdminAction.GIVE_XP, EditText(m_EditReason));

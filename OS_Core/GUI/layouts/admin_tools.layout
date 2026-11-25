@@ -512,6 +512,30 @@ FrameWidgetClass OS_AdminToolsMenu {
      text "Smazat base"
      font "gui/fonts/metron"
     }
+    ButtonWidgetClass BtnAirdropHere {
+     color 0.25 0.22 0.18 1
+     position 440 512
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Airdrop u cile"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnAirdropRandom {
+     color 0.25 0.22 0.18 1
+     position 645 512
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Airdrop nahodne"
+     font "gui/fonts/metron"
+    }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
      position 20 556

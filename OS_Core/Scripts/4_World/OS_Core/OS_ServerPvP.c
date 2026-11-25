@@ -277,6 +277,15 @@ class OS_ServerPvP
 		rpc.Write(baseX);
 		rpc.Write(baseZ);
 		rpc.Write(baseR);
+
+		array<string> dropNames = new array<string>;
+		array<float> dropX = new array<float>;
+		array<float> dropZ = new array<float>;
+		if (OS_Server.Get() && OS_Server.Get().m_Airdrops)
+			OS_Server.Get().m_Airdrops.FillMap(dropNames, dropX, dropZ);
+		rpc.Write(dropNames);
+		rpc.Write(dropX);
+		rpc.Write(dropZ);
 		rpc.Send(null, OS_RPC_ZONES, true, identity);
 	}
 

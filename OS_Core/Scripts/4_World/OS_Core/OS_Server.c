@@ -14,6 +14,8 @@ class OS_Server
 	ref OS_ServerSkills m_Skills;
 	ref OS_ServerHud m_Hud;
 	ref OS_ServerSleep m_Sleep;
+	ref OS_ServerAirdrops m_Airdrops;
+	protected int m_PlayerCount;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -65,6 +67,7 @@ class OS_Server
 		m_Skills = new OS_ServerSkills(m_Payments, currency);
 		m_Hud = new OS_ServerHud();
 		m_Sleep = new OS_ServerSleep();
+		m_Airdrops = new OS_ServerAirdrops();
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -143,6 +146,9 @@ class OS_Server
 
 	void OnUpdate(float timeslice)
 	{
+		// airdropy padají plynule - každý snímek
+		m_Airdrops.OnUpdate(timeslice, m_PlayerCount);
+
 		m_TickTimer += timeslice;
 		if (m_TickTimer < TICK_SECONDS)
 			return;
@@ -152,6 +158,7 @@ class OS_Server
 
 		array<Man> players = new array<Man>;
 		g_Game.GetPlayers(players);
+		m_PlayerCount = players.Count();
 
 		m_Spawns.OnTick();
 		m_SafeZones.OnTick(players, delta);

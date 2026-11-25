@@ -450,6 +450,26 @@ class OS_ServerAdmin
 				Log(admin, "smazal kod zamku majitele " + codeLock.OS_GetOwnerId());
 			}
 		}
+		else if (action == OS_AdminAction.AIRDROP)
+		{
+			if (!OS_Server.Get() || !OS_Server.Get().m_Airdrops)
+				return;
+			bool dropped;
+			if (arg == "here")
+			{
+				vector pos = target.GetPosition();
+				dropped = OS_Server.Get().m_Airdrops.DropAt(OS_T("Admin"), pos[0], pos[2]);
+			}
+			else
+			{
+				dropped = OS_Server.Get().m_Airdrops.DropRandom();
+			}
+			if (dropped)
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Airdrop shozen."));
+			else
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Airdrop se nepodarilo shodit (viz log)."));
+			Log(admin, "airdrop " + arg);
+		}
 		else if (action == OS_AdminAction.GIVE_XP)
 		{
 			int xp = arg.Trim().ToInt();

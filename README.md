@@ -72,6 +72,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
+| Airdropy | Každých ~45 min spadne na padáku bedna s lootem (vojenský / zdravotnický / zásoby) na náhodné místo, kouř, stráže, oznámení v chatu a značka na mapě; admin může shodit ručně | `Airdrops.json` |
 | Hlasový chat | Vanilla hlas + **skupinová vysílačka** (každá skupina má svůj kanál, vysílačky se naladí samy) a v HUDu kdo právě mluví | `Groups.json`, `Hud.json` |
 | Únava, spánek a emoce | Únava roste časem a během (menší výdrž, při vyčerpání ubývá zdraví); spánek přes menu **L** – postava si lehne, obrazovka ztmavne, ve stanu nebo v base rychleji; menu 21 emocí s oznámením v okolí; animace u vaření, farmy, bankomatu, obchodu, base a skupiny | `Sleep.json` |
 | HUD | Panel v rohu obrazovky: zdraví, krev, jídlo, voda, výdrž, teplo, zóna (bezpečná / PvP / PvE) a odpočet PvP, base, spoluhráči se vzdáleností, souřadnice, směr, čas, počet hráčů; klávesa **H** skryje | `Hud.json` |
@@ -152,6 +153,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Skills.json     Skills/<SteamID>.json                                     dovednosti, úrovně hráčů
 ├── Hud.json                                                                  HUD v rohu obrazovky
 ├── Sleep.json      SleepData.json                                            únava a spánek, emoce
+├── Airdrops.json                                                             airdropy, místa, loot
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -508,6 +510,19 @@ přidej jejich classname a díly).
   Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
 - Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
 
+**Airdropy** (`Airdrops.json`)
+- Každých `IntervalMinutes` (45 min, náhodně ±25 %, jen když je online aspoň `MinPlayers`) spadne bedna
+  (`ContainerClass`, výchozí `SeaChest`) na náhodné místo z `Locations` (náhodně v okruhu `Radius`).
+  Padá pomalu z výšky `DropHeight` (150 m) rychlostí `FallSpeed` (6 m/s), jako na padáku.
+- Při shození oznámení v chatu (`AnnounceInChat`) s názvem místa a čtvercem mapy, na mapě oranžová značka
+  „Airdrop“ (`ShowOnMap`). Po dopadu červený kouř (`SmokeClass`) a `GuardCount` stráží – vojenští nakažení
+  (`GuardClasses`).
+- **Loot** (`LootTables`): náhodně jedna sada podle `Weight` – výchozí *Vojenský* (zbraň s optikou, zásobníky,
+  munice, vesta, helma, granáty, noktovizor), *Zdravotnický*, *Zásoby*. Položka:
+  `{ "Items": "M4A1|AKM", "Chance": 1, "Count": 1, "Attachments": ["ACOGOptic"] }` (`|` = náhodně jedno).
+- Po `LifetimeMinutes` (40 min) od dopadu bedna zmizí i se zbylým lootem.
+- Admin nástroje: *Airdrop u cíle*, *Airdrop náhodně*.
+
 **Hlasový chat a skupinová vysílačka**
 - Hlas přenáší **vanilla hlasový chat** DayZ (mluvení v okolí, šepot / normálně / křik a vysílačky) – vlastní
   zvukový kanál mód vytvořit nemůže, staví nad vanillou:
@@ -734,6 +749,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
+- **Airdropy:** bedna na padáku s lootem, kouř, stráže, oznámení a mapa, ruční shození adminem.
 - **Hlasový chat:** skupinová vysílačka (vlastní kanál skupiny, automatické naladění) a v HUDu kdo právě mluví.
 - **Únava, spánek a emoce:** únava v HUDu, spaní ve stanu / base, menu emocí (L), animace u akcí módu.
 - **HUD:** stav hráče, nemoci s radou, čím léčit, působící léky, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).

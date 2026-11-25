@@ -229,6 +229,12 @@ modded class MapMenu
 			basePos[1] = g_Game.SurfaceY(basePos[0], basePos[2]);
 			m_MapWidgetInstance.AddUserMark(basePos, OS_ClientZones.BaseNames[bm], OS_ClientZones.BaseColor, "\\DZ\\gear\\navigation\\data\\map_camp_ca.paa");
 		}
+		for (int dm = 0; dm < OS_ClientZones.DropNames.Count(); dm++)
+		{
+			vector dropPos = Vector(OS_ClientZones.DropX[dm], 0, OS_ClientZones.DropZ[dm]);
+			dropPos[1] = g_Game.SurfaceY(dropPos[0], dropPos[2]);
+			m_MapWidgetInstance.AddUserMark(dropPos, OS_ClientZones.DropNames[dm], ARGB(255, 255, 120, 30), "\\DZ\\gear\\navigation\\data\\map_tsign_ca.paa");
+		}
 		m_OS_HasMarkers = count > 0 || garage || farm || zones > 0;
 	}
 
