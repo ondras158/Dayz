@@ -37,6 +37,10 @@ modded class MissionGameplay
 		if (adminInput && adminInput.LocalPress())
 			OS_Client.Get().RequestAdmin();
 
+		UAInput freecamInput = GetUApi().GetInputByName("UAOSFreecam");
+		if (freecamInput && freecamInput.LocalPress() && OS_ClientAdmin.IsAdmin && OS_Client.Get())
+			OS_Client.Get().GetFreecam().Toggle();
+
 		UAInput mapInput = GetUApi().GetInputByName("UAOSMap");
 		if (mapInput && mapInput.LocalPress() && OS_ClientZones.MapWithoutItem)
 			OS_OpenMap();

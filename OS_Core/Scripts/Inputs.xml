@@ -10,6 +10,7 @@
 			<input name="UAOSPlaceConfirm" loc="Ulozit misto vozidla (OS)" />
 			<input name="UAOSPlaceCancel" loc="Zrusit nastaveni mista (OS)" />
 			<input name="UAOSMap" loc="Mapa (OS)" />
+			<input name="UAOSFreecam" loc="Admin freecam (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
@@ -20,6 +21,7 @@
 			<input name="UAOSPlaceConfirm" />
 			<input name="UAOSPlaceCancel" />
 			<input name="UAOSMap" />
+			<input name="UAOSFreecam" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -46,6 +48,9 @@
 		</input>
 		<input name="UAOSMap">
 			<btn name="kM" />
+		</input>
+		<input name="UAOSFreecam">
+			<btn name="kEnd" />
 		</input>
 	</preset>
 </modded_inputs>

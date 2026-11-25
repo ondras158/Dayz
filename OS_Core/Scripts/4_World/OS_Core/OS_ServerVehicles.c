@@ -307,6 +307,52 @@ class OS_ServerVehicles
 		return best;
 	}
 
+	// ------------------------------------------------------------ admin nástroje
+
+	//! vozidlo pro admina: díly z nabídky (pokud ho Vehicles.json zná) a plné nádrže
+	Transport AdminSpawn(string type, vector pos, float yaw)
+	{
+		Object obj = g_Game.CreateObjectEx(type, pos, ECE_PLACE_ON_SURFACE | ECE_INITAI);
+		Transport vehicle = Transport.Cast(obj);
+		if (!vehicle)
+		{
+			if (obj)
+				g_Game.ObjectDelete(obj);
+			return null;
+		}
+		vehicle.SetOrientation(Vector(yaw, 0, 0));
+
+		OS_VehicleOffer offer = FindOffer(type);
+		if (offer)
+		{
+			foreach (string part : offer.Parts)
+			{
+				vehicle.GetInventory().CreateInInventory(part);
+			}
+		}
+		FillAll(vehicle);
+		return vehicle;
+	}
+
+	//! oprava všech částí vozidla a doplnění kapalin
+	void AdminRepair(Transport car)
+	{
+		car.SetHealthMax("", "");
+		TStringArray zones = new TStringArray;
+		car.GetDamageZones(zones);
+		foreach (string zone : zones)
+		{
+			car.SetHealthMax(zone, "");
+		}
+		for (int i = 0; i < car.GetInventory().AttachmentCount(); i++)
+		{
+			EntityAI att = car.GetInventory().GetAttachmentFromIndex(i);
+			if (att)
+				att.SetHealthMax("", "");
+		}
+		FillAll(car);
+	}
+
 	protected OS_VehicleOffer FindOffer(string className)
 	{
 		foreach (OS_VehicleOffer offer : m_Cfg.Offers)

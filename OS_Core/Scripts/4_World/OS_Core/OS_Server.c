@@ -110,6 +110,8 @@ class OS_Server
 			m_Vehicles.SendPersonalGarage(player);
 			m_Farms.SendData(player);   // poloha farmy pro mapu
 			m_PvP.SendZones(player.GetIdentity());   // PvP a bezpečné zóny na mapě
+			m_Admin.SendAdminFlag(player);           // admin: teleport z mapy, ESP, freecam
+			m_Admin.CheckBan(player);
 		}
 
 		// chvíli počkat, než klient dokončí načítání, jinak se zpráva ztratí

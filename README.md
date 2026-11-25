@@ -36,7 +36,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | Safe zóny | V zóně nejde zranit hráče, zombíci se mažou, hláška při vstupu/odchodu | `SafeZones.json` |
 | PvP zóny a mapa | Klávesa **M** otevře mapu i bez mapy v inventáři; PvP zóny (červeně) a safe zóny (zeleně) na mapě; PvP jen v PvP zónách | `PvP.json` |
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
-| Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze | `Admins.json` |
+| Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kick/ban | `Admins.json` |
 | Obchod | Klávesa **B** u obchodníka. **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu | `Trader.json` |
 | Autobazar / motorky / helikoptéry / lodě | Klávesa **B** v autocentru, na heliportu nebo v přístavu: koupě kompletního auta s plnou nádrží, postaví se na parkoviště | `Vehicles.json` |
 | Servis | Oprava (platí se podle poškození), tankování (za litr), doplnění chybějících dílů | `Vehicles.json` |
@@ -142,6 +142,23 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
   (např. `400 Letiste`) a klikni **PvP zóna zde** – zóna vznikne kolem tebe, uloží se do `PvP.json`
   a hráčům se hned ukáže na mapě. **Smazat PvP zónu** smaže tu nejbližší.
 - Bezpečná zóna má přednost (v ní je hráč nesmrtelný), skupiny bez friendly fire si neublíží ani v PvP zóně.
+
+**Admin nástroje (jako Community Online Tools)** – admin menu (Home) → **Nástroje (COT)**.
+Akce se týkají hráče vybraného v seznamu admin menu (bez výběru tebe). Vše ověřuje server podle `Admins.json`.
+- **Teleport z mapy:** otevři mapu (M) a **dvojklikni** – vybraný hráč (nebo ty) se tam přenese.
+- **Spawner:** hledání ve všech předmětech a vozidlech ve hře (vanilla i módy, podle názvu nebo classname),
+  *Do inventáře cíle* (max 20 ks), *Na zem k cíli* (max 50 ks), *Spawnout vozidlo* (před cíl, s díly
+  podle `Vehicles.json`, plné nádrže, bez majitele).
+- **Čas:** 6:00 / 12:00 / 18:00 / 0:00 nebo vlastní `hh:mm`. **Počasí:** jasno, zataženo, déšť, bouřka, mlha
+  (změna do 30 s, drží 30 minut, pak se počasí vrací k normálnímu vývoji).
+- **ESP:** jména a vzdálenost hráčů do 1500 m přes zdi (vidíš jen hráče v dosahu sítě serveru).
+- **Neviditelnost:** admin není vidět ostatním hráčům (zapni si k tomu i godmode).
+- **Freecam:** klávesa **End** (změna v Ovládání → OS Core) – WASD, myš, Q/E dolů/nahoru, Shift rychle.
+  **Shift + End** freecam vypne a teleportuje tě na místo kamery. Hra načítá okolí jen kolem postavy,
+  takže daleko od ní kamera neukáže hráče ani předměty.
+- **Vozidlo do 15 m od cíle:** opravit (vše včetně dílů a kapalin), zničit, smazat.
+- **Hráč:** *Vysvléknout* (odebere všechny věci), *Kick*, *Ban* (důvod z pole, Steam ID se uloží do
+  `Admins.json` → `BannedSteamIds`, zprávu změníš v `BanMessage`), *Unban* (Steam ID napiš do pole).
 
 **Spawn zóna** – body jsou `[x, 0, z]` (výška se dopočítá):
 ```json

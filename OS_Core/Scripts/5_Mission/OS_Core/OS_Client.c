@@ -34,10 +34,38 @@ class OS_Client
 	}
 
 	//! každý snímek z MissionGameplay
+	protected ref OS_AdminESP m_AdminEsp = new OS_AdminESP();
+	protected ref OS_AdminFreecam m_Freecam = new OS_AdminFreecam();
+	protected ref OS_AdminToolsMenu m_AdminToolsMenu;
+	protected ref OS_AdminSpawnMenu m_AdminSpawnMenu;
+
 	void OnFrame()
 	{
 		m_NameTags.Update();
 		m_Placer.Update();
+		m_AdminEsp.Update();
+		m_Freecam.Update(g_Game.GetDeltaT());
+	}
+
+	OS_AdminFreecam GetFreecam()
+	{
+		return m_Freecam;
+	}
+
+	void OpenAdminTools()
+	{
+		if (!OS_ClientAdmin.IsAdmin)
+			return;
+		m_AdminToolsMenu = new OS_AdminToolsMenu();
+		Show(m_AdminToolsMenu);
+	}
+
+	void OpenAdminSpawner()
+	{
+		if (!OS_ClientAdmin.IsAdmin)
+			return;
+		m_AdminSpawnMenu = new OS_AdminSpawnMenu();
+		Show(m_AdminSpawnMenu);
 	}
 
 	//! nástroj na nastavení místa spawnu vozidla
@@ -136,6 +164,9 @@ class OS_Client
 				break;
 			case OS_RPC_ZONES:
 				OS_ClientZones.Read(ctx);
+				break;
+			case OS_RPC_ADMIN_FLAG:
+				OS_ClientAdmin.OnFlag(ctx);
 				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);

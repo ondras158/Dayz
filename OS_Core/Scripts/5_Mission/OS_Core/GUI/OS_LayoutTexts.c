@@ -32,6 +32,7 @@ class OS_LayoutTexts
 			Set(root, "BtnUnlockCar", "Odemknout nejblizsi auto");
 			Set(root, "BtnPvpAdd", "PvP zona zde");
 			Set(root, "BtnPvpRemove", "Smazat PvP zonu");
+			Set(root, "BtnTools", "Nastroje (COT)");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "trader_menu.layout")
@@ -98,6 +99,52 @@ class OS_LayoutTexts
 			Set(root, "BtnCreate", "Zalozit skupinu");
 			Set(root, "BtnAccept", "Prijmout");
 			Set(root, "BtnDecline", "Odmitnout");
+			Set(root, "BtnClose", "Zavrit");
+		}
+		if (layoutName == "admin_tools.layout")
+		{
+			Set(root, "Title", "Admin nastroje");
+			Set(root, "Target", "Cil:");
+			Set(root, "PlayerLabel", "Hrac (cil) a admin");
+			Set(root, "BtnStrip", "Vysvleknout");
+			Set(root, "BtnInvis", "Neviditelnost");
+			Set(root, "BtnEsp", "ESP");
+			Set(root, "BtnFreecam", "Freecam");
+			Set(root, "ReasonLabel", "Duvod (kick/ban) nebo Steam ID (unban)");
+			Set(root, "BtnKick", "Kick");
+			Set(root, "BtnBan", "Ban");
+			Set(root, "BtnUnban", "Unban");
+			Set(root, "CarLabel", "Vozidlo (do 15 m od cile)");
+			Set(root, "BtnCarRepair", "Opravit");
+			Set(root, "BtnCarDestroy", "Znicit");
+			Set(root, "BtnCarDelete", "Smazat");
+			Set(root, "BtnSpawner", "Spawner predmetu a vozidel");
+			Set(root, "TimeLabel", "Cas");
+			Set(root, "BtnMorning", "6:00");
+			Set(root, "BtnNoon", "12:00");
+			Set(root, "BtnEvening", "18:00");
+			Set(root, "BtnNight", "0:00");
+			Set(root, "BtnSetTime", "Nastavit cas");
+			Set(root, "WeatherLabel", "Pocasi");
+			Set(root, "BtnClear", "Jasno");
+			Set(root, "BtnCloudy", "Zatazeno");
+			Set(root, "BtnRain", "Dest");
+			Set(root, "BtnStorm", "Bourka");
+			Set(root, "BtnFog", "Mlha");
+			Set(root, "Hint1", "Mapa (M): dvojklik = teleport cile");
+			Set(root, "Hint2", "Freecam: klavesa End, Shift+End = teleport");
+			Set(root, "Hint3", "WASD, mys, Q/E dolu/nahoru, Shift rychle");
+			Set(root, "BtnClose", "Zavrit");
+		}
+		if (layoutName == "admin_spawn.layout")
+		{
+			Set(root, "Title", "Spawner");
+			Set(root, "Target", "Cil:");
+			Set(root, "BtnSearch", "Hledat");
+			Set(root, "CountLabel", "Pocet");
+			Set(root, "BtnToInv", "Do inventare cile");
+			Set(root, "BtnToGround", "Na zem k cili");
+			Set(root, "BtnVehicle", "Spawnout vozidlo");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "farm_menu.layout")

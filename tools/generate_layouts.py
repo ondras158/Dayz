@@ -126,7 +126,8 @@ LAYOUTS = {
         button("BtnUnlockCar", 380, 460, 360, 38, "Odemknout nejblizsi auto"),
         button("BtnPvpAdd", 380, 506, 175, 38, "PvP zona zde"),
         button("BtnPvpRemove", 565, 506, 175, 38, "Smazat PvP zonu"),
-        button("BtnClose", 380, 556, 360, 38, "Zavrit"),
+        button("BtnTools", 380, 556, 175, 38, "Nastroje (COT)"),
+        button("BtnClose", 565, 556, 175, 38, "Zavrit"),
         text("Status", 20, 606, 720, 26, "", align="center"),
     ]),
     "trader_menu.layout": layout("OS_TraderMenu", 960, 690, [
@@ -319,6 +320,59 @@ LAYOUTS["mapzones.layout"] = """CanvasWidgetClass OS_MapZones {
  vexactsize 0
 }
 """
+
+LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
+    text("Title", 20, 12, 820, 36, "Admin nastroje", "gui/fonts/metron28", "center"),
+    text("Target", 20, 52, 820, 26, "Cil:", align="center"),
+    text("PlayerLabel", 20, 84, 400, 24, "Hrac (cil) a admin"),
+    button("BtnStrip", 20, 110, 195, 38, "Vysvleknout"),
+    button("BtnInvis", 225, 110, 195, 38, "Neviditelnost"),
+    button("BtnEsp", 20, 156, 195, 38, "ESP"),
+    button("BtnFreecam", 225, 156, 195, 38, "Freecam"),
+    text("ReasonLabel", 20, 202, 400, 24, "Duvod (kick/ban) nebo Steam ID (unban)"),
+    edit("EditReason", 20, 228, 400, 34),
+    button("BtnKick", 20, 270, 130, 38, "Kick"),
+    button("BtnBan", 155, 270, 130, 38, "Ban"),
+    button("BtnUnban", 290, 270, 130, 38, "Unban"),
+    text("CarLabel", 20, 320, 400, 24, "Vozidlo (do 15 m od cile)"),
+    button("BtnCarRepair", 20, 346, 130, 38, "Opravit"),
+    button("BtnCarDestroy", 155, 346, 130, 38, "Znicit"),
+    button("BtnCarDelete", 290, 346, 130, 38, "Smazat"),
+    button("BtnSpawner", 20, 400, 400, 42, "Spawner predmetu a vozidel"),
+    text("TimeLabel", 440, 84, 400, 24, "Cas"),
+    button("BtnMorning", 440, 110, 94, 38, "6:00"),
+    button("BtnNoon", 542, 110, 94, 38, "12:00"),
+    button("BtnEvening", 644, 110, 94, 38, "18:00"),
+    button("BtnNight", 746, 110, 94, 38, "0:00"),
+    edit("EditTime", 440, 156, 195, 34),
+    button("BtnSetTime", 645, 156, 195, 38, "Nastavit cas"),
+    text("WeatherLabel", 440, 210, 400, 24, "Pocasi"),
+    button("BtnClear", 440, 236, 195, 38, "Jasno"),
+    button("BtnCloudy", 645, 236, 195, 38, "Zatazeno"),
+    button("BtnRain", 440, 282, 195, 38, "Dest"),
+    button("BtnStorm", 645, 282, 195, 38, "Bourka"),
+    button("BtnFog", 440, 328, 400, 38, "Mlha"),
+    text("Hint1", 440, 380, 400, 24, "Mapa (M): dvojklik = teleport cile"),
+    text("Hint2", 440, 406, 400, 24, "Freecam: klavesa End, Shift+End = teleport"),
+    text("Hint3", 440, 432, 400, 24, "WASD, mys, Q/E dolu/nahoru, Shift rychle"),
+    button("BtnClose", 20, 520, 820, 38, "Zavrit"),
+    text("Status", 20, 566, 820, 26, "", align="center"),
+])
+
+LAYOUTS["admin_spawn.layout"] = layout("OS_AdminSpawnMenu", 760, 640, [
+    text("Title", 20, 12, 720, 36, "Spawner", "gui/fonts/metron28", "center"),
+    text("Target", 20, 50, 720, 24, "Cil:", align="center"),
+    edit("EditSearch", 20, 80, 560, 34),
+    button("BtnSearch", 590, 78, 150, 38, "Hledat"),
+    listbox("ResultList", 20, 124, 720, 330),
+    text("CountLabel", 20, 464, 100, 34, "Pocet"),
+    edit("EditCount", 120, 464, 120, 34),
+    button("BtnToInv", 20, 508, 230, 38, "Do inventare cile"),
+    button("BtnToGround", 260, 508, 230, 38, "Na zem k cili"),
+    button("BtnVehicle", 500, 508, 240, 38, "Spawnout vozidlo"),
+    button("BtnClose", 20, 554, 720, 38, "Zavrit"),
+    text("Status", 20, 600, 720, 26, "", align="center"),
+])
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),

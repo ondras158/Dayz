@@ -16,6 +16,7 @@ class OS_AdminMenu : OS_MenuBase
 	protected ButtonWidget m_BtnTpCoords;
 	protected ButtonWidget m_BtnUnlockCar;
 	protected ButtonWidget m_BtnPvpAdd;
+	protected ButtonWidget m_BtnTools;
 	protected ButtonWidget m_BtnPvpRemove;
 	protected ButtonWidget m_BtnRefresh;
 	protected ButtonWidget m_BtnClose;
@@ -53,6 +54,7 @@ class OS_AdminMenu : OS_MenuBase
 		m_BtnTpCoords = FindButton("BtnTpCoords");
 		m_BtnUnlockCar = FindButton("BtnUnlockCar");
 		m_BtnPvpAdd = FindButton("BtnPvpAdd");
+		m_BtnTools = FindButton("BtnTools");
 		m_BtnPvpRemove = FindButton("BtnPvpRemove");
 		m_BtnRefresh = FindButton("BtnRefresh");
 		m_BtnClose = FindButton("BtnClose");
@@ -118,6 +120,11 @@ class OS_AdminMenu : OS_MenuBase
 				name = OS_T("ja (nikdo neni vybran)");
 			m_Target.SetText(OS_F("Cil: %1", name));
 		}
+
+		// výběr platí i pro admin nástroje, spawner a teleport z mapy
+		OS_ClientAdmin.IsAdmin = true;
+		OS_ClientAdmin.SelectedId = SelectedId();
+		OS_ClientAdmin.SelectedName = SelectedName();
 	}
 
 	protected void SendAction(int action, string targetId, string arg)
@@ -186,6 +193,12 @@ class OS_AdminMenu : OS_MenuBase
 		if (w == m_BtnPvpAdd && m_EditArg)
 		{
 			SendAction(OS_AdminAction.PVP_ADD, "", m_EditArg.GetText());
+			return true;
+		}
+		if (w == m_BtnTools)
+		{
+			if (OS_Client.Get())
+				OS_Client.Get().OpenAdminTools();
 			return true;
 		}
 		if (w == m_BtnPvpRemove)

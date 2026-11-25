@@ -8,6 +8,33 @@ modded class PlayerBase
 	bool m_OS_InPvPZone;
 	float m_OS_PvPLeftAt;      // čas odchodu z PvP zóny (běží časovač), 0 = neběží
 
+	// neviditelnost admina (synchronizuje se všem klientům)
+	protected bool m_OS_Invisible;
+
+	override void Init()
+	{
+		super.Init();
+		RegisterNetSyncVariableBool("m_OS_Invisible");
+	}
+
+	override void OnVariablesSynchronized()
+	{
+		super.OnVariablesSynchronized();
+		SetInvisible(m_OS_Invisible);
+	}
+
+	void OS_SetInvisible(bool state)
+	{
+		m_OS_Invisible = state;
+		SetInvisible(state);
+		SetSynchDirty();
+	}
+
+	bool OS_IsInvisible()
+	{
+		return m_OS_Invisible;
+	}
+
 	//! Hráč je nesmrtelný, pokud platí aspoň jeden důvod
 	void OS_RefreshDamage()
 	{

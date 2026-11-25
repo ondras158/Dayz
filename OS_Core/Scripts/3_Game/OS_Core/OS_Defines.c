@@ -50,6 +50,7 @@ const int OS_RPC_FARM_ACTION    = 784512072; // klient -> server: akce na farmě
 const int OS_RPC_FIRST = 784512001;
 const int OS_RPC_LANG          = 784512080; // server -> klient: jazyk a upravené texty
 const int OS_RPC_ZONES         = 784512081; // server -> klient: PvP a bezpečné zóny pro mapu
+const int OS_RPC_ADMIN_FLAG    = 784512082; // server -> klient: hráč je admin (teleport z mapy, ESP, freecam)
 
 const int OS_RPC_LAST  = 784512099;
 
@@ -65,7 +66,20 @@ enum OS_AdminAction
 	TELEPORT_COORDS,
 	UNLOCK_CAR,
 	PVP_ADD,        // PvP zóna kolem admina (arg: poloměr [název])
-	PVP_REMOVE      // smazat nejbližší PvP zónu
+	PVP_REMOVE,     // smazat nejbližší PvP zónu
+	TELEPORT_MAP,   // teleport cíle na "x z" (dvojklik do mapy)
+	SET_TIME,       // arg "hh:mm"
+	SET_WEATHER,    // arg: clear / cloudy / rain / storm / fog
+	SPAWN_GROUND,   // arg "classname počet" - na zem před cíl
+	SPAWN_VEHICLE,  // arg classname - vozidlo před cíl, s díly a palivem
+	TOGGLE_INVIS,   // neviditelnost admina
+	VEHICLE_REPAIR, // nejbližší vozidlo (15 m od cíle)
+	VEHICLE_DESTROY,
+	VEHICLE_DELETE,
+	STRIP,          // odebrat cíli všechny věci
+	KICK,           // arg = důvod
+	BAN,            // arg = důvod
+	UNBAN           // arg = Steam64 ID
 }
 
 enum OS_VehicleAction

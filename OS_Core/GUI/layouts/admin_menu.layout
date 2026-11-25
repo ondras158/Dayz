@@ -287,10 +287,22 @@ FrameWidgetClass OS_AdminMenu {
      text "Smazat PvP zonu"
      font "gui/fonts/metron"
     }
-    ButtonWidgetClass BtnClose {
+    ButtonWidgetClass BtnTools {
      color 0.25 0.22 0.18 1
      position 380 556
-     size 360 38
+     size 175 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Nastroje (COT)"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 565 556
+     size 175 38
      hexactpos 1
      vexactpos 1
      hexactsize 1

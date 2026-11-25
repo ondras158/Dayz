@@ -1,0 +1,196 @@
+FrameWidgetClass OS_AdminSpawnMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 760 640
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 720 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Spawner"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass Target {
+     position 20 50
+     size 720 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Cil:"
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    PanelWidgetClass EditSearchBg {
+     color 0 0 0 0.7
+     position 20 80
+     size 560 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditSearch {
+     position 26 82
+     size 548 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSearch {
+     color 0.25 0.22 0.18 1
+     position 590 78
+     size 150 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Hledat"
+     font "gui/fonts/metron"
+    }
+    PanelWidgetClass ResultListBg {
+     color 0 0 0 0.6
+     position 20 124
+     size 720 330
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass ResultList {
+     position 24 128
+     size 712 322
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass CountLabel {
+     position 20 464
+     size 100 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Pocet"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditCountBg {
+     color 0 0 0 0.7
+     position 120 464
+     size 120 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditCount {
+     position 126 466
+     size 108 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnToInv {
+     color 0.25 0.22 0.18 1
+     position 20 508
+     size 230 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Do inventare cile"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnToGround {
+     color 0.25 0.22 0.18 1
+     position 260 508
+     size 230 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Na zem k cili"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnVehicle {
+     color 0.25 0.22 0.18 1
+     position 500 508
+     size 240 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Spawnout vozidlo"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 554
+     size 720 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 600
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

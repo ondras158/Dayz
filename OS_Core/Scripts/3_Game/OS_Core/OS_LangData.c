@@ -16,24 +16,28 @@ class OS_LangData
 			Fill_cs_0(m);
 			Fill_cs_1(m);
 			Fill_cs_2(m);
+			Fill_cs_3(m);
 		}
 		if (lang == "en")
 		{
 			Fill_en_0(m);
 			Fill_en_1(m);
 			Fill_en_2(m);
+			Fill_en_3(m);
 		}
 		if (lang == "de")
 		{
 			Fill_de_0(m);
 			Fill_de_1(m);
 			Fill_de_2(m);
+			Fill_de_3(m);
 		}
 		if (lang == "pl")
 		{
 			Fill_pl_0(m);
 			Fill_pl_1(m);
 			Fill_pl_2(m);
+			Fill_pl_3(m);
 		}
 	}
 
@@ -81,6 +85,7 @@ class OS_LangData
 		m.Set("Opustil jsi bezpečnou zónu", "Opustil jsi bezpečnou zónu");
 		m.Set("Vítej na serveru!", "Vítej na serveru!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.");
+		m.Set("Jsi zabanovan na tomto serveru.", "Jsi zabanovan na tomto serveru.");
 		m.Set("Priklad - Farmar", "Priklad - Farmar");
 		m.Set("Slepice", "Slepice");
 		m.Set("Prase", "Prase");
@@ -128,6 +133,30 @@ class OS_LangData
 		m.Set("Zadne auto do 15 m.", "Zadne auto do 15 m.");
 		m.Set("Auto odemceno (majitel %1).", "Auto odemceno (majitel %1).");
 		m.Set("Zadej souradnice jako: X Z", "Zadej souradnice jako: X Z");
+		m.Set("Neviditelnost ZAPNUTA", "Neviditelnost ZAPNUTA");
+		m.Set("Neviditelnost VYPNUTA", "Neviditelnost VYPNUTA");
+		m.Set("Odebrany vsechny veci: %1", "Odebrany vsechny veci: %1");
+		m.Set("Odbanovan: %1", "Odbanovan: %1");
+		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Toto Steam ID neni zabanovane. Napis ho do pole.");
+		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Zadej cas jako hh:mm, napr. 12:00");
+		m.Set("Cas nastaven na %1:%2", "Cas nastaven na %1:%2");
+		m.Set("Jasno", "Jasno");
+		m.Set("Zatazeno", "Zatazeno");
+		m.Set("Dest", "Dest");
+		m.Set("Bourka", "Bourka");
+		m.Set("Mlha", "Mlha");
+		m.Set("Pocasi: %1 (zmena behem 30 s)", "Pocasi: %1 (zmena behem 30 s)");
+		m.Set("Na zemi: %1x %2", "Na zemi: %1x %2");
+		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Vozidlo %1 se nepodarilo vytvorit.");
+		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Vozidlo %1 je pripravene (bez majitele).");
+		m.Set("Opraveno: %1", "Opraveno: %1");
+		m.Set("Zniceno: %1", "Zniceno: %1");
+		m.Set("Smazano: %1", "Smazano: %1");
+		m.Set("Nejdriv vyber hrace v seznamu.", "Nejdriv vyber hrace v seznamu.");
+		m.Set("Zabanovan: %1 (%2)", "Zabanovan: %1 (%2)");
+		m.Set("Byl jsi vyhozen ze serveru.", "Byl jsi vyhozen ze serveru.");
+		m.Set("Vyhozen: %1", "Vyhozen: %1");
+		m.Set("%1 Duvod: %2", "%1 Duvod: %2");
 		m.Set("Bankomat", "Bankomat");
 		m.Set("Musis stat u bankomatu.", "Musis stat u bankomatu.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nemas u sebe zadnou hotovost.");
@@ -164,6 +193,10 @@ class OS_LangData
 		m.Set("%1: na farme je potreba postavit %2 (menu farmy, klavesa U).", "%1: na farme je potreba postavit %2 (menu farmy, klavesa U).");
 		m.Set("Maximum: %1 (%2).", "Maximum: %1 (%2).");
 		m.Set("%1 stoji %2 %3.", "%1 stoji %2 %3.");
+	}
+
+	protected static void Fill_cs_1(map<string, string> m)
+	{
 		m.Set("Koupeno: %1 (%2/%3)", "Koupeno: %1 (%2/%3)");
 		m.Set("krmiva", "krmiva");
 		m.Set("hnojiva", "hnojiva");
@@ -189,10 +222,6 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Pozvanka odeslana: %1");
 		m.Set("Pozvanka do skupiny", "Pozvanka do skupiny");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).");
-	}
-
-	protected static void Fill_cs_1(map<string, string> m)
-	{
 		m.Set("Nejdriv opust svou skupinu.", "Nejdriv opust svou skupinu.");
 		m.Set("Pozvanka uz neplati.", "Pozvanka uz neplati.");
 		m.Set("Skupina je mezitim plna.", "Skupina je mezitim plna.");
@@ -293,7 +322,16 @@ class OS_LangData
 		m.Set("Godmode: VYPNUTO", "Godmode: VYPNUTO");
 		m.Set("ja (nikdo neni vybran)", "ja (nikdo neni vybran)");
 		m.Set("Cil: %1", "Cil: %1");
-		m.Set("Nejdriv vyber hrace v seznamu.", "Nejdriv vyber hrace v seznamu.");
+		m.Set("ESP: ZAPNUTO", "ESP: ZAPNUTO");
+		m.Set("ESP: VYPNUTO", "ESP: VYPNUTO");
+		m.Set("Freecam: ZAPNUTO", "Freecam: ZAPNUTO");
+		m.Set("Freecam: VYPNUTO", "Freecam: VYPNUTO");
+		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Nejdriv vyber hrace v admin menu (Home).");
+		m.Set("Zadej aspon 2 znaky.", "Zadej aspon 2 znaky.");
+		m.Set("vozidlo", "vozidlo");
+		m.Set("Nalezeno: %1 (zobrazeno prvnich %2, upresni hledani)", "Nalezeno: %1 (zobrazeno prvnich %2, upresni hledani)");
+		m.Set("Nalezeno: %1", "Nalezeno: %1");
+		m.Set("Vyber predmet v seznamu.", "Vyber predmet v seznamu.");
 		m.Set("Hotovost u sebe: %1%2", "Hotovost u sebe: %1%2");
 		m.Set("Na uctu: %1%2", "Na uctu: %1%2");
 		m.Set("Poplatek za vklad: %1 %", "Poplatek za vklad: %1 %");
@@ -309,6 +347,10 @@ class OS_LangData
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
 		m.Set("Farmy jsou na serveru vypnute.", "Farmy jsou na serveru vypnute.");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
 		m.Set("Tvoje farma", "Tvoje farma");
 		m.Set("Farma spoluhrace ze skupiny", "Farma spoluhrace ze skupiny");
 		m.Set("Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.", "Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.");
@@ -343,10 +385,6 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Vyber hrace, ktereho chces pozvat.");
 		m.Set("Vyber misto spawnu", "Vyber misto spawnu");
 		m.Set("Spawnout zde", "Spawnout zde");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Zustat tady", "Zustat tady");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Hraci online");
@@ -365,6 +403,7 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Odemknout nejblizsi auto");
 		m.Set("PvP zona zde", "PvP zona zde");
 		m.Set("Smazat PvP zonu", "Smazat PvP zonu");
+		m.Set("Nastroje (COT)", "Nastroje (COT)");
 		m.Set("Zavrit", "Zavrit");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Hledat");
@@ -409,6 +448,31 @@ class OS_LangData
 		m.Set("Zalozit skupinu", "Zalozit skupinu");
 		m.Set("Prijmout", "Prijmout");
 		m.Set("Odmitnout", "Odmitnout");
+		m.Set("Admin nastroje", "Admin nastroje");
+		m.Set("Hrac (cil) a admin", "Hrac (cil) a admin");
+		m.Set("Vysvleknout", "Vysvleknout");
+		m.Set("Neviditelnost", "Neviditelnost");
+		m.Set("ESP", "ESP");
+		m.Set("Freecam", "Freecam");
+		m.Set("Duvod (kick/ban) nebo Steam ID (unban)", "Duvod (kick/ban) nebo Steam ID (unban)");
+		m.Set("Kick", "Kick");
+		m.Set("Ban", "Ban");
+		m.Set("Unban", "Unban");
+		m.Set("Vozidlo (do 15 m od cile)", "Vozidlo (do 15 m od cile)");
+		m.Set("Znicit", "Znicit");
+		m.Set("Smazat", "Smazat");
+		m.Set("Spawner predmetu a vozidel", "Spawner predmetu a vozidel");
+		m.Set("Cas", "Cas");
+		m.Set("Nastavit cas", "Nastavit cas");
+		m.Set("Pocasi", "Pocasi");
+		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): dvojklik = teleport cile");
+		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klavesa End, Shift+End = teleport");
+		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mys, Q/E dolu/nahoru, Shift rychle");
+		m.Set("Spawner", "Spawner");
+		m.Set("Pocet", "Pocet");
+		m.Set("Do inventare cile", "Do inventare cile");
+		m.Set("Na zem k cili", "Na zem k cili");
+		m.Set("Spawnout vozidlo", "Spawnout vozidlo");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -435,10 +499,12 @@ class OS_LangData
 		m.Set("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.", "Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.");
 		m.Set("%1   [koupit %2 / vykup %3]", "%1   [koupit %2 / vykup %3]");
 		m.Set("%1  (SKRYTO)", "%1  (SKRYTO)");
-		m.Set("Nalezeno: %1", "Nalezeno: %1");
 		m.Set("Hotovost: %1  Ucet: %2 %3", "Hotovost: %1  Ucet: %2 %3");
 		m.Set("%1   (az %2)", "%1   (az %2)");
-		m.Set("Zadej aspon 2 znaky.", "Zadej aspon 2 znaky.");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Vyber predmet, ktery chces koupit.", "Vyber predmet, ktery chces koupit.");
 		m.Set("Tento predmet se neprodava.", "Tento predmet se neprodava.");
 		m.Set("Koupeno: %1", "Koupeno: %1");
@@ -518,6 +584,7 @@ class OS_LangData
 		m.Set("Opustil jsi bezpečnou zónu", "You left the safe zone");
 		m.Set("Vítej na serveru!", "Welcome to the server!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Key B = shop (at a trader). You can find the rules on our Discord.");
+		m.Set("Jsi zabanovan na tomto serveru.", "You are banned on this server.");
 		m.Set("Priklad - Farmar", "Example - Farmer");
 		m.Set("Slepice", "Chicken");
 		m.Set("Prase", "Pig");
@@ -565,6 +632,30 @@ class OS_LangData
 		m.Set("Zadne auto do 15 m.", "No car within 15 m.");
 		m.Set("Auto odemceno (majitel %1).", "Car unlocked (owner %1).");
 		m.Set("Zadej souradnice jako: X Z", "Enter coordinates as: X Z");
+		m.Set("Neviditelnost ZAPNUTA", "Invisibility ON");
+		m.Set("Neviditelnost VYPNUTA", "Invisibility OFF");
+		m.Set("Odebrany vsechny veci: %1", "All items removed: %1");
+		m.Set("Odbanovan: %1", "Unbanned: %1");
+		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "This Steam ID is not banned. Type it into the field.");
+		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Enter the time as hh:mm, e.g. 12:00");
+		m.Set("Cas nastaven na %1:%2", "Time set to %1:%2");
+		m.Set("Jasno", "Clear");
+		m.Set("Zatazeno", "Cloudy");
+		m.Set("Dest", "Rain");
+		m.Set("Bourka", "Storm");
+		m.Set("Mlha", "Fog");
+		m.Set("Pocasi: %1 (zmena behem 30 s)", "Weather: %1 (changes within 30 s)");
+		m.Set("Na zemi: %1x %2", "On the ground: %1x %2");
+		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Vehicle %1 could not be created.");
+		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Vehicle %1 is ready (no owner).");
+		m.Set("Opraveno: %1", "Repaired: %1");
+		m.Set("Zniceno: %1", "Destroyed: %1");
+		m.Set("Smazano: %1", "Deleted: %1");
+		m.Set("Nejdriv vyber hrace v seznamu.", "Select a player in the list first.");
+		m.Set("Zabanovan: %1 (%2)", "Banned: %1 (%2)");
+		m.Set("Byl jsi vyhozen ze serveru.", "You were kicked from the server.");
+		m.Set("Vyhozen: %1", "Kicked: %1");
+		m.Set("%1 Duvod: %2", "%1 Reason: %2");
 		m.Set("Bankomat", "ATM");
 		m.Set("Musis stat u bankomatu.", "You must stand at an ATM.");
 		m.Set("Nemas u sebe zadnou hotovost.", "You have no cash on you.");
@@ -601,6 +692,10 @@ class OS_LangData
 		m.Set("%1: na farme je potreba postavit %2 (menu farmy, klavesa U).", "%1: you need to build %2 on the farm (farm menu, key U).");
 		m.Set("Maximum: %1 (%2).", "Maximum: %1 (%2).");
 		m.Set("%1 stoji %2 %3.", "%1 costs %2 %3.");
+	}
+
+	protected static void Fill_en_1(map<string, string> m)
+	{
 		m.Set("Koupeno: %1 (%2/%3)", "Bought: %1 (%2/%3)");
 		m.Set("krmiva", "feed");
 		m.Set("hnojiva", "fertilizer");
@@ -626,10 +721,6 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Invite sent: %1");
 		m.Set("Pozvanka do skupiny", "Group invite");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 invites you to group %2. Open the group menu (key J).");
-	}
-
-	protected static void Fill_en_1(map<string, string> m)
-	{
 		m.Set("Nejdriv opust svou skupinu.", "Leave your group first.");
 		m.Set("Pozvanka uz neplati.", "The invite is no longer valid.");
 		m.Set("Skupina je mezitim plna.", "The group has filled up in the meantime.");
@@ -730,7 +821,16 @@ class OS_LangData
 		m.Set("Godmode: VYPNUTO", "Godmode: OFF");
 		m.Set("ja (nikdo neni vybran)", "me (nobody selected)");
 		m.Set("Cil: %1", "Target: %1");
-		m.Set("Nejdriv vyber hrace v seznamu.", "Select a player in the list first.");
+		m.Set("ESP: ZAPNUTO", "ESP: ON");
+		m.Set("ESP: VYPNUTO", "ESP: OFF");
+		m.Set("Freecam: ZAPNUTO", "Freecam: ON");
+		m.Set("Freecam: VYPNUTO", "Freecam: OFF");
+		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Select a player in the admin menu (Home) first.");
+		m.Set("Zadej aspon 2 znaky.", "Enter at least 2 characters.");
+		m.Set("vozidlo", "vehicle");
+		m.Set("Nalezeno: %1 (zobrazeno prvnich %2, upresni hledani)", "Found: %1 (showing the first %2, refine the search)");
+		m.Set("Nalezeno: %1", "Found: %1");
+		m.Set("Vyber predmet v seznamu.", "Select an item in the list.");
 		m.Set("Hotovost u sebe: %1%2", "Cash on you: %1%2");
 		m.Set("Na uctu: %1%2", "In account: %1%2");
 		m.Set("Poplatek za vklad: %1 %", "Deposit fee: %1 %");
@@ -746,6 +846,10 @@ class OS_LangData
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Bought animals and feed are delivered to your farm.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Build a farm first (key U), then come back here.");
 		m.Set("Farmy jsou na serveru vypnute.", "Farms are disabled on the server.");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
 		m.Set("Tvoje farma", "Your farm");
 		m.Set("Farma spoluhrace ze skupiny", "A group mate's farm");
 		m.Set("Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.", "Buy animals at the Farmer. They produce even when you're offline - as long as they have feed.");
@@ -780,10 +884,6 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Select the player you want to invite.");
 		m.Set("Vyber misto spawnu", "Choose a spawn location");
 		m.Set("Spawnout zde", "Spawn here");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Zustat tady", "Stay here");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Players online");
@@ -802,6 +902,7 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Unlock nearest car");
 		m.Set("PvP zona zde", "PvP zone here");
 		m.Set("Smazat PvP zonu", "Remove PvP zone");
+		m.Set("Nastroje (COT)", "Tools (COT)");
 		m.Set("Zavrit", "Close");
 		m.Set("Kategorie", "Categories");
 		m.Set("Hledat", "Search");
@@ -846,6 +947,31 @@ class OS_LangData
 		m.Set("Zalozit skupinu", "Create group");
 		m.Set("Prijmout", "Accept");
 		m.Set("Odmitnout", "Decline");
+		m.Set("Admin nastroje", "Admin tools");
+		m.Set("Hrac (cil) a admin", "Player (target) and admin");
+		m.Set("Vysvleknout", "Strip");
+		m.Set("Neviditelnost", "Invisibility");
+		m.Set("ESP", "ESP");
+		m.Set("Freecam", "Freecam");
+		m.Set("Duvod (kick/ban) nebo Steam ID (unban)", "Reason (kick/ban) or Steam ID (unban)");
+		m.Set("Kick", "Kick");
+		m.Set("Ban", "Ban");
+		m.Set("Unban", "Unban");
+		m.Set("Vozidlo (do 15 m od cile)", "Vehicle (within 15 m of the target)");
+		m.Set("Znicit", "Destroy");
+		m.Set("Smazat", "Delete");
+		m.Set("Spawner predmetu a vozidel", "Item and vehicle spawner");
+		m.Set("Cas", "Time");
+		m.Set("Nastavit cas", "Set time");
+		m.Set("Pocasi", "Weather");
+		m.Set("Mapa (M): dvojklik = teleport cile", "Map (M): double-click = teleport target");
+		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: End key, Shift+End = teleport");
+		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mouse, Q/E down/up, Shift fast");
+		m.Set("Spawner", "Spawner");
+		m.Set("Pocet", "Count");
+		m.Set("Do inventare cile", "To target's inventory");
+		m.Set("Na zem k cili", "On the ground at target");
+		m.Set("Spawnout vozidlo", "Spawn vehicle");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -872,10 +998,12 @@ class OS_LangData
 		m.Set("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.", "This trader only buys - select on the right what you want to sell.");
 		m.Set("%1   [koupit %2 / vykup %3]", "%1   [buy %2 / sell %3]");
 		m.Set("%1  (SKRYTO)", "%1  (HIDDEN)");
-		m.Set("Nalezeno: %1", "Found: %1");
 		m.Set("Hotovost: %1  Ucet: %2 %3", "Cash: %1  Account: %2 %3");
 		m.Set("%1   (az %2)", "%1   (up to %2)");
-		m.Set("Zadej aspon 2 znaky.", "Enter at least 2 characters.");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Vyber predmet, ktery chces koupit.", "Select the item you want to buy.");
 		m.Set("Tento predmet se neprodava.", "This item is not for sale.");
 		m.Set("Koupeno: %1", "Bought: %1");
@@ -955,6 +1083,7 @@ class OS_LangData
 		m.Set("Opustil jsi bezpečnou zónu", "Du hast die Sicherheitszone verlassen");
 		m.Set("Vítej na serveru!", "Willkommen auf dem Server!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Taste B = Laden (beim Händler). Die Regeln findest du auf unserem Discord.");
+		m.Set("Jsi zabanovan na tomto serveru.", "Du bist auf diesem Server gebannt.");
 		m.Set("Priklad - Farmar", "Beispiel - Bauer");
 		m.Set("Slepice", "Huhn");
 		m.Set("Prase", "Schwein");
@@ -1002,6 +1131,30 @@ class OS_LangData
 		m.Set("Zadne auto do 15 m.", "Kein Auto im Umkreis von 15 m.");
 		m.Set("Auto odemceno (majitel %1).", "Auto aufgeschlossen (Besitzer %1).");
 		m.Set("Zadej souradnice jako: X Z", "Koordinaten eingeben als: X Z");
+		m.Set("Neviditelnost ZAPNUTA", "Unsichtbarkeit AN");
+		m.Set("Neviditelnost VYPNUTA", "Unsichtbarkeit AUS");
+		m.Set("Odebrany vsechny veci: %1", "Alle Sachen entfernt: %1");
+		m.Set("Odbanovan: %1", "Entbannt: %1");
+		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Diese Steam-ID ist nicht gebannt. Schreib sie ins Feld.");
+		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Gib die Zeit als hh:mm ein, z. B. 12:00");
+		m.Set("Cas nastaven na %1:%2", "Zeit auf %1:%2 gesetzt");
+		m.Set("Jasno", "Klar");
+		m.Set("Zatazeno", "Bewölkt");
+		m.Set("Dest", "Regen");
+		m.Set("Bourka", "Gewitter");
+		m.Set("Mlha", "Nebel");
+		m.Set("Pocasi: %1 (zmena behem 30 s)", "Wetter: %1 (Änderung innerhalb von 30 s)");
+		m.Set("Na zemi: %1x %2", "Auf dem Boden: %1x %2");
+		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Fahrzeug %1 konnte nicht erstellt werden.");
+		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Fahrzeug %1 ist bereit (ohne Besitzer).");
+		m.Set("Opraveno: %1", "Repariert: %1");
+		m.Set("Zniceno: %1", "Zerstört: %1");
+		m.Set("Smazano: %1", "Gelöscht: %1");
+		m.Set("Nejdriv vyber hrace v seznamu.", "Wähle zuerst einen Spieler in der Liste.");
+		m.Set("Zabanovan: %1 (%2)", "Gebannt: %1 (%2)");
+		m.Set("Byl jsi vyhozen ze serveru.", "Du wurdest vom Server geworfen.");
+		m.Set("Vyhozen: %1", "Rausgeworfen: %1");
+		m.Set("%1 Duvod: %2", "%1 Grund: %2");
 		m.Set("Bankomat", "Geldautomat");
 		m.Set("Musis stat u bankomatu.", "Du musst an einem Geldautomaten stehen.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Du hast kein Bargeld dabei.");
@@ -1038,6 +1191,10 @@ class OS_LangData
 		m.Set("%1: na farme je potreba postavit %2 (menu farmy, klavesa U).", "%1: Auf der Farm muss %2 gebaut werden (Farmmenü, Taste U).");
 		m.Set("Maximum: %1 (%2).", "Maximum: %1 (%2).");
 		m.Set("%1 stoji %2 %3.", "%1 kostet %2 %3.");
+	}
+
+	protected static void Fill_de_1(map<string, string> m)
+	{
 		m.Set("Koupeno: %1 (%2/%3)", "Gekauft: %1 (%2/%3)");
 		m.Set("krmiva", "Futter");
 		m.Set("hnojiva", "Dünger");
@@ -1063,10 +1220,6 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Einladung gesendet: %1");
 		m.Set("Pozvanka do skupiny", "Gruppeneinladung");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 lädt dich in die Gruppe %2 ein. Öffne das Gruppenmenü (Taste J).");
-	}
-
-	protected static void Fill_de_1(map<string, string> m)
-	{
 		m.Set("Nejdriv opust svou skupinu.", "Verlass zuerst deine Gruppe.");
 		m.Set("Pozvanka uz neplati.", "Die Einladung ist nicht mehr gültig.");
 		m.Set("Skupina je mezitim plna.", "Die Gruppe ist inzwischen voll.");
@@ -1167,7 +1320,16 @@ class OS_LangData
 		m.Set("Godmode: VYPNUTO", "Godmode: AUS");
 		m.Set("ja (nikdo neni vybran)", "ich (niemand ausgewählt)");
 		m.Set("Cil: %1", "Ziel: %1");
-		m.Set("Nejdriv vyber hrace v seznamu.", "Wähle zuerst einen Spieler in der Liste.");
+		m.Set("ESP: ZAPNUTO", "ESP: AN");
+		m.Set("ESP: VYPNUTO", "ESP: AUS");
+		m.Set("Freecam: ZAPNUTO", "Freecam: AN");
+		m.Set("Freecam: VYPNUTO", "Freecam: AUS");
+		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Wähle zuerst einen Spieler im Adminmenü (Home).");
+		m.Set("Zadej aspon 2 znaky.", "Gib mindestens 2 Zeichen ein.");
+		m.Set("vozidlo", "Fahrzeug");
+		m.Set("Nalezeno: %1 (zobrazeno prvnich %2, upresni hledani)", "Gefunden: %1 (die ersten %2 angezeigt, Suche verfeinern)");
+		m.Set("Nalezeno: %1", "Gefunden: %1");
+		m.Set("Vyber predmet v seznamu.", "Wähle einen Gegenstand in der Liste.");
 		m.Set("Hotovost u sebe: %1%2", "Bargeld dabei: %1%2");
 		m.Set("Na uctu: %1%2", "Auf dem Konto: %1%2");
 		m.Set("Poplatek za vklad: %1 %", "Einzahlungsgebühr: %1 %");
@@ -1183,6 +1345,10 @@ class OS_LangData
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Gekaufte Tiere und Futter werden zu deiner Farm geliefert.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Bau zuerst eine Farm (Taste U) und komm dann zurück.");
 		m.Set("Farmy jsou na serveru vypnute.", "Farmen sind auf dem Server deaktiviert.");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
 		m.Set("Tvoje farma", "Deine Farm");
 		m.Set("Farma spoluhrace ze skupiny", "Farm eines Gruppenmitglieds");
 		m.Set("Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.", "Tiere kaufst du beim Bauern. Sie produzieren auch, wenn du offline bist - solange sie Futter haben.");
@@ -1217,10 +1383,6 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wähle den Spieler, den du einladen willst.");
 		m.Set("Vyber misto spawnu", "Wähle einen Spawnpunkt");
 		m.Set("Spawnout zde", "Hier spawnen");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Zustat tady", "Hier bleiben");
 		m.Set("Admin menu", "Adminmenü");
 		m.Set("Hraci online", "Spieler online");
@@ -1239,6 +1401,7 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Nächstes Auto aufschließen");
 		m.Set("PvP zona zde", "PvP-Zone hier");
 		m.Set("Smazat PvP zonu", "PvP-Zone löschen");
+		m.Set("Nastroje (COT)", "Werkzeuge (COT)");
 		m.Set("Zavrit", "Schließen");
 		m.Set("Kategorie", "Kategorien");
 		m.Set("Hledat", "Suchen");
@@ -1283,6 +1446,31 @@ class OS_LangData
 		m.Set("Zalozit skupinu", "Gruppe gründen");
 		m.Set("Prijmout", "Annehmen");
 		m.Set("Odmitnout", "Ablehnen");
+		m.Set("Admin nastroje", "Admin-Werkzeuge");
+		m.Set("Hrac (cil) a admin", "Spieler (Ziel) und Admin");
+		m.Set("Vysvleknout", "Ausziehen");
+		m.Set("Neviditelnost", "Unsichtbarkeit");
+		m.Set("ESP", "ESP");
+		m.Set("Freecam", "Freecam");
+		m.Set("Duvod (kick/ban) nebo Steam ID (unban)", "Grund (Kick/Bann) oder Steam-ID (Entbannen)");
+		m.Set("Kick", "Kick");
+		m.Set("Ban", "Bann");
+		m.Set("Unban", "Entbannen");
+		m.Set("Vozidlo (do 15 m od cile)", "Fahrzeug (bis 15 m vom Ziel)");
+		m.Set("Znicit", "Zerstören");
+		m.Set("Smazat", "Löschen");
+		m.Set("Spawner predmetu a vozidel", "Gegenstands- und Fahrzeug-Spawner");
+		m.Set("Cas", "Zeit");
+		m.Set("Nastavit cas", "Zeit setzen");
+		m.Set("Pocasi", "Wetter");
+		m.Set("Mapa (M): dvojklik = teleport cile", "Karte (M): Doppelklick = Ziel teleportieren");
+		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: Taste Ende, Shift+Ende = Teleport");
+		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, Maus, Q/E runter/hoch, Shift schnell");
+		m.Set("Spawner", "Spawner");
+		m.Set("Pocet", "Anzahl");
+		m.Set("Do inventare cile", "Ins Inventar des Ziels");
+		m.Set("Na zem k cili", "Auf den Boden beim Ziel");
+		m.Set("Spawnout vozidlo", "Fahrzeug spawnen");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -1309,10 +1497,12 @@ class OS_LangData
 		m.Set("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.", "Dieser Händler kauft nur an - wähle rechts, was du verkaufen willst.");
 		m.Set("%1   [koupit %2 / vykup %3]", "%1   [Kauf %2 / Ankauf %3]");
 		m.Set("%1  (SKRYTO)", "%1  (AUSGEBLENDET)");
-		m.Set("Nalezeno: %1", "Gefunden: %1");
 		m.Set("Hotovost: %1  Ucet: %2 %3", "Bargeld: %1  Konto: %2 %3");
 		m.Set("%1   (az %2)", "%1   (bis zu %2)");
-		m.Set("Zadej aspon 2 znaky.", "Gib mindestens 2 Zeichen ein.");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Vyber predmet, ktery chces koupit.", "Wähle den Gegenstand, den du kaufen willst.");
 		m.Set("Tento predmet se neprodava.", "Dieser Gegenstand wird nicht verkauft.");
 		m.Set("Koupeno: %1", "Gekauft: %1");
@@ -1392,6 +1582,7 @@ class OS_LangData
 		m.Set("Opustil jsi bezpečnou zónu", "Opuściłeś strefę bezpieczną");
 		m.Set("Vítej na serveru!", "Witaj na serwerze!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Klawisz B = sklep (u handlarza). Zasady znajdziesz na naszym Discordzie.");
+		m.Set("Jsi zabanovan na tomto serveru.", "Jesteś zbanowany na tym serwerze.");
 		m.Set("Priklad - Farmar", "Przykład - Rolnik");
 		m.Set("Slepice", "Kura");
 		m.Set("Prase", "Świnia");
@@ -1439,6 +1630,30 @@ class OS_LangData
 		m.Set("Zadne auto do 15 m.", "Brak pojazdu w promieniu 15 m.");
 		m.Set("Auto odemceno (majitel %1).", "Pojazd otwarty (właściciel %1).");
 		m.Set("Zadej souradnice jako: X Z", "Wpisz współrzędne jako: X Z");
+		m.Set("Neviditelnost ZAPNUTA", "Niewidzialność WŁĄCZONA");
+		m.Set("Neviditelnost VYPNUTA", "Niewidzialność WYŁĄCZONA");
+		m.Set("Odebrany vsechny veci: %1", "Usunięto wszystkie rzeczy: %1");
+		m.Set("Odbanovan: %1", "Odbanowano: %1");
+		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "To Steam ID nie jest zbanowane. Wpisz je w pole.");
+		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Wpisz czas jako hh:mm, np. 12:00");
+		m.Set("Cas nastaven na %1:%2", "Czas ustawiony na %1:%2");
+		m.Set("Jasno", "Bezchmurnie");
+		m.Set("Zatazeno", "Pochmurno");
+		m.Set("Dest", "Deszcz");
+		m.Set("Bourka", "Burza");
+		m.Set("Mlha", "Mgła");
+		m.Set("Pocasi: %1 (zmena behem 30 s)", "Pogoda: %1 (zmiana w ciągu 30 s)");
+		m.Set("Na zemi: %1x %2", "Na ziemi: %1x %2");
+		m.Set("Vozidlo %1 se nepodarilo vytvorit.", "Nie udało się utworzyć pojazdu %1.");
+		m.Set("Vozidlo %1 je pripravene (bez majitele).", "Pojazd %1 jest gotowy (bez właściciela).");
+		m.Set("Opraveno: %1", "Naprawiono: %1");
+		m.Set("Zniceno: %1", "Zniszczono: %1");
+		m.Set("Smazano: %1", "Usunięto: %1");
+		m.Set("Nejdriv vyber hrace v seznamu.", "Najpierw wybierz gracza z listy.");
+		m.Set("Zabanovan: %1 (%2)", "Zbanowano: %1 (%2)");
+		m.Set("Byl jsi vyhozen ze serveru.", "Zostałeś wyrzucony z serwera.");
+		m.Set("Vyhozen: %1", "Wyrzucono: %1");
+		m.Set("%1 Duvod: %2", "%1 Powód: %2");
 		m.Set("Bankomat", "Bankomat");
 		m.Set("Musis stat u bankomatu.", "Musisz stać przy bankomacie.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nie masz przy sobie gotówki.");
@@ -1475,6 +1690,10 @@ class OS_LangData
 		m.Set("%1: na farme je potreba postavit %2 (menu farmy, klavesa U).", "%1: na farmie trzeba zbudować %2 (menu farmy, klawisz U).");
 		m.Set("Maximum: %1 (%2).", "Maksimum: %1 (%2).");
 		m.Set("%1 stoji %2 %3.", "%1 kosztuje %2 %3.");
+	}
+
+	protected static void Fill_pl_1(map<string, string> m)
+	{
 		m.Set("Koupeno: %1 (%2/%3)", "Kupiono: %1 (%2/%3)");
 		m.Set("krmiva", "paszy");
 		m.Set("hnojiva", "nawozu");
@@ -1500,10 +1719,6 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Zaproszenie wysłane: %1");
 		m.Set("Pozvanka do skupiny", "Zaproszenie do grupy");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 zaprasza cię do grupy %2. Otwórz menu grupy (klawisz J).");
-	}
-
-	protected static void Fill_pl_1(map<string, string> m)
-	{
 		m.Set("Nejdriv opust svou skupinu.", "Najpierw opuść swoją grupę.");
 		m.Set("Pozvanka uz neplati.", "Zaproszenie już wygasło.");
 		m.Set("Skupina je mezitim plna.", "Grupa w międzyczasie się zapełniła.");
@@ -1604,7 +1819,16 @@ class OS_LangData
 		m.Set("Godmode: VYPNUTO", "Godmode: WYŁĄCZONY");
 		m.Set("ja (nikdo neni vybran)", "ja (nikt nie jest wybrany)");
 		m.Set("Cil: %1", "Cel: %1");
-		m.Set("Nejdriv vyber hrace v seznamu.", "Najpierw wybierz gracza z listy.");
+		m.Set("ESP: ZAPNUTO", "ESP: WŁĄCZONY");
+		m.Set("ESP: VYPNUTO", "ESP: WYŁĄCZONY");
+		m.Set("Freecam: ZAPNUTO", "Freecam: WŁĄCZONY");
+		m.Set("Freecam: VYPNUTO", "Freecam: WYŁĄCZONY");
+		m.Set("Nejdriv vyber hrace v admin menu (Home).", "Najpierw wybierz gracza w menu admina (Home).");
+		m.Set("Zadej aspon 2 znaky.", "Wpisz co najmniej 2 znaki.");
+		m.Set("vozidlo", "pojazd");
+		m.Set("Nalezeno: %1 (zobrazeno prvnich %2, upresni hledani)", "Znaleziono: %1 (pokazano pierwsze %2, zawęź wyszukiwanie)");
+		m.Set("Nalezeno: %1", "Znaleziono: %1");
+		m.Set("Vyber predmet v seznamu.", "Wybierz przedmiot z listy.");
 		m.Set("Hotovost u sebe: %1%2", "Gotówka przy sobie: %1%2");
 		m.Set("Na uctu: %1%2", "Na koncie: %1%2");
 		m.Set("Poplatek za vklad: %1 %", "Opłata za wpłatę: %1 %");
@@ -1620,6 +1844,10 @@ class OS_LangData
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Kupione zwierzęta i pasza zostaną dowiezione na twoją farmę.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Najpierw zbuduj farmę (klawisz U), potem tu wróć.");
 		m.Set("Farmy jsou na serveru vypnute.", "Farmy są na serwerze wyłączone.");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
 		m.Set("Tvoje farma", "Twoja farma");
 		m.Set("Farma spoluhrace ze skupiny", "Farma członka grupy");
 		m.Set("Zvirata koupis u Farmare. Vyrabeji i kdyz nejsi online - jen kdyz maji krmivo.", "Zwierzęta kupisz u Rolnika. Produkują nawet gdy jesteś offline - o ile mają paszę.");
@@ -1654,10 +1882,6 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wybierz gracza, którego chcesz zaprosić.");
 		m.Set("Vyber misto spawnu", "Wybierz miejsce spawnu");
 		m.Set("Spawnout zde", "Spawnuj tutaj");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Zustat tady", "Zostań tutaj");
 		m.Set("Admin menu", "Menu admina");
 		m.Set("Hraci online", "Gracze online");
@@ -1676,6 +1900,7 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Otwórz najbliższy pojazd");
 		m.Set("PvP zona zde", "Strefa PvP tutaj");
 		m.Set("Smazat PvP zonu", "Usuń strefę PvP");
+		m.Set("Nastroje (COT)", "Narzędzia (COT)");
 		m.Set("Zavrit", "Zamknij");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Szukaj");
@@ -1720,6 +1945,31 @@ class OS_LangData
 		m.Set("Zalozit skupinu", "Załóż grupę");
 		m.Set("Prijmout", "Przyjmij");
 		m.Set("Odmitnout", "Odrzuć");
+		m.Set("Admin nastroje", "Narzędzia admina");
+		m.Set("Hrac (cil) a admin", "Gracz (cel) i admin");
+		m.Set("Vysvleknout", "Rozbierz");
+		m.Set("Neviditelnost", "Niewidzialność");
+		m.Set("ESP", "ESP");
+		m.Set("Freecam", "Freecam");
+		m.Set("Duvod (kick/ban) nebo Steam ID (unban)", "Powód (kick/ban) lub Steam ID (unban)");
+		m.Set("Kick", "Kick");
+		m.Set("Ban", "Ban");
+		m.Set("Unban", "Unban");
+		m.Set("Vozidlo (do 15 m od cile)", "Pojazd (do 15 m od celu)");
+		m.Set("Znicit", "Zniszcz");
+		m.Set("Smazat", "Usuń");
+		m.Set("Spawner predmetu a vozidel", "Spawner przedmiotów i pojazdów");
+		m.Set("Cas", "Czas");
+		m.Set("Nastavit cas", "Ustaw czas");
+		m.Set("Pocasi", "Pogoda");
+		m.Set("Mapa (M): dvojklik = teleport cile", "Mapa (M): podwójne kliknięcie = teleport celu");
+		m.Set("Freecam: klavesa End, Shift+End = teleport", "Freecam: klawisz End, Shift+End = teleport");
+		m.Set("WASD, mys, Q/E dolu/nahoru, Shift rychle", "WASD, mysz, Q/E w dół/w górę, Shift szybko");
+		m.Set("Spawner", "Spawner");
+		m.Set("Pocet", "Ilość");
+		m.Set("Do inventare cile", "Do ekwipunku celu");
+		m.Set("Na zem k cili", "Na ziemię przy celu");
+		m.Set("Spawnout vozidlo", "Zespawnuj pojazd");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");
@@ -1746,10 +1996,12 @@ class OS_LangData
 		m.Set("Tento obchodnik jen vykupuje - vpravo vyber, co chces prodat.", "Ten handlarz tylko skupuje - po prawej wybierz, co chcesz sprzedać.");
 		m.Set("%1   [koupit %2 / vykup %3]", "%1   [kup %2 / skup %3]");
 		m.Set("%1  (SKRYTO)", "%1  (UKRYTE)");
-		m.Set("Nalezeno: %1", "Znaleziono: %1");
 		m.Set("Hotovost: %1  Ucet: %2 %3", "Gotówka: %1  Konto: %2 %3");
 		m.Set("%1   (az %2)", "%1   (do %2)");
-		m.Set("Zadej aspon 2 znaky.", "Wpisz co najmniej 2 znaki.");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Vyber predmet, ktery chces koupit.", "Wybierz przedmiot, który chcesz kupić.");
 		m.Set("Tento predmet se neprodava.", "Ten przedmiot nie jest na sprzedaż.");
 		m.Set("Koupeno: %1", "Kupiono: %1");

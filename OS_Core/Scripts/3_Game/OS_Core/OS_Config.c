@@ -187,6 +187,9 @@ class OS_AdminConfig
 	// Steam64 ID adminů (17 číslic, např. 76561198000000000)
 	ref array<string> AdminSteamIds = new array<string>;
 	bool LogActions = true;
+	// zabanovaní hráči (Steam64 ID) - přidává tlačítko Ban v admin nástrojích, odebírá Unban
+	ref array<string> BannedSteamIds = new array<string>;
+	string BanMessage = "Jsi zabanovan na tomto serveru.";
 }
 
 // ---------------------------------------------------------------- Obchod

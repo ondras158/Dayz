@@ -162,6 +162,10 @@ class OS_ServerAdmin
 			OS_Server.Get().m_PvP.AdminRemoveNearest(admin);
 			Log(admin, "pvp zona -");
 		}
+		else
+		{
+			HandleToolAction(admin, target, action, arg);
+		}
 	}
 
 	protected void Heal(PlayerBase player)
@@ -242,8 +246,11 @@ class OS_ServerAdmin
 	}
 
 	//! arg = "x z" nebo "x y z"
-	protected void TeleportToCoords(PlayerBase admin, string arg)
+	protected void TeleportToCoords(PlayerBase admin, string arg, PlayerBase target = null)
 	{
+		if (!target)
+			target = admin;
+
 		array<string> raw = new array<string>;
 		arg.Replace(",", " ");
 		arg.Split(" ", raw);
@@ -274,7 +281,359 @@ class OS_ServerAdmin
 			return;
 		}
 
-		OS_Util.Teleport(admin, OS_Util.GroundPos(x, z));
-		Log(admin, "teleport na " + x.ToString() + " " + z.ToString());
+		OS_Util.Teleport(target, OS_Util.GroundPos(x, z));
+		Log(admin, "teleport " + OS_Util.PlayerName(target) + " na " + x.ToString() + " " + z.ToString());
+	}
+
+	// ------------------------------------------------------------ nástroje (jako Community Online Tools)
+
+	bool IsBanned(string steamId)
+	{
+		return m_Cfg.BannedSteamIds && m_Cfg.BannedSteamIds.Find(steamId) > -1;
+	}
+
+	//! zabanovaný hráč se po připojení odpojí
+	void CheckBan(PlayerBase player)
+	{
+		if (!player || !player.GetIdentity() || !IsBanned(OS_Util.SteamId(player)))
+			return;
+		Print(OS_TAG + "Zabanovany hrac se pokusil pripojit: " + OS_Util.PlayerName(player) + " (" + OS_Util.SteamId(player) + ")");
+		Disconnect(player, OS_T(m_Cfg.BanMessage));
+	}
+
+	protected void Disconnect(PlayerBase player, string reason)
+	{
+		if (!player || !player.GetIdentity())
+			return;
+		OS_Util.Notify(player, OS_T("Admin"), reason, 10);
+		g_Game.GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(DisconnectNow, 3000, false, player.GetIdentity().GetPlainId());
+	}
+
+	protected void DisconnectNow(string steamId)
+	{
+		PlayerBase player = OS_Util.FindPlayerBySteamId(steamId);
+		if (player && player.GetIdentity())
+			g_Game.DisconnectPlayer(player.GetIdentity(), player.GetIdentity().GetId());
+	}
+
+	protected void SaveConfig()
+	{
+		string err;
+		if (!JsonFileLoader<OS_AdminConfig>.SaveFile(OS_DIR + "Admins.json", m_Cfg, err))
+			Print(OS_TAG + "CHYBA při ukládání Admins.json: " + err);
+	}
+
+	//! místo pár metrů před hráčem (na zemi)
+	protected vector InFront(PlayerBase player, float distance)
+	{
+		vector dir = player.GetDirection();
+		dir[1] = 0;
+		dir.Normalize();
+		vector pos = player.GetPosition() + dir * distance;
+		return OS_Util.GroundPos(pos[0], pos[2]);
+	}
+
+	protected Transport NearestVehicle(vector pos, float radius)
+	{
+		array<Object> objects = new array<Object>;
+		g_Game.GetObjectsAtPosition(pos, radius, objects, null);
+		Transport best;
+		float bestDist = 999999;
+		foreach (Object obj : objects)
+		{
+			Transport car = Transport.Cast(obj);
+			if (!car)
+				continue;
+			float dist = vector.Distance(pos, car.GetPosition());
+			if (dist < bestDist)
+			{
+				bestDist = dist;
+				best = car;
+			}
+		}
+		return best;
+	}
+
+	protected void HandleToolAction(PlayerBase admin, PlayerBase target, int action, string arg)
+	{
+		string targetName = OS_Util.PlayerName(target);
+
+		if (action == OS_AdminAction.TELEPORT_MAP)
+		{
+			TeleportToCoords(admin, arg, target);
+		}
+		else if (action == OS_AdminAction.SET_TIME)
+		{
+			SetTime(admin, arg);
+		}
+		else if (action == OS_AdminAction.SET_WEATHER)
+		{
+			SetWeather(admin, arg);
+		}
+		else if (action == OS_AdminAction.SPAWN_GROUND)
+		{
+			SpawnGround(admin, target, arg);
+		}
+		else if (action == OS_AdminAction.SPAWN_VEHICLE)
+		{
+			SpawnVehicleFor(admin, target, arg);
+		}
+		else if (action == OS_AdminAction.TOGGLE_INVIS)
+		{
+			admin.OS_SetInvisible(!admin.OS_IsInvisible());
+			if (admin.OS_IsInvisible())
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Neviditelnost ZAPNUTA"));
+			else
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Neviditelnost VYPNUTA"));
+			Log(admin, "neviditelnost " + admin.OS_IsInvisible().ToString());
+		}
+		else if (action == OS_AdminAction.VEHICLE_REPAIR || action == OS_AdminAction.VEHICLE_DESTROY || action == OS_AdminAction.VEHICLE_DELETE)
+		{
+			VehicleAction(admin, target, action);
+		}
+		else if (action == OS_AdminAction.STRIP)
+		{
+			target.RemoveAllItems();
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Odebrany vsechny veci: %1", targetName));
+			Log(admin, "vysvlekl " + targetName);
+		}
+		else if (action == OS_AdminAction.KICK || action == OS_AdminAction.BAN)
+		{
+			KickOrBan(admin, target, action == OS_AdminAction.BAN, arg);
+		}
+		else if (action == OS_AdminAction.UNBAN)
+		{
+			string unbanId = arg.Trim();
+			if (m_Cfg.BannedSteamIds && m_Cfg.BannedSteamIds.Find(unbanId) > -1)
+			{
+				m_Cfg.BannedSteamIds.RemoveItem(unbanId);
+				SaveConfig();
+				OS_Util.Notify(admin, OS_T("Admin"), OS_F("Odbanovan: %1", unbanId));
+				Log(admin, "unban " + unbanId);
+			}
+			else
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Toto Steam ID neni zabanovane. Napis ho do pole."));
+			}
+		}
+	}
+
+	//! arg "hh:mm" nebo "hh"
+	protected void SetTime(PlayerBase admin, string arg)
+	{
+		arg.Replace(":", " ");
+		arg.Replace(".", " ");
+		array<string> parts = new array<string>;
+		arg.Split(" ", parts);
+		if (parts.Count() == 0)
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Zadej cas jako hh:mm, napr. 12:00"));
+			return;
+		}
+		int hour = parts[0].ToInt();
+		int minute = 0;
+		if (parts.Count() > 1)
+			minute = parts[1].ToInt();
+		if (hour < 0 || hour > 23)
+			hour = 12;
+		if (minute < 0 || minute > 59)
+			minute = 0;
+
+		int year;
+		int month;
+		int day;
+		int oldHour;
+		int oldMinute;
+		g_Game.GetWorld().GetDate(year, month, day, oldHour, oldMinute);
+		g_Game.GetWorld().SetDate(year, month, day, hour, minute);
+
+		string minuteText = minute.ToString();
+		if (minute < 10)
+			minuteText = "0" + minuteText;
+		OS_Util.Notify(admin, OS_T("Admin"), OS_F("Cas nastaven na %1:%2", hour.ToString(), minuteText));
+		Log(admin, "cas " + hour.ToString() + ":" + minuteText);
+	}
+
+	//! arg: clear / cloudy / rain / storm / fog
+	protected void SetWeather(PlayerBase admin, string preset)
+	{
+		Weather weather = g_Game.GetWeather();
+		if (!weather)
+			return;
+
+		float overcast = 0;
+		float rain = 0;
+		float fog = 0;
+		bool storm = false;
+		string label = OS_T("Jasno");
+		if (preset == "cloudy")
+		{
+			overcast = 0.6;
+			label = OS_T("Zatazeno");
+		}
+		else if (preset == "rain")
+		{
+			overcast = 0.85;
+			rain = 0.7;
+			label = OS_T("Dest");
+		}
+		else if (preset == "storm")
+		{
+			overcast = 1;
+			rain = 1;
+			fog = 0.1;
+			storm = true;
+			label = OS_T("Bourka");
+		}
+		else if (preset == "fog")
+		{
+			overcast = 0.4;
+			fog = 0.6;
+			label = OS_T("Mlha");
+		}
+
+		// změna za 30 s, drží se 30 min (pak se počasí vrací k běžnému vývoji)
+		float change = 30;
+		float hold = 1800;
+		weather.GetOvercast().Set(overcast, change, hold);
+		weather.GetRain().Set(rain, change, hold);
+		weather.GetFog().Set(fog, change, hold);
+		if (storm)
+			weather.SetStorm(1, 0.7, 20);
+		else
+			weather.SetStorm(0, 1, 120);
+
+		OS_Util.Notify(admin, OS_T("Admin"), OS_F("Pocasi: %1 (zmena behem 30 s)", label));
+		Log(admin, "pocasi " + preset);
+	}
+
+	//! arg "classname počet" - na zem před cíl
+	protected void SpawnGround(PlayerBase admin, PlayerBase target, string arg)
+	{
+		array<string> parts = new array<string>;
+		string trimmedArg = arg.Trim();
+		trimmedArg.Split(" ", parts);
+		if (parts.Count() == 0)
+			return;
+
+		string type = parts[0];
+		int count = 1;
+		if (parts.Count() > 1)
+			count = parts[1].ToInt();
+		if (count < 1)
+			count = 1;
+		if (count > 50)
+			count = 50;
+
+		if (!OS_Util.IsValidClass(type))
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Neznamy predmet: %1", type));
+			return;
+		}
+
+		vector pos = InFront(target, 1.5);
+		for (int i = 0; i < count; i++)
+		{
+			g_Game.CreateObjectEx(type, pos, ECE_PLACE_ON_SURFACE);
+		}
+		OS_Util.Notify(admin, OS_T("Admin"), OS_F("Na zemi: %1x %2", count.ToString(), type));
+		Log(admin, "spawn zem " + count.ToString() + "x " + type + " u " + OS_Util.PlayerName(target));
+	}
+
+	protected void SpawnVehicleFor(PlayerBase admin, PlayerBase target, string type)
+	{
+		type = type.Trim();
+		if (!OS_Server.Get() || !OS_Server.Get().m_Vehicles)
+			return;
+
+		vector rot = target.GetOrientation();
+		Transport vehicle = OS_Server.Get().m_Vehicles.AdminSpawn(type, InFront(target, 6), rot[0]);
+		if (!vehicle)
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Vozidlo %1 se nepodarilo vytvorit.", type));
+			return;
+		}
+		OS_Util.Notify(admin, OS_T("Admin"), OS_F("Vozidlo %1 je pripravene (bez majitele).", type));
+		Log(admin, "spawn vozidlo " + type + " u " + OS_Util.PlayerName(target));
+	}
+
+	protected void VehicleAction(PlayerBase admin, PlayerBase target, int action)
+	{
+		Transport car = NearestVehicle(target.GetPosition(), 15);
+		if (!car)
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Zadne auto do 15 m."));
+			return;
+		}
+		string type = car.GetType();
+		if (action == OS_AdminAction.VEHICLE_REPAIR)
+		{
+			if (OS_Server.Get() && OS_Server.Get().m_Vehicles)
+				OS_Server.Get().m_Vehicles.AdminRepair(car);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Opraveno: %1", type));
+			Log(admin, "oprava vozidla " + type);
+		}
+		else if (action == OS_AdminAction.VEHICLE_DESTROY)
+		{
+			car.SetHealth("", "", 0);
+			TStringArray zones = new TStringArray;
+			car.GetDamageZones(zones);
+			foreach (string zone : zones)
+			{
+				car.SetHealth(zone, "", 0);
+			}
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Zniceno: %1", type));
+			Log(admin, "zniceni vozidla " + type);
+		}
+		else
+		{
+			g_Game.ObjectDelete(car);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Smazano: %1", type));
+			Log(admin, "smazani vozidla " + type);
+		}
+	}
+
+	protected void KickOrBan(PlayerBase admin, PlayerBase target, bool ban, string reason)
+	{
+		if (target == admin)
+		{
+			OS_Util.Notify(admin, OS_T("Admin"), OS_T("Nejdriv vyber hrace v seznamu."));
+			return;
+		}
+		reason = reason.Trim();
+		string targetName = OS_Util.PlayerName(target);
+		string targetId = OS_Util.SteamId(target);
+
+		string message;
+		if (ban)
+		{
+			if (!m_Cfg.BannedSteamIds)
+				m_Cfg.BannedSteamIds = new array<string>;
+			if (m_Cfg.BannedSteamIds.Find(targetId) == -1)
+				m_Cfg.BannedSteamIds.Insert(targetId);
+			SaveConfig();
+			message = OS_T(m_Cfg.BanMessage);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Zabanovan: %1 (%2)", targetName, targetId));
+			Log(admin, "ban " + targetName + " (" + targetId + ") " + reason);
+		}
+		else
+		{
+			message = OS_T("Byl jsi vyhozen ze serveru.");
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("Vyhozen: %1", targetName));
+			Log(admin, "kick " + targetName + " (" + targetId + ") " + reason);
+		}
+		if (reason != "")
+			message = OS_F("%1 Duvod: %2", message, reason);
+		Disconnect(target, message);
+	}
+
+	//! klient potřebuje vědět, že je admin (teleport z mapy, ESP, freecam)
+	void SendAdminFlag(PlayerBase player)
+	{
+		if (!player || !player.GetIdentity())
+			return;
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Write(IsAdmin(player.GetIdentity()));
+		rpc.Send(null, OS_RPC_ADMIN_FLAG, true, player.GetIdentity());
 	}
 }

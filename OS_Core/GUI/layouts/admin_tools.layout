@@ -1,0 +1,471 @@
+FrameWidgetClass OS_AdminToolsMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 860 610
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 820 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Admin nastroje"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass Target {
+     position 20 52
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Cil:"
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass PlayerLabel {
+     position 20 84
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Hrac (cil) a admin"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnStrip {
+     color 0.25 0.22 0.18 1
+     position 20 110
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vysvleknout"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnInvis {
+     color 0.25 0.22 0.18 1
+     position 225 110
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Neviditelnost"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnEsp {
+     color 0.25 0.22 0.18 1
+     position 20 156
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "ESP"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnFreecam {
+     color 0.25 0.22 0.18 1
+     position 225 156
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Freecam"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass ReasonLabel {
+     position 20 202
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Duvod (kick/ban) nebo Steam ID (unban)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditReasonBg {
+     color 0 0 0 0.7
+     position 20 228
+     size 400 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditReason {
+     position 26 230
+     size 388 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnKick {
+     color 0.25 0.22 0.18 1
+     position 20 270
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Kick"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBan {
+     color 0.25 0.22 0.18 1
+     position 155 270
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Ban"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnUnban {
+     color 0.25 0.22 0.18 1
+     position 290 270
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Unban"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass CarLabel {
+     position 20 320
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Vozidlo (do 15 m od cile)"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnCarRepair {
+     color 0.25 0.22 0.18 1
+     position 20 346
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Opravit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCarDestroy {
+     color 0.25 0.22 0.18 1
+     position 155 346
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Znicit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCarDelete {
+     color 0.25 0.22 0.18 1
+     position 290 346
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Smazat"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSpawner {
+     color 0.25 0.22 0.18 1
+     position 20 400
+     size 400 42
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Spawner predmetu a vozidel"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass TimeLabel {
+     position 440 84
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Cas"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnMorning {
+     color 0.25 0.22 0.18 1
+     position 440 110
+     size 94 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "6:00"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnNoon {
+     color 0.25 0.22 0.18 1
+     position 542 110
+     size 94 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "12:00"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnEvening {
+     color 0.25 0.22 0.18 1
+     position 644 110
+     size 94 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "18:00"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnNight {
+     color 0.25 0.22 0.18 1
+     position 746 110
+     size 94 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "0:00"
+     font "gui/fonts/metron"
+    }
+    PanelWidgetClass EditTimeBg {
+     color 0 0 0 0.7
+     position 440 156
+     size 195 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditTime {
+     position 446 158
+     size 183 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSetTime {
+     color 0.25 0.22 0.18 1
+     position 645 156
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Nastavit cas"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass WeatherLabel {
+     position 440 210
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Pocasi"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnClear {
+     color 0.25 0.22 0.18 1
+     position 440 236
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Jasno"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnCloudy {
+     color 0.25 0.22 0.18 1
+     position 645 236
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zatazeno"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnRain {
+     color 0.25 0.22 0.18 1
+     position 440 282
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Dest"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnStorm {
+     color 0.25 0.22 0.18 1
+     position 645 282
+     size 195 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Bourka"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnFog {
+     color 0.25 0.22 0.18 1
+     position 440 328
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Mlha"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Hint1 {
+     position 440 380
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Mapa (M): dvojklik = teleport cile"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass Hint2 {
+     position 440 406
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Freecam: klavesa End, Shift+End = teleport"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass Hint3 {
+     position 440 432
+     size 400 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "WASD, mys, Q/E dolu/nahoru, Shift rychle"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 520
+     size 820 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 566
+     size 820 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}
