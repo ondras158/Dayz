@@ -392,6 +392,18 @@ LAYOUTS["base_menu.layout"] = layout("OS_BaseMenu", 560, 400, [
     text("Status", 20, 350, 520, 26, "", align="center"),
 ])
 
+LAYOUTS["cook_menu.layout"] = layout("OS_CookMenu", 860, 580, [
+    text("Title", 20, 12, 820, 36, "Vareni podle receptu", "gui/fonts/metron28", "center"),
+    text("Hint", 20, 52, 820, 24, "Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", align="center"),
+    listbox("RecipeList", 20, 84, 820, 300),
+    text("Detail1", 20, 392, 820, 24, "Vyber recept vlevo."),
+    text("Detail2", 20, 418, 820, 24, ""),
+    text("Detail3", 20, 444, 820, 24, ""),
+    button("BtnCook", 20, 480, 405, 40, "Uvarit"),
+    button("BtnClose", 435, 480, 405, 40, "Zavrit"),
+    text("Status", 20, 530, 820, 26, "", align="center"),
+])
+
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),
     text("Info", 20, 52, 820, 26, "", align="center"),

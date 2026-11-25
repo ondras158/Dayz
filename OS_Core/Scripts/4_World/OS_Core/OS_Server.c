@@ -10,6 +10,7 @@ class OS_Server
 	ref OS_ServerSafeZones m_SafeZones;
 	ref OS_ServerPvP m_PvP;
 	ref OS_ServerBases m_Bases;
+	ref OS_ServerCooking m_Cooking;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -57,6 +58,7 @@ class OS_Server
 		m_Payments = new OS_Payments(m_Wallets, bankCfg, currency);
 		m_Groups = new OS_ServerGroups(m_Payments, m_Wallets, currency);
 		m_Bases = new OS_ServerBases(m_Payments, m_Groups, currency);
+		m_Cooking = new OS_ServerCooking();
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -142,6 +144,7 @@ class OS_Server
 		m_SafeZones.OnTick(players, delta);
 		m_PvP.OnTick(players);
 		m_Bases.OnTick(delta);
+		m_Cooking.OnTick(players, delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
 		m_Farms.OnTick(delta);
@@ -203,6 +206,8 @@ class OS_Server
 		if (m_Farms.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Bases.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Cooking.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

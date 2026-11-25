@@ -2,7 +2,7 @@ class CfgPatches
 {
 	class OS_Core
 	{
-		units[] = {"OS_ChickenEgg", "OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
+		units[] = {"OS_ChickenEgg", "OS_Dish_Gulas", "OS_Dish_MeatSoup", "OS_Dish_VegSoup", "OS_Dish_FishSoup", "OS_Dish_MushroomSoup", "OS_Dish_ChickenPaprika", "OS_Dish_Risotto", "OS_Dish_Compote", "OS_Dish_RoastMeat", "OS_Dish_Omelette", "OS_Money_1", "OS_Money_2", "OS_Money_5", "OS_Money_10", "OS_Money_20", "OS_Money_50", "OS_Money_100", "OS_Money_200", "OS_Money_500", "OS_Money_1000", "OS_Money_2000", "OS_Money_5000"};
 		weapons[] = {};
 		requiredVersion = 0.1;
 		requiredAddons[] = {"DZ_Data", "DZ_Scripts", "DZ_Gear_Consumables", "DZ_Gear_Food"};
@@ -45,14 +45,20 @@ class CfgVehicles
 {
 	class Paper;
 	class Potato;
+	class BakedBeansCan_Opened;
+	class PeachesCan_Opened;
+	class PorkCan_Opened;
+	class SpaghettiCan_Opened;
+	class TacticalBaconCan_Opened;
+	class TunaCan_Opened;
 
 	// Vejce z farmy - jídlo (vaření, jedení) i model zatím z brambory
 	// (model vajíčka: nastav model = "..." podle P:\dz\gear\... v DayZ Tools)
 	class OS_ChickenEgg : Potato
 	{
 		scope = 2;
-		displayName = "Vejce";
-		descriptionShort = "Slepici vejce z farmy. Da se uvarit nebo upect.";
+		displayName = "$STR_OS_ChickenEgg";
+		descriptionShort = "$STR_OS_ChickenEgg_Desc";
 	};
 
 	// Hotovost - bankovky. Model papíru, vlastní potisk, stohovatelné (počet kusů = počet bankovek).
@@ -160,4 +166,197 @@ class CfgVehicles
 		hiddenSelectionsTextures[] = {"OS_Core\data\money_5000_co.paa"};
 	};
 
+
+	// Hotová jídla z receptů (vaření u ohně, Cooking.json). Model zatím z otevřené konzervy.
+	// Výživa: energy / water = na 100 jednotek množství, celé jídlo má 400 jednotek.
+	class OS_Dish_Gulas : PorkCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_Gulas";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 650;
+			water = 150;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_MeatSoup : BakedBeansCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_MeatSoup";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 450;
+			water = 450;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_VegSoup : BakedBeansCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_VegSoup";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 350;
+			water = 500;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_FishSoup : TunaCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_FishSoup";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 420;
+			water = 450;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_MushroomSoup : BakedBeansCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_MushroomSoup";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 380;
+			water = 450;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_ChickenPaprika : PorkCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_ChickenPaprika";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 600;
+			water = 250;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_Risotto : SpaghettiCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_Risotto";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 600;
+			water = 150;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_Compote : PeachesCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_Compote";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 250;
+			water = 650;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_RoastMeat : TacticalBaconCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_RoastMeat";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 700;
+			water = 100;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
+	class OS_Dish_Omelette : TacticalBaconCan_Opened
+	{
+		scope = 2;
+		displayName = "$STR_OS_Dish_Omelette";
+		descriptionShort = "$STR_OS_Dish_Desc";
+		varQuantityInit = 400;
+		varQuantityMin = 0;
+		varQuantityMax = 400;
+		class Nutrition
+		{
+			fullnessIndex = 1.5;
+			energy = 500;
+			water = 100;
+			nutritionalIndex = 1;
+			toxicity = 0;
+			digestibility = 2;
+			agents = 0;
+		};
+	};
 };

@@ -54,6 +54,9 @@ const int OS_RPC_ADMIN_FLAG    = 784512082; // server -> klient: hráč je admin
 const int OS_RPC_BASE_OPEN     = 784512090; // klient -> server: menu base u vlajky
 const int OS_RPC_BASE_DATA     = 784512091; // server -> klient: stav base
 const int OS_RPC_BASE_ACTION   = 784512092; // klient -> server: akce base
+const int OS_RPC_COOK_OPEN     = 784512093; // klient -> server: recepty u ohně
+const int OS_RPC_COOK_DATA     = 784512094; // server -> klient: recepty a co jde uvařit
+const int OS_RPC_COOK_ACTION   = 784512095; // klient -> server: uvařit recept
 
 const int OS_RPC_LAST  = 784512099;
 

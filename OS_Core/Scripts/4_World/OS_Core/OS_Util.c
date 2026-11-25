@@ -137,6 +137,19 @@ class OS_Util
 		return g_Game.ConfigIsExisting("CfgVehicles " + type) || g_Game.ConfigIsExisting("CfgWeapons " + type) || g_Game.ConfigIsExisting("CfgMagazines " + type);
 	}
 
+	//! čitelný název předmětu z configu hry
+	static string DisplayNameOf(string className)
+	{
+		string name;
+		if (g_Game.ConfigGetText("CfgVehicles " + className + " displayName", name) && name != "")
+			return name;
+		if (g_Game.ConfigGetText("CfgWeapons " + className + " displayName", name) && name != "")
+			return name;
+		if (g_Game.ConfigGetText("CfgMagazines " + className + " displayName", name) && name != "")
+			return name;
+		return className;
+	}
+
 	static void Teleport(PlayerBase player, vector pos)
 	{
 		if (player)

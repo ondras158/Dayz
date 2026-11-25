@@ -329,6 +329,7 @@ class OS_TraderConfig
 
 		OS_TraderLocation grocer = new OS_TraderLocation("Priklad - Potraviny", 2000, 2040, 10);
 		grocer.Categories.Insert("Jidlo a piti");
+		grocer.Categories.Insert("Hotova jidla");
 		Traders.Insert(grocer);
 
 		// černý trh - drogy, zbraně, munice a výbušniny
@@ -397,6 +398,11 @@ class OS_TraderConfig
 
 		// --- pravidla kategorií (pořadí je důležité) ---
 		OS_CategoryRule r;
+
+		// hotová jídla z receptů (vaření u ohně) - dražší než suroviny
+		r = new OS_CategoryRule("Hotova jidla", 500, 150);
+		r.NameContains.Insert("OS_Dish_");
+		CategoryRules.Insert(r);
 
 		r = new OS_CategoryRule("Pistole", 500, 80);
 		r.BaseClasses.Insert("Pistol_Base");

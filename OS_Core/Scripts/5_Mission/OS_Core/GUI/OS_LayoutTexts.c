@@ -161,6 +161,14 @@ class OS_LayoutTexts
 			Set(root, "Hint", "Kodovy zamek na branu: majitel a skupina odemknou bez kodu");
 			Set(root, "BtnClose", "Zavrit");
 		}
+		if (layoutName == "cook_menu.layout")
+		{
+			Set(root, "Title", "Vareni podle receptu");
+			Set(root, "Hint", "Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.");
+			Set(root, "Detail1", "Vyber recept vlevo.");
+			Set(root, "BtnCook", "Uvarit");
+			Set(root, "BtnClose", "Zavrit");
+		}
 		if (layoutName == "farm_menu.layout")
 		{
 			Set(root, "Title", "Farma");

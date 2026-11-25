@@ -39,6 +39,7 @@ class OS_Client
 	protected ref OS_AdminToolsMenu m_AdminToolsMenu;
 	protected ref OS_AdminSpawnMenu m_AdminSpawnMenu;
 	protected ref OS_BaseMenu m_BaseMenu;
+	protected ref OS_CookMenu m_CookMenu;
 
 	void OnFrame()
 	{
@@ -172,6 +173,9 @@ class OS_Client
 			case OS_RPC_BASE_DATA:
 				OnBaseData(ctx);
 				break;
+			case OS_RPC_COOK_DATA:
+				OnCookData(ctx);
+				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);
 				break;
@@ -209,6 +213,19 @@ class OS_Client
 		}
 
 		SendToServer(OS_RPC_SPAWN_ACK);
+	}
+
+	protected void OnCookData(ParamsReadContext ctx)
+	{
+		if (IsOpen(m_CookMenu))
+		{
+			m_CookMenu.ReadData(ctx);
+			return;
+		}
+		m_CookMenu = new OS_CookMenu();
+		if (!m_CookMenu.ReadData(ctx))
+			return;
+		Show(m_CookMenu);
 	}
 
 	protected void OnBaseData(ParamsReadContext ctx)

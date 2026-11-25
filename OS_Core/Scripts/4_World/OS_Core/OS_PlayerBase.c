@@ -6,6 +6,8 @@ modded class PlayerBase
 	bool m_OS_AdminGod;
 	bool m_OS_SpawnProtect;
 	bool m_OS_InPvPZone;
+	string m_OS_BuffType;      // bonus z jídla (regen / blood / warmth / stamina)
+	float m_OS_BuffUntil;
 	float m_OS_PvPLeftAt;      // čas odchodu z PvP zóny (běží časovač), 0 = neběží
 
 	// neviditelnost admina (synchronizuje se všem klientům)

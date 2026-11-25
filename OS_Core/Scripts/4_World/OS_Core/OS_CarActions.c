@@ -129,6 +129,7 @@ modded class ActionConstructor
 		actions.Insert(ActionOSCodeLockUnlock);
 		actions.Insert(ActionOSCodeLockLock);
 		actions.Insert(ActionOSBaseMenu);
+		actions.Insert(ActionOSCook);
 	}
 }
 
@@ -143,6 +144,7 @@ modded class PlayerBase
 		AddAction(ActionOSCodeLockUnlock, InputActionMap);
 		AddAction(ActionOSCodeLockLock, InputActionMap);
 		AddAction(ActionOSBaseMenu, InputActionMap);
+		AddAction(ActionOSCook, InputActionMap);
 	}
 }
 

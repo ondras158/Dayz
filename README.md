@@ -45,7 +45,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | **K** | Osobní garáž |
 | **U** | Farma |
 | **M** | Mapa (i bez mapy v inventáři) – PvP zóny, safe zóny, base, spoluhráči, garáž, farma |
-| **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base* |
+| **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base*; u ohně *Vařit podle receptu* |
 | **Y / N** | Uložit / zrušit místo spawnu vozidla |
 | **Home** | Admin menu (jen admini) |
 | **End** | Admin freecam (jen admini) |
@@ -69,6 +69,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
+| Vaření podle receptů | U hořícího ohně nebo vařiče akce **Vařit podle receptu**: 10 jídel (guláš, polévky, rizoto, omeleta…), víc energie a vody, dočasné bonusy (zdraví, krev, teplo, výdrž), prodej v Potravinách | `Cooking.json` |
 | Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, base na mapě; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze, PvP zóny; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kódové zámky, base, kick/ban, přidávání adminů, hlavní admin | `Admins.json` |
 | Expansion BaseBuilding (doplněk) | Členové OS skupiny se automaticky stanou členy území vlajky Expansion | `ExpansionTerritory.json` |
@@ -76,7 +77,8 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 ### Struktura
 ```
 OS_Core/
-├── config.cpp                     definice módu, bankovky (OS_Money_*), vejce (OS_ChickenEgg)
+├── config.cpp                     definice módu, bankovky (OS_Money_*), vejce (OS_ChickenEgg), jídla (OS_Dish_*)
+├── stringtable.csv                názvy předmětů módu podle jazyka hry (cs, en, de, pl, ru)
 ├── data/                          potisky bankovek (money_*_co.paa)
 ├── GUI/layouts/*.layout           vzhled menu (generuje tools/generate_layouts.py)
 └── Scripts/
@@ -139,6 +141,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Groups.json     GroupsData.json                                           skupiny
 ├── Farms.json      FarmsData.json                                            farmy
 ├── Bases.json      BasesData.json                                            base u vlajky
+├── Cooking.json                                                              recepty a bonusy z jídla
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -495,6 +498,36 @@ přidej jejich classname a díly).
   Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
 - Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
 
+**Vaření podle receptů** (`Cooking.json`)
+- U **hořícího ohniště** nebo **zapnutého plynového vařiče** se podívej na oheň a dej akci **Vařit podle receptu**.
+  Menu ukáže recepty (u těch, na které máš vše, je „[lze uvařit]“), suroviny, nádobí, čas a bonus.
+- Suroviny a nádobí musíš mít u sebe (nebo hrnec/pánev na ohništi). Shnilé a spálené suroviny se nepočítají.
+  Suroviny se spotřebují hned, jídlo je hotové po `CookSeconds` – **zůstaň u ohně**, jinak se spálí.
+- Výchozí recepty:
+
+  | Jídlo | Suroviny | Nádobí | Bonus |
+  |---|---|---|---|
+  | Guláš | 2× maso, brambora, paprika nebo rajče | hrnec | teplo 30 min |
+  | Masová polévka | maso (i kuřecí), 2× brambora / cuketa / rajče | hrnec | zdraví 20 min |
+  | Zeleninová polévka | 3× zelenina | hrnec | výdrž 15 min |
+  | Rybí polévka | ryba nebo filet, brambora | hrnec | zdraví 20 min |
+  | Houbová polévka | 2× houby (ne lysohlávky a muchomůrky), brambora | hrnec | teplo 20 min |
+  | Kuře na paprice | kuřecí maso, paprika, sušené mléko | hrnec | zdraví 30 min |
+  | Rizoto | rýže, maso nebo houby | hrnec | krev 15 min |
+  | Ovocný kompot | 3× jablko / hruška / švestka | hrnec | výdrž 10 min |
+  | Pečené maso s bramborami | maso, 2× brambora | pánev | krev 20 min |
+  | Omeleta | 2× vejce z farmy, rajče nebo paprika | pánev | výdrž 20 min |
+
+- **Hotová jídla** jsou nové předměty `OS_Dish_*` (zatím s modelem otevřené konzervy) – zasytí víc než suroviny
+  a po snědení dají bonus. Bonus se nesčítá, nový ho přepíše. Síla bonusů: `RegenHealthPerSecond`,
+  `RegenBloodPerSecond`, `WarmthPerSecond`, `StaminaPerSecond`.
+- Recepty jdou upravovat a přidávat v `Recipes`: `Name`, `Result` (classname, i vanilla jídlo), `ResultCount`,
+  `Tool` (`pot` / `pan` / `""`), `CookSeconds`, `Buff` (`regen` / `blood` / `warmth` / `stamina` / `""`), `BuffMinutes`
+  a `Ingredients` – `{ "Items": "Potato|Tomato", "Count": 2 }`, kde `*text` = classname obsahuje text,
+  `-text` = vyloučit. Co je hrnec a pánev: `PotItems`, `PanItems`.
+- Hotová jídla prodává a vykupuje **Potraviny** (kategorie *Hotova jidla*, nákup 500, výkup 150).
+- Názvy jídel a vejce ve hře jsou podle jazyka hry hráče (`stringtable.csv`).
+
 **Base u vlajky** (`Bases.json`, data v `BasesData.json`)
 - Postav vanilla vlajku (Territory Flag Kit) aspoň se stožárem (`RequirePole`), podívej se na ni a dej akci **Base**.
   V menu *Založit base* (`FoundPrice`), *Zvětšit poloměr* a *Zrušit base* (jen majitel, vlajka zůstane).
@@ -607,6 +640,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
+- **Vaření:** recepty u ohně, 10 hotových jídel s lepší výživou a bonusy, prodej v Potravinách.
 - **Base u vanilla vlajky:** založení, zvětšování poloměru po úrovních, rozestupy mezi basemi, zobrazení na mapě.
 - **Kódový zámek:** vanilla DigitalCodeLock rozšířený o majitele, odemykání/zamykání skupinou bez kódu a admin odemknutí.
 - **PvP:** PvP jen v PvP zónách, časovač po odchodu ze zóny, zóny a safe zóny na mapě, mapa bez předmětu (M).

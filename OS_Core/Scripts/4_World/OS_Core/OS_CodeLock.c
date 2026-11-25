@@ -288,3 +288,46 @@ class ActionOSBaseMenu : ActionInteractBase
 		rpc.Send(null, OS_RPC_BASE_OPEN, true, null);
 	}
 }
+
+// ---------------------------------------------------------------- akce u ohně: vaření podle receptu
+
+class ActionOSCook : ActionInteractBase
+{
+	void ActionOSCook()
+	{
+		m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_INTERACTONCE;
+		m_StanceMask = DayZPlayerConstants.STANCEMASK_ERECT | DayZPlayerConstants.STANCEMASK_CROUCH;
+		m_Text = "Varit podle receptu";
+	}
+
+	override string GetText()
+	{
+		return OS_T("Varit podle receptu");
+	}
+
+	override void CreateConditionComponents()
+	{
+		m_ConditionItem = new CCINone;
+		m_ConditionTarget = new CCTCursor;
+	}
+
+	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
+	{
+		Object obj = target.GetObject();
+		FireplaceBase fireplace = FireplaceBase.Cast(obj);
+		PortableGasStove stove = PortableGasStove.Cast(obj);
+		if (!fireplace && !stove)
+			return false;
+		if (fireplace && !fireplace.IsBurning())
+			return false;
+		if (stove && (!stove.GetCompEM() || !stove.GetCompEM().IsWorking()))
+			return false;
+		return IsInReach(player, target, UAMaxDistances.DEFAULT);
+	}
+
+	override void OnExecuteClient(ActionData action_data)
+	{
+		ScriptRPC rpc = new ScriptRPC();
+		rpc.Send(null, OS_RPC_COOK_OPEN, true, null);
+	}
+}

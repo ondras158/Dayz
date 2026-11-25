@@ -43,6 +43,7 @@ class OS_LangData
 
 	protected static void Fill_cs_0(map<string, string> m)
 	{
+		m.Set("Hotova jidla", "Hotova jidla");
 		m.Set("Pistole", "Pistole");
 		m.Set("Zbrane", "Zbrane");
 		m.Set("Munice", "Munice");
@@ -86,6 +87,16 @@ class OS_LangData
 		m.Set("Vítej na serveru!", "Vítej na serveru!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.");
 		m.Set("Jsi zabanovan na tomto serveru.", "Jsi zabanovan na tomto serveru.");
+		m.Set("Gulas", "Gulas");
+		m.Set("Masova polevka", "Masova polevka");
+		m.Set("Zeleninova polevka", "Zeleninova polevka");
+		m.Set("Rybi polevka", "Rybi polevka");
+		m.Set("Houbova polevka", "Houbova polevka");
+		m.Set("Kure na paprice", "Kure na paprice");
+		m.Set("Rizoto", "Rizoto");
+		m.Set("Ovocny kompot", "Ovocny kompot");
+		m.Set("Pecene maso s bramborami", "Pecene maso s bramborami");
+		m.Set("Omeleta", "Omeleta");
 		m.Set("Priklad - Farmar", "Priklad - Farmar");
 		m.Set("Slepice", "Slepice");
 		m.Set("Prase", "Prase");
@@ -122,6 +133,7 @@ class OS_LangData
 		m.Set("Zamek", "Zamek");
 		m.Set("Zamknout (skupina)", "Zamknout (skupina)");
 		m.Set("Base", "Base");
+		m.Set("Varit podle receptu", "Varit podle receptu");
 		m.Set("Bankovka %1 %2", "Bankovka %1 %2");
 		m.Set("Banka", "Banka");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Drobne %1 %2 pripsany na ucet.");
@@ -181,6 +193,10 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Musis stat u bankomatu.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nemas u sebe zadnou hotovost.");
 		m.Set("Tolik hotovosti u sebe nemas.", "Tolik hotovosti u sebe nemas.");
+	}
+
+	protected static void Fill_cs_1(map<string, string> m)
+	{
 		m.Set("Vlozeno %1 %2", "Vlozeno %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (poplatek %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).");
@@ -193,10 +209,6 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Vybrano %1 %2 z uctu skupiny %3");
 		m.Set("Prevody jsou vypnute.", "Prevody jsou vypnute.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Neplatne Steam ID (17 cislic).");
-	}
-
-	protected static void Fill_cs_1(map<string, string> m)
-	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Nemuzes posilat penize sam sobe.");
 		m.Set("Minimalni castka je %1 %2.", "Minimalni castka je %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Hrac s timto Steam ID na serveru nikdy nehral.");
@@ -221,6 +233,30 @@ class OS_LangData
 		m.Set("Base: %1", "Base: %1");
 		m.Set("Zadna base do 300 m.", "Zadna base do 300 m.");
 		m.Set("Smazana base hrace %1.", "Smazana base hrace %1.");
+		m.Set("Vareni", "Vareni");
+		m.Set("Musis stat u horiciho ohne nebo zapnuteho varice.", "Musis stat u horiciho ohne nebo zapnuteho varice.");
+		m.Set("Uz neco varis - pockej, az to bude hotove.", "Uz neco varis - pockej, az to bude hotove.");
+		m.Set("Potrebujes panev.", "Potrebujes panev.");
+		m.Set("Potrebujes hrnec nebo kotlik.", "Potrebujes hrnec nebo kotlik.");
+		m.Set("Chybi suroviny pro %1.", "Chybi suroviny pro %1.");
+		m.Set("Varis %1 - hotovo za %2 s. Zustan u ohne.", "Varis %1 - hotovo za %2 s. Zustan u ohne.");
+		m.Set("%1 se spalilo - odesel jsi od ohne.", "%1 se spalilo - odesel jsi od ohne.");
+		m.Set("Hotovo: %1", "Hotovo: %1");
+		m.Set("jen ohen", "jen ohen");
+		m.Set("hrnec", "hrnec");
+		m.Set("panev", "panev");
+		m.Set("%1   |   %2, %3 s", "%1   |   %2, %3 s");
+		m.Set("%1   |   bonus: %2 (%3 min)", "%1   |   bonus: %2 (%3 min)");
+		m.Set("maso", "maso");
+		m.Set("houby", "houby");
+		m.Set("ryba", "ryba");
+		m.Set("regenerace zdravi", "regenerace zdravi");
+		m.Set("doplneni krve", "doplneni krve");
+		m.Set("teplo", "teplo");
+		m.Set("vydrz", "vydrz");
+		m.Set("Bonus z jidla", "Bonus z jidla");
+		m.Set("%1 na %2 min", "%1 na %2 min");
+		m.Set("Bonus skoncil: %1", "Bonus skoncil: %1");
 		m.Set("Farma", "Farma");
 		m.Set("Farma zrusena.", "Farma zrusena.");
 		m.Set("Farmar", "Farmar");
@@ -311,6 +347,10 @@ class OS_LangData
 		m.Set("Garaz", "Garaz");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Uz mas osobni garaz. Nejdriv ji zrus.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
 		m.Set("Stavba stoji %1 %2.", "Stavba stoji %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).");
@@ -347,10 +387,6 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Tohle auto ti nepatri.");
 		m.Set("Garaz je plna (max %1).", "Garaz je plna (max %1).");
 		m.Set("Nemas dost penez na poplatek.", "Nemas dost penez na poplatek.");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Chyba pri ukladani - auto zustava venku.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Auto ulozeno do garaze skupiny.");
 		m.Set("Auto ulozeno do garaze.", "Auto ulozeno do garaze.");
@@ -397,6 +433,8 @@ class OS_LangData
 		m.Set("Spravovat ji muze majitel a jeho skupina.", "Spravovat ji muze majitel a jeho skupina.");
 		m.Set("Nejvetsi polomer", "Nejvetsi polomer");
 		m.Set("Zvetsit na %1 m (%2%3)", "Zvetsit na %1 m (%2%3)");
+		m.Set("%1   [lze uvarit]", "%1   [lze uvarit]");
+		m.Set("Vyber recept vlevo.", "Vyber recept vlevo.");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Koupena zvirata a krmivo se dovezou na tvoji farmu.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Nejdriv si postav farmu (klavesa U), pak se sem vrat.");
@@ -463,6 +501,10 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie");
 		m.Set("Nakup", "Nakup");
 		m.Set("Vykup", "Vykup");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Ulozit cenu", "Ulozit cenu");
 		m.Set("Nasobit kat.", "Nasobit kat.");
 		m.Set("Nasobit", "Nasobit");
@@ -501,10 +543,6 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin nastroje");
 		m.Set("Hrac (cil) a admin", "Hrac (cil) a admin");
 		m.Set("Vysvleknout", "Vysvleknout");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Neviditelnost", "Neviditelnost");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -535,6 +573,9 @@ class OS_LangData
 		m.Set("Zvetsit polomer", "Zvetsit polomer");
 		m.Set("Zrusit base", "Zrusit base");
 		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Kodovy zamek na branu: majitel a skupina odemknou bez kodu");
+		m.Set("Vareni podle receptu", "Vareni podle receptu");
+		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.");
+		m.Set("Uvarit", "Uvarit");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -600,6 +641,7 @@ class OS_LangData
 
 	protected static void Fill_en_0(map<string, string> m)
 	{
+		m.Set("Hotova jidla", "Cooked meals");
 		m.Set("Pistole", "Pistols");
 		m.Set("Zbrane", "Weapons");
 		m.Set("Munice", "Ammunition");
@@ -643,6 +685,16 @@ class OS_LangData
 		m.Set("Vítej na serveru!", "Welcome to the server!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Key B = shop (at a trader). You can find the rules on our Discord.");
 		m.Set("Jsi zabanovan na tomto serveru.", "You are banned on this server.");
+		m.Set("Gulas", "Goulash");
+		m.Set("Masova polevka", "Meat soup");
+		m.Set("Zeleninova polevka", "Vegetable soup");
+		m.Set("Rybi polevka", "Fish soup");
+		m.Set("Houbova polevka", "Mushroom soup");
+		m.Set("Kure na paprice", "Chicken paprikash");
+		m.Set("Rizoto", "Risotto");
+		m.Set("Ovocny kompot", "Fruit compote");
+		m.Set("Pecene maso s bramborami", "Roast meat with potatoes");
+		m.Set("Omeleta", "Omelette");
 		m.Set("Priklad - Farmar", "Example - Farmer");
 		m.Set("Slepice", "Chicken");
 		m.Set("Prase", "Pig");
@@ -679,6 +731,7 @@ class OS_LangData
 		m.Set("Zamek", "Lock");
 		m.Set("Zamknout (skupina)", "Lock (group)");
 		m.Set("Base", "Base");
+		m.Set("Varit podle receptu", "Cook a recipe");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Change of %1 %2 credited to your account.");
@@ -738,6 +791,10 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "You must stand at an ATM.");
 		m.Set("Nemas u sebe zadnou hotovost.", "You have no cash on you.");
 		m.Set("Tolik hotovosti u sebe nemas.", "You don't have that much cash on you.");
+	}
+
+	protected static void Fill_en_1(map<string, string> m)
+	{
 		m.Set("Vlozeno %1 %2", "Deposited %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (fee %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "You can withdraw at least %1 %2 (the ATM only gives banknotes).");
@@ -750,10 +807,6 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Withdrawn %1 %2 from the account of group %3");
 		m.Set("Prevody jsou vypnute.", "Transfers are disabled.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Invalid Steam ID (17 digits).");
-	}
-
-	protected static void Fill_en_1(map<string, string> m)
-	{
 		m.Set("Nemuzes posilat penize sam sobe.", "You can't send money to yourself.");
 		m.Set("Minimalni castka je %1 %2.", "The minimum amount is %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "A player with this Steam ID has never played on the server.");
@@ -778,6 +831,30 @@ class OS_LangData
 		m.Set("Base: %1", "Base: %1");
 		m.Set("Zadna base do 300 m.", "No base within 300 m.");
 		m.Set("Smazana base hrace %1.", "Removed the base of player %1.");
+		m.Set("Vareni", "Cooking");
+		m.Set("Musis stat u horiciho ohne nebo zapnuteho varice.", "You must stand at a burning fire or a lit stove.");
+		m.Set("Uz neco varis - pockej, az to bude hotove.", "You are already cooking - wait until it's done.");
+		m.Set("Potrebujes panev.", "You need a frying pan.");
+		m.Set("Potrebujes hrnec nebo kotlik.", "You need a pot or a cauldron.");
+		m.Set("Chybi suroviny pro %1.", "Missing ingredients for %1.");
+		m.Set("Varis %1 - hotovo za %2 s. Zustan u ohne.", "Cooking %1 - ready in %2 s. Stay at the fire.");
+		m.Set("%1 se spalilo - odesel jsi od ohne.", "%1 burned - you walked away from the fire.");
+		m.Set("Hotovo: %1", "Done: %1");
+		m.Set("jen ohen", "fire only");
+		m.Set("hrnec", "pot");
+		m.Set("panev", "frying pan");
+		m.Set("%1   |   %2, %3 s", "%1   |   %2, %3 s");
+		m.Set("%1   |   bonus: %2 (%3 min)", "%1   |   bonus: %2 (%3 min)");
+		m.Set("maso", "meat");
+		m.Set("houby", "mushrooms");
+		m.Set("ryba", "fish");
+		m.Set("regenerace zdravi", "health regeneration");
+		m.Set("doplneni krve", "blood regeneration");
+		m.Set("teplo", "warmth");
+		m.Set("vydrz", "stamina");
+		m.Set("Bonus z jidla", "Food bonus");
+		m.Set("%1 na %2 min", "%1 for %2 min");
+		m.Set("Bonus skoncil: %1", "Bonus ended: %1");
 		m.Set("Farma", "Farm");
 		m.Set("Farma zrusena.", "Farm removed.");
 		m.Set("Farmar", "Farmer");
@@ -868,6 +945,10 @@ class OS_LangData
 		m.Set("Garaz", "Garage");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "You already have a personal garage. Remove it first.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "You can't build a garage here - it's too close to another garage or shop.");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
 		m.Set("Stavba stoji %1 %2.", "Building costs %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garage built. Set the vehicle spot in the garage menu (key K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Personal garage removed. Your stored cars stay yours (pick them up at any garage).");
@@ -904,10 +985,6 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "This car doesn't belong to you.");
 		m.Set("Garaz je plna (max %1).", "The garage is full (max %1).");
 		m.Set("Nemas dost penez na poplatek.", "You don't have enough money for the fee.");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Error while storing - the car stays outside.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Car stored in the group garage.");
 		m.Set("Auto ulozeno do garaze.", "Car stored in the garage.");
@@ -954,6 +1031,8 @@ class OS_LangData
 		m.Set("Spravovat ji muze majitel a jeho skupina.", "The owner and their group can manage it.");
 		m.Set("Nejvetsi polomer", "Largest radius");
 		m.Set("Zvetsit na %1 m (%2%3)", "Enlarge to %1 m (%2%3)");
+		m.Set("%1   [lze uvarit]", "%1   [can cook]");
+		m.Set("Vyber recept vlevo.", "Select a recipe on the left.");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - animals, trees, seedlings, feed and fertilizer for your farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Bought animals and feed are delivered to your farm.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Build a farm first (key U), then come back here.");
@@ -1020,6 +1099,10 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - price of the selected item (-1 = not allowed, both -1 = hide) / multiply whole category");
 		m.Set("Nakup", "Buy");
 		m.Set("Vykup", "Sell");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Ulozit cenu", "Save price");
 		m.Set("Nasobit kat.", "Multiply cat.");
 		m.Set("Nasobit", "Multiply");
@@ -1058,10 +1141,6 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin tools");
 		m.Set("Hrac (cil) a admin", "Player (target) and admin");
 		m.Set("Vysvleknout", "Strip");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Neviditelnost", "Invisibility");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -1092,6 +1171,9 @@ class OS_LangData
 		m.Set("Zvetsit polomer", "Enlarge radius");
 		m.Set("Zrusit base", "Remove base");
 		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Code lock on a gate: the owner and group unlock without a code");
+		m.Set("Vareni podle receptu", "Cooking by recipe");
+		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Carry the ingredients and a pot / pan (or put the pot on the fire). A cooked meal gives a bonus.");
+		m.Set("Uvarit", "Cook");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -1157,6 +1239,7 @@ class OS_LangData
 
 	protected static void Fill_de_0(map<string, string> m)
 	{
+		m.Set("Hotova jidla", "Fertiggerichte");
 		m.Set("Pistole", "Pistolen");
 		m.Set("Zbrane", "Waffen");
 		m.Set("Munice", "Munition");
@@ -1200,6 +1283,16 @@ class OS_LangData
 		m.Set("Vítej na serveru!", "Willkommen auf dem Server!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Taste B = Laden (beim Händler). Die Regeln findest du auf unserem Discord.");
 		m.Set("Jsi zabanovan na tomto serveru.", "Du bist auf diesem Server gebannt.");
+		m.Set("Gulas", "Gulasch");
+		m.Set("Masova polevka", "Fleischsuppe");
+		m.Set("Zeleninova polevka", "Gemüsesuppe");
+		m.Set("Rybi polevka", "Fischsuppe");
+		m.Set("Houbova polevka", "Pilzsuppe");
+		m.Set("Kure na paprice", "Paprikahuhn");
+		m.Set("Rizoto", "Risotto");
+		m.Set("Ovocny kompot", "Obstkompott");
+		m.Set("Pecene maso s bramborami", "Braten mit Kartoffeln");
+		m.Set("Omeleta", "Omelett");
 		m.Set("Priklad - Farmar", "Beispiel - Bauer");
 		m.Set("Slepice", "Huhn");
 		m.Set("Prase", "Schwein");
@@ -1236,6 +1329,7 @@ class OS_LangData
 		m.Set("Zamek", "Schloss");
 		m.Set("Zamknout (skupina)", "Abschließen (Gruppe)");
 		m.Set("Base", "Basis");
+		m.Set("Varit podle receptu", "Nach Rezept kochen");
 		m.Set("Bankovka %1 %2", "Banknote %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Wechselgeld %1 %2 wurde deinem Konto gutgeschrieben.");
@@ -1295,6 +1389,10 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Du musst an einem Geldautomaten stehen.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Du hast kein Bargeld dabei.");
 		m.Set("Tolik hotovosti u sebe nemas.", "So viel Bargeld hast du nicht dabei.");
+	}
+
+	protected static void Fill_de_1(map<string, string> m)
+	{
 		m.Set("Vlozeno %1 %2", "Eingezahlt %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (Gebühr %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Abheben kannst du mindestens %1 %2 (der Automat gibt nur Scheine aus).");
@@ -1307,10 +1405,6 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "%1 %2 vom Konto der Gruppe %3 abgehoben");
 		m.Set("Prevody jsou vypnute.", "Überweisungen sind deaktiviert.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Ungültige Steam-ID (17 Ziffern).");
-	}
-
-	protected static void Fill_de_1(map<string, string> m)
-	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Du kannst dir selbst kein Geld schicken.");
 		m.Set("Minimalni castka je %1 %2.", "Der Mindestbetrag ist %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Ein Spieler mit dieser Steam-ID hat nie auf dem Server gespielt.");
@@ -1335,6 +1429,30 @@ class OS_LangData
 		m.Set("Base: %1", "Basis: %1");
 		m.Set("Zadna base do 300 m.", "Keine Basis im Umkreis von 300 m.");
 		m.Set("Smazana base hrace %1.", "Basis von Spieler %1 gelöscht.");
+		m.Set("Vareni", "Kochen");
+		m.Set("Musis stat u horiciho ohne nebo zapnuteho varice.", "Du musst an einem brennenden Feuer oder eingeschalteten Kocher stehen.");
+		m.Set("Uz neco varis - pockej, az to bude hotove.", "Du kochst schon etwas - warte, bis es fertig ist.");
+		m.Set("Potrebujes panev.", "Du brauchst eine Pfanne.");
+		m.Set("Potrebujes hrnec nebo kotlik.", "Du brauchst einen Topf oder Kessel.");
+		m.Set("Chybi suroviny pro %1.", "Es fehlen Zutaten für %1.");
+		m.Set("Varis %1 - hotovo za %2 s. Zustan u ohne.", "Du kochst %1 - fertig in %2 s. Bleib am Feuer.");
+		m.Set("%1 se spalilo - odesel jsi od ohne.", "%1 ist verbrannt - du bist vom Feuer weggegangen.");
+		m.Set("Hotovo: %1", "Fertig: %1");
+		m.Set("jen ohen", "nur Feuer");
+		m.Set("hrnec", "Topf");
+		m.Set("panev", "Pfanne");
+		m.Set("%1   |   %2, %3 s", "%1   |   %2, %3 s");
+		m.Set("%1   |   bonus: %2 (%3 min)", "%1   |   Bonus: %2 (%3 Min.)");
+		m.Set("maso", "Fleisch");
+		m.Set("houby", "Pilze");
+		m.Set("ryba", "Fisch");
+		m.Set("regenerace zdravi", "Gesundheitsregeneration");
+		m.Set("doplneni krve", "Blutregeneration");
+		m.Set("teplo", "Wärme");
+		m.Set("vydrz", "Ausdauer");
+		m.Set("Bonus z jidla", "Essensbonus");
+		m.Set("%1 na %2 min", "%1 für %2 Min.");
+		m.Set("Bonus skoncil: %1", "Bonus beendet: %1");
 		m.Set("Farma", "Farm");
 		m.Set("Farma zrusena.", "Farm abgerissen.");
 		m.Set("Farmar", "Bauer");
@@ -1425,6 +1543,10 @@ class OS_LangData
 		m.Set("Garaz", "Garage");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Du hast schon eine eigene Garage. Reiß sie zuerst ab.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Hier kann keine Garage gebaut werden - zu nah an einer anderen Garage oder einem Laden.");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
 		m.Set("Stavba stoji %1 %2.", "Der Bau kostet %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garage gebaut. Leg den Fahrzeugplatz im Garagenmenü fest (Taste K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Eigene Garage abgerissen. Eingelagerte Autos bleiben dir (abholen in jeder Garage).");
@@ -1461,10 +1583,6 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Dieses Auto gehört dir nicht.");
 		m.Set("Garaz je plna (max %1).", "Die Garage ist voll (max. %1).");
 		m.Set("Nemas dost penez na poplatek.", "Du hast nicht genug Geld für die Gebühr.");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Fehler beim Einlagern - das Auto bleibt draußen.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Auto in der Gruppengarage eingelagert.");
 		m.Set("Auto ulozeno do garaze.", "Auto in der Garage eingelagert.");
@@ -1511,6 +1629,8 @@ class OS_LangData
 		m.Set("Spravovat ji muze majitel a jeho skupina.", "Verwalten können sie der Besitzer und seine Gruppe.");
 		m.Set("Nejvetsi polomer", "Größter Radius");
 		m.Set("Zvetsit na %1 m (%2%3)", "Auf %1 m vergrößern (%2%3)");
+		m.Set("%1   [lze uvarit]", "%1   [kann gekocht werden]");
+		m.Set("Vyber recept vlevo.", "Wähle links ein Rezept.");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - Tiere, Bäume, Setzlinge, Futter und Dünger für deine Farm");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Gekaufte Tiere und Futter werden zu deiner Farm geliefert.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Bau zuerst eine Farm (Taste U) und komm dann zurück.");
@@ -1577,6 +1697,10 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - Preis des gewählten Gegenstands (-1 = nicht erlaubt, beide -1 = ausblenden) / ganze Kategorie multiplizieren");
 		m.Set("Nakup", "Kauf");
 		m.Set("Vykup", "Ankauf");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Ulozit cenu", "Preis speichern");
 		m.Set("Nasobit kat.", "Kat. multiplizieren");
 		m.Set("Nasobit", "Multiplizieren");
@@ -1615,10 +1739,6 @@ class OS_LangData
 		m.Set("Admin nastroje", "Admin-Werkzeuge");
 		m.Set("Hrac (cil) a admin", "Spieler (Ziel) und Admin");
 		m.Set("Vysvleknout", "Ausziehen");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Neviditelnost", "Unsichtbarkeit");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -1649,6 +1769,9 @@ class OS_LangData
 		m.Set("Zvetsit polomer", "Radius vergrößern");
 		m.Set("Zrusit base", "Basis auflösen");
 		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Codeschloss am Tor: Besitzer und Gruppe öffnen ohne Code");
+		m.Set("Vareni podle receptu", "Kochen nach Rezept");
+		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Trag Zutaten und Topf / Pfanne bei dir (oder Topf auf dem Feuer). Ein Gericht gibt einen Bonus.");
+		m.Set("Uvarit", "Kochen");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -1714,6 +1837,7 @@ class OS_LangData
 
 	protected static void Fill_pl_0(map<string, string> m)
 	{
+		m.Set("Hotova jidla", "Gotowe dania");
 		m.Set("Pistole", "Pistolety");
 		m.Set("Zbrane", "Broń");
 		m.Set("Munice", "Amunicja");
@@ -1757,6 +1881,16 @@ class OS_LangData
 		m.Set("Vítej na serveru!", "Witaj na serwerze!");
 		m.Set("Klávesa B = obchod (u obchodníka). Pravidla najdeš na našem Discordu.", "Klawisz B = sklep (u handlarza). Zasady znajdziesz na naszym Discordzie.");
 		m.Set("Jsi zabanovan na tomto serveru.", "Jesteś zbanowany na tym serwerze.");
+		m.Set("Gulas", "Gulasz");
+		m.Set("Masova polevka", "Zupa mięsna");
+		m.Set("Zeleninova polevka", "Zupa warzywna");
+		m.Set("Rybi polevka", "Zupa rybna");
+		m.Set("Houbova polevka", "Zupa grzybowa");
+		m.Set("Kure na paprice", "Kurczak w papryce");
+		m.Set("Rizoto", "Risotto");
+		m.Set("Ovocny kompot", "Kompot owocowy");
+		m.Set("Pecene maso s bramborami", "Pieczeń z ziemniakami");
+		m.Set("Omeleta", "Omlet");
 		m.Set("Priklad - Farmar", "Przykład - Rolnik");
 		m.Set("Slepice", "Kura");
 		m.Set("Prase", "Świnia");
@@ -1793,6 +1927,7 @@ class OS_LangData
 		m.Set("Zamek", "Zamek");
 		m.Set("Zamknout (skupina)", "Zamknij (grupa)");
 		m.Set("Base", "Baza");
+		m.Set("Varit podle receptu", "Gotuj według przepisu");
 		m.Set("Bankovka %1 %2", "Banknot %1 %2");
 		m.Set("Banka", "Bank");
 		m.Set("Drobne %1 %2 pripsany na ucet.", "Reszta %1 %2 została przelana na twoje konto.");
@@ -1852,6 +1987,10 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Musisz stać przy bankomacie.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nie masz przy sobie gotówki.");
 		m.Set("Tolik hotovosti u sebe nemas.", "Nie masz przy sobie tyle gotówki.");
+	}
+
+	protected static void Fill_pl_1(map<string, string> m)
+	{
 		m.Set("Vlozeno %1 %2", "Wpłacono %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (opłata %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Można wypłacić co najmniej %1 %2 (bankomat wydaje tylko banknoty).");
@@ -1864,10 +2003,6 @@ class OS_LangData
 		m.Set("Vybrano %1 %2 z uctu skupiny %3", "Wypłacono %1 %2 z konta grupy %3");
 		m.Set("Prevody jsou vypnute.", "Przelewy są wyłączone.");
 		m.Set("Neplatne Steam ID (17 cislic).", "Nieprawidłowe Steam ID (17 cyfr).");
-	}
-
-	protected static void Fill_pl_1(map<string, string> m)
-	{
 		m.Set("Nemuzes posilat penize sam sobe.", "Nie możesz wysłać pieniędzy samemu sobie.");
 		m.Set("Minimalni castka je %1 %2.", "Minimalna kwota to %1 %2.");
 		m.Set("Hrac s timto Steam ID na serveru nikdy nehral.", "Gracz z tym Steam ID nigdy nie grał na serwerze.");
@@ -1892,6 +2027,30 @@ class OS_LangData
 		m.Set("Base: %1", "Baza: %1");
 		m.Set("Zadna base do 300 m.", "Brak bazy w promieniu 300 m.");
 		m.Set("Smazana base hrace %1.", "Usunięto bazę gracza %1.");
+		m.Set("Vareni", "Gotowanie");
+		m.Set("Musis stat u horiciho ohne nebo zapnuteho varice.", "Musisz stać przy płonącym ognisku lub włączonej kuchence.");
+		m.Set("Uz neco varis - pockej, az to bude hotove.", "Już coś gotujesz - poczekaj, aż będzie gotowe.");
+		m.Set("Potrebujes panev.", "Potrzebujesz patelni.");
+		m.Set("Potrebujes hrnec nebo kotlik.", "Potrzebujesz garnka lub kociołka.");
+		m.Set("Chybi suroviny pro %1.", "Brakuje składników na %1.");
+		m.Set("Varis %1 - hotovo za %2 s. Zustan u ohne.", "Gotujesz %1 - gotowe za %2 s. Zostań przy ognisku.");
+		m.Set("%1 se spalilo - odesel jsi od ohne.", "%1 się spaliło - odszedłeś od ogniska.");
+		m.Set("Hotovo: %1", "Gotowe: %1");
+		m.Set("jen ohen", "tylko ogień");
+		m.Set("hrnec", "garnek");
+		m.Set("panev", "patelnia");
+		m.Set("%1   |   %2, %3 s", "%1   |   %2, %3 s");
+		m.Set("%1   |   bonus: %2 (%3 min)", "%1   |   bonus: %2 (%3 min)");
+		m.Set("maso", "mięso");
+		m.Set("houby", "grzyby");
+		m.Set("ryba", "ryba");
+		m.Set("regenerace zdravi", "regeneracja zdrowia");
+		m.Set("doplneni krve", "regeneracja krwi");
+		m.Set("teplo", "ciepło");
+		m.Set("vydrz", "wytrzymałość");
+		m.Set("Bonus z jidla", "Bonus z jedzenia");
+		m.Set("%1 na %2 min", "%1 na %2 min");
+		m.Set("Bonus skoncil: %1", "Bonus się skończył: %1");
 		m.Set("Farma", "Farma");
 		m.Set("Farma zrusena.", "Farma usunięta.");
 		m.Set("Farmar", "Rolnik");
@@ -1982,6 +2141,10 @@ class OS_LangData
 		m.Set("Garaz", "Garaż");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Masz już własny garaż. Najpierw go usuń.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Nie można tu zbudować garażu - jest za blisko innego garażu lub sklepu.");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
 		m.Set("Stavba stoji %1 %2.", "Budowa kosztuje %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garaż zbudowany. Ustaw miejsce dla pojazdu w menu garażu (klawisz K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Własny garaż usunięty. Zaparkowane pojazdy zostają twoje (odbierzesz je w dowolnym garażu).");
@@ -2018,10 +2181,6 @@ class OS_LangData
 		m.Set("Tohle auto ti nepatri.", "Ten pojazd nie należy do ciebie.");
 		m.Set("Garaz je plna (max %1).", "Garaż jest pełny (maks. %1).");
 		m.Set("Nemas dost penez na poplatek.", "Nie masz wystarczająco pieniędzy na opłatę.");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Chyba pri ukladani - auto zustava venku.", "Błąd przy zapisie - pojazd zostaje na zewnątrz.");
 		m.Set("Auto ulozeno do garaze skupiny.", "Pojazd zaparkowany w garażu grupy.");
 		m.Set("Auto ulozeno do garaze.", "Pojazd zaparkowany w garażu.");
@@ -2068,6 +2227,8 @@ class OS_LangData
 		m.Set("Spravovat ji muze majitel a jeho skupina.", "Zarządzać nią może właściciel i jego grupa.");
 		m.Set("Nejvetsi polomer", "Największy promień");
 		m.Set("Zvetsit na %1 m (%2%3)", "Powiększ do %1 m (%2%3)");
+		m.Set("%1   [lze uvarit]", "%1   [można ugotować]");
+		m.Set("Vyber recept vlevo.", "Wybierz przepis po lewej.");
 		m.Set("%1 - zvirata, stromky, sazenice, krmivo a hnojivo pro tvoji farmu", "%1 - zwierzęta, drzewka, sadzonki, pasza i nawóz dla twojej farmy");
 		m.Set("Koupena zvirata a krmivo se dovezou na tvoji farmu.", "Kupione zwierzęta i pasza zostaną dowiezione na twoją farmę.");
 		m.Set("Nejdriv si postav farmu (klavesa U), pak se sem vrat.", "Najpierw zbuduj farmę (klawisz U), potem tu wróć.");
@@ -2134,6 +2295,10 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena wybranego przedmiotu (-1 = nie można, obie -1 = ukryj) / mnożenie całej kategorii");
 		m.Set("Nakup", "Kupno");
 		m.Set("Vykup", "Skup");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Ulozit cenu", "Zapisz cenę");
 		m.Set("Nasobit kat.", "Pomnóż kat.");
 		m.Set("Nasobit", "Pomnóż");
@@ -2172,10 +2337,6 @@ class OS_LangData
 		m.Set("Admin nastroje", "Narzędzia admina");
 		m.Set("Hrac (cil) a admin", "Gracz (cel) i admin");
 		m.Set("Vysvleknout", "Rozbierz");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Neviditelnost", "Niewidzialność");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
@@ -2206,6 +2367,9 @@ class OS_LangData
 		m.Set("Zvetsit polomer", "Powiększ promień");
 		m.Set("Zrusit base", "Usuń bazę");
 		m.Set("Kodovy zamek na branu: majitel a skupina odemknou bez kodu", "Zamek szyfrowy na bramie: właściciel i grupa otwierają bez kodu");
+		m.Set("Vareni podle receptu", "Gotowanie według przepisu");
+		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Miej przy sobie składniki i garnek / patelnię (lub garnek na ognisku). Gotowe danie daje bonus.");
+		m.Set("Uvarit", "Ugotuj");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");
