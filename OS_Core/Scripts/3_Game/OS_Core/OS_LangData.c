@@ -103,6 +103,7 @@ class OS_LangData
 		m.Set("clen", "clen");
 		m.Set("Priklad - PvP letiste", "Priklad - PvP letiste");
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!");
+		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opustil jsi PvP zonu - jsi v bezpeci pred hraci.");
 		m.Set("Priklad - Autocentrum", "Priklad - Autocentrum");
 		m.Set("Priklad - Heliport", "Priklad - Heliport");
@@ -188,11 +189,11 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Pozvanka odeslana: %1");
 		m.Set("Pozvanka do skupiny", "Pozvanka do skupiny");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).");
-		m.Set("Nejdriv opust svou skupinu.", "Nejdriv opust svou skupinu.");
 	}
 
 	protected static void Fill_cs_1(map<string, string> m)
 	{
+		m.Set("Nejdriv opust svou skupinu.", "Nejdriv opust svou skupinu.");
 		m.Set("Pozvanka uz neplati.", "Pozvanka uz neplati.");
 		m.Set("Skupina je mezitim plna.", "Skupina je mezitim plna.");
 		m.Set("%1 se pripojil ke skupine.", "%1 se pripojil ke skupine.");
@@ -342,11 +343,11 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Vyber hrace, ktereho chces pozvat.");
 		m.Set("Vyber misto spawnu", "Vyber misto spawnu");
 		m.Set("Spawnout zde", "Spawnout zde");
-		m.Set("Zustat tady", "Zustat tady");
 	}
 
 	protected static void Fill_cs_2(map<string, string> m)
 	{
+		m.Set("Zustat tady", "Zustat tady");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Hraci online");
 		m.Set("Obnovit seznam", "Obnovit seznam");
@@ -539,6 +540,7 @@ class OS_LangData
 		m.Set("clen", "member");
 		m.Set("Priklad - PvP letiste", "Example - PvP airfield");
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "You entered a PvP zone - other players can hurt you here!");
+		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "You left the PvP zone - for %1 more s players can hurt you (and you them).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "You left the PvP zone - you are safe from players.");
 		m.Set("Priklad - Autocentrum", "Example - Car dealer");
 		m.Set("Priklad - Heliport", "Example - Heliport");
@@ -624,11 +626,11 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Invite sent: %1");
 		m.Set("Pozvanka do skupiny", "Group invite");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 invites you to group %2. Open the group menu (key J).");
-		m.Set("Nejdriv opust svou skupinu.", "Leave your group first.");
 	}
 
 	protected static void Fill_en_1(map<string, string> m)
 	{
+		m.Set("Nejdriv opust svou skupinu.", "Leave your group first.");
 		m.Set("Pozvanka uz neplati.", "The invite is no longer valid.");
 		m.Set("Skupina je mezitim plna.", "The group has filled up in the meantime.");
 		m.Set("%1 se pripojil ke skupine.", "%1 joined the group.");
@@ -778,11 +780,11 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Select the player you want to invite.");
 		m.Set("Vyber misto spawnu", "Choose a spawn location");
 		m.Set("Spawnout zde", "Spawn here");
-		m.Set("Zustat tady", "Stay here");
 	}
 
 	protected static void Fill_en_2(map<string, string> m)
 	{
+		m.Set("Zustat tady", "Stay here");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Players online");
 		m.Set("Obnovit seznam", "Refresh list");
@@ -975,6 +977,7 @@ class OS_LangData
 		m.Set("clen", "Mitglied");
 		m.Set("Priklad - PvP letiste", "Beispiel - PvP-Flugplatz");
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Du hast eine PvP-Zone betreten - andere Spieler können dich hier verletzen!");
+		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Du hast die PvP-Zone verlassen - noch %1 s können dich Spieler verletzen (und du sie).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Du hast die PvP-Zone verlassen - du bist vor Spielern sicher.");
 		m.Set("Priklad - Autocentrum", "Beispiel - Autohaus");
 		m.Set("Priklad - Heliport", "Beispiel - Hubschrauberlandeplatz");
@@ -1060,11 +1063,11 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Einladung gesendet: %1");
 		m.Set("Pozvanka do skupiny", "Gruppeneinladung");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 lädt dich in die Gruppe %2 ein. Öffne das Gruppenmenü (Taste J).");
-		m.Set("Nejdriv opust svou skupinu.", "Verlass zuerst deine Gruppe.");
 	}
 
 	protected static void Fill_de_1(map<string, string> m)
 	{
+		m.Set("Nejdriv opust svou skupinu.", "Verlass zuerst deine Gruppe.");
 		m.Set("Pozvanka uz neplati.", "Die Einladung ist nicht mehr gültig.");
 		m.Set("Skupina je mezitim plna.", "Die Gruppe ist inzwischen voll.");
 		m.Set("%1 se pripojil ke skupine.", "%1 ist der Gruppe beigetreten.");
@@ -1214,11 +1217,11 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wähle den Spieler, den du einladen willst.");
 		m.Set("Vyber misto spawnu", "Wähle einen Spawnpunkt");
 		m.Set("Spawnout zde", "Hier spawnen");
-		m.Set("Zustat tady", "Hier bleiben");
 	}
 
 	protected static void Fill_de_2(map<string, string> m)
 	{
+		m.Set("Zustat tady", "Hier bleiben");
 		m.Set("Admin menu", "Adminmenü");
 		m.Set("Hraci online", "Spieler online");
 		m.Set("Obnovit seznam", "Liste aktualisieren");
@@ -1411,6 +1414,7 @@ class OS_LangData
 		m.Set("clen", "członek");
 		m.Set("Priklad - PvP letiste", "Przykład - lotnisko PvP");
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Wszedłeś do strefy PvP - inni gracze mogą cię tu zranić!");
+		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Opuściłeś strefę PvP - jeszcze przez %1 s gracze mogą cię zranić (a ty ich).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opuściłeś strefę PvP - jesteś bezpieczny przed graczami.");
 		m.Set("Priklad - Autocentrum", "Przykład - Salon samochodowy");
 		m.Set("Priklad - Heliport", "Przykład - Lądowisko");
@@ -1496,11 +1500,11 @@ class OS_LangData
 		m.Set("Pozvanka odeslana: %1", "Zaproszenie wysłane: %1");
 		m.Set("Pozvanka do skupiny", "Zaproszenie do grupy");
 		m.Set("%1 te zve do skupiny %2. Otevri menu skupiny (klavesa J).", "%1 zaprasza cię do grupy %2. Otwórz menu grupy (klawisz J).");
-		m.Set("Nejdriv opust svou skupinu.", "Najpierw opuść swoją grupę.");
 	}
 
 	protected static void Fill_pl_1(map<string, string> m)
 	{
+		m.Set("Nejdriv opust svou skupinu.", "Najpierw opuść swoją grupę.");
 		m.Set("Pozvanka uz neplati.", "Zaproszenie już wygasło.");
 		m.Set("Skupina je mezitim plna.", "Grupa w międzyczasie się zapełniła.");
 		m.Set("%1 se pripojil ke skupine.", "%1 dołączył do grupy.");
@@ -1650,11 +1654,11 @@ class OS_LangData
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wybierz gracza, którego chcesz zaprosić.");
 		m.Set("Vyber misto spawnu", "Wybierz miejsce spawnu");
 		m.Set("Spawnout zde", "Spawnuj tutaj");
-		m.Set("Zustat tady", "Zostań tutaj");
 	}
 
 	protected static void Fill_pl_2(map<string, string> m)
 	{
+		m.Set("Zustat tady", "Zostań tutaj");
 		m.Set("Admin menu", "Menu admina");
 		m.Set("Hraci online", "Gracze online");
 		m.Set("Obnovit seznam", "Odśwież listę");

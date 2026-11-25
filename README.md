@@ -132,6 +132,10 @@ Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Co
 - `PvPOnlyInZones: true` = hráč může zranit hráče **jen v PvP zóně**, jinde je server PvE (zombíci,
   zvířata, pád… zraňují dál). `false` = PvP všude a zóny jsou jen vyznačené na mapě.
 - `BothPlayersInZone: true` = útočník i oběť musí stát v zóně (nejde střílet do zóny zvenku ani ven).
+- **Časovač po odchodu:** `LeaveTimerSeconds` (výchozí 30). Kdo vyběhne ze zóny, je ještě tolik sekund
+  „v PvP“ – může střílet a jde po něm střílet (i ten, kdo za ním vyběhl, protože i jemu běží časovač).
+  Hráč dostane hlášku `TimerMessage` (`%1` = sekundy) a po vypršení `LeaveMessage`. Návrat do zóny časovač zruší,
+  `0` = PvP končí hned na hranici zóny.
 - Při vstupu a odchodu přijde hláška (`EnterMessage`, `LeaveMessage`, vypnutí `NotifyOnEnter: false`).
 - Zóna: `{ "Name": "Letiste", "X": 4500, "Z": 9500, "Radius": 600 }`.
 - **Ve hře (admin menu, Home):** do pole *Částka / souřadnice / poloměr* napiš `poloměr [název]`

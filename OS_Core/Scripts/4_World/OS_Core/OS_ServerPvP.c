@@ -33,11 +33,33 @@ class OS_ServerPvP
 		if (!m_Cfg.Enabled || !m_Cfg.PvPOnlyInZones || !victim || !attacker || victim == attacker)
 			return true;
 
-		if (!FindZone(victim.GetPosition()))
+		if (!IsPvPActive(victim))
 			return false;
-		if (m_Cfg.BothPlayersInZone && !FindZone(attacker.GetPosition()))
+		if (m_Cfg.BothPlayersInZone && !IsPvPActive(attacker))
 			return false;
 		return true;
+	}
+
+	//! hráč je v PvP zóně, nebo ji opustil před méně než LeaveTimerSeconds
+	bool IsPvPActive(PlayerBase player)
+	{
+		if (FindZone(player.GetPosition()))
+			return true;
+		if (player.m_OS_InPvPZone)
+			return true;   // odchod si OnTick ještě nevšiml - počítá se jako v zóně
+		return PvPSecondsLeft(player) > 0;
+	}
+
+	//! kolik sekund po odchodu ze zóny ještě platí PvP (0 = už ne)
+	int PvPSecondsLeft(PlayerBase player)
+	{
+		if (m_Cfg.LeaveTimerSeconds <= 0 || player.m_OS_PvPLeftAt <= 0)
+			return 0;
+		float left = m_Cfg.LeaveTimerSeconds - (g_Game.GetTickTime() - player.m_OS_PvPLeftAt);
+		if (left <= 0)
+			return 0;
+		int seconds = Math.Ceil(left);
+		return seconds;
 	}
 
 	//! zranění od jiného hráče mimo PvP zónu se neprovede
@@ -55,7 +77,7 @@ class OS_ServerPvP
 
 	void OnTick(array<Man> players)
 	{
-		if (!m_Cfg.Enabled || !m_Cfg.NotifyOnEnter)
+		if (!m_Cfg.Enabled)
 			return;
 
 		foreach (Man man : players)
@@ -70,17 +92,37 @@ class OS_ServerPvP
 				inside = true;
 
 			if (inside == player.m_OS_InPvPZone)
+			{
+				// venku: vypršel časovač po odchodu?
+				if (!inside && player.m_OS_PvPLeftAt > 0 && PvPSecondsLeft(player) <= 0)
+				{
+					player.m_OS_PvPLeftAt = 0;
+					if (m_Cfg.PvPOnlyInZones && m_Cfg.NotifyOnEnter)
+						OS_Util.Notify(player, OS_T("PvP zona"), OS_T(m_Cfg.LeaveMessage), 6);
+				}
 				continue;
+			}
 			player.m_OS_InPvPZone = inside;
 
-			// když PvP platí všude, hláška o bezpečí by lhala
-			if (!m_Cfg.PvPOnlyInZones)
-				continue;
-
 			if (inside)
-				OS_Util.Notify(player, OS_T(zone.Name), OS_T(m_Cfg.EnterMessage), 8);
-			else
+			{
+				player.m_OS_PvPLeftAt = 0;
+				if (m_Cfg.PvPOnlyInZones && m_Cfg.NotifyOnEnter)
+					OS_Util.Notify(player, OS_T(zone.Name), OS_T(m_Cfg.EnterMessage), 8);
+				continue;
+			}
+
+			// odchod ze zóny: ještě LeaveTimerSeconds může střílet a být zraněn
+			if (m_Cfg.LeaveTimerSeconds > 0)
+			{
+				player.m_OS_PvPLeftAt = g_Game.GetTickTime();
+				if (m_Cfg.PvPOnlyInZones && m_Cfg.NotifyOnEnter)
+					OS_Util.Notify(player, OS_T("PvP zona"), OS_F(m_Cfg.TimerMessage, m_Cfg.LeaveTimerSeconds.ToString()), 8);
+			}
+			else if (m_Cfg.PvPOnlyInZones && m_Cfg.NotifyOnEnter)
+			{
 				OS_Util.Notify(player, OS_T("PvP zona"), OS_T(m_Cfg.LeaveMessage), 6);
+			}
 		}
 	}
 

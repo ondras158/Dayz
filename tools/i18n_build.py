@@ -35,7 +35,7 @@ CONFIG_PATTERNS = [
     re.compile(r"new OS_FarmBuilding\(" + STR + ", " + STR),
     re.compile(r"AddPlant\(" + STR + ", " + STR),
     re.compile(r"Broadcasts\.Insert\(" + STR),
-    re.compile(r"string (?:WelcomeTitle|WelcomeText|EnterMessage|LeaveMessage) = " + STR),
+    re.compile(r"string (?:WelcomeTitle|WelcomeText|EnterMessage|LeaveMessage|TimerMessage) = " + STR),
 ]
 CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c"]
 

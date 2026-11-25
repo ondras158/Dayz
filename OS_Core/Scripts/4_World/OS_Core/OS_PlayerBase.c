@@ -6,6 +6,7 @@ modded class PlayerBase
 	bool m_OS_AdminGod;
 	bool m_OS_SpawnProtect;
 	bool m_OS_InPvPZone;
+	float m_OS_PvPLeftAt;      // čas odchodu z PvP zóny (běží časovač), 0 = neběží
 
 	//! Hráč je nesmrtelný, pokud platí aspoň jeden důvod
 	void OS_RefreshDamage()

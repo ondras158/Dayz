@@ -23,8 +23,10 @@ class OS_PvPConfig
 	bool Enabled = true;
 	bool PvPOnlyInZones = true;       // true = mimo PvP zóny si hráči neublíží (PvE), false = PvP všude, zóny jen na mapě
 	bool BothPlayersInZone = true;    // true = útočník i oběť musí stát v PvP zóně (nejde střílet do zóny zvenku)
+	int LeaveTimerSeconds = 30;       // po odchodu ze zóny ještě tolik sekund platí PvP (střílet i být zraněn), 0 = hned konec
 	bool NotifyOnEnter = true;
 	string EnterMessage = "Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!";
+	string TimerMessage = "Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).";
 	string LeaveMessage = "Opustil jsi PvP zonu - jsi v bezpeci pred hraci.";
 
 	// mapa
