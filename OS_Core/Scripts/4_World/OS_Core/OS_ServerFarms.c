@@ -437,6 +437,8 @@ class OS_ServerFarms
 
 		stored.Count = stored.Count - given;
 		Save();
+		if (given > 0 && OS_Server.Get() && OS_Server.Get().m_Skills)
+			OS_Server.Get().m_Skills.OnFarmCollected(player, given);
 		return given;
 	}
 

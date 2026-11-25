@@ -44,6 +44,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | **J** | Skupina |
 | **K** | Osobní garáž |
 | **U** | Farma |
+| **O** | Dovednosti (úroveň, zkušenosti, vylepšování statů) |
 | **M** | Mapa (i bez mapy v inventáři) – PvP zóny, safe zóny, base, spoluhráči, garáž, farma |
 | **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base*; u ohně *Vařit podle receptu* |
 | **Y / N** | Uložit / zrušit místo spawnu vozidla |
@@ -69,6 +70,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
+| Dovednosti | Klávesa **O**: zkušenosti za zombíky, zvířata, hráče, vaření, farmu a čas na serveru; za úroveň bod do odolnosti, výdrže, regenerace, krve, metabolismu nebo otužilosti; zůstává i po smrti | `Skills.json` |
 | Vaření podle receptů | U hořícího ohně nebo vařiče akce **Vařit podle receptu**: 10 jídel (guláš, polévky, rizoto, omeleta…), víc energie a vody, dočasné bonusy (zdraví, krev, teplo, výdrž), prodej v Potravinách | `Cooking.json` |
 | Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, base na mapě; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze, PvP zóny; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kódové zámky, base, kick/ban, přidávání adminů, hlavní admin | `Admins.json` |
@@ -142,6 +144,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Farms.json      FarmsData.json                                            farmy
 ├── Bases.json      BasesData.json                                            base u vlajky
 ├── Cooking.json                                                              recepty a bonusy z jídla
+├── Skills.json     Skills/<SteamID>.json                                     dovednosti, úrovně hráčů
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -498,6 +501,29 @@ přidej jejich classname a díly).
   Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
 - Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
 
+**Dovednosti** (`Skills.json`, data hráčů v `Skills/<SteamID>.json`) – menu klávesa **O**
+- **Zkušenosti** dostáváš za: zabitého zombíka (`XpZombieKill`, 10), zvíře (`XpAnimalKill`, 20), hráče
+  (`XpPlayerKill`, 40), uvařené jídlo (`XpCookDish`, 15), každý vybraný kus z farmy (`XpFarmItem`, 1)
+  a každou minutu naživu na serveru (`XpPerSurvivalMinute`, 2).
+- **Úrovně:** na další úroveň je potřeba `XpFirstLevel + úroveň × XpLevelIncrease` (100, 150, 200…),
+  maximálně `MaxLevel` (60). Za každou úroveň `PointsPerLevel` (1) bod.
+- **Body** dáš v menu do dovedností (každá max. 10 úrovní, účinek za úroveň = `PerRank`):
+
+  | Dovednost | Účinek za úroveň | Na maximu |
+  |---|---|---|
+  | Odolnost | −3 % zranění a ztráty krve | −30 % |
+  | Výdrž | −5 % spotřeby výdrže | −50 % |
+  | Regenerace | +0,6 zdraví za minutu | +6 / min |
+  | Krev | +30 krve za minutu | +300 / min |
+  | Metabolismus | −5 % úbytku jídla a vody | −50 % |
+  | Otužilost | +12 % tepla za minutu | — |
+
+- Vylepšení patří hráči (Steam ID) a **zůstává i po smrti**. *Přerozdělit body* vrátí všechny body
+  (`ResetPrice`, výchozí 5 000; `0` = zdarma, `-1` = nejde).
+- Dovednosti, jejich názvy, maximum a sílu jde změnit v `Skills` (účinek podle `Id`: `toughness`, `stamina`,
+  `regen`, `blood`, `metabolism`, `warmth`).
+- Admin nástroje: *Dát zkušenosti cíli* (počet napiš do pole).
+
 **Vaření podle receptů** (`Cooking.json`)
 - U **hořícího ohniště** nebo **zapnutého plynového vařiče** se podívej na oheň a dej akci **Vařit podle receptu**.
   Menu ukáže recepty (u těch, na které máš vše, je „[lze uvařit]“), suroviny, nádobí, čas a bonus.
@@ -640,6 +666,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
+- **Dovednosti:** zkušenosti a úrovně, body do odolnosti, výdrže, regenerace, krve, metabolismu a otužilosti (klávesa O).
 - **Vaření:** recepty u ohně, 10 hotových jídel s lepší výživou a bonusy, prodej v Potravinách.
 - **Base u vanilla vlajky:** založení, zvětšování poloměru po úrovních, rozestupy mezi basemi, zobrazení na mapě.
 - **Kódový zámek:** vanilla DigitalCodeLock rozšířený o majitele, odemykání/zamykání skupinou bez kódu a admin odemknutí.

@@ -450,6 +450,18 @@ class OS_ServerAdmin
 				Log(admin, "smazal kod zamku majitele " + codeLock.OS_GetOwnerId());
 			}
 		}
+		else if (action == OS_AdminAction.GIVE_XP)
+		{
+			int xp = arg.Trim().ToInt();
+			if (xp <= 0 || !OS_Server.Get() || !OS_Server.Get().m_Skills)
+			{
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Napis do pole pocet zkusenosti."));
+				return;
+			}
+			OS_Server.Get().m_Skills.AddXp(target, xp, true);
+			OS_Util.Notify(admin, OS_T("Admin"), OS_F("%1: +%2 zkusenosti", OS_Util.PlayerName(target), xp.ToString()));
+			Log(admin, "xp " + xp.ToString() + " -> " + OS_Util.PlayerName(target));
+		}
 		else if (action == OS_AdminAction.BASE_REMOVE)
 		{
 			if (OS_Server.Get() && OS_Server.Get().m_Bases)

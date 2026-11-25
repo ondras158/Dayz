@@ -366,6 +366,10 @@ class OS_AdminToolsMenu : OS_MenuBase
 			if (NeedTarget())
 				Send(OS_AdminAction.BAN, EditText(m_EditReason));
 		}
+		else if (name == "BtnGiveXp")
+		{
+			Send(OS_AdminAction.GIVE_XP, EditText(m_EditReason));
+		}
 		else if (name == "BtnLockUnlock")
 		{
 			Send(OS_AdminAction.CODELOCK_UNLOCK);

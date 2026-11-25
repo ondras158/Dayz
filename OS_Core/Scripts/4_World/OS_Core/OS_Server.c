@@ -11,6 +11,7 @@ class OS_Server
 	ref OS_ServerPvP m_PvP;
 	ref OS_ServerBases m_Bases;
 	ref OS_ServerCooking m_Cooking;
+	ref OS_ServerSkills m_Skills;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -59,6 +60,7 @@ class OS_Server
 		m_Groups = new OS_ServerGroups(m_Payments, m_Wallets, currency);
 		m_Bases = new OS_ServerBases(m_Payments, m_Groups, currency);
 		m_Cooking = new OS_ServerCooking();
+		m_Skills = new OS_ServerSkills(m_Payments, currency);
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -125,7 +127,10 @@ class OS_Server
 	void OnDisconnect(string steamId)
 	{
 		if (steamId != "")
+		{
 			m_Wallets.Forget(steamId);
+			m_Skills.Forget(steamId);
+		}
 	}
 
 	void OnUpdate(float timeslice)
@@ -145,6 +150,7 @@ class OS_Server
 		m_PvP.OnTick(players);
 		m_Bases.OnTick(delta);
 		m_Cooking.OnTick(players, delta);
+		m_Skills.OnTick(players, delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
 		m_Farms.OnTick(delta);
@@ -158,14 +164,20 @@ class OS_Server
 		m_Messages.OnPlayerKilled(victim, killerPlayer, killer);
 
 		if (killerPlayer && killerPlayer != victim)
+		{
 			m_Trader.RewardPlayerKill(killerPlayer);
+			m_Skills.OnPlayerKilled(killerPlayer);
+		}
 	}
 
 	void OnZombieKilled(ZombieBase zombie, Object killer)
 	{
 		PlayerBase killerPlayer = OS_Util.ResolveKillerPlayer(killer);
 		if (killerPlayer)
+		{
 			m_Trader.RewardZombieKill(killerPlayer);
+			m_Skills.OnZombieKilled(killerPlayer);
+		}
 	}
 
 	// ------------------------------------------------------------ RPC od klientů
@@ -208,6 +220,8 @@ class OS_Server
 		if (m_Bases.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Cooking.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Skills.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

@@ -60,6 +60,14 @@ modded class PlayerBase
 		return super.EEOnDamageCalculated(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 	}
 
+	//! dovednost Odolnost: část zranění se vrátí
+	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef)
+	{
+		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
+		if (g_Game.IsServer() && OS_Server.Get() && OS_Server.Get().m_Skills)
+			OS_Server.Get().m_Skills.OnHit(this, damageResult);
+	}
+
 	override void EEKilled(Object killer)
 	{
 		super.EEKilled(killer);

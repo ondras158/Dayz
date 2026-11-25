@@ -1,0 +1,158 @@
+FrameWidgetClass OS_SkillsMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 760 560
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 720 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Dovednosti"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass LevelText {
+     position 20 52
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass PointsText {
+     position 20 78
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    PanelWidgetClass SkillListBg {
+     color 0 0 0 0.6
+     position 20 110
+     size 720 250
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass SkillList {
+     position 24 114
+     size 712 242
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Detail1 {
+     position 20 368
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Vyber dovednost v seznamu."
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    TextWidgetClass Detail2 {
+     position 20 394
+     size 720 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnUpgrade {
+     color 0.25 0.22 0.18 1
+     position 20 430
+     size 355 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vylepsit (1 bod)"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnReset {
+     color 0.25 0.22 0.18 1
+     position 385 430
+     size 355 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Prerozdelit body"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Hint {
+     position 20 476
+     size 720 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti."
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 506
+     size 720 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+   }
+  }
+ }
+}

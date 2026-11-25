@@ -37,6 +37,10 @@ modded class MissionGameplay
 		if (adminInput && adminInput.LocalPress())
 			OS_Client.Get().RequestAdmin();
 
+		UAInput skillsInput = GetUApi().GetInputByName("UAOSSkillsMenu");
+		if (skillsInput && skillsInput.LocalPress())
+			OS_Client.SendToServer(OS_RPC_SKILLS_OPEN);
+
 		UAInput freecamInput = GetUApi().GetInputByName("UAOSFreecam");
 		if (freecamInput && freecamInput.LocalPress() && OS_ClientAdmin.IsAdmin && OS_Client.Get())
 			OS_Client.Get().GetFreecam().Toggle();

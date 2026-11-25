@@ -208,6 +208,8 @@ class OS_ServerCooking
 				Print(OS_TAG + "VARENI: nepodarilo se vytvorit '" + recipe.Result + "' (spatny classname v Cooking.json?)");
 		}
 		OS_Util.Notify(player, OS_T("Vareni"), OS_F("Hotovo: %1", OS_T(recipe.Name)), 5);
+		if (OS_Server.Get() && OS_Server.Get().m_Skills)
+			OS_Server.Get().m_Skills.OnCooked(player);
 	}
 
 	protected void SendData(PlayerBase player, EntityAI fire)

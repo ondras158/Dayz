@@ -57,6 +57,9 @@ const int OS_RPC_BASE_ACTION   = 784512092; // klient -> server: akce base
 const int OS_RPC_COOK_OPEN     = 784512093; // klient -> server: recepty u ohně
 const int OS_RPC_COOK_DATA     = 784512094; // server -> klient: recepty a co jde uvařit
 const int OS_RPC_COOK_ACTION   = 784512095; // klient -> server: uvařit recept
+const int OS_RPC_SKILLS_OPEN   = 784512096; // klient -> server: menu dovedností
+const int OS_RPC_SKILLS_DATA   = 784512097; // server -> klient: úroveň, zkušenosti, dovednosti
+const int OS_RPC_SKILLS_ACTION = 784512098; // klient -> server: vylepšit dovednost / přerozdělit
 
 const int OS_RPC_LAST  = 784512099;
 
@@ -90,7 +93,8 @@ enum OS_AdminAction
 	REMOVE_ADMIN,   // vybraný hráč, nebo Steam64 ID v arg
 	CODELOCK_UNLOCK,// nejbližší kódový zámek (5 m od cíle) odemknout
 	CODELOCK_RESET, // nejbližší kódový zámek: smazat kód a majitele
-	BASE_REMOVE     // smazat nejbližší base (vlajka zůstane)
+	BASE_REMOVE,    // smazat nejbližší base (vlajka zůstane)
+	GIVE_XP         // arg = počet zkušeností pro cíl
 }
 
 enum OS_BaseAction

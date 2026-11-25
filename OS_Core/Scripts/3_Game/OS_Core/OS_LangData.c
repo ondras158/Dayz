@@ -17,6 +17,7 @@ class OS_LangData
 			Fill_cs_1(m);
 			Fill_cs_2(m);
 			Fill_cs_3(m);
+			Fill_cs_4(m);
 		}
 		if (lang == "en")
 		{
@@ -24,6 +25,7 @@ class OS_LangData
 			Fill_en_1(m);
 			Fill_en_2(m);
 			Fill_en_3(m);
+			Fill_en_4(m);
 		}
 		if (lang == "de")
 		{
@@ -31,6 +33,7 @@ class OS_LangData
 			Fill_de_1(m);
 			Fill_de_2(m);
 			Fill_de_3(m);
+			Fill_de_4(m);
 		}
 		if (lang == "pl")
 		{
@@ -38,6 +41,7 @@ class OS_LangData
 			Fill_pl_1(m);
 			Fill_pl_2(m);
 			Fill_pl_3(m);
+			Fill_pl_4(m);
 		}
 	}
 
@@ -121,6 +125,18 @@ class OS_LangData
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!");
 		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opustil jsi PvP zonu - jsi v bezpeci pred hraci.");
+		m.Set("Odolnost", "Odolnost");
+		m.Set("Vydrz", "Vydrz");
+		m.Set("Regenerace", "Regenerace");
+		m.Set("Krev", "Krev");
+		m.Set("Metabolismus", "Metabolismus");
+		m.Set("Otuzilost", "Otuzilost");
+		m.Set("Mene zraneni a ztraty krve", "Mene zraneni a ztraty krve");
+		m.Set("Mene unavy pri behu a skakani", "Mene unavy pri behu a skakani");
+		m.Set("Postupne doplnovani zdravi", "Postupne doplnovani zdravi");
+		m.Set("Rychlejsi doplnovani krve", "Rychlejsi doplnovani krve");
+		m.Set("Pomalejsi hlad a zizen", "Pomalejsi hlad a zizen");
+		m.Set("Mene zimy", "Mene zimy");
 		m.Set("Priklad - Autocentrum", "Priklad - Autocentrum");
 		m.Set("Priklad - Heliport", "Priklad - Heliport");
 		m.Set("Priklad - Pristav", "Priklad - Pristav");
@@ -158,6 +174,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Zadny kodovy zamek do 5 m od cile.");
 		m.Set("Kodovy zamek odemcen.", "Kodovy zamek odemcen.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamku smazan - dalsi, kdo zada kod, bude majitel.");
+		m.Set("Napis do pole pocet zkusenosti.", "Napis do pole pocet zkusenosti.");
+		m.Set("%1: +%2 zkusenosti", "%1: +%2 zkusenosti");
 		m.Set("Odbanovan: %1", "Odbanovan: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Toto Steam ID neni zabanovane. Napis ho do pole.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Zadej cas jako hh:mm, napr. 12:00");
@@ -179,6 +197,10 @@ class OS_LangData
 		m.Set("Byl jsi vyhozen ze serveru.", "Byl jsi vyhozen ze serveru.");
 		m.Set("Vyhozen: %1", "Vyhozen: %1");
 		m.Set("%1 Duvod: %2", "%1 Duvod: %2");
+	}
+
+	protected static void Fill_cs_1(map<string, string> m)
+	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminy muze pridavat a odebirat jen hlavni admin.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 je hlavni admin - to jde zmenit jen v Admins.json.");
@@ -193,10 +215,6 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Musis stat u bankomatu.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nemas u sebe zadnou hotovost.");
 		m.Set("Tolik hotovosti u sebe nemas.", "Tolik hotovosti u sebe nemas.");
-	}
-
-	protected static void Fill_cs_1(map<string, string> m)
-	{
 		m.Set("Vlozeno %1 %2", "Vlozeno %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (poplatek %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).");
@@ -330,6 +348,21 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Zadna PvP zona neexistuje.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Smazana PvP zona %1 (%2 m od tebe).");
 		m.Set("Bezpecna zona", "Bezpecna zona");
+		m.Set("Dovednosti", "Dovednosti");
+		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).");
+		m.Set("+%1 zkusenosti", "+%1 zkusenosti");
+	}
+
+	protected static void Fill_cs_2(map<string, string> m)
+	{
+		m.Set("Nemas zadne body. Ziskas je za dalsi uroven.", "Nemas zadne body. Ziskas je za dalsi uroven.");
+		m.Set("Tahle dovednost uz je na maximu.", "Tahle dovednost uz je na maximu.");
+		m.Set("%1: uroven %2 / %3", "%1: uroven %2 / %3");
+		m.Set("Prerozdeleni bodu stoji %1 %2.", "Prerozdeleni bodu stoji %1 %2.");
+		m.Set("Body vraceny: %1. Rozdel je znovu.", "Body vraceny: %1. Rozdel je znovu.");
+		m.Set("+%1 zdravi / min", "+%1 zdravi / min");
+		m.Set("+%1 krve / min", "+%1 krve / min");
+		m.Set("+%1 % tepla / min", "+%1 % tepla / min");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Objevil ses v oblasti: %1");
 		m.Set("Odmena", "Odmena");
@@ -347,10 +380,6 @@ class OS_LangData
 		m.Set("Garaz", "Garaz");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Uz mas osobni garaz. Nejdriv ji zrus.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.");
-	}
-
-	protected static void Fill_cs_2(map<string, string> m)
-	{
 		m.Set("Stavba stoji %1 %2.", "Stavba stoji %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).");
@@ -476,6 +505,10 @@ class OS_LangData
 		m.Set("Zustat tady", "Zustat tady");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Hraci online");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("Obnovit seznam", "Obnovit seznam");
 		m.Set("Cil:", "Cil:");
 		m.Set("Vylecit", "Vylecit");
@@ -501,10 +534,6 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie");
 		m.Set("Nakup", "Nakup");
 		m.Set("Vykup", "Vykup");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Ulozit cenu", "Ulozit cenu");
 		m.Set("Nasobit kat.", "Nasobit kat.");
 		m.Set("Nasobit", "Nasobit");
@@ -546,7 +575,7 @@ class OS_LangData
 		m.Set("Neviditelnost", "Neviditelnost");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
-		m.Set("Duvod (kick/ban) nebo Steam ID (unban, admin)", "Duvod (kick/ban) nebo Steam ID (unban, admin)");
+		m.Set("Duvod (kick/ban), Steam ID (unban, admin), pocet XP", "Duvod (kick/ban), Steam ID (unban, admin), pocet XP");
 		m.Set("Kick", "Kick");
 		m.Set("Ban", "Ban");
 		m.Set("Unban", "Unban");
@@ -556,6 +585,7 @@ class OS_LangData
 		m.Set("Spawner predmetu a vozidel", "Spawner predmetu a vozidel");
 		m.Set("Pridat admina", "Pridat admina");
 		m.Set("Odebrat admina", "Odebrat admina");
+		m.Set("Dat zkusenosti cili (pocet z pole)", "Dat zkusenosti cili (pocet z pole)");
 		m.Set("Cas", "Cas");
 		m.Set("Nastavit cas", "Nastavit cas");
 		m.Set("Pocasi", "Pocasi");
@@ -576,6 +606,10 @@ class OS_LangData
 		m.Set("Vareni podle receptu", "Vareni podle receptu");
 		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.");
 		m.Set("Uvarit", "Uvarit");
+		m.Set("Vyber dovednost v seznamu.", "Vyber dovednost v seznamu.");
+		m.Set("Vylepsit (1 bod)", "Vylepsit (1 bod)");
+		m.Set("Prerozdelit body", "Prerozdelit body");
+		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -596,6 +630,12 @@ class OS_LangData
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nemas osobni garaz. Postav ji tam, kde stojis.");
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Postavit garaz zde (%1 %2)");
+		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Uroven %1 / %2   zkusenosti %3 / %4");
+		m.Set("Uroven %1 / %2 (maximum)", "Uroven %1 / %2 (maximum)");
+		m.Set("Body k rozdeleni: %1", "Body k rozdeleni: %1");
+		m.Set("Prerozdelit body (%1 %2)", "Prerozdelit body (%1 %2)");
+		m.Set("Ted: %1   (maximum)", "Ted: %1   (maximum)");
+		m.Set("Ted: %1   ->   dalsi uroven: %2", "Ted: %1   ->   dalsi uroven: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Zbyva %1 s - pak zustanes na aktualnim miste");
 		m.Set("Obchod - %1", "Obchod - %1");
 		m.Set("%1  (nakup %2 %, vykup %3 %)", "%1  (nakup %2 %, vykup %3 %)");
@@ -619,6 +659,10 @@ class OS_LangData
 		m.Set("ADMIN: nastavit misto spawnu", "ADMIN: nastavit misto spawnu");
 		m.Set("%1  (skupina)", "%1  (skupina)");
 		m.Set("Auto: %1", "Auto: %1");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Stav: %1 %", "Stav: %1 %");
 		m.Set("Palivo: %1 %", "Palivo: %1 %");
 		m.Set("Majitel: nikdo", "Majitel: nikdo");
@@ -719,6 +763,18 @@ class OS_LangData
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "You entered a PvP zone - other players can hurt you here!");
 		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "You left the PvP zone - for %1 more s players can hurt you (and you them).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "You left the PvP zone - you are safe from players.");
+		m.Set("Odolnost", "Toughness");
+		m.Set("Vydrz", "Stamina");
+		m.Set("Regenerace", "Regeneration");
+		m.Set("Krev", "Blood");
+		m.Set("Metabolismus", "Metabolism");
+		m.Set("Otuzilost", "Cold resistance");
+		m.Set("Mene zraneni a ztraty krve", "Less damage and blood loss");
+		m.Set("Mene unavy pri behu a skakani", "Less fatigue when running and jumping");
+		m.Set("Postupne doplnovani zdravi", "Gradual health regeneration");
+		m.Set("Rychlejsi doplnovani krve", "Faster blood regeneration");
+		m.Set("Pomalejsi hlad a zizen", "Slower hunger and thirst");
+		m.Set("Mene zimy", "Feel less cold");
 		m.Set("Priklad - Autocentrum", "Example - Car dealer");
 		m.Set("Priklad - Heliport", "Example - Heliport");
 		m.Set("Priklad - Pristav", "Example - Harbor");
@@ -756,6 +812,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "No code lock within 5 m of the target.");
 		m.Set("Kodovy zamek odemcen.", "Code lock unlocked.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Lock code deleted - the next person to set a code becomes the owner.");
+		m.Set("Napis do pole pocet zkusenosti.", "Type the amount of experience into the field.");
+		m.Set("%1: +%2 zkusenosti", "%1: +%2 experience");
 		m.Set("Odbanovan: %1", "Unbanned: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "This Steam ID is not banned. Type it into the field.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Enter the time as hh:mm, e.g. 12:00");
@@ -777,6 +835,10 @@ class OS_LangData
 		m.Set("Byl jsi vyhozen ze serveru.", "You were kicked from the server.");
 		m.Set("Vyhozen: %1", "Kicked: %1");
 		m.Set("%1 Duvod: %2", "%1 Reason: %2");
+	}
+
+	protected static void Fill_en_1(map<string, string> m)
+	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Select a player in the list, or type their Steam64 ID (17 digits) into the field.");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Only a head admin can add and remove admins.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 is a head admin - this can only be changed in Admins.json.");
@@ -791,10 +853,6 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "You must stand at an ATM.");
 		m.Set("Nemas u sebe zadnou hotovost.", "You have no cash on you.");
 		m.Set("Tolik hotovosti u sebe nemas.", "You don't have that much cash on you.");
-	}
-
-	protected static void Fill_en_1(map<string, string> m)
-	{
 		m.Set("Vlozeno %1 %2", "Deposited %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (fee %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "You can withdraw at least %1 %2 (the ATM only gives banknotes).");
@@ -928,6 +986,21 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "There is no PvP zone.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Removed PvP zone %1 (%2 m from you).");
 		m.Set("Bezpecna zona", "Safe zone");
+		m.Set("Dovednosti", "Skills");
+		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Level %1! You have %2 point(s) to spend (key O).");
+		m.Set("+%1 zkusenosti", "+%1 experience");
+	}
+
+	protected static void Fill_en_2(map<string, string> m)
+	{
+		m.Set("Nemas zadne body. Ziskas je za dalsi uroven.", "You have no points. You get them for the next level.");
+		m.Set("Tahle dovednost uz je na maximu.", "This skill is already maxed out.");
+		m.Set("%1: uroven %2 / %3", "%1: level %2 / %3");
+		m.Set("Prerozdeleni bodu stoji %1 %2.", "Resetting points costs %1 %2.");
+		m.Set("Body vraceny: %1. Rozdel je znovu.", "Points returned: %1. Spend them again.");
+		m.Set("+%1 zdravi / min", "+%1 health / min");
+		m.Set("+%1 krve / min", "+%1 blood / min");
+		m.Set("+%1 % tepla / min", "+%1 % warmth / min");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "You spawned in the area: %1");
 		m.Set("Odmena", "Reward");
@@ -945,10 +1018,6 @@ class OS_LangData
 		m.Set("Garaz", "Garage");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "You already have a personal garage. Remove it first.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "You can't build a garage here - it's too close to another garage or shop.");
-	}
-
-	protected static void Fill_en_2(map<string, string> m)
-	{
 		m.Set("Stavba stoji %1 %2.", "Building costs %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garage built. Set the vehicle spot in the garage menu (key K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Personal garage removed. Your stored cars stay yours (pick them up at any garage).");
@@ -1074,6 +1143,10 @@ class OS_LangData
 		m.Set("Zustat tady", "Stay here");
 		m.Set("Admin menu", "Admin menu");
 		m.Set("Hraci online", "Players online");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("Obnovit seznam", "Refresh list");
 		m.Set("Cil:", "Target:");
 		m.Set("Vylecit", "Heal");
@@ -1099,10 +1172,6 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - price of the selected item (-1 = not allowed, both -1 = hide) / multiply whole category");
 		m.Set("Nakup", "Buy");
 		m.Set("Vykup", "Sell");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Ulozit cenu", "Save price");
 		m.Set("Nasobit kat.", "Multiply cat.");
 		m.Set("Nasobit", "Multiply");
@@ -1144,7 +1213,7 @@ class OS_LangData
 		m.Set("Neviditelnost", "Invisibility");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
-		m.Set("Duvod (kick/ban) nebo Steam ID (unban, admin)", "Reason (kick/ban) or Steam ID (unban, admin)");
+		m.Set("Duvod (kick/ban), Steam ID (unban, admin), pocet XP", "Reason (kick/ban), Steam ID (unban, admin), XP amount");
 		m.Set("Kick", "Kick");
 		m.Set("Ban", "Ban");
 		m.Set("Unban", "Unban");
@@ -1154,6 +1223,7 @@ class OS_LangData
 		m.Set("Spawner predmetu a vozidel", "Item and vehicle spawner");
 		m.Set("Pridat admina", "Add admin");
 		m.Set("Odebrat admina", "Remove admin");
+		m.Set("Dat zkusenosti cili (pocet z pole)", "Give experience to target (amount from field)");
 		m.Set("Cas", "Time");
 		m.Set("Nastavit cas", "Set time");
 		m.Set("Pocasi", "Weather");
@@ -1174,6 +1244,10 @@ class OS_LangData
 		m.Set("Vareni podle receptu", "Cooking by recipe");
 		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Carry the ingredients and a pot / pan (or put the pot on the fire). A cooked meal gives a bonus.");
 		m.Set("Uvarit", "Cook");
+		m.Set("Vyber dovednost v seznamu.", "Select a skill in the list.");
+		m.Set("Vylepsit (1 bod)", "Upgrade (1 point)");
+		m.Set("Prerozdelit body", "Reset points");
+		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Experience: zombies, animals, cooking, farm and time on the server. Upgrades stay after death.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -1194,6 +1268,12 @@ class OS_LangData
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "You have no personal garage. Build it where you are standing.");
 		m.Set("Cena: %1 %2", "Price: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Build garage here (%1 %2)");
+		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Level %1 / %2   experience %3 / %4");
+		m.Set("Uroven %1 / %2 (maximum)", "Level %1 / %2 (maximum)");
+		m.Set("Body k rozdeleni: %1", "Points to spend: %1");
+		m.Set("Prerozdelit body (%1 %2)", "Reset points (%1 %2)");
+		m.Set("Ted: %1   (maximum)", "Now: %1   (maximum)");
+		m.Set("Ted: %1   ->   dalsi uroven: %2", "Now: %1   ->   next level: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "%1 s left - then you stay at your current location");
 		m.Set("Obchod - %1", "Shop - %1");
 		m.Set("%1  (nakup %2 %, vykup %3 %)", "%1  (buy %2 %, sell %3 %)");
@@ -1217,6 +1297,10 @@ class OS_LangData
 		m.Set("ADMIN: nastavit misto spawnu", "ADMIN: set spawn spot");
 		m.Set("%1  (skupina)", "%1  (group)");
 		m.Set("Auto: %1", "Car: %1");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Stav: %1 %", "Condition: %1 %");
 		m.Set("Palivo: %1 %", "Fuel: %1 %");
 		m.Set("Majitel: nikdo", "Owner: nobody");
@@ -1317,6 +1401,18 @@ class OS_LangData
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Du hast eine PvP-Zone betreten - andere Spieler können dich hier verletzen!");
 		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Du hast die PvP-Zone verlassen - noch %1 s können dich Spieler verletzen (und du sie).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Du hast die PvP-Zone verlassen - du bist vor Spielern sicher.");
+		m.Set("Odolnost", "Zähigkeit");
+		m.Set("Vydrz", "Ausdauer");
+		m.Set("Regenerace", "Regeneration");
+		m.Set("Krev", "Blut");
+		m.Set("Metabolismus", "Stoffwechsel");
+		m.Set("Otuzilost", "Kälteresistenz");
+		m.Set("Mene zraneni a ztraty krve", "Weniger Schaden und Blutverlust");
+		m.Set("Mene unavy pri behu a skakani", "Weniger Erschöpfung beim Laufen und Springen");
+		m.Set("Postupne doplnovani zdravi", "Allmähliche Gesundheitsregeneration");
+		m.Set("Rychlejsi doplnovani krve", "Schnellere Blutregeneration");
+		m.Set("Pomalejsi hlad a zizen", "Langsamerer Hunger und Durst");
+		m.Set("Mene zimy", "Weniger Kälte");
 		m.Set("Priklad - Autocentrum", "Beispiel - Autohaus");
 		m.Set("Priklad - Heliport", "Beispiel - Hubschrauberlandeplatz");
 		m.Set("Priklad - Pristav", "Beispiel - Hafen");
@@ -1354,6 +1450,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Kein Codeschloss im Umkreis von 5 m vom Ziel.");
 		m.Set("Kodovy zamek odemcen.", "Codeschloss aufgeschlossen.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Code gelöscht - wer als Nächster einen Code eingibt, wird Besitzer.");
+		m.Set("Napis do pole pocet zkusenosti.", "Gib die Menge an Erfahrung ins Feld ein.");
+		m.Set("%1: +%2 zkusenosti", "%1: +%2 Erfahrung");
 		m.Set("Odbanovan: %1", "Entbannt: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "Diese Steam-ID ist nicht gebannt. Schreib sie ins Feld.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Gib die Zeit als hh:mm ein, z. B. 12:00");
@@ -1375,6 +1473,10 @@ class OS_LangData
 		m.Set("Byl jsi vyhozen ze serveru.", "Du wurdest vom Server geworfen.");
 		m.Set("Vyhozen: %1", "Rausgeworfen: %1");
 		m.Set("%1 Duvod: %2", "%1 Grund: %2");
+	}
+
+	protected static void Fill_de_1(map<string, string> m)
+	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wähle einen Spieler in der Liste oder gib seine Steam64-ID (17 Ziffern) ins Feld ein.");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Nur ein Hauptadmin kann Admins hinzufügen und entfernen.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 ist Hauptadmin - das lässt sich nur in Admins.json ändern.");
@@ -1389,10 +1491,6 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Du musst an einem Geldautomaten stehen.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Du hast kein Bargeld dabei.");
 		m.Set("Tolik hotovosti u sebe nemas.", "So viel Bargeld hast du nicht dabei.");
-	}
-
-	protected static void Fill_de_1(map<string, string> m)
-	{
 		m.Set("Vlozeno %1 %2", "Eingezahlt %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (Gebühr %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Abheben kannst du mindestens %1 %2 (der Automat gibt nur Scheine aus).");
@@ -1526,6 +1624,21 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Es gibt keine PvP-Zone.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "PvP-Zone %1 gelöscht (%2 m von dir).");
 		m.Set("Bezpecna zona", "Sicherheitszone");
+		m.Set("Dovednosti", "Fähigkeiten");
+		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Stufe %1! Du hast %2 Punkt(e) zu verteilen (Taste O).");
+		m.Set("+%1 zkusenosti", "+%1 Erfahrung");
+	}
+
+	protected static void Fill_de_2(map<string, string> m)
+	{
+		m.Set("Nemas zadne body. Ziskas je za dalsi uroven.", "Du hast keine Punkte. Du bekommst sie mit der nächsten Stufe.");
+		m.Set("Tahle dovednost uz je na maximu.", "Diese Fähigkeit ist schon am Maximum.");
+		m.Set("%1: uroven %2 / %3", "%1: Stufe %2 / %3");
+		m.Set("Prerozdeleni bodu stoji %1 %2.", "Das Neuverteilen der Punkte kostet %1 %2.");
+		m.Set("Body vraceny: %1. Rozdel je znovu.", "Punkte zurückerstattet: %1. Verteile sie neu.");
+		m.Set("+%1 zdravi / min", "+%1 Gesundheit / Min.");
+		m.Set("+%1 krve / min", "+%1 Blut / Min.");
+		m.Set("+%1 % tepla / min", "+%1 % Wärme / Min.");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Du bist im Gebiet erschienen: %1");
 		m.Set("Odmena", "Belohnung");
@@ -1543,10 +1656,6 @@ class OS_LangData
 		m.Set("Garaz", "Garage");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Du hast schon eine eigene Garage. Reiß sie zuerst ab.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Hier kann keine Garage gebaut werden - zu nah an einer anderen Garage oder einem Laden.");
-	}
-
-	protected static void Fill_de_2(map<string, string> m)
-	{
 		m.Set("Stavba stoji %1 %2.", "Der Bau kostet %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garage gebaut. Leg den Fahrzeugplatz im Garagenmenü fest (Taste K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Eigene Garage abgerissen. Eingelagerte Autos bleiben dir (abholen in jeder Garage).");
@@ -1672,6 +1781,10 @@ class OS_LangData
 		m.Set("Zustat tady", "Hier bleiben");
 		m.Set("Admin menu", "Adminmenü");
 		m.Set("Hraci online", "Spieler online");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("Obnovit seznam", "Liste aktualisieren");
 		m.Set("Cil:", "Ziel:");
 		m.Set("Vylecit", "Heilen");
@@ -1697,10 +1810,6 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - Preis des gewählten Gegenstands (-1 = nicht erlaubt, beide -1 = ausblenden) / ganze Kategorie multiplizieren");
 		m.Set("Nakup", "Kauf");
 		m.Set("Vykup", "Ankauf");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Ulozit cenu", "Preis speichern");
 		m.Set("Nasobit kat.", "Kat. multiplizieren");
 		m.Set("Nasobit", "Multiplizieren");
@@ -1742,7 +1851,7 @@ class OS_LangData
 		m.Set("Neviditelnost", "Unsichtbarkeit");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
-		m.Set("Duvod (kick/ban) nebo Steam ID (unban, admin)", "Grund (Kick/Bann) oder Steam-ID (Entbannen, Admin)");
+		m.Set("Duvod (kick/ban), Steam ID (unban, admin), pocet XP", "Grund (Kick/Bann), Steam-ID (Entbannen, Admin), XP-Menge");
 		m.Set("Kick", "Kick");
 		m.Set("Ban", "Bann");
 		m.Set("Unban", "Entbannen");
@@ -1752,6 +1861,7 @@ class OS_LangData
 		m.Set("Spawner predmetu a vozidel", "Gegenstands- und Fahrzeug-Spawner");
 		m.Set("Pridat admina", "Admin hinzufügen");
 		m.Set("Odebrat admina", "Admin entfernen");
+		m.Set("Dat zkusenosti cili (pocet z pole)", "Ziel Erfahrung geben (Menge aus dem Feld)");
 		m.Set("Cas", "Zeit");
 		m.Set("Nastavit cas", "Zeit setzen");
 		m.Set("Pocasi", "Wetter");
@@ -1772,6 +1882,10 @@ class OS_LangData
 		m.Set("Vareni podle receptu", "Kochen nach Rezept");
 		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Trag Zutaten und Topf / Pfanne bei dir (oder Topf auf dem Feuer). Ein Gericht gibt einen Bonus.");
 		m.Set("Uvarit", "Kochen");
+		m.Set("Vyber dovednost v seznamu.", "Wähle eine Fähigkeit in der Liste.");
+		m.Set("Vylepsit (1 bod)", "Verbessern (1 Punkt)");
+		m.Set("Prerozdelit body", "Punkte neu verteilen");
+		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Erfahrung: Zombies, Tiere, Kochen, Farm und Zeit auf dem Server. Verbesserungen bleiben nach dem Tod.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -1792,6 +1906,12 @@ class OS_LangData
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Du hast keine eigene Garage. Bau sie dort, wo du stehst.");
 		m.Set("Cena: %1 %2", "Preis: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Garage hier bauen (%1 %2)");
+		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Stufe %1 / %2   Erfahrung %3 / %4");
+		m.Set("Uroven %1 / %2 (maximum)", "Stufe %1 / %2 (Maximum)");
+		m.Set("Body k rozdeleni: %1", "Punkte zu verteilen: %1");
+		m.Set("Prerozdelit body (%1 %2)", "Punkte neu verteilen (%1 %2)");
+		m.Set("Ted: %1   (maximum)", "Jetzt: %1   (Maximum)");
+		m.Set("Ted: %1   ->   dalsi uroven: %2", "Jetzt: %1   ->   nächste Stufe: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Noch %1 s - danach bleibst du an deinem aktuellen Ort");
 		m.Set("Obchod - %1", "Laden - %1");
 		m.Set("%1  (nakup %2 %, vykup %3 %)", "%1  (Kauf %2 %, Ankauf %3 %)");
@@ -1815,6 +1935,10 @@ class OS_LangData
 		m.Set("ADMIN: nastavit misto spawnu", "ADMIN: Spawnplatz festlegen");
 		m.Set("%1  (skupina)", "%1  (Gruppe)");
 		m.Set("Auto: %1", "Auto: %1");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Stav: %1 %", "Zustand: %1 %");
 		m.Set("Palivo: %1 %", "Kraftstoff: %1 %");
 		m.Set("Majitel: nikdo", "Besitzer: niemand");
@@ -1915,6 +2039,18 @@ class OS_LangData
 		m.Set("Vstoupil jsi do PvP zony - ostatni hraci te tu mohou zranit!", "Wszedłeś do strefy PvP - inni gracze mogą cię tu zranić!");
 		m.Set("Opustil jsi PvP zonu - jeste %1 s te mohou hraci zranit (a ty je).", "Opuściłeś strefę PvP - jeszcze przez %1 s gracze mogą cię zranić (a ty ich).");
 		m.Set("Opustil jsi PvP zonu - jsi v bezpeci pred hraci.", "Opuściłeś strefę PvP - jesteś bezpieczny przed graczami.");
+		m.Set("Odolnost", "Wytrzymałość na rany");
+		m.Set("Vydrz", "Kondycja");
+		m.Set("Regenerace", "Regeneracja");
+		m.Set("Krev", "Krew");
+		m.Set("Metabolismus", "Metabolizm");
+		m.Set("Otuzilost", "Odporność na zimno");
+		m.Set("Mene zraneni a ztraty krve", "Mniej obrażeń i utraty krwi");
+		m.Set("Mene unavy pri behu a skakani", "Mniej zmęczenia przy bieganiu i skakaniu");
+		m.Set("Postupne doplnovani zdravi", "Stopniowa regeneracja zdrowia");
+		m.Set("Rychlejsi doplnovani krve", "Szybsza regeneracja krwi");
+		m.Set("Pomalejsi hlad a zizen", "Wolniejszy głód i pragnienie");
+		m.Set("Mene zimy", "Mniej zimna");
 		m.Set("Priklad - Autocentrum", "Przykład - Salon samochodowy");
 		m.Set("Priklad - Heliport", "Przykład - Lądowisko");
 		m.Set("Priklad - Pristav", "Przykład - Port");
@@ -1952,6 +2088,8 @@ class OS_LangData
 		m.Set("Zadny kodovy zamek do 5 m od cile.", "Brak zamka szyfrowego w promieniu 5 m od celu.");
 		m.Set("Kodovy zamek odemcen.", "Zamek szyfrowy otwarty.");
 		m.Set("Kod zamku smazan - dalsi, kdo zada kod, bude majitel.", "Kod zamka usunięty - następna osoba, która ustawi kod, zostanie właścicielem.");
+		m.Set("Napis do pole pocet zkusenosti.", "Wpisz w pole ilość doświadczenia.");
+		m.Set("%1: +%2 zkusenosti", "%1: +%2 doświadczenia");
 		m.Set("Odbanovan: %1", "Odbanowano: %1");
 		m.Set("Toto Steam ID neni zabanovane. Napis ho do pole.", "To Steam ID nie jest zbanowane. Wpisz je w pole.");
 		m.Set("Zadej cas jako hh:mm, napr. 12:00", "Wpisz czas jako hh:mm, np. 12:00");
@@ -1973,6 +2111,10 @@ class OS_LangData
 		m.Set("Byl jsi vyhozen ze serveru.", "Zostałeś wyrzucony z serwera.");
 		m.Set("Vyhozen: %1", "Wyrzucono: %1");
 		m.Set("%1 Duvod: %2", "%1 Powód: %2");
+	}
+
+	protected static void Fill_pl_1(map<string, string> m)
+	{
 		m.Set("Vyber hrace v seznamu, nebo napis do pole jeho Steam64 ID (17 cislic).", "Wybierz gracza z listy lub wpisz w pole jego Steam64 ID (17 cyfr).");
 		m.Set("Adminy muze pridavat a odebirat jen hlavni admin.", "Adminów może dodawać i usuwać tylko główny admin.");
 		m.Set("%1 je hlavni admin - to jde zmenit jen v Admins.json.", "%1 jest głównym adminem - można to zmienić tylko w Admins.json.");
@@ -1987,10 +2129,6 @@ class OS_LangData
 		m.Set("Musis stat u bankomatu.", "Musisz stać przy bankomacie.");
 		m.Set("Nemas u sebe zadnou hotovost.", "Nie masz przy sobie gotówki.");
 		m.Set("Tolik hotovosti u sebe nemas.", "Nie masz przy sobie tyle gotówki.");
-	}
-
-	protected static void Fill_pl_1(map<string, string> m)
-	{
 		m.Set("Vlozeno %1 %2", "Wpłacono %1 %2");
 		m.Set("%1 (poplatek %2)", "%1 (opłata %2)");
 		m.Set("Vybrat jde nejmene %1 %2 (bankomat vydava jen bankovky).", "Można wypłacić co najmniej %1 %2 (bankomat wydaje tylko banknoty).");
@@ -2124,6 +2262,21 @@ class OS_LangData
 		m.Set("Zadna PvP zona neexistuje.", "Nie ma żadnej strefy PvP.");
 		m.Set("Smazana PvP zona %1 (%2 m od tebe).", "Usunięto strefę PvP %1 (%2 m od ciebie).");
 		m.Set("Bezpecna zona", "Strefa bezpieczna");
+		m.Set("Dovednosti", "Umiejętności");
+		m.Set("Uroven %1! Mas %2 bodu k rozdeleni (klavesa O).", "Poziom %1! Masz %2 pkt do rozdania (klawisz O).");
+		m.Set("+%1 zkusenosti", "+%1 doświadczenia");
+	}
+
+	protected static void Fill_pl_2(map<string, string> m)
+	{
+		m.Set("Nemas zadne body. Ziskas je za dalsi uroven.", "Nie masz punktów. Dostaniesz je za kolejny poziom.");
+		m.Set("Tahle dovednost uz je na maximu.", "Ta umiejętność jest już na maksimum.");
+		m.Set("%1: uroven %2 / %3", "%1: poziom %2 / %3");
+		m.Set("Prerozdeleni bodu stoji %1 %2.", "Rozdanie punktów od nowa kosztuje %1 %2.");
+		m.Set("Body vraceny: %1. Rozdel je znovu.", "Zwrócono punktów: %1. Rozdaj je ponownie.");
+		m.Set("+%1 zdravi / min", "+%1 zdrowia / min");
+		m.Set("+%1 krve / min", "+%1 krwi / min");
+		m.Set("+%1 % tepla / min", "+%1 % ciepła / min");
 		m.Set("Spawn", "Spawn");
 		m.Set("Objevil ses v oblasti: %1", "Pojawiłeś się w obszarze: %1");
 		m.Set("Odmena", "Nagroda");
@@ -2141,10 +2294,6 @@ class OS_LangData
 		m.Set("Garaz", "Garaż");
 		m.Set("Uz mas osobni garaz. Nejdriv ji zrus.", "Masz już własny garaż. Najpierw go usuń.");
 		m.Set("Tady garaz postavit nejde - je moc blizko jine garaze nebo obchodu.", "Nie można tu zbudować garażu - jest za blisko innego garażu lub sklepu.");
-	}
-
-	protected static void Fill_pl_2(map<string, string> m)
-	{
 		m.Set("Stavba stoji %1 %2.", "Budowa kosztuje %1 %2.");
 		m.Set("Garaz postavena. Nastav si misto pro vozidlo v menu garaze (klavesa K).", "Garaż zbudowany. Ustaw miejsce dla pojazdu w menu garażu (klawisz K).");
 		m.Set("Osobni garaz zrusena. Ulozena auta ti zustavaji (vyzvednes je v jakekoli garazi).", "Własny garaż usunięty. Zaparkowane pojazdy zostają twoje (odbierzesz je w dowolnym garażu).");
@@ -2270,6 +2419,10 @@ class OS_LangData
 		m.Set("Zustat tady", "Zostań tutaj");
 		m.Set("Admin menu", "Menu admina");
 		m.Set("Hraci online", "Gracze online");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("Obnovit seznam", "Odśwież listę");
 		m.Set("Cil:", "Cel:");
 		m.Set("Vylecit", "Ulecz");
@@ -2295,10 +2448,6 @@ class OS_LangData
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena wybranego przedmiotu (-1 = nie można, obie -1 = ukryj) / mnożenie całej kategorii");
 		m.Set("Nakup", "Kupno");
 		m.Set("Vykup", "Skup");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Ulozit cenu", "Zapisz cenę");
 		m.Set("Nasobit kat.", "Pomnóż kat.");
 		m.Set("Nasobit", "Pomnóż");
@@ -2340,7 +2489,7 @@ class OS_LangData
 		m.Set("Neviditelnost", "Niewidzialność");
 		m.Set("ESP", "ESP");
 		m.Set("Freecam", "Freecam");
-		m.Set("Duvod (kick/ban) nebo Steam ID (unban, admin)", "Powód (kick/ban) lub Steam ID (unban, admin)");
+		m.Set("Duvod (kick/ban), Steam ID (unban, admin), pocet XP", "Powód (kick/ban), Steam ID (unban, admin), ilość XP");
 		m.Set("Kick", "Kick");
 		m.Set("Ban", "Ban");
 		m.Set("Unban", "Unban");
@@ -2350,6 +2499,7 @@ class OS_LangData
 		m.Set("Spawner predmetu a vozidel", "Spawner przedmiotów i pojazdów");
 		m.Set("Pridat admina", "Dodaj admina");
 		m.Set("Odebrat admina", "Usuń admina");
+		m.Set("Dat zkusenosti cili (pocet z pole)", "Daj celowi doświadczenie (ilość z pola)");
 		m.Set("Cas", "Czas");
 		m.Set("Nastavit cas", "Ustaw czas");
 		m.Set("Pocasi", "Pogoda");
@@ -2370,6 +2520,10 @@ class OS_LangData
 		m.Set("Vareni podle receptu", "Gotowanie według przepisu");
 		m.Set("Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.", "Miej przy sobie składniki i garnek / patelnię (lub garnek na ognisku). Gotowe danie daje bonus.");
 		m.Set("Uvarit", "Ugotuj");
+		m.Set("Vyber dovednost v seznamu.", "Wybierz umiejętność z listy.");
+		m.Set("Vylepsit (1 bod)", "Ulepsz (1 punkt)");
+		m.Set("Prerozdelit body", "Rozdaj punkty od nowa");
+		m.Set("Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", "Doświadczenie: zombie, zwierzęta, gotowanie, farma i czas na serwerze. Ulepszenia zostają po śmierci.");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");
@@ -2390,6 +2544,12 @@ class OS_LangData
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nie masz własnego garażu. Zbuduj go tam, gdzie stoisz.");
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Zbuduj garaż tutaj (%1 %2)");
+		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Poziom %1 / %2   doświadczenie %3 / %4");
+		m.Set("Uroven %1 / %2 (maximum)", "Poziom %1 / %2 (maksimum)");
+		m.Set("Body k rozdeleni: %1", "Punkty do rozdania: %1");
+		m.Set("Prerozdelit body (%1 %2)", "Rozdaj punkty od nowa (%1 %2)");
+		m.Set("Ted: %1   (maximum)", "Teraz: %1   (maksimum)");
+		m.Set("Ted: %1   ->   dalsi uroven: %2", "Teraz: %1   ->   następny poziom: %2");
 		m.Set("Zbyva %1 s - pak zustanes na aktualnim miste", "Zostało %1 s - potem zostaniesz w obecnym miejscu");
 		m.Set("Obchod - %1", "Sklep - %1");
 		m.Set("%1  (nakup %2 %, vykup %3 %)", "%1  (kupno %2 %, skup %3 %)");
@@ -2413,6 +2573,10 @@ class OS_LangData
 		m.Set("ADMIN: nastavit misto spawnu", "ADMIN: ustaw miejsce spawnu");
 		m.Set("%1  (skupina)", "%1  (grupa)");
 		m.Set("Auto: %1", "Pojazd: %1");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Stav: %1 %", "Stan: %1 %");
 		m.Set("Palivo: %1 %", "Paliwo: %1 %");
 		m.Set("Majitel: nikdo", "Właściciel: nikt");

@@ -11,6 +11,7 @@
 			<input name="UAOSPlaceCancel" loc="Zrusit nastaveni mista (OS)" />
 			<input name="UAOSMap" loc="Mapa (OS)" />
 			<input name="UAOSFreecam" loc="Admin freecam (OS)" />
+			<input name="UAOSSkillsMenu" loc="Dovednosti (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
@@ -22,6 +23,7 @@
 			<input name="UAOSPlaceCancel" />
 			<input name="UAOSMap" />
 			<input name="UAOSFreecam" />
+			<input name="UAOSSkillsMenu" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -51,6 +53,9 @@
 		</input>
 		<input name="UAOSFreecam">
 			<btn name="kEnd" />
+		</input>
+		<input name="UAOSSkillsMenu">
+			<btn name="kO" />
 		</input>
 	</preset>
 </modded_inputs>

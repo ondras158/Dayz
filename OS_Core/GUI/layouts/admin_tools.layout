@@ -9,7 +9,7 @@ FrameWidgetClass OS_AdminToolsMenu {
   PanelWidgetClass Window {
    color 0.08 0.07 0.06 0.92
    position 0 0
-   size 860 610
+   size 860 650
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -113,7 +113,7 @@ FrameWidgetClass OS_AdminToolsMenu {
      hexactsize 1
      vexactsize 1
      ignorepointer 1
-     text "Duvod (kick/ban) nebo Steam ID (unban, admin)"
+     text "Duvod (kick/ban), Steam ID (unban, admin), pocet XP"
      font "gui/fonts/metron"
      "text halign" left
      "text valign" center
@@ -257,6 +257,18 @@ FrameWidgetClass OS_AdminToolsMenu {
      vexactsize 1
      style Default
      text "Odebrat admina"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnGiveXp {
+     color 0.25 0.22 0.18 1
+     position 20 498
+     size 400 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Dat zkusenosti cili (pocet z pole)"
      font "gui/fonts/metron"
     }
     TextWidgetClass TimeLabel {
@@ -502,7 +514,7 @@ FrameWidgetClass OS_AdminToolsMenu {
     }
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
-     position 20 520
+     position 20 556
      size 820 38
      hexactpos 1
      vexactpos 1
@@ -513,7 +525,7 @@ FrameWidgetClass OS_AdminToolsMenu {
      font "gui/fonts/metron"
     }
     TextWidgetClass Status {
-     position 20 566
+     position 20 604
      size 820 26
      hexactpos 1
      vexactpos 1

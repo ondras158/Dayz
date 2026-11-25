@@ -110,7 +110,7 @@ class OS_LayoutTexts
 			Set(root, "BtnInvis", "Neviditelnost");
 			Set(root, "BtnEsp", "ESP");
 			Set(root, "BtnFreecam", "Freecam");
-			Set(root, "ReasonLabel", "Duvod (kick/ban) nebo Steam ID (unban, admin)");
+			Set(root, "ReasonLabel", "Duvod (kick/ban), Steam ID (unban, admin), pocet XP");
 			Set(root, "BtnKick", "Kick");
 			Set(root, "BtnBan", "Ban");
 			Set(root, "BtnUnban", "Unban");
@@ -121,6 +121,7 @@ class OS_LayoutTexts
 			Set(root, "BtnSpawner", "Spawner predmetu a vozidel");
 			Set(root, "BtnAddAdmin", "Pridat admina");
 			Set(root, "BtnRemoveAdmin", "Odebrat admina");
+			Set(root, "BtnGiveXp", "Dat zkusenosti cili (pocet z pole)");
 			Set(root, "TimeLabel", "Cas");
 			Set(root, "BtnMorning", "6:00");
 			Set(root, "BtnNoon", "12:00");
@@ -167,6 +168,15 @@ class OS_LayoutTexts
 			Set(root, "Hint", "Suroviny a hrnec / panev mej u sebe (nebo hrnec na ohnisti). Hotove jidlo da bonus.");
 			Set(root, "Detail1", "Vyber recept vlevo.");
 			Set(root, "BtnCook", "Uvarit");
+			Set(root, "BtnClose", "Zavrit");
+		}
+		if (layoutName == "skills_menu.layout")
+		{
+			Set(root, "Title", "Dovednosti");
+			Set(root, "Detail1", "Vyber dovednost v seznamu.");
+			Set(root, "BtnUpgrade", "Vylepsit (1 bod)");
+			Set(root, "BtnReset", "Prerozdelit body");
+			Set(root, "Hint", "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "farm_menu.layout")

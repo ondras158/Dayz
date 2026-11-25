@@ -321,7 +321,7 @@ LAYOUTS["mapzones.layout"] = """CanvasWidgetClass OS_MapZones {
 }
 """
 
-LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
+LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 650, [
     text("Title", 20, 12, 820, 36, "Admin nastroje", "gui/fonts/metron28", "center"),
     text("Target", 20, 52, 820, 26, "Cil:", align="center"),
     text("PlayerLabel", 20, 84, 400, 24, "Hrac (cil) a admin"),
@@ -329,7 +329,7 @@ LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
     button("BtnInvis", 225, 110, 195, 38, "Neviditelnost"),
     button("BtnEsp", 20, 156, 195, 38, "ESP"),
     button("BtnFreecam", 225, 156, 195, 38, "Freecam"),
-    text("ReasonLabel", 20, 202, 400, 24, "Duvod (kick/ban) nebo Steam ID (unban, admin)"),
+    text("ReasonLabel", 20, 202, 400, 24, "Duvod (kick/ban), Steam ID (unban, admin), pocet XP"),
     edit("EditReason", 20, 228, 400, 34),
     button("BtnKick", 20, 270, 130, 38, "Kick"),
     button("BtnBan", 155, 270, 130, 38, "Ban"),
@@ -341,6 +341,7 @@ LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
     button("BtnSpawner", 20, 400, 400, 42, "Spawner predmetu a vozidel"),
     button("BtnAddAdmin", 20, 452, 195, 38, "Pridat admina"),
     button("BtnRemoveAdmin", 225, 452, 195, 38, "Odebrat admina"),
+    button("BtnGiveXp", 20, 498, 400, 38, "Dat zkusenosti cili (pocet z pole)"),
     text("TimeLabel", 440, 84, 400, 24, "Cas"),
     button("BtnMorning", 440, 110, 94, 38, "6:00"),
     button("BtnNoon", 542, 110, 94, 38, "12:00"),
@@ -360,8 +361,8 @@ LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 610, [
     button("BtnLockUnlock", 440, 466, 130, 38, "Odemknout zamek"),
     button("BtnLockReset", 575, 466, 130, 38, "Smazat kod"),
     button("BtnBaseRemove", 710, 466, 130, 38, "Smazat base"),
-    button("BtnClose", 20, 520, 820, 38, "Zavrit"),
-    text("Status", 20, 566, 820, 26, "", align="center"),
+    button("BtnClose", 20, 556, 820, 38, "Zavrit"),
+    text("Status", 20, 604, 820, 26, "", align="center"),
 ])
 
 LAYOUTS["admin_spawn.layout"] = layout("OS_AdminSpawnMenu", 760, 640, [
@@ -402,6 +403,19 @@ LAYOUTS["cook_menu.layout"] = layout("OS_CookMenu", 860, 580, [
     button("BtnCook", 20, 480, 405, 40, "Uvarit"),
     button("BtnClose", 435, 480, 405, 40, "Zavrit"),
     text("Status", 20, 530, 820, 26, "", align="center"),
+])
+
+LAYOUTS["skills_menu.layout"] = layout("OS_SkillsMenu", 760, 560, [
+    text("Title", 20, 12, 720, 36, "Dovednosti", "gui/fonts/metron28", "center"),
+    text("LevelText", 20, 52, 720, 26, "", align="center"),
+    text("PointsText", 20, 78, 720, 26, "", align="center"),
+    listbox("SkillList", 20, 110, 720, 250),
+    text("Detail1", 20, 368, 720, 26, "Vyber dovednost v seznamu."),
+    text("Detail2", 20, 394, 720, 26, ""),
+    button("BtnUpgrade", 20, 430, 355, 40, "Vylepsit (1 bod)"),
+    button("BtnReset", 385, 430, 355, 40, "Prerozdelit body"),
+    text("Hint", 20, 476, 720, 24, "Zkusenosti: zombici, zvirata, vareni, farma a cas na serveru. Vylepseni zustava i po smrti.", align="center"),
+    button("BtnClose", 20, 506, 720, 38, "Zavrit"),
 ])
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
