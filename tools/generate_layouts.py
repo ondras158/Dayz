@@ -418,6 +418,65 @@ LAYOUTS["skills_menu.layout"] = layout("OS_SkillsMenu", 760, 560, [
     button("BtnClose", 20, 506, 720, 38, "Zavrit"),
 ])
 
+# HUD v rohu obrazovky (bez okna): tři bloky, skript je skládá pod sebe podle nastavení
+def hud_panel(name, x, y, w, h, color):
+    return f"""PanelWidgetClass {name} {{
+{props(x, y, w, h)} ignorepointer 1
+ color {color}
+ style rover_sim_colorable
+}}"""
+
+
+def hud_text(name, x, y, w, h, txt="", align="left", font="gui/fonts/metron"):
+    return f"""TextWidgetClass {name} {{
+{props(x, y, w, h)} ignorepointer 1
+ text "{txt}"
+ font "{font}"
+ "text halign" {align}
+ "text valign" center
+}}"""
+
+
+def hud_box(name, y, h, children):
+    inner = indent("\n".join(children), 2)
+    return f"""FrameWidgetClass {name} {{
+{props(0, y, 300, h)} ignorepointer 1
+ {{
+{inner}
+ }}
+}}"""
+
+
+HUD_W = 300
+_status = [hud_text("Zone", 10, 4, 280, 24, ""), hud_text("BaseText", 10, 26, 280, 20, "")]
+for i, key in enumerate(["Health", "Blood", "Food", "Water", "Stamina", "Heat"]):
+    y = 50 + i * 24
+    _status += [
+        hud_text("L_" + key, 10, y, 92, 22, ""),
+        hud_panel("BB_" + key, 104, y + 6, 140, 10, "0.15 0.15 0.15 0.8"),
+        hud_panel("BF_" + key, 104, y + 6, 140, 10, "0.3 0.8 0.3 0.95"),
+        hud_text("V_" + key, 248, y, 46, 22, "", "right"),
+    ]
+_group = [hud_text("GroupTitle", 10, 2, 280, 22, "")] + [hud_text(f"G{i}", 14, 24 + i * 19, 276, 19, "") for i in range(6)]
+_info = [hud_text("Info1", 10, 2, 280, 20, ""), hud_text("Info2", 10, 22, 280, 20, "")]
+HUD = f"""FrameWidgetClass OS_Hud {{
+ ignorepointer 1
+ position 0 0
+ size {HUD_W} 400
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {{
+{indent(hud_panel("Bg", 0, 0, HUD_W, 400, "0 0 0 0.45"), 2)}
+{indent(hud_box("StatusBox", 0, 196, _status), 2)}
+{indent(hud_box("GroupBox", 196, 140, _group), 2)}
+{indent(hud_box("InfoBox", 336, 46, _info), 2)}
+ }}
+}}
+"""
+LAYOUTS["hud.layout"] = HUD
+
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),
     text("Info", 20, 52, 820, 26, "", align="center"),

@@ -12,6 +12,7 @@
 			<input name="UAOSMap" loc="Mapa (OS)" />
 			<input name="UAOSFreecam" loc="Admin freecam (OS)" />
 			<input name="UAOSSkillsMenu" loc="Dovednosti (OS)" />
+			<input name="UAOSHudToggle" loc="Skryt / zobrazit HUD (OS)" />
 		</actions>
 		<sorting name="os_core" loc="OS Core">
 			<input name="UAOSTraderMenu" />
@@ -24,6 +25,7 @@
 			<input name="UAOSMap" />
 			<input name="UAOSFreecam" />
 			<input name="UAOSSkillsMenu" />
+			<input name="UAOSHudToggle" />
 		</sorting>
 	</inputs>
 	<preset>
@@ -56,6 +58,9 @@
 		</input>
 		<input name="UAOSSkillsMenu">
 			<btn name="kO" />
+		</input>
+		<input name="UAOSHudToggle">
+			<btn name="kH" />
 		</input>
 	</preset>
 </modded_inputs>

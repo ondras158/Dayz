@@ -60,8 +60,9 @@ const int OS_RPC_COOK_ACTION   = 784512095; // klient -> server: uvařit recept
 const int OS_RPC_SKILLS_OPEN   = 784512096; // klient -> server: menu dovedností
 const int OS_RPC_SKILLS_DATA   = 784512097; // server -> klient: úroveň, zkušenosti, dovednosti
 const int OS_RPC_SKILLS_ACTION = 784512098; // klient -> server: vylepšit dovednost / přerozdělit
+const int OS_RPC_HUD           = 784512099; // server -> klient: stav hráče a zóna pro HUD
 
-const int OS_RPC_LAST  = 784512099;
+const int OS_RPC_LAST  = 784512199;
 
 enum OS_AdminAction
 {

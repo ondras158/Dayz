@@ -35,6 +35,7 @@ class OS_Client
 
 	//! každý snímek z MissionGameplay
 	protected ref OS_AdminESP m_AdminEsp = new OS_AdminESP();
+	protected ref OS_Hud m_Hud = new OS_Hud();
 	protected ref OS_AdminFreecam m_Freecam = new OS_AdminFreecam();
 	protected ref OS_AdminToolsMenu m_AdminToolsMenu;
 	protected ref OS_AdminSpawnMenu m_AdminSpawnMenu;
@@ -47,7 +48,13 @@ class OS_Client
 		m_NameTags.Update();
 		m_Placer.Update();
 		m_AdminEsp.Update();
+		m_Hud.Update(g_Game.GetDeltaT());
 		m_Freecam.Update(g_Game.GetDeltaT());
+	}
+
+	OS_Hud GetHud()
+	{
+		return m_Hud;
 	}
 
 	OS_AdminFreecam GetFreecam()
@@ -179,6 +186,9 @@ class OS_Client
 				break;
 			case OS_RPC_SKILLS_DATA:
 				OnSkillsData(ctx);
+				break;
+			case OS_RPC_HUD:
+				OS_ClientHud.Read(ctx);
 				break;
 			case OS_RPC_GROUP_DATA:
 				OnGroupData(ctx);

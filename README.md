@@ -44,6 +44,7 @@ Každý server (mapa) má vlastní profilovou složku, takže můžeš mít víc
 | **J** | Skupina |
 | **K** | Osobní garáž |
 | **U** | Farma |
+| **H** | Skrýt / zobrazit HUD |
 | **O** | Dovednosti (úroveň, zkušenosti, vylepšování statů) |
 | **M** | Mapa (i bez mapy v inventáři) – PvP zóny, safe zóny, base, spoluhráči, garáž, farma |
 | **F** (při pohledu) | Zamknout / odemknout vozidlo; u kódového zámku *Odemknout / Zamknout (skupina)*; u vlajky *Base*; u ohně *Vařit podle receptu* |
@@ -70,6 +71,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vlastnictví vozidel | Vozidlo patří hráči podle Steam ID, zamyká se klávesou F bez klíče; ve skupinové garáži se sdílí se skupinou | `Vehicles.json` |
 | Skupiny | Klávesa **J**: až 4 hráči zdarma, další místa za peníze, role vlastník / admin / člen, společný účet, spoluhráči na mapě a jména nad hlavou, bez zranění ve skupině | `Groups.json` |
 | Farmy | Klávesa **U**: zvířata (slepice, prasata, krávy, kozy, ovce), sad a skleník, krmivo a hnojivo, výroba i offline, Farmář a výkupna úrody; farma jen ve vlastní base | `Farms.json` |
+| HUD | Panel v rohu obrazovky: zdraví, krev, jídlo, voda, výdrž, teplo, zóna (bezpečná / PvP / PvE) a odpočet PvP, base, spoluhráči se vzdáleností, souřadnice, směr, čas, počet hráčů; klávesa **H** skryje | `Hud.json` |
 | Dovednosti | Klávesa **O**: zkušenosti za zombíky, zvířata, hráče, vaření, farmu a čas na serveru; za úroveň bod do odolnosti, výdrže, regenerace, krve, metabolismu nebo otužilosti; zůstává i po smrti | `Skills.json` |
 | Vaření podle receptů | U hořícího ohně nebo vařiče akce **Vařit podle receptu**: 10 jídel (guláš, polévky, rizoto, omeleta…), víc energie a vody, dočasné bonusy (zdraví, krev, teplo, výdrž), prodej v Potravinách | `Cooking.json` |
 | Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, base na mapě; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
@@ -145,6 +147,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Bases.json      BasesData.json                                            base u vlajky
 ├── Cooking.json                                                              recepty a bonusy z jídla
 ├── Skills.json     Skills/<SteamID>.json                                     dovednosti, úrovně hráčů
+├── Hud.json                                                                  HUD v rohu obrazovky
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -501,6 +504,16 @@ přidej jejich classname a díly).
   Vejce jdou prodat v Potravinách. Mléko = vanilla sušené mléko.
 - Druhy zvířat, ceny, cykly i výrobky (libovolné classname, i z módů) se nastavují v `Farms.json` → `Animals`.
 
+**HUD** (`Hud.json`) – panel v pravém horním rohu (`Position`: `right` / `left`), hráč ho skryje klávesou **H**
+- **Stav** (`ShowStatus`): zóna barevně – *BEZPEČNÁ ZÓNA* (zelená), *PvP ZÓNA* (červená), *PvP ještě X s*
+  (oranžová, časovač po odchodu ze zóny), *PvE* (šedá); base, ve které stojíš (moje / skupiny / cizí);
+  pruhy zdraví, krve, jídla, vody, výdrže a tepla (zima / chladno / OK / teplo / horko).
+- **Skupina** (`ShowGroup`): spoluhráči online se vzdáleností (max 6).
+- **Info** (`ShowInfo`): souřadnice X / Z (`ShowCoordinates`), směr pohledu (S, SV, V…) a stupně,
+  čas ve hře a počet hráčů online.
+- Stav posílá server každých `UpdateSeconds` (1,5 s). Při otevřeném menu, inventáři nebo mapě se HUD skryje.
+  Vanilla ikonky zůstávají. Vypnutí pro všechny: `Enabled: false`.
+
 **Dovednosti** (`Skills.json`, data hráčů v `Skills/<SteamID>.json`) – menu klávesa **O**
 - **Zkušenosti** dostáváš za: zabitého zombíka (`XpZombieKill`, 10), zvíře (`XpAnimalKill`, 20), hráče
   (`XpPlayerKill`, 40), uvařené jídlo (`XpCookDish`, 15), každý vybraný kus z farmy (`XpFarmItem`, 1)
@@ -666,6 +679,7 @@ Chybu z logu mi pošli a opravím ji.
   vyhození vlastníka, předání vlastnictví a rozpuštění), spoluhráči na mapě, jména nad hlavou, bez friendly fire.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
+- **HUD:** stav hráče, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).
 - **Dovednosti:** zkušenosti a úrovně, body do odolnosti, výdrže, regenerace, krve, metabolismu a otužilosti (klávesa O).
 - **Vaření:** recepty u ohně, 10 hotových jídel s lepší výživou a bonusy, prodej v Potravinách.
 - **Base u vanilla vlajky:** založení, zvětšování poloměru po úrovních, rozestupy mezi basemi, zobrazení na mapě.

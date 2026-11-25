@@ -13,6 +13,10 @@ modded class MissionGameplay
 		if (OS_Client.Get())
 			OS_Client.Get().OnFrame();
 
+		UAInput hudInput = GetUApi().GetInputByName("UAOSHudToggle");
+		if (hudInput && hudInput.LocalPress() && !g_Game.GetUIManager().GetMenu() && OS_Client.Get())
+			OS_Client.Get().GetHud().ToggleHidden();
+
 		// klávesy jen když není otevřené žádné jiné menu (inventář, chat...)
 		if (g_Game.GetUIManager().GetMenu() || !g_Game.GetPlayer())
 			return;

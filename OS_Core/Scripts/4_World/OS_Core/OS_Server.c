@@ -12,6 +12,7 @@ class OS_Server
 	ref OS_ServerBases m_Bases;
 	ref OS_ServerCooking m_Cooking;
 	ref OS_ServerSkills m_Skills;
+	ref OS_ServerHud m_Hud;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
 	ref OS_ServerTrader m_Trader;
@@ -61,6 +62,7 @@ class OS_Server
 		m_Bases = new OS_ServerBases(m_Payments, m_Groups, currency);
 		m_Cooking = new OS_ServerCooking();
 		m_Skills = new OS_ServerSkills(m_Payments, currency);
+		m_Hud = new OS_ServerHud();
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -151,6 +153,7 @@ class OS_Server
 		m_Bases.OnTick(delta);
 		m_Cooking.OnTick(players, delta);
 		m_Skills.OnTick(players, delta);
+		m_Hud.OnTick(players, delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
 		m_Farms.OnTick(delta);
