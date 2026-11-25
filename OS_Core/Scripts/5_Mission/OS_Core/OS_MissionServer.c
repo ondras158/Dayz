@@ -24,6 +24,18 @@ modded class MissionServer
 		return player;
 	}
 
+	//! stejná postava (vzhled) jako před smrtí
+	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
+	{
+		if (identity && OS_Server.Get() && OS_Server.Get().m_Death)
+		{
+			string kept = OS_Server.Get().m_Death.CharacterType(identity.GetPlainId());
+			if (kept != "" && g_Game.ListAvailableCharacters().Find(kept) > -1)
+				characterName = kept;
+		}
+		return super.CreateCharacter(identity, pos, ctx, characterName);
+	}
+
 	override void InvokeOnConnect(PlayerBase player, PlayerIdentity identity)
 	{
 		super.InvokeOnConnect(player, identity);

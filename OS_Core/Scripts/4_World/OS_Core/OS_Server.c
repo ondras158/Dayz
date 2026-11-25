@@ -15,6 +15,7 @@ class OS_Server
 	ref OS_ServerHud m_Hud;
 	ref OS_ServerSleep m_Sleep;
 	ref OS_ServerAirdrops m_Airdrops;
+	ref OS_ServerDeath m_Death;
 	protected int m_PlayerCount;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
@@ -68,6 +69,7 @@ class OS_Server
 		m_Hud = new OS_ServerHud();
 		m_Sleep = new OS_ServerSleep();
 		m_Airdrops = new OS_ServerAirdrops();
+		m_Death = new OS_ServerDeath();
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -105,9 +107,13 @@ class OS_Server
 		// jazyk dřív, než klient dostane menu spawnu
 		if (player && player.GetIdentity())
 			OS_Lang.SendToClient(player.GetIdentity());
-		m_Loadouts.Equip(player);
+		// věci po smrti od prostředí se vrátí, jinak startovní výbava
+		if (!m_Death.TryRestore(player))
+			m_Loadouts.Equip(player);
+		m_Death.RememberCharacter(player);
 		m_Spawns.OnNewCharacter(player);
-		m_Sleep.OnNewCharacter(player);
+		if (!m_Death.m_Cfg.KeepFatigue)
+			m_Sleep.OnNewCharacter(player);
 	}
 
 	void OnConnect(PlayerBase player)
@@ -121,6 +127,7 @@ class OS_Server
 			rpc.Write(m_Currency);
 			rpc.Send(null, OS_RPC_SETTINGS, true, player.GetIdentity());
 			m_Groups.SendGroupId(player);
+			m_Death.RememberCharacter(player);
 			if (m_Groups.m_Cfg.AutoTuneOnJoin)
 				m_Groups.TuneRadios(player, false);
 			m_Vehicles.SendPersonalGarage(player);
@@ -185,6 +192,7 @@ class OS_Server
 	{
 		PlayerBase killerPlayer = OS_Util.ResolveKillerPlayer(killer);
 		m_Messages.OnPlayerKilled(victim, killerPlayer, killer);
+		m_Death.OnKilled(victim, killer);
 
 		if (killerPlayer && killerPlayer != victim)
 		{

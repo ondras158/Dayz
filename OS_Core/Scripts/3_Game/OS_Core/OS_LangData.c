@@ -289,6 +289,8 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Bonus z jidla");
 		m.Set("%1 na %2 min", "%1 na %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus skoncil: %1");
+		m.Set("Smrt", "Smrt");
+		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Zabilo te prostredi, ne hrac - tvoje veci se vratily.");
 		m.Set("Farma", "Farma");
 		m.Set("Farma zrusena.", "Farma zrusena.");
 		m.Set("Farmar", "Farmar");
@@ -353,12 +355,12 @@ class OS_LangData
 		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.");
 		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Skupina ma nove misto (%1 hracu), zaplaceno %2.");
 		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozpustit skupinu muze jen vlastnik.");
-		m.Set("Skupina byla rozpustena.", "Skupina byla rozpustena.");
-		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Zustatek %1 %2 prevedeny na tvuj ucet.");
 	}
 
 	protected static void Fill_cs_2(map<string, string> m)
 	{
+		m.Set("Skupina byla rozpustena.", "Skupina byla rozpustena.");
+		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Zustatek %1 %2 prevedeny na tvuj ucet.");
 		m.Set("Moje base", "Moje base");
 		m.Set("Base skupiny (%1)", "Base skupiny (%1)");
 		m.Set("Cizi base (%1)", "Cizi base (%1)");
@@ -507,12 +509,12 @@ class OS_LangData
 		m.Set("SV", "SV");
 		m.Set("V", "V");
 		m.Set("JV", "JV");
-		m.Set("J", "J");
-		m.Set("JZ", "JZ");
 	}
 
 	protected static void Fill_cs_3(map<string, string> m)
 	{
+		m.Set("J", "J");
+		m.Set("JZ", "JZ");
 		m.Set("Z", "Z");
 		m.Set("SZ", "SZ");
 		m.Set("PvE - hraci ti neublizi", "PvE - hraci ti neublizi");
@@ -661,12 +663,12 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Odemknout nejblizsi auto");
 		m.Set("PvP zona zde", "PvP zona zde");
 		m.Set("Smazat PvP zonu", "Smazat PvP zonu");
-		m.Set("Nastroje (COT)", "Nastroje (COT)");
-		m.Set("Zavrit", "Zavrit");
 	}
 
 	protected static void Fill_cs_4(map<string, string> m)
 	{
+		m.Set("Nastroje (COT)", "Nastroje (COT)");
+		m.Set("Zavrit", "Zavrit");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Hledat");
 		m.Set("Koupit vybrane", "Koupit vybrane");
@@ -815,12 +817,12 @@ class OS_LangData
 		m.Set("Majitel: jiny hrac", "Majitel: jiny hrac");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Zadne auto pobliz - prijed s nim blize");
 		m.Set("Opravit (%1%2)", "Opravit (%1%2)");
-		m.Set("Natankovat (%1%2)", "Natankovat (%1%2)");
-		m.Set("Doplnit chybejici dily (%1%2/ks)", "Doplnit chybejici dily (%1%2/ks)");
 	}
 
 	protected static void Fill_cs_5(map<string, string> m)
 	{
+		m.Set("Natankovat (%1%2)", "Natankovat (%1%2)");
+		m.Set("Doplnit chybejici dily (%1%2/ks)", "Doplnit chybejici dily (%1%2/ks)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Prepsat auto na sebe (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Ulozit do garaze (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Vyzvednout (aut v garazi: %1)");
@@ -1084,6 +1086,8 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Food bonus");
 		m.Set("%1 na %2 min", "%1 for %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus ended: %1");
+		m.Set("Smrt", "Death");
+		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "You were killed by the environment, not a player - your items are back.");
 		m.Set("Farma", "Farm");
 		m.Set("Farma zrusena.", "Farm removed.");
 		m.Set("Farmar", "Farmer");
@@ -1148,12 +1152,12 @@ class OS_LangData
 		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "A slot costs %1 %2. Top up the group account at an ATM or carry the cash.");
 		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "The group has a new slot (%1 players), paid %2.");
 		m.Set("Rozpustit skupinu muze jen vlastnik.", "Only the owner can disband the group.");
-		m.Set("Skupina byla rozpustena.", "The group has been disbanded.");
-		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Balance of %1 %2 transferred to your account.");
 	}
 
 	protected static void Fill_en_2(map<string, string> m)
 	{
+		m.Set("Skupina byla rozpustena.", "The group has been disbanded.");
+		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Balance of %1 %2 transferred to your account.");
 		m.Set("Moje base", "My base");
 		m.Set("Base skupiny (%1)", "Group base (%1)");
 		m.Set("Cizi base (%1)", "Foreign base (%1)");
@@ -1302,12 +1306,12 @@ class OS_LangData
 		m.Set("SV", "NE");
 		m.Set("V", "E");
 		m.Set("JV", "SE");
-		m.Set("J", "S");
-		m.Set("JZ", "SW");
 	}
 
 	protected static void Fill_en_3(map<string, string> m)
 	{
+		m.Set("J", "S");
+		m.Set("JZ", "SW");
 		m.Set("Z", "W");
 		m.Set("SZ", "NW");
 		m.Set("PvE - hraci ti neublizi", "PvE - players can't hurt you");
@@ -1456,12 +1460,12 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Unlock nearest car");
 		m.Set("PvP zona zde", "PvP zone here");
 		m.Set("Smazat PvP zonu", "Remove PvP zone");
-		m.Set("Nastroje (COT)", "Tools (COT)");
-		m.Set("Zavrit", "Close");
 	}
 
 	protected static void Fill_en_4(map<string, string> m)
 	{
+		m.Set("Nastroje (COT)", "Tools (COT)");
+		m.Set("Zavrit", "Close");
 		m.Set("Kategorie", "Categories");
 		m.Set("Hledat", "Search");
 		m.Set("Koupit vybrane", "Buy selected");
@@ -1610,12 +1614,12 @@ class OS_LangData
 		m.Set("Majitel: jiny hrac", "Owner: another player");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "No car nearby - drive it closer");
 		m.Set("Opravit (%1%2)", "Repair (%1%2)");
-		m.Set("Natankovat (%1%2)", "Refuel (%1%2)");
-		m.Set("Doplnit chybejici dily (%1%2/ks)", "Add missing parts (%1%2/pc)");
 	}
 
 	protected static void Fill_en_5(map<string, string> m)
 	{
+		m.Set("Natankovat (%1%2)", "Refuel (%1%2)");
+		m.Set("Doplnit chybejici dily (%1%2/ks)", "Add missing parts (%1%2/pc)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Claim the car (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Store in garage (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Retrieve (cars in garage: %1)");
@@ -1879,6 +1883,8 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Essensbonus");
 		m.Set("%1 na %2 min", "%1 für %2 Min.");
 		m.Set("Bonus skoncil: %1", "Bonus beendet: %1");
+		m.Set("Smrt", "Tod");
+		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Dich hat die Umgebung getötet, kein Spieler - deine Sachen sind zurück.");
 		m.Set("Farma", "Farm");
 		m.Set("Farma zrusena.", "Farm abgerissen.");
 		m.Set("Farmar", "Bauer");
@@ -1943,12 +1949,12 @@ class OS_LangData
 		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Ein Platz kostet %1 %2. Lade das Gruppenkonto am Geldautomaten auf oder hab das Geld dabei.");
 		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Die Gruppe hat einen neuen Platz (%1 Spieler), bezahlt %2.");
 		m.Set("Rozpustit skupinu muze jen vlastnik.", "Nur der Besitzer kann die Gruppe auflösen.");
-		m.Set("Skupina byla rozpustena.", "Die Gruppe wurde aufgelöst.");
-		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Restbetrag %1 %2 wurde auf dein Konto überwiesen.");
 	}
 
 	protected static void Fill_de_2(map<string, string> m)
 	{
+		m.Set("Skupina byla rozpustena.", "Die Gruppe wurde aufgelöst.");
+		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Restbetrag %1 %2 wurde auf dein Konto überwiesen.");
 		m.Set("Moje base", "Meine Basis");
 		m.Set("Base skupiny (%1)", "Gruppenbasis (%1)");
 		m.Set("Cizi base (%1)", "Fremde Basis (%1)");
@@ -2097,12 +2103,12 @@ class OS_LangData
 		m.Set("SV", "NO");
 		m.Set("V", "O");
 		m.Set("JV", "SO");
-		m.Set("J", "S");
-		m.Set("JZ", "SW");
 	}
 
 	protected static void Fill_de_3(map<string, string> m)
 	{
+		m.Set("J", "S");
+		m.Set("JZ", "SW");
 		m.Set("Z", "W");
 		m.Set("SZ", "NW");
 		m.Set("PvE - hraci ti neublizi", "PvE - Spieler können dir nichts tun");
@@ -2251,12 +2257,12 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Nächstes Auto aufschließen");
 		m.Set("PvP zona zde", "PvP-Zone hier");
 		m.Set("Smazat PvP zonu", "PvP-Zone löschen");
-		m.Set("Nastroje (COT)", "Werkzeuge (COT)");
-		m.Set("Zavrit", "Schließen");
 	}
 
 	protected static void Fill_de_4(map<string, string> m)
 	{
+		m.Set("Nastroje (COT)", "Werkzeuge (COT)");
+		m.Set("Zavrit", "Schließen");
 		m.Set("Kategorie", "Kategorien");
 		m.Set("Hledat", "Suchen");
 		m.Set("Koupit vybrane", "Auswahl kaufen");
@@ -2405,12 +2411,12 @@ class OS_LangData
 		m.Set("Majitel: jiny hrac", "Besitzer: anderer Spieler");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Kein Auto in der Nähe - fahr näher heran");
 		m.Set("Opravit (%1%2)", "Reparieren (%1%2)");
-		m.Set("Natankovat (%1%2)", "Tanken (%1%2)");
-		m.Set("Doplnit chybejici dily (%1%2/ks)", "Fehlende Teile ergänzen (%1%2/Stk.)");
 	}
 
 	protected static void Fill_de_5(map<string, string> m)
 	{
+		m.Set("Natankovat (%1%2)", "Tanken (%1%2)");
+		m.Set("Doplnit chybejici dily (%1%2/ks)", "Fehlende Teile ergänzen (%1%2/Stk.)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Auto auf dich umschreiben (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "In Garage einlagern (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Abholen (Autos in der Garage: %1)");
@@ -2674,6 +2680,8 @@ class OS_LangData
 		m.Set("Bonus z jidla", "Bonus z jedzenia");
 		m.Set("%1 na %2 min", "%1 na %2 min");
 		m.Set("Bonus skoncil: %1", "Bonus się skończył: %1");
+		m.Set("Smrt", "Śmierć");
+		m.Set("Zabilo te prostredi, ne hrac - tvoje veci se vratily.", "Zabiło cię otoczenie, nie gracz - twoje rzeczy wróciły.");
 		m.Set("Farma", "Farma");
 		m.Set("Farma zrusena.", "Farma usunięta.");
 		m.Set("Farmar", "Rolnik");
@@ -2738,12 +2746,12 @@ class OS_LangData
 		m.Set("Misto stoji %1 %2. Dopln skupinovy ucet v bankomatu nebo mej penize u sebe.", "Miejsce kosztuje %1 %2. Doładuj konto grupy w bankomacie albo miej pieniądze przy sobie.");
 		m.Set("Skupina ma nove misto (%1 hracu), zaplaceno %2.", "Grupa ma nowe miejsce (%1 graczy), zapłacono %2.");
 		m.Set("Rozpustit skupinu muze jen vlastnik.", "Rozwiązać grupę może tylko właściciel.");
-		m.Set("Skupina byla rozpustena.", "Grupa została rozwiązana.");
-		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Saldo %1 %2 przelano na twoje konto.");
 	}
 
 	protected static void Fill_pl_2(map<string, string> m)
 	{
+		m.Set("Skupina byla rozpustena.", "Grupa została rozwiązana.");
+		m.Set("Zustatek %1 %2 prevedeny na tvuj ucet.", "Saldo %1 %2 przelano na twoje konto.");
 		m.Set("Moje base", "Moja baza");
 		m.Set("Base skupiny (%1)", "Baza grupy (%1)");
 		m.Set("Cizi base (%1)", "Obca baza (%1)");
@@ -2892,12 +2900,12 @@ class OS_LangData
 		m.Set("SV", "Pn-Wsch");
 		m.Set("V", "Wsch");
 		m.Set("JV", "Pd-Wsch");
-		m.Set("J", "Pd");
-		m.Set("JZ", "Pd-Zach");
 	}
 
 	protected static void Fill_pl_3(map<string, string> m)
 	{
+		m.Set("J", "Pd");
+		m.Set("JZ", "Pd-Zach");
 		m.Set("Z", "Zach");
 		m.Set("SZ", "Pn-Zach");
 		m.Set("PvE - hraci ti neublizi", "PvE - gracze cię nie zranią");
@@ -3046,12 +3054,12 @@ class OS_LangData
 		m.Set("Odemknout nejblizsi auto", "Otwórz najbliższy pojazd");
 		m.Set("PvP zona zde", "Strefa PvP tutaj");
 		m.Set("Smazat PvP zonu", "Usuń strefę PvP");
-		m.Set("Nastroje (COT)", "Narzędzia (COT)");
-		m.Set("Zavrit", "Zamknij");
 	}
 
 	protected static void Fill_pl_4(map<string, string> m)
 	{
+		m.Set("Nastroje (COT)", "Narzędzia (COT)");
+		m.Set("Zavrit", "Zamknij");
 		m.Set("Kategorie", "Kategorie");
 		m.Set("Hledat", "Szukaj");
 		m.Set("Koupit vybrane", "Kup wybrane");
@@ -3200,12 +3208,12 @@ class OS_LangData
 		m.Set("Majitel: jiny hrac", "Właściciel: inny gracz");
 		m.Set("Zadne auto pobliz - prijed s nim blize", "Brak pojazdu w pobliżu - podjedź bliżej");
 		m.Set("Opravit (%1%2)", "Napraw (%1%2)");
-		m.Set("Natankovat (%1%2)", "Zatankuj (%1%2)");
-		m.Set("Doplnit chybejici dily (%1%2/ks)", "Uzupełnij brakujące części (%1%2/szt.)");
 	}
 
 	protected static void Fill_pl_5(map<string, string> m)
 	{
+		m.Set("Natankovat (%1%2)", "Zatankuj (%1%2)");
+		m.Set("Doplnit chybejici dily (%1%2/ks)", "Uzupełnij brakujące części (%1%2/szt.)");
 		m.Set("Prepsat auto na sebe (%1%2)", "Przepisz pojazd na siebie (%1%2)");
 		m.Set("Ulozit do garaze (%1%2)", "Zaparkuj w garażu (%1%2)");
 		m.Set("Vyzvednout (aut v garazi: %1)", "Odbierz (pojazdów w garażu: %1)");
