@@ -134,6 +134,12 @@ class OS_Server
 		g_Game.GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(m_Messages.OnConnect, 8000, false, player);
 	}
 
+	//! vyslat konvoj (umí jen doplněk OS_Core_ExpansionAI)
+	bool AdminLaunchConvoy()
+	{
+		return false;
+	}
+
 	void OnDisconnect(string steamId)
 	{
 		if (steamId != "")

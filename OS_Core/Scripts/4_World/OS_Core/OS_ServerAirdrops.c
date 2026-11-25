@@ -105,9 +105,30 @@ class OS_ServerAirdrops
 		return true;
 	}
 
+	//! loot z tabulky podle jména ("" = náhodná tabulka) - používají ho i konvoje
+	void FillLootFrom(EntityAI container, string tableName)
+	{
+		OS_AirdropLoot chosen;
+		if (tableName != "")
+		{
+			foreach (OS_AirdropLoot t : m_Cfg.LootTables)
+			{
+				if (t && t.Name == tableName)
+					chosen = t;
+			}
+		}
+		if (!chosen)
+			chosen = PickTable();
+		FillLootTable(container, chosen);
+	}
+
 	protected void FillLoot(EntityAI container)
 	{
-		OS_AirdropLoot table = PickTable();
+		FillLootTable(container, PickTable());
+	}
+
+	protected void FillLootTable(EntityAI container, OS_AirdropLoot table)
+	{
 		if (!table)
 			return;
 		foreach (OS_AirdropItem entry : table.Items)

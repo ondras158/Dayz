@@ -143,6 +143,7 @@ class OS_LayoutTexts
 			Set(root, "BtnBaseRemove", "Smazat base");
 			Set(root, "BtnAirdropHere", "Airdrop u cile");
 			Set(root, "BtnAirdropRandom", "Airdrop nahodne");
+			Set(root, "BtnConvoy", "Vyslat konvoj");
 			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "admin_spawn.layout")

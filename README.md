@@ -81,7 +81,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vaření podle receptů | U hořícího ohně nebo vařiče akce **Vařit podle receptu**: 10 jídel (guláš, polévky, rizoto, omeleta…), víc energie a vody, dočasné bonusy (zdraví, krev, teplo, výdrž), prodej v Potravinách | `Cooking.json` |
 | Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, base na mapě; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze, PvP zóny; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kódové zámky, base, kick/ban, přidávání adminů, hlavní admin | `Admins.json` |
-| AI vojáci – Expansion AI (doplněk) | Opravy: nevidí a nestřílí přes zdi, vidí jen na rozumnou vzdálenost (den / noc / postoj), přesnost klesá se vzdáleností; hlídky po trasách, útoky banditů na base, stráže airdropů | `ExpansionAI.json` |
+| AI vojáci – Expansion AI (doplněk) | Opravy: nevidí a nestřílí přes zdi, vidí jen na rozumnou vzdálenost (den / noc / postoj), přesnost klesá se vzdáleností; hlídky po trasách, útoky banditů na base, stráže airdropů, **konvoje** s nákladem (přepadení, útoky na base) | `ExpansionAI.json`, `Convoys.json` |
 | Expansion BaseBuilding (doplněk) | Členové OS skupiny se automaticky stanou členy území vlajky Expansion | `ExpansionTerritory.json` |
 
 ### Struktura
@@ -157,7 +157,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Hud.json                                                                  HUD v rohu obrazovky
 ├── Sleep.json      SleepData.json                                            únava a spánek, emoce
 ├── Airdrops.json                                                             airdropy, místa, loot
-├── ExpansionAI.json                                                          jen s doplňkem pro Expansion AI
+├── ExpansionAI.json   Convoys.json                                           jen s doplňkem pro Expansion AI
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -726,6 +726,16 @@ nejvíc vadí, a řídí vojáky z OS_Core. Nastavení `$profile:OS_Core/Expansi
   (`AttackOnlyBases` = jen k hráči ve své base; ne v bezpečné zóně). Hráč a jeho skupina dostanou varování.
 - **Stráže airdropů** (`AirdropGuards`): místo nakažených hlídají airdrop vojáci (`AirdropGuardFaction`, výchozí Guards)
   a zmizí s bednou.
+- **Konvoje** (`Convoys.json`): každých ~`IntervalMinutes` (50 min) vyjede vozidlo (`Vehicles`, náhodně jedno)
+  s posádkou `Crew` vojáků (`Faction`) po trase z `Routes` (body po silnici, aspoň každých 50–100 m, v zatáčkách
+  hustěji) rychlostí `SpeedKmh` (35 km/h). V kufru má loot z tabulky airdropů (`LootTable`, `LootRolls`×).
+  Oznámení v chatu a poloha na mapě (`ShowOnMap`).
+  - **Přepadení:** výstřel do auta, zabitý voják nebo hráč blíž než `AmbushDistance` (35 m) – konvoj zastaví,
+    vojáci vystoupí a bojují. Kufr jde vybrat, až padnou.
+  - **Útok:** projíždí-li konvoj do `AttackBaseRadius` (250 m) od hráče v jeho base, zastaví a vojáci jdou na base.
+  - Auto jede skriptem po bodech trasy (spolehlivé, nesjede z cesty), ne řízením AI. Po zastavení se vrátí na fyziku.
+    Po `LifetimeMinutes` od zastavení nebo dojetí konvoj (auto i zbylí vojáci) zmizí.
+  - Admin nástroje: *Vyslat konvoj*.
 - Přesnost, poškození a další chování dál nastavuješ v nastavení Expansion AI (`AISettings.json`).
 
 ### Doplněk pro Expansion BaseBuilding (OS_Core_Expansion)
@@ -775,7 +785,7 @@ Chybu z logu mi pošli a opravím ji.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
 - **Airdropy:** bedna na padáku s lootem, kouř, stráže, oznámení a mapa, ruční shození adminem.
-- **AI vojáci (Expansion AI):** nestřílí přes zdi, vidí jen rozumně daleko, hlídky, útoky na base, stráže airdropů.
+- **AI vojáci (Expansion AI):** nestřílí přes zdi, vidí jen rozumně daleko, hlídky, útoky na base, stráže airdropů, konvoje s nákladem k přepadení.
 - **Hlasový chat:** skupinová vysílačka (vlastní kanál skupiny, automatické naladění) a v HUDu kdo právě mluví.
 - **Únava, spánek a emoce:** únava v HUDu, spaní ve stanu / base, menu emocí (L), animace u akcí módu.
 - **HUD:** stav hráče, nemoci s radou, čím léčit, působící léky, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).

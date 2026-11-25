@@ -98,7 +98,8 @@ enum OS_AdminAction
 	CODELOCK_RESET, // nejbližší kódový zámek: smazat kód a majitele
 	BASE_REMOVE,    // smazat nejbližší base (vlajka zůstane)
 	GIVE_XP,        // arg = počet zkušeností pro cíl
-	AIRDROP         // arg "here" = u cíle, jinak náhodné místo
+	AIRDROP,        // arg "here" = u cíle, jinak náhodné místo
+	CONVOY          // vyslat konvoj (s doplňkem pro Expansion AI)
 }
 
 enum OS_BaseAction

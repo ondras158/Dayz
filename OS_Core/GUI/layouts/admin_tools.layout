@@ -515,7 +515,7 @@ FrameWidgetClass OS_AdminToolsMenu {
     ButtonWidgetClass BtnAirdropHere {
      color 0.25 0.22 0.18 1
      position 440 512
-     size 195 38
+     size 130 38
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -526,14 +526,26 @@ FrameWidgetClass OS_AdminToolsMenu {
     }
     ButtonWidgetClass BtnAirdropRandom {
      color 0.25 0.22 0.18 1
-     position 645 512
-     size 195 38
+     position 575 512
+     size 130 38
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
      style Default
      text "Airdrop nahodne"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnConvoy {
+     color 0.25 0.22 0.18 1
+     position 710 512
+     size 130 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vyslat konvoj"
      font "gui/fonts/metron"
     }
     ButtonWidgetClass BtnClose {

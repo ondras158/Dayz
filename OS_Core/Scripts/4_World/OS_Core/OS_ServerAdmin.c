@@ -470,6 +470,14 @@ class OS_ServerAdmin
 				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Airdrop se nepodarilo shodit (viz log)."));
 			Log(admin, "airdrop " + arg);
 		}
+		else if (action == OS_AdminAction.CONVOY)
+		{
+			if (OS_Server.Get() && OS_Server.Get().AdminLaunchConvoy())
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Konvoj vyslan."));
+			else
+				OS_Util.Notify(admin, OS_T("Admin"), OS_T("Konvoj nejde vyslat (chybi doplnek pro Expansion AI nebo trasa v Convoys.json)."));
+			Log(admin, "konvoj");
+		}
 		else if (action == OS_AdminAction.GIVE_XP)
 		{
 			int xp = arg.Trim().ToInt();

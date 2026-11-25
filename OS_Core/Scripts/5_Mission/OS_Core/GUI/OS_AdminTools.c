@@ -374,6 +374,10 @@ class OS_AdminToolsMenu : OS_MenuBase
 		{
 			Send(OS_AdminAction.AIRDROP, "random");
 		}
+		else if (name == "BtnConvoy")
+		{
+			Send(OS_AdminAction.CONVOY, "");
+		}
 		else if (name == "BtnGiveXp")
 		{
 			Send(OS_AdminAction.GIVE_XP, EditText(m_EditReason));

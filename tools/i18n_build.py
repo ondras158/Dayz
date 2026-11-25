@@ -32,6 +32,7 @@ CONFIG_PATTERNS = [
     re.compile(r"new OS_PvPZone\(" + STR),
     re.compile(r"new OS_AirdropLocation\(" + STR),
     re.compile(r"new OS_AIPatrol\(" + STR),
+    re.compile(r"new OS_ConvoyRoute\(" + STR),
     re.compile(r"new OS_CookRecipe\(" + STR),
     re.compile(r"new OS_SkillDef\(" + STR + ", " + STR),
     re.compile(r'new OS_SkillDef\("[^"]*", "[^"]*", [^,]+, [^,]+, ' + STR),
@@ -42,7 +43,7 @@ CONFIG_PATTERNS = [
     re.compile(r"Broadcasts\.Insert\(" + STR),
     re.compile(r"string (?:WelcomeTitle|WelcomeText|EnterMessage|LeaveMessage|TimerMessage|BanMessage) = " + STR),
 ]
-CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c", "OS_CookingConfig.c", "OS_SkillsConfig.c", "OS_AirdropConfig.c", "OS_ExpansionAI.c"]
+CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c", "OS_CookingConfig.c", "OS_SkillsConfig.c", "OS_AirdropConfig.c", "OS_ExpansionAI.c", "OS_Convoy.c"]
 
 
 def unescape(s):

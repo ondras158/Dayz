@@ -362,8 +362,9 @@ LAYOUTS["admin_tools.layout"] = layout("OS_AdminToolsMenu", 860, 650, [
     button("BtnLockUnlock", 440, 466, 130, 38, "Odemknout zamek"),
     button("BtnLockReset", 575, 466, 130, 38, "Smazat kod"),
     button("BtnBaseRemove", 710, 466, 130, 38, "Smazat base"),
-    button("BtnAirdropHere", 440, 512, 195, 38, "Airdrop u cile"),
-    button("BtnAirdropRandom", 645, 512, 195, 38, "Airdrop nahodne"),
+    button("BtnAirdropHere", 440, 512, 130, 38, "Airdrop u cile"),
+    button("BtnAirdropRandom", 575, 512, 130, 38, "Airdrop nahodne"),
+    button("BtnConvoy", 710, 512, 130, 38, "Vyslat konvoj"),
     button("BtnClose", 20, 556, 820, 38, "Zavrit"),
     text("Status", 20, 604, 820, 26, "", align="center"),
 ])
