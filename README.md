@@ -527,7 +527,7 @@ přidej jejich classname a díly).
 | Nachlazení → Chřipka → Zápal plic | Zima, mokré oblečení, nakažení hráči | kašel, kýchání | **Vitamíny**, teplo; chřipka a zápal plic **Tetracyklin** |
 | Infekce rány | Neošetřená rána, špinavý obvaz | horečka, slabost | **Dezinfekční sprej / alkohol** na ránu, Tetracyklin |
 | Kuru | Lidské maso | smích, třes | nevyléčitelné, časem přejde |
-| Otrava těžkými kovy | Kontaminovaná voda (Sakhal) | slabost | **Chelační tablety** |
+| Otrava těžkými kovy | Kontaminované prostředí a voda (hlavně Sakhal) | slabost | **Chelační tablety** |
 | Chemická otrava | Toxická zóna (plyn) | kašel, zranění | **PO-X antidotum**, plynová maska |
 
 - **Léky:** Tetracyklin (antibiotika, 5 min), Aktivní uhlí (salmonela, 5 min), Vitamíny (posílí imunitu),
