@@ -169,20 +169,27 @@ class OS_ServerAirdrops
 				smoke.ActivateImmediate();
 		}
 
-		array<string> guards = new array<string>;
-		m_Cfg.GuardClasses.Split("|", guards);
-		for (int i = 0; i < m_Cfg.GuardCount && guards.Count() > 0; i++)
-		{
-			float angle = Math.RandomFloat(0, Math.PI2);
-			float dist = Math.RandomFloat(8, 25);
-			vector pos = OS_Util.GroundPos(drop.Target[0] + Math.Cos(angle) * dist, drop.Target[2] + Math.Sin(angle) * dist);
-			string guardType = guards.GetRandomElement();
-			guardType.TrimInPlace();
-			g_Game.CreateObjectEx(guardType, pos, ECE_PLACE_ON_SURFACE | ECE_INITAI);
-		}
+		if (m_Cfg.GuardCount > 0)
+			SpawnGuards(drop.Target, m_Cfg.GuardCount);
 
 		if (m_Cfg.AnnounceInChat)
 			OS_Util.ChatAll(OS_F("AIRDROP pristal: %1", drop.Name));
+	}
+
+	//! stráže u dopadu - vojenští nakažení (doplněk OS_Core_ExpansionAI je nahradí vojáky Expansion AI)
+	void SpawnGuards(vector pos, int count)
+	{
+		array<string> guards = new array<string>;
+		m_Cfg.GuardClasses.Split("|", guards);
+		for (int i = 0; i < count && guards.Count() > 0; i++)
+		{
+			float angle = Math.RandomFloat(0, Math.PI2);
+			float dist = Math.RandomFloat(8, 25);
+			vector guardPos = OS_Util.GroundPos(pos[0] + Math.Cos(angle) * dist, pos[2] + Math.Sin(angle) * dist);
+			string guardType = guards.GetRandomElement();
+			guardType.TrimInPlace();
+			g_Game.CreateObjectEx(guardType, guardPos, ECE_PLACE_ON_SURFACE | ECE_INITAI);
+		}
 	}
 
 	// ------------------------------------------------------------ běh

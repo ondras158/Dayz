@@ -12,6 +12,7 @@ serveru – mód se kvůli jiné mapě nemusí znovu balit.
 |---|---|
 | `OS_Core/` | **Mód** (zdroj pro `.pbo`) – všechno popsané níže |
 | `OS_Core_Expansion/` | Volitelný doplněk pro **Expansion BaseBuilding** (skupiny = členové území), samostatné `.pbo` |
+| `OS_Core_ExpansionAI/` | Volitelný doplněk pro **Expansion AI** (opravy výhledu, hlídky, útoky, stráže airdropů), samostatné `.pbo` |
 | `lang/` | Překlady (`cs`, `en`, `de`, `pl`) – zdroj pro vestavěné texty módu |
 | `economy/`, `tools/tune_economy.py` | Úprava spawnování zbraní a aut (types.xml, events.xml) |
 | `spawnpoints/`, `tools/generate_spawnpoints.py` | Generátor vanilla spawn bodů (`cfgplayerspawnpoints.xml`) z CSV |
@@ -80,6 +81,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Vaření podle receptů | U hořícího ohně nebo vařiče akce **Vařit podle receptu**: 10 jídel (guláš, polévky, rizoto, omeleta…), víc energie a vody, dočasné bonusy (zdraví, krev, teplo, výdrž), prodej v Potravinách | `Cooking.json` |
 | Base a kódové zámky | Akce **Base** u vanilla vlajky: založení, zvětšování poloměru za peníze, rozestupy mezi basemi, base na mapě; vanilla kódový zámek – majitel a skupina odemknou bez kódu | `Bases.json` |
 | Admin menu | Klávesa **Home**: léčení, zabití, teleporty, godmode, spawn předmětů, peníze, PvP zóny; **Nástroje (COT)**: spawner, teleport z mapy, čas, počasí, ESP, neviditelnost, freecam, auta, kódové zámky, base, kick/ban, přidávání adminů, hlavní admin | `Admins.json` |
+| AI vojáci – Expansion AI (doplněk) | Opravy: nevidí a nestřílí přes zdi, vidí jen na rozumnou vzdálenost (den / noc / postoj), přesnost klesá se vzdáleností; hlídky po trasách, útoky banditů na base, stráže airdropů | `ExpansionAI.json` |
 | Expansion BaseBuilding (doplněk) | Členové OS skupiny se automaticky stanou členy území vlajky Expansion | `ExpansionTerritory.json` |
 
 ### Struktura
@@ -126,7 +128,8 @@ OS_Core_Expansion/                 doplněk pro Expansion BaseBuilding (vlastní
    ├── Addons/OS_Core.pbo.<jméno>.bisign
    └── Keys/<jméno>.bikey
    ```
-4. Pokud máš **Expansion BaseBuilding**, zabal stejně i složku `OS_Core_Expansion`
+4. Pokud máš **Expansion AI**, zabal stejně i složku `OS_Core_ExpansionAI` (prefix `OS_Core_ExpansionAI`).
+5. Pokud máš **Expansion BaseBuilding**, zabal stejně i složku `OS_Core_Expansion`
    (prefix `OS_Core_Expansion`) do `@OS_Core\Addons`. Bez Expansionu ho vynech (viz níže).
 
 ### 2. Instalace na server
@@ -154,6 +157,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Hud.json                                                                  HUD v rohu obrazovky
 ├── Sleep.json      SleepData.json                                            únava a spánek, emoce
 ├── Airdrops.json                                                             airdropy, místa, loot
+├── ExpansionAI.json                                                          jen s doplňkem pro Expansion AI
 └── ExpansionTerritory.json   ExpansionTerritoryData.json                     jen s doplňkem pro Expansion
 ```
 Uprav je a **restartuj server**. Chybu v JSON najdeš ve script logu pod `[OS_Core]`
@@ -703,6 +707,27 @@ Akce se týkají hráče vybraného v seznamu admin menu (bez výběru tebe). V�
   { "AdminSteamIds": [], "HeadAdminSteamIds": ["76561198000000000"], "OnlyHeadAdminsManageAdmins": false }
   ```
 
+### Doplněk pro Expansion AI (OS_Core_ExpansionAI)
+Vojáky se zbraněmi (chůze, míření, krytí) dělá **DayZ Expansion AI** – vanilla DayZ žádné lidské AI nemá.
+Doplněk `OS_Core_ExpansionAI` (vlastní PBO, nahrávej **jen s Expansion AI**) opravuje to, co na Expansion AI
+nejvíc vadí, a řídí vojáky z OS_Core. Nastavení `$profile:OS_Core/ExpansionAI.json`:
+- **Přes zdi nevidí a nestřílí** (`StrictLineOfSight`): k výhledu Expansion se přidá vlastní kontrola paprsky
+  z očí AI na hlavu, hrudník a pánev hráče. Když je ve všech směrech zeď, budova, stěna základny, skála nebo auto,
+  AI hráče nevidí a nestřílí. Stromy a keře posuzuje Expansion.
+- **Nevidí na kilometr:** ve dne max. `DayVisionMax` (350 m), v noci `NightVisionMax` (60 m), v noci se svítilnou
+  `NightLitVisionMax` (150 m). Přikrčený hráč je vidět na `CrouchVisionFactor` (70 %), ležící na `ProneVisionFactor` (40 %).
+- **Přesnost se vzdáleností:** na `AccuracyFalloffDistance` (300 m) poloviční, dál ještě horší.
+- **Hlídky** (`Patrols`): skupina vojáků (`Faction` – West, East, Raiders, Mercenaries, Guards; `Count`, `Loadout`)
+  chodí po bodech `Waypoints` (`Behaviour`: LOOP dokola, ALTERNATE tam a zpět, HALT = stojí na místě jako stráž).
+  Objeví se, když je hráč blíž než `PatrolSpawnDistance` (600 m), a po odchodu hráčů zmizí; po zničení se obnoví
+  za `RespawnMinutes`.
+- **Útoky** (`Attacks`): každých ~`AttackIntervalMinutes` (60 min) se šancí `AttackChance` přijde
+  `AttackCountMin`–`AttackCountMax` banditů (`AttackFaction`) z `AttackSpawnDistance` (300 m) k náhodnému hráči
+  (`AttackOnlyBases` = jen k hráči ve své base; ne v bezpečné zóně). Hráč a jeho skupina dostanou varování.
+- **Stráže airdropů** (`AirdropGuards`): místo nakažených hlídají airdrop vojáci (`AirdropGuardFaction`, výchozí Guards)
+  a zmizí s bednou.
+- Přesnost, poškození a další chování dál nastavuješ v nastavení Expansion AI (`AISettings.json`).
+
 ### Doplněk pro Expansion BaseBuilding (OS_Core_Expansion)
 Mód má vlastní systém base na **vanilla vlajce** (viz *Base u vlajky*), který Expansion nepotřebuje.
 Pokud ale na serveru používáš **Expansion BaseBuilding** (stavění jen u územní vlajky Expansion), je tu
@@ -750,6 +775,7 @@ Chybu z logu mi pošli a opravím ji.
 - **Farmy:** zvířata, sad a skleník, krmivo a hnojivo, vejce, výroba i offline, Farmář a Výkupna;
   nově jen ve vlastní base.
 - **Airdropy:** bedna na padáku s lootem, kouř, stráže, oznámení a mapa, ruční shození adminem.
+- **AI vojáci (Expansion AI):** nestřílí přes zdi, vidí jen rozumně daleko, hlídky, útoky na base, stráže airdropů.
 - **Hlasový chat:** skupinová vysílačka (vlastní kanál skupiny, automatické naladění) a v HUDu kdo právě mluví.
 - **Únava, spánek a emoce:** únava v HUDu, spaní ve stanu / base, menu emocí (L), animace u akcí módu.
 - **HUD:** stav hráče, nemoci s radou, čím léčit, působící léky, zóna a PvP odpočet, base, skupina, souřadnice, směr a čas (klávesa H).

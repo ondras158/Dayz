@@ -753,5 +753,12 @@
  "Vyber auto v garazi.": "Wähle ein Auto in der Garage.",
  "Byl jsi pridan do uzemi %1 (skupina %2).": "Du wurdest zum Gebiet %1 hinzugefügt (Gruppe %2).",
  "Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.": "Du bist nicht mehr in der Gruppe des Besitzers und wurdest aus dem Gebiet %1 entfernt.",
- "Uzemi": "Gebiet"
+ "Uzemi": "Gebiet",
+ "Utok": "Angriff",
+ "Pozor": "Achtung",
+ "Blizi se ozbrojeni banditi!": "Bewaffnete Banditen nähern sich!",
+ "Na %1 utoci banditi!": "Banditen greifen %1 an!",
+ "Straz airdropu": "Airdrop-Wache",
+ "Priklad - Hlidka letiste": "Beispiel - Flugplatzpatrouille",
+ "Priklad - Straz zakladny": "Beispiel - Basiswache"
 }

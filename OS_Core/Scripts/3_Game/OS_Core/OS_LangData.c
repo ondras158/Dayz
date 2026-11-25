@@ -826,6 +826,13 @@ class OS_LangData
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Byl jsi pridan do uzemi %1 (skupina %2).");
 		m.Set("Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.", "Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.");
 		m.Set("Uzemi", "Uzemi");
+		m.Set("Utok", "Utok");
+		m.Set("Pozor", "Pozor");
+		m.Set("Blizi se ozbrojeni banditi!", "Blizi se ozbrojeni banditi!");
+		m.Set("Na %1 utoci banditi!", "Na %1 utoci banditi!");
+		m.Set("Straz airdropu", "Straz airdropu");
+		m.Set("Priklad - Hlidka letiste", "Priklad - Hlidka letiste");
+		m.Set("Priklad - Straz zakladny", "Priklad - Straz zakladny");
 	}
 
 	protected static void Fill_en_0(map<string, string> m)
@@ -1605,6 +1612,13 @@ class OS_LangData
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "You were added to territory %1 (group %2).");
 		m.Set("Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.", "You are no longer in the owner's group, you were removed from territory %1.");
 		m.Set("Uzemi", "Territory");
+		m.Set("Utok", "Attack");
+		m.Set("Pozor", "Warning");
+		m.Set("Blizi se ozbrojeni banditi!", "Armed bandits are approaching!");
+		m.Set("Na %1 utoci banditi!", "Bandits are attacking %1!");
+		m.Set("Straz airdropu", "Airdrop guard");
+		m.Set("Priklad - Hlidka letiste", "Example - Airfield patrol");
+		m.Set("Priklad - Straz zakladny", "Example - Base guard");
 	}
 
 	protected static void Fill_de_0(map<string, string> m)
@@ -2384,6 +2398,13 @@ class OS_LangData
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Du wurdest zum Gebiet %1 hinzugefügt (Gruppe %2).");
 		m.Set("Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.", "Du bist nicht mehr in der Gruppe des Besitzers und wurdest aus dem Gebiet %1 entfernt.");
 		m.Set("Uzemi", "Gebiet");
+		m.Set("Utok", "Angriff");
+		m.Set("Pozor", "Achtung");
+		m.Set("Blizi se ozbrojeni banditi!", "Bewaffnete Banditen nähern sich!");
+		m.Set("Na %1 utoci banditi!", "Banditen greifen %1 an!");
+		m.Set("Straz airdropu", "Airdrop-Wache");
+		m.Set("Priklad - Hlidka letiste", "Beispiel - Flugplatzpatrouille");
+		m.Set("Priklad - Straz zakladny", "Beispiel - Basiswache");
 	}
 
 	protected static void Fill_pl_0(map<string, string> m)
@@ -3163,5 +3184,12 @@ class OS_LangData
 		m.Set("Byl jsi pridan do uzemi %1 (skupina %2).", "Zostałeś dodany do terytorium %1 (grupa %2).");
 		m.Set("Uz nejsi ve skupine majitele, byl jsi odebran z uzemi %1.", "Nie jesteś już w grupie właściciela, zostałeś usunięty z terytorium %1.");
 		m.Set("Uzemi", "Terytorium");
+		m.Set("Utok", "Atak");
+		m.Set("Pozor", "Uwaga");
+		m.Set("Blizi se ozbrojeni banditi!", "Zbliżają się uzbrojeni bandyci!");
+		m.Set("Na %1 utoci banditi!", "Bandyci atakują %1!");
+		m.Set("Straz airdropu", "Straż zrzutu");
+		m.Set("Priklad - Hlidka letiste", "Przykład - Patrol lotniska");
+		m.Set("Priklad - Straz zakladny", "Przykład - Straż bazy");
 	}
 }

@@ -18,7 +18,7 @@ import re
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LANG_DIR = os.path.join(ROOT, "lang")
 OUT = os.path.join(ROOT, "OS_Core", "Scripts", "3_Game", "OS_Core", "OS_LangData.c")
-SCRIPT_DIRS = [os.path.join(ROOT, "OS_Core", "Scripts"), os.path.join(ROOT, "OS_Core_Expansion", "Scripts")]
+SCRIPT_DIRS = [os.path.join(ROOT, "OS_Core", "Scripts"), os.path.join(ROOT, "OS_Core_Expansion", "Scripts"), os.path.join(ROOT, "OS_Core_ExpansionAI", "Scripts")]
 LANGS = ["cs", "en", "de", "pl"]
 
 STR = r'"((?:\\.|[^"\\])*)"'
@@ -31,6 +31,7 @@ CONFIG_PATTERNS = [
     re.compile(r"new OS_SafeZone\(" + STR),
     re.compile(r"new OS_PvPZone\(" + STR),
     re.compile(r"new OS_AirdropLocation\(" + STR),
+    re.compile(r"new OS_AIPatrol\(" + STR),
     re.compile(r"new OS_CookRecipe\(" + STR),
     re.compile(r"new OS_SkillDef\(" + STR + ", " + STR),
     re.compile(r'new OS_SkillDef\("[^"]*", "[^"]*", [^,]+, [^,]+, ' + STR),
@@ -41,7 +42,7 @@ CONFIG_PATTERNS = [
     re.compile(r"Broadcasts\.Insert\(" + STR),
     re.compile(r"string (?:WelcomeTitle|WelcomeText|EnterMessage|LeaveMessage|TimerMessage|BanMessage) = " + STR),
 ]
-CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c", "OS_CookingConfig.c", "OS_SkillsConfig.c", "OS_AirdropConfig.c"]
+CONFIG_FILES = ["OS_Config.c", "OS_VehicleConfig.c", "OS_FarmConfig.c", "OS_PvPConfig.c", "OS_CookingConfig.c", "OS_SkillsConfig.c", "OS_AirdropConfig.c", "OS_ExpansionAI.c"]
 
 
 def unescape(s):
