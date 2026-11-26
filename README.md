@@ -533,6 +533,9 @@ přidej jejich classname a díly).
 - **Spacák z módu:** classname přidej do `BedClasses` v `Death.json`, např. `"BedClasses": ["Spacak_Zeleny", "SleepingBag_Base"]`
   (stačí i předek v configu, platí pro všechny varianty). Položený na zemi pak funguje stejně jako stan – akce
   *Nastavit spawn zde*. V inventáři nebo v ruce se nepočítá. Platí po restartu serveru, bez přebalení módu.
+- **Postele:** postele, které jsou samostatný objekt (z módů na nábytek / stavění nebo položené v editoru mapy),
+  přidáš stejně – classname, nebo `*text` = název obsahuje text, např. `"BedClasses": ["*bed"]`.
+  Postele, které jsou pevnou součástí modelu vanilla domu, hra jako objekt nezná – na ty to nejde.
 - Doporučeno v misi (`db/globals.xml`) nastavit `CleanupLifetimeDeadPlayer` aspoň na `7200`, aby hra těla neuklidila dřív.
 
 **Airdropy** (`Airdrops.json`)

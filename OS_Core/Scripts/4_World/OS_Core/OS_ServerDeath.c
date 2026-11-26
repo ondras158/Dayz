@@ -54,9 +54,24 @@ class OS_ServerDeath
 		if (entity && entity.GetHierarchyParent())
 			return false;   // v inventáři / v ruce se nepočítá
 		string type = obj.GetType();
+		string typeLower = type;
+		typeLower.ToLower();
+		string shapeLower = obj.GetShapeName();   // statické objekty mapy (postele z editoru)
+		shapeLower.ToLower();
 		foreach (string cls : classes)
 		{
-			if (cls != "" && (type == cls || g_Game.IsKindOf(type, cls)))
+			if (cls == "")
+				continue;
+			// *text = název obsahuje text (např. *bed pro postele z mapy nebo módů)
+			if (cls.Substring(0, 1) == "*")
+			{
+				string part = cls.Substring(1, cls.Length() - 1);
+				part.ToLower();
+				if (part != "" && (typeLower.Contains(part) || shapeLower.Contains(part)))
+					return true;
+				continue;
+			}
+			if (type == cls || g_Game.IsKindOf(type, cls))
 				return true;
 		}
 		return false;
