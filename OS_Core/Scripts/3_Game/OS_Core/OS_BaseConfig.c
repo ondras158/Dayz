@@ -24,6 +24,11 @@ class OS_BaseConfig
 	float GapBetweenBases = 20;         // mezera mezi okraji basí - poloměry se nesmí překrývat (m)
 	bool FarmRequiresBase = true;       // farma jde postavit jen ve vlastní base (nebo base skupiny)
 	bool ShowOnMap = true;              // vlastní base a base skupiny jako kruh na mapě
+	// úložiště v base nezmizí: dokud base stojí, obnovuje se životnost věcí v jejím poloměru
+	bool KeepStorageInBase = true;      // truhly, bedny, sudy, stany, skrýše a další věci s úložným prostorem
+	bool KeepBuildingsInBase = true;    // ploty, brány, věže a další stavby
+	bool KeepVehiclesInBase = false;    // auta zaparkovaná v base
+	float StorageRefreshMinutes = 30;   // jak často se životnost obnovuje
 	string MapColor = "70 140 255";
 	ref array<ref OS_BaseLevel> Levels = new array<ref OS_BaseLevel>;
 

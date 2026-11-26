@@ -676,6 +676,11 @@ přidej jejich classname a díly).
 - `FarmRequiresBase: true` = farmu jde postavit jen stojíš-li ve své base (nebo base skupiny).
 - Vlastní base a base skupiny jsou na mapě modrým kruhem (`ShowOnMap`, barva `MapColor`).
 - Když vlajka zmizí (zbouraná, rozebraná), base do minuty zanikne.
+- **Úložiště v base nezmizí:** dokud base stojí, obnovuje se každých `StorageRefreshMinutes` (30 min) životnost věcí
+  v jejím poloměru – truhly, bedny, sudy, kufry, skrýše, stany a cokoli s úložným prostorem (`KeepStorageInBase`),
+  ploty, brány a věže (`KeepBuildingsInBase`) a volitelně auta (`KeepVehiclesInBase`, výchozí vypnuto).
+  Funguje i bez vztyčené vlajky a na celý poloměr base (vanilla vlajka chrání jen do své vzdálenosti a jen vztyčená).
+  Věci se dál dají ukrást, jen nezmizí samy.
 - Admin nástroje: *Smazat base* (nejbližší do 300 m od cíle).
 
 **Kódový zámek** – používá vanilla **DigitalCodeLock** (DayZ 1.30): dá se nasadit na bránu plotu i na dveře,

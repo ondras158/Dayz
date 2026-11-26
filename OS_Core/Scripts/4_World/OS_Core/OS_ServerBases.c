@@ -14,6 +14,7 @@ class OS_ServerBases
 	protected OS_ServerGroups m_Groups;
 	protected string m_Currency;
 	protected float m_CheckTimer;
+	protected float m_StorageTimer;
 
 	void OS_ServerBases(OS_Payments payments, OS_ServerGroups groups, string currency)
 	{
@@ -340,6 +341,13 @@ class OS_ServerBases
 		// kódové zámky: skupina majitele se mohla změnit (pro zobrazení akcí u klientů)
 		DigitalCodeLock.OS_RefreshAllGroups();
 
+		m_StorageTimer += 60;
+		if (m_StorageTimer >= Math.Max(5, m_Cfg.StorageRefreshMinutes) * 60)
+		{
+			m_StorageTimer = 0;
+			RefreshStorage();
+		}
+
 		bool changed = false;
 		for (int i = m_Data.Bases.Count() - 1; i >= 0; i--)
 		{
@@ -362,6 +370,48 @@ class OS_ServerBases
 			Save();
 			RefreshMaps();
 		}
+	}
+
+	//! truhly, stavby (a auta) v poloměru basí nezmizí, dokud base stojí
+	void RefreshStorage()
+	{
+		if (!m_Cfg.Enabled || (!m_Cfg.KeepStorageInBase && !m_Cfg.KeepBuildingsInBase && !m_Cfg.KeepVehiclesInBase))
+			return;
+		int refreshed = 0;
+		foreach (OS_Base base : m_Data.Bases)
+		{
+			if (!base)
+				continue;
+			array<Object> objects = new array<Object>;
+			vector center = Vector(base.X, g_Game.SurfaceY(base.X, base.Z), base.Z);
+			g_Game.GetObjectsAtPosition(center, Radius(base), objects, null);
+			foreach (Object obj : objects)
+			{
+				EntityAI entity = EntityAI.Cast(obj);
+				if (!entity || entity.GetHierarchyParent() || entity.IsMan() || entity.IsDayZCreature())
+					continue;
+				if (!KeepEntity(entity))
+					continue;
+				entity.IncreaseLifetime();
+				refreshed++;
+			}
+		}
+		if (refreshed > 0)
+			Print(OS_TAG + "BASE: obnovena zivotnost " + refreshed.ToString() + " veci v basich");
+	}
+
+	protected bool KeepEntity(EntityAI entity)
+	{
+		if (Transport.Cast(entity))
+			return m_Cfg.KeepVehiclesInBase;
+		if (BaseBuildingBase.Cast(entity))
+			return m_Cfg.KeepBuildingsInBase;
+		if (!m_Cfg.KeepStorageInBase)
+			return false;
+		if (TentBase.Cast(entity))
+			return true;
+		// cokoli s úložným prostorem (truhla, bedna, sud, kufr, skrýš...)
+		return entity.GetInventory() && entity.GetInventory().GetCargo() != null;
 	}
 
 	//! base, které hráč vidí na mapě (svoje a skupiny)
