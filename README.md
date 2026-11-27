@@ -212,7 +212,13 @@ ručně, další už jde přidat ve hře (admin menu → Nástroje → *Přidat 
 **Výbava** – `"A|B|C"` znamená náhodně jedno z A, B, C. `Weight` = jak často se sada vybírá.
 
 **Safe zóny** (`SafeZones.json`) – kruh (`Name`, `X`, `Z`, `Radius`). `Godmode` = hráči v zóně nedostávají poškození,
-`RemoveZombies` = zombíci se v zóně mažou (každých `ZombieCleanupSeconds`), hlášky `EnterMessage` / `LeaveMessage`.
+hlášky `EnterMessage` / `LeaveMessage`.
+- **Doplnění zdraví:** v zóně se zdraví doplní až na `HealToPercent` (75 %) rychlostí `HealPerSecond`; s `HealBlood`
+  i krev na stejné procento. Nad 75 % se už nedoplňuje (zbytek jídlem a léky).
+- **Bez zombíků a zvířat:** `RemoveZombies` / `RemoveAnimals` – nově spawnutý zombík nebo zvíře v zóně hned zmizí,
+  zatoulaní se mažou každých `ZombieCleanupSeconds`.
+- **Bez lootu:** `BlockItemSpawns` – věci, které v zóně spawne hra (loot v budovách), hned zmizí. Věci od hráčů zůstávají
+  (upuštěné, vyrobené, z obchodu – vzniknou u hráče), stejně tak stany a stavby.
 Na mapě jsou zeleně (`PvP.json` → `ShowSafeZonesOnMap`).
 
 **Zprávy** (`Messages.json`) – uvítání po připojení (`WelcomeTitle`, `WelcomeText`), oznámení v chatu

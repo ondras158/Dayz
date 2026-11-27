@@ -41,6 +41,9 @@ class OS_ServerSafeZones
 			if (zone)
 				inside = true;
 
+			if (inside)
+				Heal(player, deltaTime);
+
 			if (inside == player.m_OS_InSafeZone)
 				continue;
 
@@ -65,6 +68,66 @@ class OS_ServerSafeZones
 		}
 	}
 
+	//! zdraví (a krev) se doplní až na HealToPercent
+	protected void Heal(PlayerBase player, float deltaTime)
+	{
+		if (m_Cfg.HealToPercent <= 0)
+			return;
+		float fraction = Math.Clamp(m_Cfg.HealToPercent / 100, 0, 1);
+
+		float maxHealth = player.GetMaxHealth("", "Health");
+		float health = player.GetHealth("", "Health");
+		float target = maxHealth * fraction;
+		if (health < target)
+			player.AddHealth("", "Health", Math.Min(target - health, m_Cfg.HealPerSecond * deltaTime));
+
+		if (!m_Cfg.HealBlood)
+			return;
+		float maxBlood = player.GetMaxHealth("", "Blood");
+		float blood = player.GetHealth("", "Blood");
+		float bloodTarget = maxBlood * fraction;
+		if (blood < bloodTarget)
+		{
+			float bloodStep = maxBlood / maxHealth * m_Cfg.HealPerSecond * deltaTime;
+			player.AddHealth("", "Blood", Math.Min(bloodTarget - blood, bloodStep));
+		}
+	}
+
+	//! právě vytvořený zombík / zvíře / loot v zóně zmizí
+	void CheckSpawned(EntityAI entity)
+	{
+		if (!entity || !m_Cfg.Enabled || entity.GetHierarchyParent())
+			return;
+		if (!FindZone(entity.GetPosition()))
+			return;
+
+		if (entity.IsZombie())
+		{
+			if (m_Cfg.RemoveZombies)
+				g_Game.ObjectDelete(entity);
+			return;
+		}
+		if (entity.IsDayZCreature() || AnimalBase.Cast(entity))
+		{
+			if (m_Cfg.RemoveAnimals)
+				g_Game.ObjectDelete(entity);
+			return;
+		}
+
+		// loot: věc na zemi, u které nestojí žádný hráč (hráčem upuštěné / vyrobené věci zůstávají)
+		ItemBase item = ItemBase.Cast(entity);
+		if (!item || !m_Cfg.BlockItemSpawns || BaseBuildingBase.Cast(item) || TentBase.Cast(item))
+			return;
+		array<Man> players = new array<Man>;
+		g_Game.GetPlayers(players);
+		foreach (Man man : players)
+		{
+			if (man && vector.Distance(man.GetPosition(), item.GetPosition()) < 5)
+				return;
+		}
+		g_Game.ObjectDelete(item);
+	}
+
 	protected void RemoveZombies()
 	{
 		foreach (OS_SafeZone zone : m_Cfg.Zones)
@@ -78,7 +141,12 @@ class OS_ServerSafeZones
 			{
 				ZombieBase zombie = ZombieBase.Cast(obj);
 				if (zombie)
+				{
 					g_Game.ObjectDelete(zombie);
+					continue;
+				}
+				if (m_Cfg.RemoveAnimals && AnimalBase.Cast(obj))
+					g_Game.ObjectDelete(obj);
 			}
 		}
 	}

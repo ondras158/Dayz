@@ -148,8 +148,13 @@ class OS_SafeZoneConfig
 {
 	bool Enabled = true;
 	bool Godmode = true;               // hráči v zóně nedostávají poškození
-	bool RemoveZombies = true;         // zombíci v zóně jsou pravidelně odstraněni
+	bool RemoveZombies = true;         // zombíci se v zóně nespawnují (a zatoulaní se odstraní)
 	int ZombieCleanupSeconds = 10;
+	bool RemoveAnimals = true;         // stejně zvířata (vlci, medvědi...)
+	bool BlockItemSpawns = true;       // v zóně se nespawnuje loot (věci od hráčů zůstávají)
+	float HealToPercent = 75;          // zdraví se v zóně doplní až na tolik % (0 = vypnuto)
+	float HealPerSecond = 1.5;         // rychlost doplňování zdraví
+	bool HealBlood = true;             // doplňovat i krev (na stejné %)
 	string EnterMessage = "Vstoupil jsi do bezpečné zóny";
 	string LeaveMessage = "Opustil jsi bezpečnou zónu";
 	ref array<ref OS_SafeZone> Zones = new array<ref OS_SafeZone>;
