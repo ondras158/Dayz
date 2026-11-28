@@ -531,6 +531,8 @@ class OS_ServerTrader
 		rpc.Write(SellMult(trader));
 		rpc.Write(trader.PlayersCanBuy);
 		rpc.Write(trader.PlayersCanSell);
+		bool market = OS_Server.Get() && OS_Server.Get().m_Market && OS_Server.Get().m_Market.AllowedAt(trader);
+		rpc.Write(market);
 		rpc.Send(null, OS_RPC_TRADER_DATA, true, player.GetIdentity());
 	}
 

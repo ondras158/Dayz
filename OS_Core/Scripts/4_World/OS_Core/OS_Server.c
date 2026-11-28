@@ -16,6 +16,7 @@ class OS_Server
 	ref OS_ServerSleep m_Sleep;
 	ref OS_ServerAirdrops m_Airdrops;
 	ref OS_ServerDeath m_Death;
+	ref OS_ServerMarket m_Market;
 	protected int m_PlayerCount;
 	ref OS_ServerMessages m_Messages;
 	ref OS_ServerAdmin m_Admin;
@@ -70,6 +71,7 @@ class OS_Server
 		m_Sleep = new OS_ServerSleep();
 		m_Airdrops = new OS_ServerAirdrops();
 		m_Death = new OS_ServerDeath();
+		m_Market = new OS_ServerMarket(m_Payments, m_Wallets, currency);
 		m_Farms = new OS_ServerFarms(m_Payments, m_Groups, currency);
 		m_Bank = new OS_ServerBank(m_Wallets, bankCfg, currency, m_Groups);
 
@@ -182,6 +184,7 @@ class OS_Server
 		m_Skills.OnTick(players, delta);
 		m_Sleep.OnTick(players, delta);
 		m_Hud.OnTick(players, delta);
+		m_Market.OnTick(delta);
 		m_Messages.OnTick(delta);
 		m_Groups.OnTick(delta);
 		m_Farms.OnTick(delta);
@@ -256,6 +259,8 @@ class OS_Server
 		if (m_Skills.OnRPC(sender, rpcType, ctx))
 			return;
 		if (m_Sleep.OnRPC(sender, rpcType, ctx))
+			return;
+		if (m_Market.OnRPC(sender, rpcType, ctx))
 			return;
 		m_Trader.OnRPC(sender, rpcType, ctx);
 	}

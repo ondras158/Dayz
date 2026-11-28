@@ -1,5 +1,7 @@
 class OS_TraderMenu : OS_MenuBase
 {
+	static bool s_MarketAvailable;
+
 	protected string m_TraderName;
 	protected string m_Currency;
 	protected bool m_IsAdmin;
@@ -131,6 +133,9 @@ class OS_TraderMenu : OS_MenuBase
 		RefreshHeader();
 		RefreshItems();
 		RefreshPlayer();
+		Widget marketButton = layoutRoot.FindAnyWidget("BtnMarket");
+		if (marketButton)
+			marketButton.Show(s_MarketAvailable);
 	}
 
 	protected void RefreshHeader()
@@ -363,6 +368,11 @@ class OS_TraderMenu : OS_MenuBase
 		if (w == m_BtnClose)
 		{
 			Close();
+			return true;
+		}
+		if (w.GetName() == "BtnMarket")
+		{
+			OS_Client.SendToServer(OS_RPC_MARKET_OPEN);
 			return true;
 		}
 		return super.OnClick(w, x, y, button);

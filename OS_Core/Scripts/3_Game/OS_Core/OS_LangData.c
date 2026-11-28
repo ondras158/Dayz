@@ -412,6 +412,24 @@ class OS_LangData
 		m.Set("dezinfekce", "dezinfekce");
 		m.Set("chelacni tablety", "chelacni tablety");
 		m.Set("fyziologicky roztok", "fyziologicky roztok");
+		m.Set("Bazar", "Bazar");
+		m.Set("Bazar je u obchodnika.", "Bazar je u obchodnika.");
+		m.Set("Muzes mit nejvyse %1 nabidek.", "Muzes mit nejvyse %1 nabidek.");
+		m.Set("Cena musi byt %1 az %2 %3.", "Cena musi byt %1 az %2 %3.");
+		m.Set("Tuhle vec nejde vystavit.", "Tuhle vec nejde vystavit.");
+		m.Set("Vystaveno: %1 za %2 %3.", "Vystaveno: %1 za %2 %3.");
+		m.Set("Auto v garazi nenalezeno.", "Auto v garazi nenalezeno.");
+		m.Set("Auto vystaveno: %1 za %2 %3.", "Auto vystaveno: %1 za %2 %3.");
+		m.Set("Nabidka uz neexistuje.", "Nabidka uz neexistuje.");
+		m.Set("Vlastni nabidku nekoupis - stahni ji.", "Vlastni nabidku nekoupis - stahni ji.");
+		m.Set("Nemas dost penez (%1 %2).", "Nemas dost penez (%1 %2).");
+		m.Set("Chyba pri predani auta - penize vraceny.", "Chyba pri predani auta - penize vraceny.");
+		m.Set("Koupeno: %1. Auto je v tve garazi (vyzvedni ho v kterekoli garazi).", "Koupeno: %1. Auto je v tve garazi (vyzvedni ho v kterekoli garazi).");
+		m.Set("Koupeno: %1", "Koupeno: %1");
+		m.Set("Prodano: %1 za %2 %3 (na ucet %4 %3).", "Prodano: %1 za %2 %3 (na ucet %4 %3).");
+		m.Set("Nabidka stazena - auto je zpet v garazi.", "Nabidka stazena - auto je zpet v garazi.");
+		m.Set("Nabidka stazena - vec mas zpet.", "Nabidka stazena - vec mas zpet.");
+		m.Set("Vyzvednuto veci: %1", "Vyzvednuto veci: %1");
 		m.Set("%1 byl zabit hracem %2", "%1 byl zabit hracem %2");
 		m.Set("%1 byl zabit zombiky", "%1 byl zabit zombiky");
 		m.Set("%1 zemrel", "%1 zemrel");
@@ -483,7 +501,6 @@ class OS_LangData
 		m.Set("Servis", "Servis");
 		m.Set("Zadne auto pobliz.", "Zadne auto pobliz.");
 		m.Set("Auto je v poradku.", "Auto je v poradku.");
-		m.Set("Nemas dost penez (%1 %2).", "Nemas dost penez (%1 %2).");
 		m.Set("Auto opraveno za %1 %2.", "Auto opraveno za %1 %2.");
 		m.Set("Nadrz je plna.", "Nadrz je plna.");
 		m.Set("Natankovano za %1 %2.", "Natankovano za %1 %2.");
@@ -492,6 +509,10 @@ class OS_LangData
 		m.Set("Doplneno dilu: %1 za %2 %3.", "Doplneno dilu: %1 za %2 %3.");
 		m.Set("Auto uz ma majitele.", "Auto uz ma majitele.");
 		m.Set("Auto je tvoje. Zamknes ho u auta klavesou F.", "Auto je tvoje. Zamknes ho u auta klavesou F.");
+	}
+
+	protected static void Fill_cs_3(map<string, string> m)
+	{
 		m.Set("V aute nekdo sedi.", "V aute nekdo sedi.");
 		m.Set("Nejdriv vyndej vsechny veci z auta.", "Nejdriv vyndej vsechny veci z auta.");
 		m.Set("Tohle auto ti nepatri.", "Tohle auto ti nepatri.");
@@ -509,10 +530,6 @@ class OS_LangData
 		m.Set("Jidlo", "Jidlo");
 		m.Set("Voda", "Voda");
 		m.Set("Teplo", "Teplo");
-	}
-
-	protected static void Fill_cs_3(map<string, string> m)
-	{
 		m.Set("Zdravotni stav", "Zdravotni stav");
 		m.Set("Mluvi", "Mluvi");
 		m.Set("S", "S");
@@ -646,6 +663,10 @@ class OS_LangData
 		m.Set("Koupit dalsi misto (%1%2)", "Koupit dalsi misto (%1%2)");
 		m.Set("Pozvanka do skupiny %1", "Pozvanka do skupiny %1");
 		m.Set("od hrace %1", "od hrace %1");
+	}
+
+	protected static void Fill_cs_4(map<string, string> m)
+	{
 		m.Set("Zadna pozvanka", "Zadna pozvanka");
 		m.Set("Vyber jineho clena skupiny.", "Vyber jineho clena skupiny.");
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Vyber hrace, ktereho chces pozvat.");
@@ -663,10 +684,6 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Predmet: classname [pocet]  napr. Apple 5");
 		m.Set("Dat predmet cili", "Dat predmet cili");
-	}
-
-	protected static void Fill_cs_4(map<string, string> m)
-	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Castka penez / souradnice X Z / polomer [nazev]");
 		m.Set("Dat penize cili", "Dat penize cili");
 		m.Set("Teleport na X Z", "Teleport na X Z");
@@ -680,6 +697,7 @@ class OS_LangData
 		m.Set("Koupit vybrane", "Koupit vybrane");
 		m.Set("Tvoje veci k prodeji", "Tvoje veci k prodeji");
 		m.Set("Prodat vybrane", "Prodat vybrane");
+		m.Set("Bazar hracu", "Bazar hracu");
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie");
 		m.Set("Nakup", "Nakup");
 		m.Set("Vykup", "Vykup");
@@ -766,6 +784,12 @@ class OS_LangData
 		m.Set("Emoce a spanek", "Emoce a spanek");
 		m.Set("Prehrat", "Prehrat");
 		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Dvojklik = prehrat. Pohyb emoci ukonci.");
+		m.Set("Nabidky hracu", "Nabidky hracu");
+		m.Set("Stahnout moji nabidku", "Stahnout moji nabidku");
+		m.Set("Prodat: tvoje veci a auta v garazi", "Prodat: tvoje veci a auta v garazi");
+		m.Set("Cena", "Cena");
+		m.Set("Vystavit vybrane", "Vystavit vybrane");
+		m.Set("Vyzvednout vracene veci", "Vyzvednout vracene veci");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zvirata, stromy a zahony (vyber a kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Sklad (vyrobene suroviny)");
 		m.Set("Vybrat vybrane", "Vybrat vybrane");
@@ -779,11 +803,24 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Postavit garaz zde");
 		m.Set("Nastavit misto pro vozidlo", "Nastavit misto pro vozidlo");
 		m.Set("Zrusit garaz", "Zrusit garaz");
+		m.Set("%1 [auto]", "%1 [auto]");
+		m.Set("%1   [moje]", "%1   [moje]");
+		m.Set("%1 (v garazi)", "%1 (v garazi)");
+		m.Set("Poplatek z prodeje %1 %, penize prijdou na ucet.", "Poplatek z prodeje %1 %, penize prijdou na ucet.");
+		m.Set("Vyzvednout vracene veci (%1)", "Vyzvednout vracene veci (%1)");
+		m.Set("Vyber nabidku vlevo.", "Vyber nabidku vlevo.");
+		m.Set("Stahnout jde jen tvoje nabidka.", "Stahnout jde jen tvoje nabidka.");
+		m.Set("Vyber vec nebo auto vpravo.", "Vyber vec nebo auto vpravo.");
+		m.Set("Zadej cenu.", "Zadej cenu.");
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Osobni garaze jsou na serveru vypnute.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Tvoje garaz: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.");
 		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaz je i na mape. Dojdi k ni a pouzij klavesu B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nemas osobni garaz. Postav ji tam, kde stojis.");
+	}
+
+	protected static void Fill_cs_5(map<string, string> m)
+	{
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Postavit garaz zde (%1 %2)");
 		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Uroven %1 / %2   zkusenosti %3 / %4");
@@ -802,7 +839,6 @@ class OS_LangData
 		m.Set("%1   (az %2)", "%1   (az %2)");
 		m.Set("Vyber predmet, ktery chces koupit.", "Vyber predmet, ktery chces koupit.");
 		m.Set("Tento predmet se neprodava.", "Tento predmet se neprodava.");
-		m.Set("Koupeno: %1", "Koupeno: %1");
 		m.Set("Vyber vec, kterou chces prodat.", "Vyber vec, kterou chces prodat.");
 		m.Set("Prodano: %1", "Prodano: %1");
 		m.Set("Vyber predmet, kteremu chces zmenit cenu.", "Vyber predmet, kteremu chces zmenit cenu.");
@@ -817,10 +853,6 @@ class OS_LangData
 		m.Set("Auto: %1", "Auto: %1");
 		m.Set("Stav: %1 %", "Stav: %1 %");
 		m.Set("Palivo: %1 %", "Palivo: %1 %");
-	}
-
-	protected static void Fill_cs_5(map<string, string> m)
-	{
 		m.Set("Majitel: nikdo", "Majitel: nikdo");
 		m.Set("Majitel: ty", "Majitel: ty");
 		m.Set("Majitel: tvoje skupina", "Majitel: tvoje skupina");
@@ -1215,6 +1247,24 @@ class OS_LangData
 		m.Set("dezinfekce", "disinfection");
 		m.Set("chelacni tablety", "chelation tablets");
 		m.Set("fyziologicky roztok", "saline");
+		m.Set("Bazar", "Market");
+		m.Set("Bazar je u obchodnika.", "The market is at a trader.");
+		m.Set("Muzes mit nejvyse %1 nabidek.", "You can have at most %1 listings.");
+		m.Set("Cena musi byt %1 az %2 %3.", "The price must be %1 to %2 %3.");
+		m.Set("Tuhle vec nejde vystavit.", "This item can't be listed.");
+		m.Set("Vystaveno: %1 za %2 %3.", "Listed: %1 for %2 %3.");
+		m.Set("Auto v garazi nenalezeno.", "Car not found in the garage.");
+		m.Set("Auto vystaveno: %1 za %2 %3.", "Car listed: %1 for %2 %3.");
+		m.Set("Nabidka uz neexistuje.", "The listing no longer exists.");
+		m.Set("Vlastni nabidku nekoupis - stahni ji.", "You can't buy your own listing - withdraw it.");
+		m.Set("Nemas dost penez (%1 %2).", "You don't have enough money (%1 %2).");
+		m.Set("Chyba pri predani auta - penize vraceny.", "Error handing over the car - money refunded.");
+		m.Set("Koupeno: %1. Auto je v tve garazi (vyzvedni ho v kterekoli garazi).", "Bought: %1. The car is in your garage (pick it up at any garage).");
+		m.Set("Koupeno: %1", "Bought: %1");
+		m.Set("Prodano: %1 za %2 %3 (na ucet %4 %3).", "Sold: %1 for %2 %3 (%4 %3 to your account).");
+		m.Set("Nabidka stazena - auto je zpet v garazi.", "Listing withdrawn - the car is back in your garage.");
+		m.Set("Nabidka stazena - vec mas zpet.", "Listing withdrawn - you have the item back.");
+		m.Set("Vyzvednuto veci: %1", "Items collected: %1");
 		m.Set("%1 byl zabit hracem %2", "%1 was killed by %2");
 		m.Set("%1 byl zabit zombiky", "%1 was killed by zombies");
 		m.Set("%1 zemrel", "%1 died");
@@ -1286,7 +1336,6 @@ class OS_LangData
 		m.Set("Servis", "Service");
 		m.Set("Zadne auto pobliz.", "No car nearby.");
 		m.Set("Auto je v poradku.", "The car is fine.");
-		m.Set("Nemas dost penez (%1 %2).", "You don't have enough money (%1 %2).");
 		m.Set("Auto opraveno za %1 %2.", "Car repaired for %1 %2.");
 		m.Set("Nadrz je plna.", "The tank is full.");
 		m.Set("Natankovano za %1 %2.", "Refueled for %1 %2.");
@@ -1295,6 +1344,10 @@ class OS_LangData
 		m.Set("Doplneno dilu: %1 za %2 %3.", "Parts added: %1 for %2 %3.");
 		m.Set("Auto uz ma majitele.", "The car already has an owner.");
 		m.Set("Auto je tvoje. Zamknes ho u auta klavesou F.", "The car is yours. Lock it at the car with key F.");
+	}
+
+	protected static void Fill_en_3(map<string, string> m)
+	{
 		m.Set("V aute nekdo sedi.", "Someone is sitting in the car.");
 		m.Set("Nejdriv vyndej vsechny veci z auta.", "Take all items out of the car first.");
 		m.Set("Tohle auto ti nepatri.", "This car doesn't belong to you.");
@@ -1312,10 +1365,6 @@ class OS_LangData
 		m.Set("Jidlo", "Food");
 		m.Set("Voda", "Water");
 		m.Set("Teplo", "Warmth");
-	}
-
-	protected static void Fill_en_3(map<string, string> m)
-	{
 		m.Set("Zdravotni stav", "Health condition");
 		m.Set("Mluvi", "Speaking");
 		m.Set("S", "N");
@@ -1449,6 +1498,10 @@ class OS_LangData
 		m.Set("Koupit dalsi misto (%1%2)", "Buy another slot (%1%2)");
 		m.Set("Pozvanka do skupiny %1", "Invite to group %1");
 		m.Set("od hrace %1", "from player %1");
+	}
+
+	protected static void Fill_en_4(map<string, string> m)
+	{
 		m.Set("Zadna pozvanka", "No invite");
 		m.Set("Vyber jineho clena skupiny.", "Select another group member.");
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Select the player you want to invite.");
@@ -1466,10 +1519,6 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Item: classname [count]  e.g. Apple 5");
 		m.Set("Dat predmet cili", "Give item to target");
-	}
-
-	protected static void Fill_en_4(map<string, string> m)
-	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Money amount / coordinates X Z / radius [name]");
 		m.Set("Dat penize cili", "Give money to target");
 		m.Set("Teleport na X Z", "Teleport to X Z");
@@ -1483,6 +1532,7 @@ class OS_LangData
 		m.Set("Koupit vybrane", "Buy selected");
 		m.Set("Tvoje veci k prodeji", "Your items for sale");
 		m.Set("Prodat vybrane", "Sell selected");
+		m.Set("Bazar hracu", "Player market");
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - price of the selected item (-1 = not allowed, both -1 = hide) / multiply whole category");
 		m.Set("Nakup", "Buy");
 		m.Set("Vykup", "Sell");
@@ -1569,6 +1619,12 @@ class OS_LangData
 		m.Set("Emoce a spanek", "Emotes and sleep");
 		m.Set("Prehrat", "Play");
 		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Double-click = play. Moving ends the emote.");
+		m.Set("Nabidky hracu", "Player listings");
+		m.Set("Stahnout moji nabidku", "Withdraw my listing");
+		m.Set("Prodat: tvoje veci a auta v garazi", "Sell: your items and cars in the garage");
+		m.Set("Cena", "Price");
+		m.Set("Vystavit vybrane", "List selected");
+		m.Set("Vyzvednout vracene veci", "Collect returned items");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Animals, trees and beds (select and buy)");
 		m.Set("Sklad (vyrobene suroviny)", "Storage (produced goods)");
 		m.Set("Vybrat vybrane", "Collect selected");
@@ -1582,11 +1638,24 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Build garage here");
 		m.Set("Nastavit misto pro vozidlo", "Set vehicle spot");
 		m.Set("Zrusit garaz", "Remove garage");
+		m.Set("%1 [auto]", "%1 [car]");
+		m.Set("%1   [moje]", "%1   [mine]");
+		m.Set("%1 (v garazi)", "%1 (in garage)");
+		m.Set("Poplatek z prodeje %1 %, penize prijdou na ucet.", "Sales fee %1 %, money goes to your account.");
+		m.Set("Vyzvednout vracene veci (%1)", "Collect returned items (%1)");
+		m.Set("Vyber nabidku vlevo.", "Select a listing on the left.");
+		m.Set("Stahnout jde jen tvoje nabidka.", "You can only withdraw your own listing.");
+		m.Set("Vyber vec nebo auto vpravo.", "Select an item or car on the right.");
+		m.Set("Zadej cenu.", "Enter a price.");
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Personal garages are disabled on the server.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Your garage: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "You are at the garage - key B = store / retrieve vehicle.");
 		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "The garage is also on the map. Go there and use key B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "You have no personal garage. Build it where you are standing.");
+	}
+
+	protected static void Fill_en_5(map<string, string> m)
+	{
 		m.Set("Cena: %1 %2", "Price: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Build garage here (%1 %2)");
 		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Level %1 / %2   experience %3 / %4");
@@ -1605,7 +1674,6 @@ class OS_LangData
 		m.Set("%1   (az %2)", "%1   (up to %2)");
 		m.Set("Vyber predmet, ktery chces koupit.", "Select the item you want to buy.");
 		m.Set("Tento predmet se neprodava.", "This item is not for sale.");
-		m.Set("Koupeno: %1", "Bought: %1");
 		m.Set("Vyber vec, kterou chces prodat.", "Select the item you want to sell.");
 		m.Set("Prodano: %1", "Sold: %1");
 		m.Set("Vyber predmet, kteremu chces zmenit cenu.", "Select the item whose price you want to change.");
@@ -1620,10 +1688,6 @@ class OS_LangData
 		m.Set("Auto: %1", "Car: %1");
 		m.Set("Stav: %1 %", "Condition: %1 %");
 		m.Set("Palivo: %1 %", "Fuel: %1 %");
-	}
-
-	protected static void Fill_en_5(map<string, string> m)
-	{
 		m.Set("Majitel: nikdo", "Owner: nobody");
 		m.Set("Majitel: ty", "Owner: you");
 		m.Set("Majitel: tvoje skupina", "Owner: your group");
@@ -2018,6 +2082,24 @@ class OS_LangData
 		m.Set("dezinfekce", "Desinfektion");
 		m.Set("chelacni tablety", "Chelat-Tabletten");
 		m.Set("fyziologicky roztok", "Kochsalzlösung");
+		m.Set("Bazar", "Basar");
+		m.Set("Bazar je u obchodnika.", "Der Basar ist beim Händler.");
+		m.Set("Muzes mit nejvyse %1 nabidek.", "Du kannst höchstens %1 Angebote haben.");
+		m.Set("Cena musi byt %1 az %2 %3.", "Der Preis muss %1 bis %2 %3 betragen.");
+		m.Set("Tuhle vec nejde vystavit.", "Dieser Gegenstand kann nicht angeboten werden.");
+		m.Set("Vystaveno: %1 za %2 %3.", "Angeboten: %1 für %2 %3.");
+		m.Set("Auto v garazi nenalezeno.", "Auto in der Garage nicht gefunden.");
+		m.Set("Auto vystaveno: %1 za %2 %3.", "Auto angeboten: %1 für %2 %3.");
+		m.Set("Nabidka uz neexistuje.", "Das Angebot existiert nicht mehr.");
+		m.Set("Vlastni nabidku nekoupis - stahni ji.", "Dein eigenes Angebot kannst du nicht kaufen - zieh es zurück.");
+		m.Set("Nemas dost penez (%1 %2).", "Du hast nicht genug Geld (%1 %2).");
+		m.Set("Chyba pri predani auta - penize vraceny.", "Fehler bei der Übergabe des Autos - Geld zurückerstattet.");
+		m.Set("Koupeno: %1. Auto je v tve garazi (vyzvedni ho v kterekoli garazi).", "Gekauft: %1. Das Auto ist in deiner Garage (abholen in jeder Garage).");
+		m.Set("Koupeno: %1", "Gekauft: %1");
+		m.Set("Prodano: %1 za %2 %3 (na ucet %4 %3).", "Verkauft: %1 für %2 %3 (%4 %3 aufs Konto).");
+		m.Set("Nabidka stazena - auto je zpet v garazi.", "Angebot zurückgezogen - das Auto ist wieder in der Garage.");
+		m.Set("Nabidka stazena - vec mas zpet.", "Angebot zurückgezogen - du hast den Gegenstand zurück.");
+		m.Set("Vyzvednuto veci: %1", "Gegenstände abgeholt: %1");
 		m.Set("%1 byl zabit hracem %2", "%1 wurde von %2 getötet");
 		m.Set("%1 byl zabit zombiky", "%1 wurde von Zombies getötet");
 		m.Set("%1 zemrel", "%1 ist gestorben");
@@ -2089,7 +2171,6 @@ class OS_LangData
 		m.Set("Servis", "Service");
 		m.Set("Zadne auto pobliz.", "Kein Auto in der Nähe.");
 		m.Set("Auto je v poradku.", "Das Auto ist in Ordnung.");
-		m.Set("Nemas dost penez (%1 %2).", "Du hast nicht genug Geld (%1 %2).");
 		m.Set("Auto opraveno za %1 %2.", "Auto für %1 %2 repariert.");
 		m.Set("Nadrz je plna.", "Der Tank ist voll.");
 		m.Set("Natankovano za %1 %2.", "Für %1 %2 getankt.");
@@ -2098,6 +2179,10 @@ class OS_LangData
 		m.Set("Doplneno dilu: %1 za %2 %3.", "Teile ergänzt: %1 für %2 %3.");
 		m.Set("Auto uz ma majitele.", "Das Auto hat schon einen Besitzer.");
 		m.Set("Auto je tvoje. Zamknes ho u auta klavesou F.", "Das Auto gehört dir. Abschließen am Auto mit Taste F.");
+	}
+
+	protected static void Fill_de_3(map<string, string> m)
+	{
 		m.Set("V aute nekdo sedi.", "Im Auto sitzt jemand.");
 		m.Set("Nejdriv vyndej vsechny veci z auta.", "Nimm zuerst alle Sachen aus dem Auto.");
 		m.Set("Tohle auto ti nepatri.", "Dieses Auto gehört dir nicht.");
@@ -2115,10 +2200,6 @@ class OS_LangData
 		m.Set("Jidlo", "Essen");
 		m.Set("Voda", "Wasser");
 		m.Set("Teplo", "Wärme");
-	}
-
-	protected static void Fill_de_3(map<string, string> m)
-	{
 		m.Set("Zdravotni stav", "Gesundheitszustand");
 		m.Set("Mluvi", "Spricht");
 		m.Set("S", "N");
@@ -2252,6 +2333,10 @@ class OS_LangData
 		m.Set("Koupit dalsi misto (%1%2)", "Weiteren Platz kaufen (%1%2)");
 		m.Set("Pozvanka do skupiny %1", "Einladung in die Gruppe %1");
 		m.Set("od hrace %1", "von Spieler %1");
+	}
+
+	protected static void Fill_de_4(map<string, string> m)
+	{
 		m.Set("Zadna pozvanka", "Keine Einladung");
 		m.Set("Vyber jineho clena skupiny.", "Wähle ein anderes Gruppenmitglied.");
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wähle den Spieler, den du einladen willst.");
@@ -2269,10 +2354,6 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Gegenstand: Klassenname [Anzahl]  z. B. Apple 5");
 		m.Set("Dat predmet cili", "Gegenstand an Ziel geben");
-	}
-
-	protected static void Fill_de_4(map<string, string> m)
-	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Geldbetrag / Koordinaten X Z / Radius [Name]");
 		m.Set("Dat penize cili", "Geld an Ziel geben");
 		m.Set("Teleport na X Z", "Teleport zu X Z");
@@ -2286,6 +2367,7 @@ class OS_LangData
 		m.Set("Koupit vybrane", "Auswahl kaufen");
 		m.Set("Tvoje veci k prodeji", "Deine Sachen zum Verkauf");
 		m.Set("Prodat vybrane", "Auswahl verkaufen");
+		m.Set("Bazar hracu", "Spielerbasar");
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - Preis des gewählten Gegenstands (-1 = nicht erlaubt, beide -1 = ausblenden) / ganze Kategorie multiplizieren");
 		m.Set("Nakup", "Kauf");
 		m.Set("Vykup", "Ankauf");
@@ -2372,6 +2454,12 @@ class OS_LangData
 		m.Set("Emoce a spanek", "Emotes und Schlaf");
 		m.Set("Prehrat", "Abspielen");
 		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Doppelklick = abspielen. Bewegung beendet das Emote.");
+		m.Set("Nabidky hracu", "Angebote der Spieler");
+		m.Set("Stahnout moji nabidku", "Mein Angebot zurückziehen");
+		m.Set("Prodat: tvoje veci a auta v garazi", "Verkaufen: deine Sachen und Autos in der Garage");
+		m.Set("Cena", "Preis");
+		m.Set("Vystavit vybrane", "Auswahl anbieten");
+		m.Set("Vyzvednout vracene veci", "Zurückgegebene Sachen abholen");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Tiere, Bäume und Beete (wählen und kaufen)");
 		m.Set("Sklad (vyrobene suroviny)", "Lager (erzeugte Waren)");
 		m.Set("Vybrat vybrane", "Auswahl entnehmen");
@@ -2385,11 +2473,24 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Garage hier bauen");
 		m.Set("Nastavit misto pro vozidlo", "Fahrzeugplatz festlegen");
 		m.Set("Zrusit garaz", "Garage abreißen");
+		m.Set("%1 [auto]", "%1 [Auto]");
+		m.Set("%1   [moje]", "%1   [meins]");
+		m.Set("%1 (v garazi)", "%1 (in der Garage)");
+		m.Set("Poplatek z prodeje %1 %, penize prijdou na ucet.", "Verkaufsgebühr %1 %, das Geld geht aufs Konto.");
+		m.Set("Vyzvednout vracene veci (%1)", "Zurückgegebene Sachen abholen (%1)");
+		m.Set("Vyber nabidku vlevo.", "Wähle links ein Angebot.");
+		m.Set("Stahnout jde jen tvoje nabidka.", "Zurückziehen kannst du nur dein eigenes Angebot.");
+		m.Set("Vyber vec nebo auto vpravo.", "Wähle rechts einen Gegenstand oder ein Auto.");
+		m.Set("Zadej cenu.", "Gib einen Preis ein.");
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Eigene Garagen sind auf dem Server deaktiviert.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Deine Garage: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Du bist an der Garage - Taste B = Fahrzeug einlagern / abholen.");
 		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Die Garage ist auch auf der Karte. Geh hin und drück Taste B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Du hast keine eigene Garage. Bau sie dort, wo du stehst.");
+	}
+
+	protected static void Fill_de_5(map<string, string> m)
+	{
 		m.Set("Cena: %1 %2", "Preis: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Garage hier bauen (%1 %2)");
 		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Stufe %1 / %2   Erfahrung %3 / %4");
@@ -2408,7 +2509,6 @@ class OS_LangData
 		m.Set("%1   (az %2)", "%1   (bis zu %2)");
 		m.Set("Vyber predmet, ktery chces koupit.", "Wähle den Gegenstand, den du kaufen willst.");
 		m.Set("Tento predmet se neprodava.", "Dieser Gegenstand wird nicht verkauft.");
-		m.Set("Koupeno: %1", "Gekauft: %1");
 		m.Set("Vyber vec, kterou chces prodat.", "Wähle die Sache, die du verkaufen willst.");
 		m.Set("Prodano: %1", "Verkauft: %1");
 		m.Set("Vyber predmet, kteremu chces zmenit cenu.", "Wähle den Gegenstand, dessen Preis du ändern willst.");
@@ -2423,10 +2523,6 @@ class OS_LangData
 		m.Set("Auto: %1", "Auto: %1");
 		m.Set("Stav: %1 %", "Zustand: %1 %");
 		m.Set("Palivo: %1 %", "Kraftstoff: %1 %");
-	}
-
-	protected static void Fill_de_5(map<string, string> m)
-	{
 		m.Set("Majitel: nikdo", "Besitzer: niemand");
 		m.Set("Majitel: ty", "Besitzer: du");
 		m.Set("Majitel: tvoje skupina", "Besitzer: deine Gruppe");
@@ -2821,6 +2917,24 @@ class OS_LangData
 		m.Set("dezinfekce", "dezynfekcja");
 		m.Set("chelacni tablety", "tabletki chelatujące");
 		m.Set("fyziologicky roztok", "sól fizjologiczna");
+		m.Set("Bazar", "Bazar");
+		m.Set("Bazar je u obchodnika.", "Bazar jest u handlarza.");
+		m.Set("Muzes mit nejvyse %1 nabidek.", "Możesz mieć najwyżej %1 ofert.");
+		m.Set("Cena musi byt %1 az %2 %3.", "Cena musi wynosić od %1 do %2 %3.");
+		m.Set("Tuhle vec nejde vystavit.", "Tego przedmiotu nie można wystawić.");
+		m.Set("Vystaveno: %1 za %2 %3.", "Wystawiono: %1 za %2 %3.");
+		m.Set("Auto v garazi nenalezeno.", "Nie znaleziono pojazdu w garażu.");
+		m.Set("Auto vystaveno: %1 za %2 %3.", "Pojazd wystawiony: %1 za %2 %3.");
+		m.Set("Nabidka uz neexistuje.", "Oferta już nie istnieje.");
+		m.Set("Vlastni nabidku nekoupis - stahni ji.", "Nie kupisz własnej oferty - wycofaj ją.");
+		m.Set("Nemas dost penez (%1 %2).", "Nie masz wystarczająco pieniędzy (%1 %2).");
+		m.Set("Chyba pri predani auta - penize vraceny.", "Błąd przy przekazaniu pojazdu - pieniądze zwrócone.");
+		m.Set("Koupeno: %1. Auto je v tve garazi (vyzvedni ho v kterekoli garazi).", "Kupiono: %1. Pojazd jest w twoim garażu (odbierz go w dowolnym garażu).");
+		m.Set("Koupeno: %1", "Kupiono: %1");
+		m.Set("Prodano: %1 za %2 %3 (na ucet %4 %3).", "Sprzedano: %1 za %2 %3 (na konto %4 %3).");
+		m.Set("Nabidka stazena - auto je zpet v garazi.", "Oferta wycofana - pojazd wrócił do garażu.");
+		m.Set("Nabidka stazena - vec mas zpet.", "Oferta wycofana - masz przedmiot z powrotem.");
+		m.Set("Vyzvednuto veci: %1", "Odebrano przedmiotów: %1");
 		m.Set("%1 byl zabit hracem %2", "%1 został zabity przez %2");
 		m.Set("%1 byl zabit zombiky", "%1 został zabity przez zombie");
 		m.Set("%1 zemrel", "%1 zginął");
@@ -2892,7 +3006,6 @@ class OS_LangData
 		m.Set("Servis", "Serwis");
 		m.Set("Zadne auto pobliz.", "Brak pojazdu w pobliżu.");
 		m.Set("Auto je v poradku.", "Pojazd jest sprawny.");
-		m.Set("Nemas dost penez (%1 %2).", "Nie masz wystarczająco pieniędzy (%1 %2).");
 		m.Set("Auto opraveno za %1 %2.", "Pojazd naprawiony za %1 %2.");
 		m.Set("Nadrz je plna.", "Bak jest pełny.");
 		m.Set("Natankovano za %1 %2.", "Zatankowano za %1 %2.");
@@ -2901,6 +3014,10 @@ class OS_LangData
 		m.Set("Doplneno dilu: %1 za %2 %3.", "Uzupełniono części: %1 za %2 %3.");
 		m.Set("Auto uz ma majitele.", "Pojazd ma już właściciela.");
 		m.Set("Auto je tvoje. Zamknes ho u auta klavesou F.", "Pojazd jest twój. Zamkniesz go przy pojeździe klawiszem F.");
+	}
+
+	protected static void Fill_pl_3(map<string, string> m)
+	{
 		m.Set("V aute nekdo sedi.", "Ktoś siedzi w pojeździe.");
 		m.Set("Nejdriv vyndej vsechny veci z auta.", "Najpierw wyjmij wszystkie rzeczy z pojazdu.");
 		m.Set("Tohle auto ti nepatri.", "Ten pojazd nie należy do ciebie.");
@@ -2918,10 +3035,6 @@ class OS_LangData
 		m.Set("Jidlo", "Jedzenie");
 		m.Set("Voda", "Woda");
 		m.Set("Teplo", "Ciepło");
-	}
-
-	protected static void Fill_pl_3(map<string, string> m)
-	{
 		m.Set("Zdravotni stav", "Stan zdrowia");
 		m.Set("Mluvi", "Mówi");
 		m.Set("S", "Pn");
@@ -3055,6 +3168,10 @@ class OS_LangData
 		m.Set("Koupit dalsi misto (%1%2)", "Kup kolejne miejsce (%1%2)");
 		m.Set("Pozvanka do skupiny %1", "Zaproszenie do grupy %1");
 		m.Set("od hrace %1", "od gracza %1");
+	}
+
+	protected static void Fill_pl_4(map<string, string> m)
+	{
 		m.Set("Zadna pozvanka", "Brak zaproszeń");
 		m.Set("Vyber jineho clena skupiny.", "Wybierz innego członka grupy.");
 		m.Set("Vyber hrace, ktereho chces pozvat.", "Wybierz gracza, którego chcesz zaprosić.");
@@ -3072,10 +3189,6 @@ class OS_LangData
 		m.Set("Godmode", "Godmode");
 		m.Set("Predmet: classname [pocet]  napr. Apple 5", "Przedmiot: classname [ilość]  np. Apple 5");
 		m.Set("Dat predmet cili", "Daj przedmiot celowi");
-	}
-
-	protected static void Fill_pl_4(map<string, string> m)
-	{
 		m.Set("Castka penez / souradnice X Z / polomer [nazev]", "Kwota / współrzędne X Z / promień [nazwa]");
 		m.Set("Dat penize cili", "Daj pieniądze celowi");
 		m.Set("Teleport na X Z", "Teleportuj na X Z");
@@ -3089,6 +3202,7 @@ class OS_LangData
 		m.Set("Koupit vybrane", "Kup wybrane");
 		m.Set("Tvoje veci k prodeji", "Twoje rzeczy na sprzedaż");
 		m.Set("Prodat vybrane", "Sprzedaj wybrane");
+		m.Set("Bazar hracu", "Bazar graczy");
 		m.Set("ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie", "ADMIN - cena wybranego przedmiotu (-1 = nie można, obie -1 = ukryj) / mnożenie całej kategorii");
 		m.Set("Nakup", "Kupno");
 		m.Set("Vykup", "Skup");
@@ -3175,6 +3289,12 @@ class OS_LangData
 		m.Set("Emoce a spanek", "Emocje i sen");
 		m.Set("Prehrat", "Odtwórz");
 		m.Set("Dvojklik = prehrat. Pohyb emoci ukonci.", "Podwójne kliknięcie = odtwórz. Ruch kończy emocję.");
+		m.Set("Nabidky hracu", "Oferty graczy");
+		m.Set("Stahnout moji nabidku", "Wycofaj moją ofertę");
+		m.Set("Prodat: tvoje veci a auta v garazi", "Sprzedaj: twoje rzeczy i pojazdy w garażu");
+		m.Set("Cena", "Cena");
+		m.Set("Vystavit vybrane", "Wystaw wybrane");
+		m.Set("Vyzvednout vracene veci", "Odbierz zwrócone rzeczy");
 		m.Set("Zvirata, stromy a zahony (vyber a kup)", "Zwierzęta, drzewa i grządki (wybierz i kup)");
 		m.Set("Sklad (vyrobene suroviny)", "Magazyn (wyprodukowane surowce)");
 		m.Set("Vybrat vybrane", "Zabierz wybrane");
@@ -3188,11 +3308,24 @@ class OS_LangData
 		m.Set("Postavit garaz zde", "Zbuduj garaż tutaj");
 		m.Set("Nastavit misto pro vozidlo", "Ustaw miejsce dla pojazdu");
 		m.Set("Zrusit garaz", "Usuń garaż");
+		m.Set("%1 [auto]", "%1 [pojazd]");
+		m.Set("%1   [moje]", "%1   [moje]");
+		m.Set("%1 (v garazi)", "%1 (w garażu)");
+		m.Set("Poplatek z prodeje %1 %, penize prijdou na ucet.", "Opłata od sprzedaży %1 %, pieniądze trafią na konto.");
+		m.Set("Vyzvednout vracene veci (%1)", "Odbierz zwrócone rzeczy (%1)");
+		m.Set("Vyber nabidku vlevo.", "Wybierz ofertę po lewej.");
+		m.Set("Stahnout jde jen tvoje nabidka.", "Wycofać można tylko własną ofertę.");
+		m.Set("Vyber vec nebo auto vpravo.", "Wybierz przedmiot lub pojazd po prawej.");
+		m.Set("Zadej cenu.", "Wpisz cenę.");
 		m.Set("Osobni garaze jsou na serveru vypnute.", "Własne garaże są na serwerze wyłączone.");
 		m.Set("Tvoje garaz: %1 / %2   (%3 m)", "Twój garaż: %1 / %2   (%3 m)");
 		m.Set("Jsi u garaze - klavesa B = ulozit / vyzvednout vozidlo.", "Jesteś przy garażu - klawisz B = zaparkuj / odbierz pojazd.");
 		m.Set("Garaz je i na mape. Dojdi k ni a pouzij klavesu B.", "Garaż jest też na mapie. Idź do niego i użyj klawisza B.");
 		m.Set("Nemas osobni garaz. Postav ji tam, kde stojis.", "Nie masz własnego garażu. Zbuduj go tam, gdzie stoisz.");
+	}
+
+	protected static void Fill_pl_5(map<string, string> m)
+	{
 		m.Set("Cena: %1 %2", "Cena: %1 %2");
 		m.Set("Postavit garaz zde (%1 %2)", "Zbuduj garaż tutaj (%1 %2)");
 		m.Set("Uroven %1 / %2   zkusenosti %3 / %4", "Poziom %1 / %2   doświadczenie %3 / %4");
@@ -3211,7 +3344,6 @@ class OS_LangData
 		m.Set("%1   (az %2)", "%1   (do %2)");
 		m.Set("Vyber predmet, ktery chces koupit.", "Wybierz przedmiot, który chcesz kupić.");
 		m.Set("Tento predmet se neprodava.", "Ten przedmiot nie jest na sprzedaż.");
-		m.Set("Koupeno: %1", "Kupiono: %1");
 		m.Set("Vyber vec, kterou chces prodat.", "Wybierz rzecz, którą chcesz sprzedać.");
 		m.Set("Prodano: %1", "Sprzedano: %1");
 		m.Set("Vyber predmet, kteremu chces zmenit cenu.", "Wybierz przedmiot, któremu chcesz zmienić cenę.");
@@ -3226,10 +3358,6 @@ class OS_LangData
 		m.Set("Auto: %1", "Pojazd: %1");
 		m.Set("Stav: %1 %", "Stan: %1 %");
 		m.Set("Palivo: %1 %", "Paliwo: %1 %");
-	}
-
-	protected static void Fill_pl_5(map<string, string> m)
-	{
 		m.Set("Majitel: nikdo", "Właściciel: nikt");
 		m.Set("Majitel: ty", "Właściciel: ty");
 		m.Set("Majitel: tvoje skupina", "Właściciel: twoja grupa");

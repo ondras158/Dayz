@@ -915,6 +915,40 @@ class OS_ServerVehicles
 		return "group_" + group.Id.ToString();
 	}
 
+	// ------------------------------------------------------------ bazar hráčů
+
+	//! auta v osobní garáži hráče (ne skupinové)
+	array<ref OS_StoredVehicle> PersonalStored(string steamId)
+	{
+		return LoadGarage(steamId).Vehicles;
+	}
+
+	//! vyjme auto z osobní garáže (pro bazar)
+	OS_StoredVehicle TakeStored(string steamId, int index)
+	{
+		OS_GarageData garage = LoadGarage(steamId);
+		if (index < 0 || index >= garage.Vehicles.Count())
+			return null;
+		OS_StoredVehicle vehicle = garage.Vehicles[index];
+		garage.Vehicles.Remove(index);
+		if (!SaveGarage(steamId, garage))
+			return null;
+		return vehicle;
+	}
+
+	//! vloží auto do osobní garáže hráče (nový majitel)
+	bool GiveStored(string steamId, OS_StoredVehicle vehicle)
+	{
+		if (!vehicle)
+			return false;
+		vehicle.OwnerId = steamId;
+		vehicle.GroupId = 0;
+		vehicle.Locked = false;
+		OS_GarageData garage = LoadGarage(steamId);
+		garage.Vehicles.Insert(vehicle);
+		return SaveGarage(steamId, garage);
+	}
+
 	protected string GaragePath(string steamId)
 	{
 		return OS_DIR + "Garages/" + steamId + ".json";

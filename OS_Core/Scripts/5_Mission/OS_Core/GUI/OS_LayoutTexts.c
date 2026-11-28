@@ -44,6 +44,7 @@ class OS_LayoutTexts
 			Set(root, "SellLabel", "Tvoje veci k prodeji");
 			Set(root, "BtnSell", "Prodat vybrane");
 			Set(root, "BtnClose", "Zavrit");
+			Set(root, "BtnMarket", "Bazar hracu");
 			Set(root, "AdminLabel", "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie");
 			Set(root, "BuyLabel", "Nakup");
 			Set(root, "SellPriceLabel", "Vykup");
@@ -189,6 +190,19 @@ class OS_LayoutTexts
 			Set(root, "BtnPlay", "Prehrat");
 			Set(root, "BtnClose", "Zavrit");
 			Set(root, "Hint", "Dvojklik = prehrat. Pohyb emoci ukonci.");
+		}
+		if (layoutName == "market_menu.layout")
+		{
+			Set(root, "Title", "Bazar hracu");
+			Set(root, "OffersLabel", "Nabidky hracu");
+			Set(root, "BtnSearch", "Hledat");
+			Set(root, "BtnBuy", "Koupit vybrane");
+			Set(root, "BtnWithdraw", "Stahnout moji nabidku");
+			Set(root, "SellLabel", "Prodat: tvoje veci a auta v garazi");
+			Set(root, "PriceLabel", "Cena");
+			Set(root, "BtnList", "Vystavit vybrane");
+			Set(root, "BtnClaim", "Vyzvednout vracene veci");
+			Set(root, "BtnClose", "Zavrit");
 		}
 		if (layoutName == "farm_menu.layout")
 		{

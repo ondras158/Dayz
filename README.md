@@ -66,6 +66,7 @@ Klávesy lze změnit ve hře: Nastavení → Ovládání → sekce **OS Core**.
 | Zprávy | Uvítání po připojení, pravidelná oznámení v chatu, kill feed | `Messages.json` |
 | Jazyky | Čeština, angličtina, němčina, polština + vlastní; všechny texty jdou upravit | `Language.json`, `Lang/*.json` |
 | Obchod | **Všechny předměty ze hry i z módů** se do obchodu přidají automaticky do kategorií. Zbraně jdou koupit draze, ostatní věci prodat levně. Admin mění ceny přímo v menu. 15 specializovaných obchodníků (zbrojíř, oblečení, potraviny, lékárna, železářství, černý trh, rybář, řezník, lovec, výkupna…) s násobiteli cen | `Trader.json` |
+| Bazar hráčů | U obchodníka tlačítko *Bazar hráčů*: vystav věc (i s obsahem) nebo auto z garáže za svou cenu, ostatní koupí i když nejsi online, peníze přijdou na účet | `Market.json` |
 | Peníze a bankomaty | Peníze jsou předmět (bankovky 1–5000, měna EUR/RUB/… podle nastavení) – po smrti zůstanou na těle. V bankomatu je uložíš na účet, převody jiným hráčům | `Bank.json` |
 | Autobazar / motorky / helikoptéry / lodě | Koupě kompletního vozidla s plnou nádrží; helikoptéry a lodě z **DayZ Expansion**, vanilla člun a motorky | `Vehicles.json` |
 | Servis | Oprava (podle poškození), tankování (za litr), doplnění chybějících dílů, přepsání nalezeného auta na sebe | `Vehicles.json` |
@@ -149,6 +150,7 @@ Při prvním spuštění se v profilové složce serveru (parametr `-profiles=`)
 ├── Loadouts.json   SpawnZones.json   SafeZones.json   PvP.json   Messages.json
 ├── Trader.json                                                               obchod, ceny, obchodníci
 ├── Bank.json       Wallets/<SteamID>.json                                    měna, bankomaty, účty hráčů
+├── Market.json     MarketData.json                                           bazar hráčů a nabídky
 ├── Vehicles.json   Garages/…   PersonalGarages.json                          vozidla, garáže
 ├── Groups.json     GroupsData.json                                           skupiny
 ├── Farms.json      FarmsData.json                                            farmy
@@ -280,6 +282,17 @@ Na mapě jsou zeleně (`PvP.json` → `ShowSafeZonesOnMap`).
   Názvy musí odpovídat kategoriím v `Categories` (včetně těch, které vytvořila automatika). Obchodníka můžeš
   přidat kolik chceš, např. vojenský obchod: `{ "Name": "Vojak", "X": ..., "Z": ..., "Radius": 10, "Categories": ["Zbrane", "Munice", "Obleceni"] }`.
 - Obchodník je jen místo (`Traders`: X, Z, Radius) – dej ho do safe zóny a postav tam něco viditelného.
+
+**Bazar hráčů** (`Market.json`, nabídky v `MarketData.json`)
+- U obchodníka (klávesa **B**) tlačítko **Bazar hráčů** (`AtAllTraders`, nebo jen obchodníci v `Traders`).
+- **Prodej:** vpravo tvoje věci z inventáře (batoh, zbraň, oblečení… i s obsahem a přílohami) a auta z tvé
+  **osobní garáže** (`AllowVehicles`). Vyber, zadej cenu (`MinPrice`–`MaxPrice`) a *Vystavit*. Věc zmizí z inventáře,
+  auto z garáže. Nejvýš `MaxListingsPerPlayer` (10) nabídek.
+- **Nákup:** vlevo všechny nabídky (hledání podle názvu). Platí se hotovostí / z účtu jako v obchodě. Věc dostaneš do
+  inventáře, auto do své garáže (vyzvedneš v kterékoli garáži, je tvoje).
+- Prodejce dostane peníze **na účet** i když není online, minus `FeePercent` (5 %). Online dostane oznámení.
+- *Stáhnout moji nabídku* vrátí věc / auto. Neprodané nabídky se po `ListingDays` (7 dní) vrátí – auto do garáže,
+  věc k vyzvednutí tlačítkem *Vyzvednout vrácené věci*. Všechny prodeje se zapisují do logu.
 
 **Peníze a bankomaty** (`Bank.json`)
 - **Měna** se nastavuje v `Bank.json`: `CurrencyName` (např. `"EUR"`, `"RUB"`, `"USD"`, `"Kc"`) a `Denominations`
@@ -815,6 +828,7 @@ Chybu z logu mi pošli a opravím ji.
   Lékárna, Železářství, Zahradnictví, Výkupna úrody, Rybář, Řezník, Lovec, Autodíly), volby `PlayersCanBuy`,
   `PlayersCanSell`, `Items`, `FarmProduce`; vojenské věci rozdělené mezi oblečení a zbraně, granáty u munice,
   nábytek, stany a elektronika ve stavbě, alkohol v jídle, drogy na černém trhu.
+- **Bazar hráčů:** prodej věcí a aut mezi hráči za vlastní cenu, i offline.
 - **Peníze:** bankovky jako předmět (1–5000, realistický potisk s „OS CORE“), měna podle nastavení (EUR výchozí),
   bankomaty s vkladem, výběrem, převody hráčům (i offline) a účtem skupiny.
 - **Vozidla:** autobazar, motorky, helikoptéry a lodě (Expansion + vanilla člun), servis, veřejné, osobní

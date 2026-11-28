@@ -189,13 +189,25 @@ FrameWidgetClass OS_TraderMenu {
     ButtonWidgetClass BtnClose {
      color 0.25 0.22 0.18 1
      position 20 512
-     size 220 40
+     size 105 40
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
      style Default
      text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnMarket {
+     color 0.25 0.22 0.18 1
+     position 135 512
+     size 105 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Bazar hracu"
      font "gui/fonts/metron"
     }
     TextWidgetClass AdminLabel {

@@ -44,6 +44,7 @@ class OS_Client
 	protected ref OS_BaseMenu m_BaseMenu;
 	protected ref OS_CookMenu m_CookMenu;
 	protected ref OS_SkillsMenu m_SkillsMenu;
+	protected ref OS_MarketMenu m_MarketMenu;
 
 	void OnFrame()
 	{
@@ -203,6 +204,9 @@ class OS_Client
 			case OS_RPC_BED_CLASSES:
 				OS_ClientBeds.Read(ctx);
 				break;
+			case OS_RPC_MARKET_DATA:
+				OnMarketData(ctx);
+				break;
 			case OS_RPC_SLEEP:
 				m_SleepView.OnServerState(ctx);
 				break;
@@ -243,6 +247,19 @@ class OS_Client
 		}
 
 		SendToServer(OS_RPC_SPAWN_ACK);
+	}
+
+	protected void OnMarketData(ParamsReadContext ctx)
+	{
+		if (IsOpen(m_MarketMenu))
+		{
+			m_MarketMenu.ReadData(ctx);
+			return;
+		}
+		m_MarketMenu = new OS_MarketMenu();
+		if (!m_MarketMenu.ReadData(ctx))
+			return;
+		Show(m_MarketMenu);
 	}
 
 	protected void OnSkillsData(ParamsReadContext ctx)
@@ -321,6 +338,9 @@ class OS_Client
 			return;
 		if (!ctx.Read(buyMult) || !ctx.Read(sellMult) || !ctx.Read(canBuy) || !ctx.Read(canSell))
 			return;
+		bool market;
+		if (ctx.Read(market))
+			OS_TraderMenu.s_MarketAvailable = market;
 
 		if (IsOpen(m_TraderMenu))
 		{

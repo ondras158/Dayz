@@ -142,7 +142,8 @@ LAYOUTS = {
         text("SellLabel", 700, 56, 240, 24, "Tvoje veci k prodeji"),
         listbox("SellList", 700, 90, 240, 412),
         button("BtnSell", 700, 512, 240, 40, "Prodat vybrane"),
-        button("BtnClose", 20, 512, 220, 40, "Zavrit"),
+        button("BtnClose", 20, 512, 105, 40, "Zavrit"),
+        button("BtnMarket", 135, 512, 105, 40, "Bazar hracu"),
         text("AdminLabel", 20, 566, 920, 24, "ADMIN - cena vybraneho predmetu (-1 = nelze, obe -1 = skryt) / nasobeni cele kategorie"),
         text("BuyLabel", 20, 596, 60, 34, "Nakup"),
         edit("EditBuy", 80, 596, 110, 34),
@@ -533,6 +534,25 @@ LAYOUTS["sleep.layout"] = """FrameWidgetClass OS_Sleep {
  }
 }
 """
+
+LAYOUTS["market_menu.layout"] = layout("OS_MarketMenu", 1000, 660, [
+    text("Title", 20, 12, 960, 36, "Bazar hracu", "gui/fonts/metron28", "center"),
+    text("OffersLabel", 20, 54, 520, 24, "Nabidky hracu"),
+    edit("EditSearch", 20, 80, 420, 30),
+    button("BtnSearch", 450, 80, 90, 30, "Hledat"),
+    listbox("OfferList", 20, 118, 520, 400),
+    button("BtnBuy", 20, 526, 255, 40, "Koupit vybrane"),
+    button("BtnWithdraw", 285, 526, 255, 40, "Stahnout moji nabidku"),
+    text("SellLabel", 560, 54, 420, 24, "Prodat: tvoje veci a auta v garazi"),
+    listbox("SellList", 560, 80, 420, 330),
+    text("PriceLabel", 560, 420, 120, 34, "Cena"),
+    edit("EditPrice", 680, 420, 300, 34),
+    button("BtnList", 560, 462, 420, 40, "Vystavit vybrane"),
+    text("FeeText", 560, 506, 420, 24, ""),
+    button("BtnClaim", 560, 526, 420, 40, "Vyzvednout vracene veci"),
+    button("BtnClose", 20, 576, 960, 38, "Zavrit"),
+    text("Status", 20, 620, 960, 26, "", align="center"),
+])
 
 LAYOUTS["farm_menu.layout"] = layout("OS_FarmMenu", 860, 700, [
     text("Title", 20, 12, 820, 36, "Farma", "gui/fonts/metron28", "center"),

@@ -1,0 +1,254 @@
+FrameWidgetClass OS_MarketMenu {
+ position 0 0
+ size 1 1
+ hexactpos 1
+ vexactpos 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Window {
+   color 0.08 0.07 0.06 0.92
+   position 0 0
+   size 1000 660
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style rover_sim_colorable
+   {
+    TextWidgetClass Title {
+     position 20 12
+     size 960 36
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Bazar hracu"
+     font "gui/fonts/metron28"
+     "text halign" center
+     "text valign" center
+    }
+    TextWidgetClass OffersLabel {
+     position 20 54
+     size 520 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Nabidky hracu"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditSearchBg {
+     color 0 0 0 0.7
+     position 20 80
+     size 420 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditSearch {
+     position 26 82
+     size 408 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnSearch {
+     color 0.25 0.22 0.18 1
+     position 450 80
+     size 90 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Hledat"
+     font "gui/fonts/metron"
+    }
+    PanelWidgetClass OfferListBg {
+     color 0 0 0 0.6
+     position 20 118
+     size 520 400
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass OfferList {
+     position 24 122
+     size 512 392
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnBuy {
+     color 0.25 0.22 0.18 1
+     position 20 526
+     size 255 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Koupit vybrane"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnWithdraw {
+     color 0.25 0.22 0.18 1
+     position 285 526
+     size 255 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Stahnout moji nabidku"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass SellLabel {
+     position 560 54
+     size 420 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Prodat: tvoje veci a auta v garazi"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass SellListBg {
+     color 0 0 0 0.6
+     position 560 80
+     size 420 330
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextListboxWidgetClass SellList {
+     position 564 84
+     size 412 322
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass PriceLabel {
+     position 560 420
+     size 120 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text "Cena"
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    PanelWidgetClass EditPriceBg {
+     color 0 0 0 0.7
+     position 680 420
+     size 300 34
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    EditBoxWidgetClass EditPrice {
+     position 686 422
+     size 288 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnList {
+     color 0.25 0.22 0.18 1
+     position 560 462
+     size 420 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vystavit vybrane"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass FeeText {
+     position 560 506
+     size 420 24
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" left
+     "text valign" center
+    }
+    ButtonWidgetClass BtnClaim {
+     color 0.25 0.22 0.18 1
+     position 560 526
+     size 420 40
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Vyzvednout vracene veci"
+     font "gui/fonts/metron"
+    }
+    ButtonWidgetClass BtnClose {
+     color 0.25 0.22 0.18 1
+     position 20 576
+     size 960 38
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style Default
+     text "Zavrit"
+     font "gui/fonts/metron"
+    }
+    TextWidgetClass Status {
+     position 20 620
+     size 960 26
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     text ""
+     font "gui/fonts/metron"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

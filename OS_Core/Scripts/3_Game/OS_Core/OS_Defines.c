@@ -64,6 +64,18 @@ const int OS_RPC_HUD           = 784512099; // server -> klient: stav hráče a 
 const int OS_RPC_SLEEP         = 784512100; // obousměrně: usnout / probudit (bool)
 const int OS_RPC_EMOTE_ANNOUNCE = 784512101; // klient -> server: oznámit emoci v okolí
 const int OS_RPC_BED_CLASSES   = 784512102; // server -> klient: předměty navíc, které jsou spacím místem
+const int OS_RPC_MARKET_OPEN   = 784512103; // klient -> server: bazar hráčů
+const int OS_RPC_MARKET_DATA   = 784512104; // server -> klient: nabídky, moje věci a auta
+const int OS_RPC_MARKET_ACTION = 784512105; // klient -> server: vystavit / koupit / stáhnout / vyzvednout
+
+enum OS_MarketAction
+{
+	LIST_ITEM,      // a = net id low, b = net id high, price
+	LIST_VEHICLE,   // a = index v garáži, price
+	BUY,            // a = id nabídky
+	WITHDRAW,       // a = id nabídky
+	CLAIM           // vyzvednout vrácené věci
+}
 
 const int OS_RPC_LAST  = 784512199;
 
